@@ -214,7 +214,9 @@ function Stepper({ step }: { step: 1 | 2 | 3 }) {
               <span
                 className={cx(
                   "flex h-8 w-8 shrink-0 items-center justify-center rounded-full text-[13px] font-black transition",
-                  active ? "bg-blue-600 text-white" : "bg-slate-200 text-slate-500"
+                  active
+                    ? "bg-blue-600 text-white"
+                    : "bg-slate-200 text-slate-500"
                 )}
               >
                 {currentStep}
@@ -391,6 +393,12 @@ export default function MainMenu() {
   const mobileLinkClass =
     "group flex min-h-[58px] items-center justify-between border-b border-white/10 text-[15px] font-black uppercase tracking-[0.16em] text-white/78 transition-colors hover:text-white";
 
+  const inputClass =
+    "h-12 rounded-[14px] border border-slate-200 bg-white px-4 text-[14px] text-[#07142b] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10";
+
+  const textareaClass =
+    "resize-none rounded-[14px] border border-slate-200 bg-white px-4 py-3 text-[14px] text-[#07142b] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10";
+
   return (
     <>
       <header className="sticky top-0 z-[110] h-[92px] bg-[#041022] text-white shadow-[0_12px_34px_rgba(2,6,23,.2)]">
@@ -464,13 +472,17 @@ export default function MainMenu() {
             <span
               className={cx(
                 "absolute h-[2px] w-5 rounded-full bg-white transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)]",
-                mobileOpen ? "translate-y-0 rotate-45" : "-translate-y-[4px] rotate-0"
+                mobileOpen
+                  ? "translate-y-0 rotate-45"
+                  : "-translate-y-[4px] rotate-0"
               )}
             />
             <span
               className={cx(
                 "absolute h-[2px] w-5 rounded-full bg-white transition-transform duration-300 ease-[cubic-bezier(.22,1,.36,1)]",
-                mobileOpen ? "translate-y-0 -rotate-45" : "translate-y-[4px] rotate-0"
+                mobileOpen
+                  ? "translate-y-0 -rotate-45"
+                  : "translate-y-[4px] rotate-0"
               )}
             />
           </button>
@@ -491,7 +503,9 @@ export default function MainMenu() {
         <div
           className={cx(
             "relative flex min-h-dvh flex-col px-6 pb-7 pt-[112px] transition duration-500 ease-[cubic-bezier(.22,1,.36,1)]",
-            mobileOpen ? "translate-y-0 opacity-100 delay-150" : "-translate-y-4 opacity-0"
+            mobileOpen
+              ? "translate-y-0 opacity-100 delay-150"
+              : "-translate-y-4 opacity-0"
           )}
         >
           <div>
@@ -712,7 +726,7 @@ export default function MainMenu() {
                         value={formData.company}
                         onChange={updateField}
                         placeholder="Mi Empresa SPA"
-                        className="h-12 rounded-[14px] border border-slate-200 px-4 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                        className={inputClass}
                       />
                     </label>
 
@@ -725,7 +739,7 @@ export default function MainMenu() {
                         value={formData.name}
                         onChange={updateField}
                         placeholder="Juan Pérez"
-                        className="h-12 rounded-[14px] border border-slate-200 px-4 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                        className={inputClass}
                       />
                     </label>
 
@@ -739,7 +753,7 @@ export default function MainMenu() {
                         value={formData.email}
                         onChange={updateField}
                         placeholder="juan@empresa.cl"
-                        className="h-12 rounded-[14px] border border-slate-200 px-4 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                        className={inputClass}
                       />
                     </label>
 
@@ -752,7 +766,7 @@ export default function MainMenu() {
                         value={formData.phone}
                         onChange={updateField}
                         placeholder="+56 9 1234 5678"
-                        className="h-12 rounded-[14px] border border-slate-200 px-4 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                        className={inputClass}
                       />
                     </label>
 
@@ -766,7 +780,7 @@ export default function MainMenu() {
                         onChange={updateField}
                         placeholder="Ej: generar leads, mostrar mi portafolio, vender servicios..."
                         rows={3}
-                        className="resize-none rounded-[14px] border border-slate-200 px-4 py-3 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                        className={textareaClass}
                       />
                     </label>
 
@@ -782,7 +796,7 @@ export default function MainMenu() {
                         value={formData.reference}
                         onChange={updateField}
                         placeholder="https://miempresa.cl o una web de referencia"
-                        className="h-12 rounded-[14px] border border-slate-200 px-4 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                        className={inputClass}
                       />
                     </label>
 

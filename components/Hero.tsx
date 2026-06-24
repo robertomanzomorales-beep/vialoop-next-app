@@ -424,6 +424,12 @@ export default function Hero() {
     window.open(url, "_blank", "noopener,noreferrer");
   }
 
+  const inputClass =
+    "h-12 rounded-[14px] border border-slate-200 bg-white px-4 text-[14px] text-[#07142b] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10";
+
+  const textareaClass =
+    "resize-none rounded-[14px] border border-slate-200 bg-white px-4 py-3 text-[14px] text-[#07142b] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10";
+
   return (
     <>
       <section
@@ -474,7 +480,7 @@ export default function Hero() {
               className={`mt-6 flex flex-col gap-3 transition-all delay-300 duration-700 sm:flex-row ${reveal}`}
             >
               <a
-                href="http://localhost:3000/portafolio-web"
+                href="/portafolio-web"
                 className="inline-flex min-h-11 items-center justify-center rounded-full bg-blue-600 px-6 text-[10px] font-black uppercase tracking-[0.18em] text-white shadow-[0_14px_32px_rgba(37,99,235,.24)] transition hover:-translate-y-0.5 hover:bg-blue-700"
               >
                 Portafolio
@@ -739,7 +745,7 @@ export default function Hero() {
                         value={formData.company}
                         onChange={updateField}
                         placeholder="Mi Empresa SPA"
-                        className="h-12 rounded-[14px] border border-slate-200 px-4 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                        className={inputClass}
                       />
                     </label>
 
@@ -752,7 +758,7 @@ export default function Hero() {
                         value={formData.name}
                         onChange={updateField}
                         placeholder="Juan Pérez"
-                        className="h-12 rounded-[14px] border border-slate-200 px-4 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                        className={inputClass}
                       />
                     </label>
 
@@ -766,7 +772,7 @@ export default function Hero() {
                         value={formData.email}
                         onChange={updateField}
                         placeholder="juan@empresa.cl"
-                        className="h-12 rounded-[14px] border border-slate-200 px-4 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                        className={inputClass}
                       />
                     </label>
 
@@ -779,7 +785,7 @@ export default function Hero() {
                         value={formData.phone}
                         onChange={updateField}
                         placeholder="+56 9 1234 5678"
-                        className="h-12 rounded-[14px] border border-slate-200 px-4 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                        className={inputClass}
                       />
                     </label>
 
@@ -793,7 +799,7 @@ export default function Hero() {
                         onChange={updateField}
                         placeholder="Ej: generar leads, mostrar mi portafolio, vender servicios..."
                         rows={3}
-                        className="resize-none rounded-[14px] border border-slate-200 px-4 py-3 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                        className={textareaClass}
                       />
                     </label>
 
@@ -809,7 +815,7 @@ export default function Hero() {
                         value={formData.reference}
                         onChange={updateField}
                         placeholder="https://miempresa.cl o una web de referencia"
-                        className="h-12 rounded-[14px] border border-slate-200 px-4 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                        className={inputClass}
                       />
                     </label>
 

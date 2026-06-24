@@ -368,6 +368,12 @@ function PricingModal({
     formData.phone.trim() &&
     formData.objective.trim();
 
+  const inputClass =
+    "h-12 rounded-[14px] border border-slate-200 bg-white px-4 text-[14px] text-[#07142b] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10";
+
+  const textareaClass =
+    "resize-none rounded-[14px] border border-slate-200 bg-white px-4 py-3 text-[14px] text-[#07142b] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10";
+
   function handleClose() {
     onClose();
     setStep(1);
@@ -591,7 +597,7 @@ function PricingModal({
                     value={formData.company}
                     onChange={updateField}
                     placeholder="Mi Empresa SPA"
-                    className="h-12 rounded-[14px] border border-slate-200 px-4 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                    className={inputClass}
                   />
                 </label>
 
@@ -604,7 +610,7 @@ function PricingModal({
                     value={formData.name}
                     onChange={updateField}
                     placeholder="Juan Pérez"
-                    className="h-12 rounded-[14px] border border-slate-200 px-4 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                    className={inputClass}
                   />
                 </label>
 
@@ -618,7 +624,7 @@ function PricingModal({
                     value={formData.email}
                     onChange={updateField}
                     placeholder="juan@empresa.cl"
-                    className="h-12 rounded-[14px] border border-slate-200 px-4 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                    className={inputClass}
                   />
                 </label>
 
@@ -631,7 +637,7 @@ function PricingModal({
                     value={formData.phone}
                     onChange={updateField}
                     placeholder="+56 9 1234 5678"
-                    className="h-12 rounded-[14px] border border-slate-200 px-4 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                    className={inputClass}
                   />
                 </label>
 
@@ -645,7 +651,7 @@ function PricingModal({
                     onChange={updateField}
                     placeholder="Ej: generar leads, mostrar mi portafolio, vender servicios..."
                     rows={3}
-                    className="resize-none rounded-[14px] border border-slate-200 px-4 py-3 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                    className={textareaClass}
                   />
                 </label>
 
@@ -659,7 +665,7 @@ function PricingModal({
                     value={formData.reference}
                     onChange={updateField}
                     placeholder="https://miempresa.cl o una web de referencia"
-                    className="h-12 rounded-[14px] border border-slate-200 px-4 text-[14px] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10"
+                    className={inputClass}
                   />
                 </label>
 
@@ -682,8 +688,7 @@ function PricingModal({
           )}
         </div>
       </div>
-    </div>
-  ,
+    </div>,
     document.body
   );
 }
