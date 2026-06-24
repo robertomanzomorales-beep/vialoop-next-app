@@ -543,6 +543,17 @@ export default function MainMenu() {
               </Link>
 
               <Link
+                href="/#planes"
+                onClick={(event) => scrollToSection(event, "planes")}
+                className={mobileLinkClass}
+              >
+                Planes
+                <span className="text-[17px] text-white/40 transition-transform group-hover:translate-x-1">
+                  →
+                </span>
+              </Link>
+
+              <Link
                 href="/portafolio-web"
                 onClick={() => setMobileOpen(false)}
                 className={mobileLinkClass}
