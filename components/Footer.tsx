@@ -162,7 +162,7 @@ export default function Footer() {
       </div>
 
       <div className="mx-auto mt-10 flex max-w-[1180px] flex-col gap-3 border-t border-white/10 pt-5 text-[12px] leading-6 text-white/45 md:flex-row md:items-center md:justify-between">
-        <p>© 2026 Vialoop SpA · Diseño web en Calama y Antofagasta.</p>
+        <p>© 2026 Vialoop Studio SpA · Diseño web en Calama y Antofagasta.</p>
 
         <div className="flex flex-col gap-2 md:flex-row md:items-center md:gap-4">
           <Link
