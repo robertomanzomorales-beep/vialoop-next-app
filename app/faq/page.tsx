@@ -47,10 +47,6 @@ const faqs = [
       "Incluye un mes de garantía para ajustes técnicos menores posteriores al lanzamiento. Cambios de contenido o nuevas secciones se cotizan aparte.",
   },
   {
-    question: "¿Entregan factura?",
-    answer: "Sí. Emitimos factura electrónica por los servicios contratados.",
-  },
-  {
     question: "¿Trabajan páginas web para empresas en Antofagasta?",
     answer:
       "Sí. Desarrollamos páginas web para empresas en Antofagasta que necesitan mostrar sus servicios, generar confianza y mejorar su presencia online.",
@@ -150,7 +146,7 @@ export default function FAQPage() {
             .faq-card[open] .faq-icon {
               transform: rotate(180deg);
               border-color: rgba(47, 128, 255, 0.48);
-              background: rgba(47, 128, 255, 0.16);
+              background: rgba(47, 128,255, 0.16);
               color: #ffffff;
             }
 
