@@ -23,8 +23,8 @@ export default function ClientTestimonial() {
         observer.unobserve(section);
       },
       {
-        threshold: 0.18,
-        rootMargin: "0px 0px -80px 0px",
+        threshold: 0.16,
+        rootMargin: "0px 0px -60px 0px",
       }
     );
 
@@ -51,13 +51,8 @@ export default function ClientTestimonial() {
               muted
               loop
               playsInline
-              preload="metadata"
-              aria-label="Invitación para conocer el testimonio de un cliente de Vialoop"
-            />
-
-            <div
-              className={styles.videoShade}
-              aria-hidden="true"
+              preload="auto"
+              aria-label="Invitación a conocer el testimonio de un cliente de Vialoop"
             />
           </div>
         </div>
@@ -73,14 +68,13 @@ export default function ClientTestimonial() {
           </h2>
 
           <p className={styles.lead}>
-            Doris, parte de nuestro equipo comercial, te invita a
-            conocer el testimonio de uno de nuestros clientes y el
-            resultado de su nuevo sitio web corporativo.
+            Doris nos invita a conocer el testimonio de uno de
+            nuestros clientes y el resultado de su nuevo sitio web.
           </p>
 
           <p className={styles.secondary}>
-            Revisa el reel completo y conoce cómo abordamos el
-            proyecto, desde el diseño hasta su publicación.
+            Revisa el reel completo y conoce parte del proceso,
+            desde el diseño hasta la publicación.
           </p>
 
           <div className={styles.actions}>
@@ -94,9 +88,14 @@ export default function ClientTestimonial() {
               <span aria-hidden="true">↗</span>
             </a>
 
-            <span className={styles.platform}>
+            <a
+              className={styles.instagramLink}
+              href={INSTAGRAM_URL}
+              target="_blank"
+              rel="noreferrer noopener"
+            >
               Ver en Instagram
-            </span>
+            </a>
           </div>
         </div>
       </div>
