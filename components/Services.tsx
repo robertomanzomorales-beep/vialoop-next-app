@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
+import styles from "./Services.module.css";
 
 type Service = {
   titleLines: string[];
@@ -32,66 +33,59 @@ const services: Service[] = [
   },
 ];
 
-function cx(...classes: Array<string | false | null | undefined>) {
-  return classes.filter(Boolean).join(" ");
-}
+const totalRevealElements = services.length + 3;
 
 export default function Services() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const cardsRef = useRef<HTMLDivElement | null>(null);
-
-  const [headerVisible, setHeaderVisible] = useState(false);
-  const [cardsVisible, setCardsVisible] = useState(false);
+  const revealRefs = useRef<Array<HTMLElement | null>>([]);
+  const [visibleItems, setVisibleItems] = useState<boolean[]>(
+    Array(totalRevealElements).fill(false),
+  );
 
   useEffect(() => {
-    const section = sectionRef.current;
-    const cards = cardsRef.current;
+    const elements = revealRefs.current.filter(
+      (element): element is HTMLElement => element !== null,
+    );
 
-    if (!section || !cards) return;
+    if (!elements.length) return;
 
     const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
+      "(prefers-reduced-motion: reduce)",
     ).matches;
 
     if (reducedMotion) {
-      setHeaderVisible(true);
-      setCardsVisible(true);
+      setVisibleItems(Array(totalRevealElements).fill(true));
       return;
     }
 
-    const headerObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) {
-          setHeaderVisible(true);
-          headerObserver.disconnect();
-        }
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+
+          const itemIndex = Number(entry.target.dataset.revealIndex);
+
+          setVisibleItems((currentItems) => {
+            if (currentItems[itemIndex]) return currentItems;
+
+            const updatedItems = [...currentItems];
+            updatedItems[itemIndex] = true;
+
+            return updatedItems;
+          });
+
+          observer.unobserve(entry.target);
+        });
       },
       {
-        threshold: 0.14,
-        rootMargin: "0px 0px -6% 0px",
-      }
-    );
-
-    const cardsObserver = new IntersectionObserver(
-      ([entry]) => {
-        if (entry?.isIntersecting) {
-          setCardsVisible(true);
-          cardsObserver.disconnect();
-        }
+        threshold: 0.22,
+        rootMargin: "0px 0px -9% 0px",
       },
-      {
-        threshold: 0.12,
-        rootMargin: "0px 0px -8% 0px",
-      }
     );
 
-    headerObserver.observe(section);
-    cardsObserver.observe(cards);
+    elements.forEach((element) => observer.observe(element));
 
-    return () => {
-      headerObserver.disconnect();
-      cardsObserver.disconnect();
-    };
+    return () => observer.disconnect();
   }, []);
 
   return (
@@ -99,87 +93,114 @@ export default function Services() {
       ref={sectionRef}
       id="servicios"
       aria-labelledby="servicios-title"
-      className="relative isolate scroll-mt-[104px] overflow-hidden bg-[#030814] px-6 py-16 text-white md:px-10 md:py-20 lg:py-20"
+      className={styles.servicesSection}
     >
-      <div className="pointer-events-none absolute inset-0 -z-20 bg-[linear-gradient(180deg,#030814_0%,#071426_48%,#030814_100%)]" />
+      <div className={styles.backgroundGrid} />
 
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.03] [background-image:linear-gradient(rgba(255,255,255,.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,.08)_1px,transparent_1px)] [background-size:72px_72px] [mask-image:linear-gradient(180deg,transparent_0%,black_22%,black_78%,transparent_100%)]" />
-
-      <div className="mx-auto w-full max-w-[1340px]">
-        <header
-          className={cx(
-            "mb-9 grid gap-7 transition-opacity duration-700 ease-out lg:mb-10 lg:grid-cols-[minmax(0,1fr)_500px] lg:items-end",
-            headerVisible ? "opacity-100" : "opacity-0"
-          )}
-        >
-          <div>
-            <div className="mb-4 flex items-center gap-4">
-              <span className="h-px w-9 bg-white/35" />
-              <span className="text-[10px] font-black uppercase tracking-[0.28em] text-white/55">
-                Cómo te ayudamos
-              </span>
+      <div className={styles.container}>
+        <header className={styles.header}>
+          <div className={styles.headerTitle}>
+            <div
+              ref={(element) => {
+                revealRefs.current[0] = element;
+              }}
+              data-reveal-index="0"
+              className={`${styles.reveal} ${
+                visibleItems[0] ? styles.revealVisible : ""
+              }`}
+            >
+              <div className={styles.eyebrow}>
+                <span />
+                <p>CÓMO TE AYUDAMOS</p>
+              </div>
             </div>
 
             <h2
               id="servicios-title"
-              className="max-w-[860px] text-[clamp(32px,3.55vw,56px)] font-black leading-[1.03] tracking-[-0.058em] text-white [text-wrap:balance]"
+              ref={(element) => {
+                revealRefs.current[1] = element;
+              }}
+              data-reveal-index="1"
+              className={`${styles.heading} ${styles.reveal} ${
+                visibleItems[1] ? styles.revealVisible : ""
+              }`}
+              style={{
+                transitionDelay: visibleItems[1] ? "100ms" : "0ms",
+              }}
             >
               Tu empresa ya transmite una impresión online.{" "}
-              <span className="text-white/62">
-                La pregunta es si te ayuda o te perjudica.
-              </span>
+              <span>La pregunta es si te ayuda o te perjudica.</span>
             </h2>
           </div>
 
-          <p className="max-w-[500px] border-l border-white/10 pl-6 text-[14px] font-medium leading-7 text-white/60">
+          <p
+            ref={(element) => {
+              revealRefs.current[2] = element;
+            }}
+            data-reveal-index="2"
+            className={`${styles.introText} ${styles.reveal} ${
+              visibleItems[2] ? styles.revealVisible : ""
+            }`}
+            style={{
+              transitionDelay: visibleItems[2] ? "180ms" : "0ms",
+            }}
+          >
             Cuando un cliente busca tu empresa, revisa tu web o recibe tu
-            presentación, se forma una opinión antes de contactarte. En Vía Loop
+            presentación, se forma una opinión antes de contactarte. En Vialoop
             ordenamos esa primera impresión para que tu negocio se vea{" "}
-            <strong className="font-black text-white">
-              claro, profesional y confiable.
-            </strong>
+            <strong>claro, profesional y confiable.</strong>
           </p>
         </header>
 
-        <div ref={cardsRef} className="grid gap-4 md:grid-cols-2 xl:grid-cols-4">
-          {services.map((service, index) => (
-            <article
-              key={service.titleLines.join(" ")}
-              className={cx(
-                "group flex min-h-[302px] flex-col rounded-[24px] border border-white/[0.095] bg-white/[0.035] px-6 py-6 transition-[background-color,border-color,box-shadow,opacity] duration-300 ease-out hover:border-white/[0.18] hover:bg-white/[0.052] hover:shadow-[0_22px_54px_rgba(0,0,0,.24)]",
-                cardsVisible ? "opacity-100" : "opacity-0"
-              )}
-              style={{
-                transitionDelay: cardsVisible ? `${index * 70}ms` : "0ms",
-              }}
-            >
-              <h3 className="text-[22px] font-black leading-[1.02] tracking-[-0.05em] text-white md:text-[23px]">
-                {service.titleLines.map((line) => (
-                  <span key={line} className="block">
-                    {line}
-                  </span>
-                ))}
-              </h3>
+        <div className={styles.cardsGrid}>
+          {services.map((service, index) => {
+            const revealIndex = index + 3;
 
-              <p className="mt-5 text-[13.5px] font-medium leading-[1.72] text-white/58">
-                {service.text}
-              </p>
+            return (
+              <article
+                key={service.titleLines.join(" ")}
+                ref={(element) => {
+                  revealRefs.current[revealIndex] = element;
+                }}
+                data-reveal-index={revealIndex}
+                className={`${styles.card} ${styles.reveal} ${
+                  visibleItems[revealIndex] ? styles.revealVisible : ""
+                }`}
+                style={{
+                  transitionDelay: visibleItems[revealIndex]
+                    ? `${index * 145}ms`
+                    : "0ms",
+                }}
+              >
+                <div className={styles.cardTop}>
+                  <span className={styles.cardNumber}>0{index + 1}</span>
+                  <span className={styles.cardLine} />
+                </div>
 
-              <div className="mt-auto border-t border-white/[0.075] pt-5">
-                <Image
-                  src={service.image}
-                  alt={`Herramientas utilizadas en ${service.titleLines.join(
-                    " "
-                  )}`}
-                  width={320}
-                  height={90}
-                  className="h-auto max-h-[34px] w-auto max-w-full object-contain opacity-72 saturate-90 transition duration-300 group-hover:opacity-95 group-hover:saturate-100"
-                  sizes="(min-width: 1280px) 230px, (min-width: 768px) 40vw, 78vw"
-                  priority={index === 0}
-                />
-              </div>
-            </article>
-          ))}
+                <h3>
+                  {service.titleLines.map((line) => (
+                    <span key={line}>{line}</span>
+                  ))}
+                </h3>
+
+                <p className={styles.cardText}>{service.text}</p>
+
+                <div className={styles.cardFooter}>
+                  <Image
+                    src={service.image}
+                    alt={`Herramientas utilizadas en ${service.titleLines.join(
+                      " ",
+                    )}`}
+                    width={320}
+                    height={90}
+                    className={styles.serviceImage}
+                    sizes="(min-width: 1280px) 250px, (min-width: 768px) 40vw, 78vw"
+                    priority={index === 0}
+                  />
+                </div>
+              </article>
+            );
+          })}
         </div>
       </div>
     </section>

@@ -1,32 +1,52 @@
 .supportSection {
   position: relative;
   overflow: hidden;
-  padding: 126px 24px;
+  padding: 132px 24px;
+  color: #f7faff;
   background:
-    radial-gradient(
-      circle at 84% 16%,
-      rgba(33, 126, 255, 0.18),
-      transparent 29%
-    ),
-    #081b35;
-  color: #f8fbff;
+    linear-gradient(
+      180deg,
+      #06172f 0%,
+      #081b35 48%,
+      #06172f 100%
+    );
+}
+
+.supportSection::before {
+  position: absolute;
+  inset: 0;
+  opacity: 0.04;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.12) 1px, transparent 1px);
+  background-size: 82px 82px;
+  content: "";
+  mask-image: linear-gradient(
+    180deg,
+    transparent,
+    #000000 18%,
+    #000000 82%,
+    transparent
+  );
+  pointer-events: none;
 }
 
 .container {
+  position: relative;
   width: min(100%, 1240px);
   margin: 0 auto;
 }
 
 .heading {
   max-width: 760px;
-  margin: 0 auto 58px;
+  margin: 0 auto 64px;
   text-align: center;
 }
 
 .eyebrow,
 .cardEyebrow {
   margin: 0;
-  color: #69adff;
+  color: #73b2ff;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.22em;
@@ -34,152 +54,235 @@
 
 .heading h2 {
   max-width: 740px;
-  margin: 17px auto 20px;
+  margin: 18px auto 20px;
   color: #ffffff;
-  font-size: clamp(40px, 5.4vw, 67px);
+  font-size: clamp(39px, 5vw, 62px);
   font-weight: 800;
-  letter-spacing: -0.073em;
-  line-height: 0.96;
+  letter-spacing: -0.07em;
+  line-height: 0.98;
 }
 
 .heading h2 span {
-  color: #69adff;
+  color: #70adf8;
 }
 
-.heading > p:last-child {
+.headingText {
   max-width: 610px;
   margin: 0 auto;
-  color: rgba(224, 234, 249, 0.7);
+  color: rgba(224, 234, 249, 0.68);
   font-size: 15px;
-  line-height: 1.7;
+  line-height: 1.72;
 }
 
 .cards {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   align-items: stretch;
-  gap: 18px;
+  gap: 17px;
 }
 
 .card {
   position: relative;
   display: flex;
-  min-height: 670px;
+  min-height: 687px;
   flex-direction: column;
-  padding: 31px 28px 27px;
-  border: 1px solid rgba(177, 204, 241, 0.16);
-  border-radius: 14px;
+  padding: 30px 28px 27px;
+  border: 1px solid rgba(188, 210, 243, 0.14);
+  border-radius: 11px;
+  background:
+    linear-gradient(
+      145deg,
+      rgba(30, 54, 88, 0.97),
+      rgba(10, 28, 54, 0.99)
+    );
+  box-shadow: 0 18px 42px rgba(0, 0, 0, 0.16);
+  transition:
+    border-color 250ms ease,
+    background 250ms ease,
+    box-shadow 250ms ease;
+}
+
+.card::before {
+  position: absolute;
+  top: 0;
+  right: 19%;
+  left: 19%;
+  height: 1px;
   background: linear-gradient(
-    150deg,
-    rgba(29, 53, 87, 0.95),
-    rgba(11, 31, 61, 0.98)
+    90deg,
+    transparent,
+    rgba(112, 177, 255, 0.78),
+    transparent
   );
-  box-shadow: 0 22px 48px rgba(0, 0, 0, 0.15);
+  content: "";
+  opacity: 0;
+  transition: opacity 250ms ease;
+}
+
+.card:hover {
+  border-color: rgba(112, 177, 255, 0.37);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(37, 69, 113, 0.98),
+      rgba(10, 36, 72, 0.99)
+    );
+  box-shadow: 0 24px 51px rgba(0, 0, 0, 0.24);
+}
+
+.card:hover::before {
+  opacity: 1;
 }
 
 .accentCard {
-  border-color: rgba(55, 143, 255, 0.85);
-  background: linear-gradient(
-    150deg,
-    rgba(28, 69, 126, 0.96),
-    rgba(10, 42, 82, 0.98)
-  );
-  box-shadow: 0 24px 60px rgba(20, 112, 236, 0.24);
+  border-color: rgba(57, 144, 255, 0.72);
+  background:
+    linear-gradient(
+      145deg,
+      rgba(28, 73, 133, 0.98),
+      rgba(9, 39, 79, 0.99)
+    );
+  box-shadow: 0 24px 58px rgba(15, 105, 235, 0.2);
 }
 
 .badge {
   position: absolute;
   top: -11px;
-  right: 23px;
-  padding: 6px 10px;
+  right: 24px;
+  padding: 6px 11px;
   border-radius: 999px;
-  background: #2182f2;
+  background: #2383f0;
   color: #ffffff;
   font-size: 8px;
   font-weight: 800;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.14em;
+}
+
+.cardHeader {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 18px;
 }
 
 .card h3 {
-  margin: 11px 0 11px;
+  margin: 10px 0 0;
   color: #ffffff;
-  font-size: clamp(30px, 3vw, 38px);
-  letter-spacing: -0.06em;
-  line-height: 1;
+  font-size: clamp(31px, 2.8vw, 37px);
+  font-weight: 800;
+  letter-spacing: -0.062em;
+  line-height: 0.96;
+}
+
+.planNumber {
+  color: rgba(123, 180, 255, 0.74);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.16em;
 }
 
 .recommendedFor {
   min-height: 62px;
-  margin: 0;
-  color: rgba(224, 234, 249, 0.69);
+  margin: 16px 0 0;
+  color: rgba(224, 234, 249, 0.67);
   font-size: 13px;
-  line-height: 1.55;
+  line-height: 1.57;
 }
 
-.priceBlock {
+.pricing {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-  margin: 25px 0 22px;
-  padding: 17px 0;
-  border-top: 1px solid rgba(190, 209, 238, 0.14);
-  border-bottom: 1px solid rgba(190, 209, 238, 0.14);
+  gap: 9px;
+  margin: 25px 0 21px;
 }
 
-.priceBlock > div {
+.monthlyPrice,
+.yearlyPrice {
   display: flex;
   flex-direction: column;
-  gap: 3px;
 }
 
-.priceBlock span {
-  color: rgba(207, 221, 242, 0.53);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.03em;
+.monthlyPrice {
+  padding: 17px 18px;
+  border: 1px solid rgba(202, 220, 245, 0.13);
+  border-radius: 9px;
+  background: rgba(3, 18, 39, 0.34);
 }
 
-.priceBlock strong {
+.monthlyPrice span,
+.yearlyTop > span {
+  color: rgba(207, 222, 244, 0.55);
+  font-size: 9px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+}
+
+.monthlyPrice strong {
+  margin-top: 7px;
   color: #ffffff;
-  font-size: 19px;
-  letter-spacing: -0.045em;
+  font-size: 29px;
+  font-weight: 800;
+  letter-spacing: -0.065em;
+  line-height: 1;
 }
 
-.priceBlock small {
-  color: rgba(207, 221, 242, 0.48);
+.monthlyPrice small,
+.yearlyPrice small {
+  margin-top: 6px;
+  color: rgba(207, 222, 244, 0.46);
   font-size: 10px;
-  line-height: 1.35;
 }
 
 .yearlyPrice {
-  padding-left: 12px;
-  border-left: 1px solid rgba(190, 209, 238, 0.14);
+  padding: 16px 18px;
+  border-left: 2px solid #4c9fff;
+  border-radius: 0 8px 8px 0;
+  background: rgba(39, 113, 217, 0.12);
+}
+
+.yearlyTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+}
+
+.yearlyTop em {
+  color: #9ecbff;
+  font-size: 8px;
+  font-style: normal;
+  font-weight: 800;
+  letter-spacing: 0.08em;
 }
 
 .yearlyPrice strong {
-  color: #70b1ff;
+  margin-top: 8px;
+  color: #77b5ff;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.055em;
+  line-height: 1;
 }
 
 .response {
   display: grid;
   gap: 6px;
-  margin-bottom: 23px;
-  padding: 13px 14px;
-  border-left: 2px solid #4c9fff;
-  background: rgba(21, 56, 104, 0.42);
+  margin-bottom: 24px;
+  padding: 14px 15px;
+  border-left: 2px solid #5ca6ff;
+  background: rgba(3, 19, 42, 0.34);
 }
 
 .response span,
 .listBlock > p {
   margin: 0;
-  color: #67aaff;
+  color: #75b3ff;
   font-size: 9px;
   font-weight: 800;
-  letter-spacing: 0.13em;
+  letter-spacing: 0.14em;
 }
 
 .response strong {
-  color: rgba(242, 247, 255, 0.88);
+  color: rgba(245, 249, 255, 0.9);
   font-size: 12px;
   line-height: 1.45;
 }
@@ -201,9 +304,9 @@
 .excludedList li {
   position: relative;
   padding-left: 15px;
-  color: rgba(230, 238, 249, 0.77);
+  color: rgba(230, 238, 249, 0.75);
   font-size: 12px;
-  line-height: 1.4;
+  line-height: 1.42;
 }
 
 .includedList li::before,
@@ -218,11 +321,11 @@
 }
 
 .includedList li::before {
-  background: #59a5ff;
+  background: #67adff;
 }
 
 .excludedList li::before {
-  background: rgba(207, 221, 242, 0.42);
+  background: rgba(207, 221, 242, 0.4);
 }
 
 .whatsappButton {
@@ -231,23 +334,24 @@
   justify-content: space-between;
   margin-top: auto;
   padding: 14px 16px;
-  border: 1px solid rgba(105, 174, 255, 0.52);
+  border: 1px solid rgba(111, 178, 255, 0.52);
   border-radius: 7px;
+  background: transparent;
   color: #ffffff;
   font-size: 10px;
   font-weight: 800;
   letter-spacing: 0.1em;
   text-decoration: none;
   transition:
-    transform 220ms ease,
     background 220ms ease,
-    border-color 220ms ease;
+    border-color 220ms ease,
+    color 220ms ease;
 }
 
 .whatsappButton:hover {
-  transform: translateY(-3px);
-  border-color: #2a8cff;
-  background: #1976e8;
+  border-color: #2d8fff;
+  background: #1d7fec;
+  color: #ffffff;
 }
 
 .whatsappButton span {
@@ -257,26 +361,27 @@
 
 .bottomNote {
   max-width: 700px;
-  margin: 48px auto 0;
-  color: rgba(217, 229, 246, 0.58);
+  margin: 51px auto 0;
+  color: rgba(217, 229, 246, 0.56);
   font-size: 13px;
-  line-height: 1.65;
+  line-height: 1.68;
   text-align: center;
 }
 
 .supportSection [data-support-reveal] {
   opacity: 0;
-  transform: translateY(74px) scale(0.96);
-  filter: blur(7px);
+  transform: translate3d(0, 142px, 0) scale(0.96);
+  filter: blur(9px);
+  will-change: transform, opacity, filter;
   transition:
-    opacity 720ms cubic-bezier(0.22, 1, 0.36, 1),
-    transform 820ms cubic-bezier(0.22, 1, 0.36, 1),
-    filter 620ms ease;
+    opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
+    transform 1250ms cubic-bezier(0.16, 1, 0.3, 1),
+    filter 900ms ease;
 }
 
 .supportSection [data-support-reveal].visible {
   opacity: 1;
-  transform: translateY(0) scale(1);
+  transform: translate3d(0, 0, 0) scale(1);
   filter: blur(0);
 }
 
@@ -294,15 +399,16 @@
 
 @media (max-width: 620px) {
   .supportSection {
-    padding: 95px 16px;
+    padding: 96px 16px;
   }
 
   .heading {
+    margin-bottom: 42px;
     text-align: left;
   }
 
   .heading h2,
-  .heading > p:last-child {
+  .headingText {
     margin-left: 0;
   }
 
@@ -324,6 +430,10 @@
   .recommendedFor {
     min-height: 0;
   }
+
+  .supportSection [data-support-reveal] {
+    transform: translate3d(0, 104px, 0) scale(0.97);
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -335,7 +445,9 @@
     transition: none;
   }
 
-  .whatsappButton {
+  .whatsappButton,
+  .card,
+  .card::before {
     transition: none;
   }
 }

@@ -3,9 +3,6 @@
 import { useEffect, useRef, useState } from "react";
 import styles from "./ClientTestimonial.module.css";
 
-const INSTAGRAM_URL =
-  "https://www.instagram.com/p/C_shFzWu0sX/";
-
 export default function ClientTestimonial() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const [visible, setVisible] = useState(false);
@@ -15,6 +12,15 @@ export default function ClientTestimonial() {
 
     if (!section) return;
 
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (reducedMotion) {
+      setVisible(true);
+      return;
+    }
+
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry.isIntersecting) return;
@@ -23,9 +29,9 @@ export default function ClientTestimonial() {
         observer.unobserve(section);
       },
       {
-        threshold: 0.16,
-        rootMargin: "0px 0px -60px 0px",
-      }
+        threshold: 0.18,
+        rootMargin: "0px 0px -70px 0px",
+      },
     );
 
     observer.observe(section);
@@ -36,14 +42,14 @@ export default function ClientTestimonial() {
   return (
     <section
       ref={sectionRef}
-      className={`${styles.section} ${
-        visible ? styles.visible : ""
-      }`}
+      className={`${styles.section} ${visible ? styles.visible : ""}`}
       aria-labelledby="client-testimonial-title"
     >
+      <div className={styles.gridTexture} />
+
       <div className={styles.container}>
-        <div className={styles.videoArea}>
-          <div className={styles.videoWrap}>
+        <div className={styles.videoColumn}>
+          <div className={styles.videoFrame}>
             <video
               className={styles.video}
               src="/testimonio-cliente-vialoop.mp4"
@@ -52,8 +58,13 @@ export default function ClientTestimonial() {
               loop
               playsInline
               preload="auto"
-              aria-label="Invitación a conocer el testimonio de un cliente de Vialoop"
+              aria-label="Video de Doris presentando el testimonio de Osvaldo González de GM Especialistas"
             />
+          </div>
+
+          <div className={styles.videoCaption}>
+            <span className={styles.captionLine} />
+            <span>Experiencia de cliente</span>
           </div>
         </div>
 
@@ -67,35 +78,51 @@ export default function ClientTestimonial() {
             Una experiencia real de trabajo con Vialoop.
           </h2>
 
-          <p className={styles.lead}>
-            Doris nos invita a conocer el testimonio de uno de
-            nuestros clientes y el resultado de su nuevo sitio web.
-          </p>
+          <div className={styles.testimonial}>
+            <div className={styles.rating}>
+              <div className={styles.stars} aria-label="Cinco estrellas">
+                <span>★</span>
+                <span>★</span>
+                <span>★</span>
+                <span>★</span>
+                <span>★</span>
+              </div>
 
-          <p className={styles.secondary}>
-            Revisa el reel completo y conoce parte del proceso,
-            desde el diseño hasta la publicación.
-          </p>
+              <span className={styles.score}>5.0</span>
+            </div>
 
-          <div className={styles.actions}>
-            <a
-              className={styles.button}
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              Ver testimonio completo
-              <span aria-hidden="true">↗</span>
-            </a>
+            <blockquote>
+              <p>
+                Hola, soy Osvaldo, de GM Especialistas en Calibración.
+              </p>
 
-            <a
-              className={styles.instagramLink}
-              href={INSTAGRAM_URL}
-              target="_blank"
-              rel="noreferrer noopener"
-            >
-              Ver en Instagram
-            </a>
+              <p>
+                Quiero compartir nuestra experiencia trabajando con Vialoop.
+                Estamos muy conformes con el resultado de nuestra nueva página
+                web. Desde el diseño hasta la producción audiovisual,
+                incluyendo las tomas con dron y la fotografía profesional, el
+                equipo logró plasmar exactamente lo que necesitábamos para
+                representar a nuestra empresa.
+              </p>
+
+              <p>
+                El proceso fue cercano, profesional y el resultado superó
+                nuestras expectativas.
+              </p>
+
+              <p>
+                Si estás pensando en renovar o crear el sitio web de tu
+                empresa, te recomiendo contactar a Vialoop.
+              </p>
+            </blockquote>
+
+            <footer className={styles.author}>
+              <span className={styles.authorLine} />
+              <div>
+                <strong>Osvaldo González</strong>
+                <span>GM Especialistas en Calibración</span>
+              </div>
+            </footer>
           </div>
         </div>
       </div>

@@ -1,152 +1,335 @@
-import Image from "next/image";
+"use client";
 
-const works = [
+import type { ChangeEvent } from "react";
+import { useEffect, useRef, useState } from "react";
+import styles from "./Pricing.module.css";
+
+type Plan = {
+  name: string;
+  price: string;
+  description: string;
+  features: string[];
+  featured?: boolean;
+  from?: boolean;
+};
+
+const WHATSAPP_NUMBER = "56974330586";
+
+const plans: Plan[] = [
   {
-    name: "KLP Servicios",
-    type: "Servicios industriales",
+    name: "Plan Emprendedor",
+    price: "280.000",
     description:
-      "Sitio técnico para comunicar capacidades, experiencia y servicios en minería.",
-    href: "https://klpservicios.cl/",
-    image: "/trabajo_realizado_05_600px.webp",
-    alt: "Sitio web KLP Servicios",
+      "Para empresas que necesitan una presencia digital clara, profesional y bien estructurada.",
+    features: [
+      "One-page hasta 6 secciones",
+      "Hasta 15 imágenes optimizadas",
+      "1 formulario + botón WhatsApp",
+      "Diseño web profesional",
+      "Optimización WebP + caché",
+      "Configuración técnica para indexación web",
+      "1 ronda de cambios",
+    ],
   },
   {
-    name: "Promaq Servicios Industriales",
-    type: "Transporte / Izaje",
+    name: "Plan Crece",
+    price: "420.000",
     description:
-      "Sitio para transporte de carga, lavado técnico y grúas de alto tonelaje.",
-    href: "https://promaqserviciosindustriales.cl/",
-    image: "/trabajo_realizado_03_600px.webp",
-    alt: "Sitio web Promaq Servicios Industriales",
+      "Para empresas que necesitan más estructura, contenido y puntos de contacto comercial.",
+    features: [
+      "Hasta 3 páginas multi-página",
+      "Hasta 30 imágenes optimizadas",
+      "2 formularios: contacto + cotización",
+      "Diseño a medida + guía de estilo",
+      "Optimización de rendimiento avanzada",
+      "Configuración técnica para indexación web",
+      "2 rondas de cambios",
+    ],
+    featured: true,
   },
   {
-    name: "Martin Atacama Transfers",
-    type: "Transporte turístico",
+    name: "Plan Empresa",
+    price: "790.000",
+    from: true,
     description:
-      "Sitio web para transporte turístico y traslados en rutas del desierto.",
-    href: "https://transferatacamachile.cl/",
-    image: "/trabajo_realizado_martin_atacama_transfers_600px.webp",
-    alt: "Sitio web Martin Atacama Transfers",
-  },
-  {
-    name: "Elektrom",
-    type: "Servicios eléctricos",
-    description:
-      "Sitio web para soluciones eléctricas domiciliarias, industriales y emergencias.",
-    href: "https://elektrom.cl/",
-    image: "/trabajo_realizado_elektrom_600px.webp",
-    alt: "Sitio web Elektrom",
+      "Para empresas que requieren una presencia digital robusta, escalable y de mayor nivel.",
+    features: [
+      "Hasta 6 páginas escala empresarial",
+      "30+ imágenes optimizadas",
+      "3 formularios + Calendly",
+      "UX/UI avanzada + diseño premium",
+      "Performance y seguridad reforzada",
+      "Configuración técnica para indexación web",
+      "3 rondas de cambios",
+    ],
   },
 ];
 
-export default function Works() {
+export default function Pricing() {
+  const sectionRef = useRef<HTMLElement>(null);
+  const [modalOpen, setModalOpen] = useState(false);
+  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
+  const [formData, setFormData] = useState({
+    company: "",
+    name: "",
+    phone: "",
+    objective: "",
+  });
+
+  useEffect(() => {
+    const elements =
+      sectionRef.current?.querySelectorAll<HTMLElement>(
+        "[data-pricing-reveal]",
+      );
+
+    if (!elements?.length) return;
+
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (reducedMotion) {
+      elements.forEach((element) => element.classList.add(styles.visible));
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          entry.target.classList.add(styles.visible);
+          observer.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.2, rootMargin: "0px 0px -7% 0px" },
+    );
+
+    elements.forEach((element) => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    if (!modalOpen) return;
+
+    document.body.style.overflow = "hidden";
+
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [modalOpen]);
+
+  function openModal(plan: Plan) {
+    setSelectedPlan(plan);
+    setModalOpen(true);
+  }
+
+  function closeModal() {
+    setModalOpen(false);
+    setSelectedPlan(null);
+  }
+
+  function updateField(
+    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) {
+    const { name, value } = event.target;
+
+    setFormData((currentData) => ({
+      ...currentData,
+      [name]: value,
+    }));
+  }
+
+  const canSend =
+    selectedPlan &&
+    formData.company.trim() &&
+    formData.name.trim() &&
+    formData.phone.trim() &&
+    formData.objective.trim();
+
+  function sendToWhatsApp() {
+    if (!canSend || !selectedPlan) return;
+
+    const priceText = `${selectedPlan.from ? "Desde " : ""}$${selectedPlan.price} + IVA`;
+
+    const message = [
+      "Hola Vialoop, quiero cotizar un proyecto web.",
+      "",
+      `Plan de interés: ${selectedPlan.name}`,
+      `Valor: ${priceText}`,
+      "",
+      `Empresa: ${formData.company}`,
+      `Nombre: ${formData.name}`,
+      `WhatsApp: ${formData.phone}`,
+      "",
+      `Objetivo del proyecto: ${formData.objective}`,
+    ].join("\n");
+
+    window.open(
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
+      "_blank",
+      "noopener,noreferrer",
+    );
+  }
+
   return (
-    <section
-      id="trabajos-realizados"
-      aria-labelledby="works-title"
-      className="relative isolate overflow-hidden bg-[#f8fbff] px-5 py-20 text-[#07162f] sm:px-6 md:px-10 lg:py-24"
-    >
-      <div className="pointer-events-none absolute inset-0 -z-30 bg-[linear-gradient(180deg,#ffffff_0%,#f8fbff_58%,#f3f7ff_100%)]" />
+    <>
+      <section ref={sectionRef} id="planes" className={styles.pricingSection}>
+        <div className={styles.gridTexture} />
 
-      <div className="pointer-events-none absolute left-0 top-0 -z-20 h-[360px] w-[360px] rounded-full bg-blue-100/45 blur-3xl" />
-      <div className="pointer-events-none absolute right-[-120px] top-[120px] -z-20 h-[340px] w-[340px] rounded-full bg-sky-100/55 blur-3xl" />
-
-      <div className="mx-auto w-full max-w-[1200px]">
-        <header className="mb-10 grid gap-6 md:mb-12 lg:grid-cols-[1fr_420px] lg:items-end">
-          <div>
-            <div className="mb-4 flex items-center gap-3">
-              <span className="h-px w-9 bg-blue-600/70" />
-              <span className="text-[10px] font-black uppercase tracking-[0.26em] text-blue-700">
-                Portafolio Vialoop
-              </span>
-            </div>
+        <div className={styles.container}>
+          <header className={styles.heading}>
+            <p
+              className={styles.eyebrow}
+              data-pricing-reveal
+              style={{ transitionDelay: "0ms" }}
+            >
+              PLANES VIALOOP
+            </p>
 
             <h2
-              id="works-title"
-              className="max-w-[720px] text-[clamp(32px,5.6vw,54px)] font-black leading-[0.96] tracking-[-0.065em] text-[#07162f]"
+              data-pricing-reveal
+              style={{ transitionDelay: "110ms" }}
             >
-              Sitios web diseñados para{" "}
-              <span className="text-blue-700">generar confianza</span>
+              Una inversión clara para
+              <span> avanzar con tu empresa.</span>
             </h2>
-          </div>
 
-          <p className="max-w-[520px] text-[14px] leading-7 text-slate-600 lg:max-w-[420px]">
-            Proyectos desarrollados para empresas industriales, servicios y
-            negocios del norte de Chile. Cada sitio fue creado para{" "}
-            <strong className="font-black text-[#07162f]">
-              mostrar mejor lo que hace la empresa, ordenar su información y
-              facilitar el contacto comercial.
-            </strong>
-          </p>
-        </header>
-
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
-          {works.map((work) => (
-            <a
-              key={work.name}
-              href={work.href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={`Ver proyecto ${work.name}`}
-              className="group relative flex min-h-[390px] flex-col overflow-hidden rounded-[26px] border border-slate-200/80 bg-white shadow-[0_18px_54px_rgba(7,22,47,.075)] transition-[transform,box-shadow,border-color] duration-500 ease-out hover:-translate-y-[4px] hover:border-blue-500/30 hover:shadow-[0_28px_72px_rgba(7,22,47,.13)] sm:min-h-[400px] lg:min-h-[382px]"
+            <p
+              className={styles.headingText}
+              data-pricing-reveal
+              style={{ transitionDelay: "220ms" }}
             >
-              <div className="relative h-[190px] overflow-hidden bg-slate-100 sm:h-[178px] lg:h-[160px]">
-                <Image
-                  src={work.image}
-                  alt={work.alt}
-                  fill
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
-                  className="object-cover object-top transition-transform duration-700 ease-out group-hover:scale-[1.035]"
-                />
+              Cada plan está diseñado para ordenar tu presencia digital,
+              presentar mejor tus servicios y facilitar el contacto comercial.
+            </p>
+          </header>
 
-                <div className="absolute inset-0 bg-gradient-to-t from-[#07162f]/18 via-[#07162f]/4 to-transparent" />
-              </div>
+          <div className={styles.cards}>
+            {plans.map((plan, index) => (
+              <article
+                key={plan.name}
+                className={`${styles.card} ${
+                  plan.featured ? styles.featuredCard : ""
+                }`}
+                data-pricing-reveal
+                style={{ transitionDelay: `${340 + index * 145}ms` }}
+              >
+                {plan.featured && (
+                  <span className={styles.badge}>MÁS ELEGIDO</span>
+                )}
 
-              <div className="flex flex-1 flex-col p-5">
-                <div className="mb-4 flex items-start justify-between gap-4">
+                <div className={styles.cardHeader}>
                   <div>
-                    <span className="mb-2 block text-[9px] font-black uppercase leading-4 tracking-[0.17em] text-slate-500">
-                      {work.type}
-                    </span>
-
-                    <h3 className="max-w-[210px] text-[21px] font-black leading-[1.02] tracking-[-0.05em] text-[#07162f]">
-                      {work.name}
-                    </h3>
+                    <p className={styles.planKicker}>DISEÑO WEB</p>
+                    <h3>{plan.name}</h3>
                   </div>
 
-                  <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full border border-slate-200 bg-slate-50 text-[14px] text-blue-700 transition-all duration-500 group-hover:border-blue-600/25 group-hover:bg-blue-700 group-hover:text-white">
-                    ↗
-                  </span>
+                  <span className={styles.planNumber}>0{index + 1}</span>
                 </div>
 
-                <p className="text-[13px] leading-6 text-slate-600">
-                  {work.description}
-                </p>
+                <p className={styles.description}>{plan.description}</p>
 
-                <div className="mt-auto flex items-center justify-between pt-6">
-                  <span className="text-[12px] font-black uppercase tracking-[0.12em] text-blue-700">
-                    Ver proyecto
-                  </span>
+                <div className={styles.priceArea}>
+                  <span>VALOR DEL PROYECTO</span>
 
-                  <span className="h-px w-10 bg-blue-700/35 transition-[width] duration-500 group-hover:w-16" />
+                  <div className={styles.price}>
+                    {plan.from && <em>DESDE</em>}
+                    <small>$</small>
+                    <strong>{plan.price}</strong>
+                    <b>+ IVA</b>
+                  </div>
                 </div>
-              </div>
-            </a>
-          ))}
-        </div>
 
-        <div className="mt-10 flex justify-center">
-          <a
-            href="/portafolio-web/"
-            className="group inline-flex min-h-12 items-center justify-center gap-3 rounded-full border border-[#07162f]/10 bg-[#07162f] px-6 text-[10px] font-black uppercase tracking-[0.16em] text-white shadow-[0_18px_44px_rgba(7,22,47,.18)] transition-all duration-500 hover:-translate-y-[2px] hover:bg-blue-700 hover:shadow-[0_24px_58px_rgba(37,99,235,.22)]"
-          >
-            Explorar más sitios web
-            <span className="grid h-6 w-6 place-items-center rounded-full border border-white/20 bg-white/10 transition-transform duration-500 group-hover:translate-x-0.5">
-              →
-            </span>
-          </a>
+                <div className={styles.features}>
+                  <p>INCLUYE</p>
+
+                  <ul>
+                    {plan.features.map((feature) => (
+                      <li key={feature}>{feature}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <button
+                  type="button"
+                  onClick={() => openModal(plan)}
+                  className={styles.quoteButton}
+                >
+                  COTIZAR ESTE PLAN <span>↗</span>
+                </button>
+              </article>
+            ))}
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      {modalOpen && selectedPlan && (
+        <div className={styles.modalBackdrop} role="dialog" aria-modal="true">
+          <div className={styles.modal}>
+            <button
+              type="button"
+              className={styles.closeButton}
+              onClick={closeModal}
+              aria-label="Cerrar cotización"
+            >
+              ×
+            </button>
+
+            <p className={styles.modalEyebrow}>COTIZACIÓN PERSONALIZADA</p>
+            <h2>{selectedPlan.name}</h2>
+
+            <p className={styles.modalPrice}>
+              {selectedPlan.from && "Desde "} ${selectedPlan.price}{" "}
+              <span>+ IVA</span>
+            </p>
+
+            <p className={styles.modalText}>
+              Completa estos datos y se abrirá WhatsApp con tu solicitud lista
+              para enviar.
+            </p>
+
+            <div className={styles.form}>
+              <input
+                name="company"
+                value={formData.company}
+                onChange={updateField}
+                placeholder="Nombre de tu empresa o negocio *"
+              />
+
+              <input
+                name="name"
+                value={formData.name}
+                onChange={updateField}
+                placeholder="Tu nombre *"
+              />
+
+              <input
+                name="phone"
+                value={formData.phone}
+                onChange={updateField}
+                placeholder="WhatsApp *"
+              />
+
+              <textarea
+                name="objective"
+                value={formData.objective}
+                onChange={updateField}
+                rows={4}
+                placeholder="¿Qué objetivo principal tiene tu proyecto? *"
+              />
+
+              <button
+                type="button"
+                onClick={sendToWhatsApp}
+                disabled={!canSend}
+              >
+                ENVIAR POR WHATSAPP <span>↗</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }

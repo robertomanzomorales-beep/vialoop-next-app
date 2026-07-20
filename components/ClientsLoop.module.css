@@ -4,8 +4,8 @@
   overflow: visible;
   margin-top: -1px;
   padding: 0 0 24px;
-  background: #f4f7fc;
   border-bottom: 1px solid rgba(10, 31, 67, 0.07);
+  background: #f4f7fc;
 }
 
 .container {
@@ -30,8 +30,6 @@
   box-shadow:
     0 22px 50px rgba(20, 48, 96, 0.11),
     0 6px 18px rgba(20, 48, 96, 0.05);
-
-  /* Antes era -54px. La tarjeta ahora sube 16px adicionales. */
   transform: translateY(-70px);
 }
 
@@ -101,11 +99,6 @@
   align-items: center;
   justify-content: center;
   gap: 18px;
-
-  /*
-   * Compensa el nuevo desplazamiento de la tarjeta y reduce
-   * ligeramente la separación visual entre ambos elementos.
-   */
   margin: -48px auto 10px;
 }
 
@@ -130,7 +123,7 @@
   display: flex;
   align-items: center;
   width: 100%;
-  min-height: 96px;
+  min-height: 88px;
 }
 
 @media (max-width: 768px) {
@@ -147,8 +140,6 @@
     min-height: 116px;
     padding: 21px 24px;
     border-radius: 22px;
-
-    /* Antes era -36px. */
     transform: translateY(-46px);
   }
 
@@ -185,7 +176,7 @@
   }
 
   .carousel {
-    min-height: 82px;
+    min-height: 76px;
   }
 }
 

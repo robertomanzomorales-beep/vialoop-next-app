@@ -5,69 +5,66 @@ import styles from "./ClientsLoop.module.css";
 
 const clientLogos: LogoItem[] = [
   {
-    src: "/afuen.webp",
+    src: "/logo-carrusel-afuen-v2.webp",
     alt: "Afüen",
   },
   {
-    src: "/chr.webp",
+    src: "/logo-carrusel-chr-v2.webp",
     alt: "CHR Transportes",
   },
   {
-    src: "/empresas-hc.webp",
+    src: "/logo-carrusel-empresas-hc-v2.webp",
     alt: "Empresas HC",
   },
   {
-    src: "/gran-norte.webp",
+    src: "/logo-carrusel-gran-norte-v2.webp",
     alt: "Gran Norte",
   },
   {
-    src: "/klp-servicios.webp",
+    src: "/logo-carrusel-klp-servicios-v2.webp",
     alt: "KLP Servicios",
   },
   {
-    src: "/loa-rental.webp",
+    src: "/logo-carrusel-loa-rental-v2.webp",
     alt: "Loa Rental",
   },
   {
-    src: "/maryland.webp",
+    src: "/logo-carrusel-maryland-v2.webp",
     alt: "Maryland",
   },
   {
-    src: "/profleet.webp",
+    src: "/logo-carrusel-profleet-v2.webp",
     alt: "ProFleet",
   },
   {
-    src: "/promaq.webp",
+    src: "/logo-carrusel-promaq-v2.webp",
     alt: "Promaq Servicios Industriales",
   },
   {
-    src: "/rerchar.webp",
+    src: "/logo-carrusel-rerchar-v2.webp",
     alt: "Rerchar",
   },
   {
-    src: "/rohuer-ingenieria.webp",
+    src: "/logo-carrusel-rohuer-ingenieria-v2.webp",
     alt: "Rohuer Ingeniería",
   },
   {
-    src: "/romaa.webp",
+    src: "/logo-carrusel-romaa-v2.webp",
     alt: "ROMAA",
   },
   {
-    src: "/serven.webp",
+    src: "/logo-carrusel-serven-v2.webp",
     alt: "Serven Supply Chain",
   },
   {
-    src: "/transportes-greducam.webp",
+    src: "/logo-carrusel-transportes-greducam-v2.webp",
     alt: "Transportes Greducam",
   },
 ];
 
 export default function ClientsLoop() {
   return (
-    <section
-      className={styles.section}
-      aria-labelledby="clientes-vialoop"
-    >
+    <section className={styles.section} aria-labelledby="clientes-vialoop">
       <div className={styles.container}>
         <div className={styles.summaryCard}>
           <div className={styles.ratingBlock}>
@@ -99,19 +96,13 @@ export default function ClientsLoop() {
         </div>
 
         <div className={styles.heading}>
-          <span
-            className={styles.headingLine}
-            aria-hidden="true"
-          />
+          <span className={styles.headingLine} aria-hidden="true" />
 
           <p id="clientes-vialoop">
             EMPRESAS QUE HAN CONFIADO EN VIALOOP
           </p>
 
-          <span
-            className={styles.headingLine}
-            aria-hidden="true"
-          />
+          <span className={styles.headingLine} aria-hidden="true" />
         </div>
       </div>
 
@@ -120,10 +111,10 @@ export default function ClientsLoop() {
           logos={clientLogos}
           speed={34}
           direction="left"
-          logoHeight={82}
-          gap={18}
-          hoverSpeed={8}
-          scaleOnHover
+          logoHeight={76}
+          gap={44}
+          hoverSpeed={34}
+          scaleOnHover={false}
           fadeOut
           fadeOutColor="#f4f7fc"
           ariaLabel="Empresas que han confiado en Vialoop"

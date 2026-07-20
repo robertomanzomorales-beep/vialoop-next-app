@@ -92,18 +92,27 @@ export default function SupportPlans() {
 
     if (!elements?.length) return;
 
+    const reducedMotion = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    if (reducedMotion) {
+      elements.forEach((element) => element.classList.add(styles.visible));
+      return;
+    }
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add(styles.visible);
-            observer.unobserve(entry.target);
-          }
+          if (!entry.isIntersecting) return;
+
+          entry.target.classList.add(styles.visible);
+          observer.unobserve(entry.target);
         });
       },
       {
-        threshold: 0.15,
-        rootMargin: "0px 0px -50px",
+        threshold: 0.2,
+        rootMargin: "0px 0px -7% 0px",
       },
     );
 
@@ -115,15 +124,28 @@ export default function SupportPlans() {
   return (
     <section ref={sectionRef} className={styles.supportSection}>
       <div className={styles.container}>
-        <header className={styles.heading} data-support-reveal>
-          <p className={styles.eyebrow}>SOPORTE TÉCNICO RECURRENTE</p>
+        <header className={styles.heading}>
+          <p
+            className={styles.eyebrow}
+            data-support-reveal
+            style={{ transitionDelay: "0ms" }}
+          >
+            SOPORTE TÉCNICO RECURRENTE
+          </p>
 
-          <h2>
+          <h2
+            data-support-reveal
+            style={{ transitionDelay: "110ms" }}
+          >
             Soporte cuando lo necesitas.
             <span> Sin resolver todo a última hora.</span>
           </h2>
 
-          <p>
+          <p
+            className={styles.headingText}
+            data-support-reveal
+            style={{ transitionDelay: "220ms" }}
+          >
             Planes mensuales para empresas que necesitan mantener sus correos,
             equipos y configuraciones bajo control durante todo el año.
           </p>
@@ -143,32 +165,41 @@ export default function SupportPlans() {
                 }`}
                 data-support-reveal
                 style={{
-                  transitionDelay: `${index * 110}ms`,
+                  transitionDelay: `${300 + index * 145}ms`,
                 }}
               >
                 {plan.accent && (
-                  <span className={styles.badge}>RECOMENDADO</span>
+                  <span className={styles.badge}>MÁS ELEGIDO</span>
                 )}
 
-                <p className={styles.cardEyebrow}>PLAN DE SOPORTE</p>
+                <div className={styles.cardHeader}>
+                  <div>
+                    <p className={styles.cardEyebrow}>PLAN DE SOPORTE</p>
+                    <h3>{plan.name}</h3>
+                  </div>
 
-                <h3>{plan.name}</h3>
+                  <span className={styles.planNumber}>0{index + 1}</span>
+                </div>
 
                 <p className={styles.recommendedFor}>
                   {plan.recommendedFor}
                 </p>
 
-                <div className={styles.priceBlock}>
-                  <div>
-                    <span>Valor mensual</span>
+                <div className={styles.pricing}>
+                  <div className={styles.monthlyPrice}>
+                    <span>PLAN MENSUAL</span>
                     <strong>{plan.monthlyPrice}</strong>
                     <small>IVA incluido</small>
                   </div>
 
                   <div className={styles.yearlyPrice}>
-                    <span>Plan anual</span>
+                    <div className={styles.yearlyTop}>
+                      <span>PLAN ANUAL</span>
+                      <em>AHORRAS {plan.yearlySaving}</em>
+                    </div>
+
                     <strong>{plan.yearlyPrice}</strong>
-                    <small>Ahorras {plan.yearlySaving} al año</small>
+                    <small>IVA incluido · pago anual</small>
                   </div>
                 </div>
 
@@ -178,7 +209,7 @@ export default function SupportPlans() {
                 </div>
 
                 <div className={styles.listBlock}>
-                  <p>INCLUYE</p>
+                  <p>INCLUYE CADA MES</p>
 
                   <ul className={styles.includedList}>
                     {plan.includes.map((item) => (
@@ -188,7 +219,7 @@ export default function SupportPlans() {
                 </div>
 
                 <div className={styles.listBlock}>
-                  <p>CONDICIONES</p>
+                  <p>CONDICIONES DEL PLAN</p>
 
                   <ul className={styles.excludedList}>
                     {plan.excludes.map((item) => (
@@ -210,7 +241,11 @@ export default function SupportPlans() {
           })}
         </div>
 
-        <p className={styles.bottomNote} data-support-reveal>
+        <p
+          className={styles.bottomNote}
+          data-support-reveal
+          style={{ transitionDelay: "180ms" }}
+        >
           ¿Necesitas una atención puntual? También contamos con servicios por
           evento para creación de correos, diagnóstico, soporte remoto y
           configuración de equipos.
