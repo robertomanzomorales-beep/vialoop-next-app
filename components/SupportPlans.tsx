@@ -1,0 +1,221 @@
+"use client";
+
+import { useEffect, useRef } from "react";
+import styles from "./SupportPlans.module.css";
+
+type SupportPlan = {
+  name: string;
+  recommendedFor: string;
+  monthlyPrice: string;
+  yearlyPrice: string;
+  yearlySaving: string;
+  responseTime: string;
+  includes: string[];
+  excludes: string[];
+  accent?: boolean;
+};
+
+const supportPlans: SupportPlan[] = [
+  {
+    name: "Esencial",
+    recommendedFor:
+      "Clientes con pocas cuentas de correo y consultas ocasionales.",
+    monthlyPrice: "$23.681",
+    yearlyPrice: "$260.610",
+    yearlySaving: "$19.800",
+    responseTime: "Respuesta en hasta 1 día hábil.",
+    includes: [
+      "1 atención mensual",
+      "Soporte remoto de hasta 30 minutos",
+      "O 1 creación, cambio o revisión de correo",
+      "Acompañamiento remoto según la necesidad",
+    ],
+    excludes: [
+      "Atenciones no acumulables",
+      "No incluye visitas a terreno",
+      "No incluye migraciones ni desarrollo web",
+    ],
+  },
+  {
+    name: "Empresa",
+    recommendedFor:
+      "Empresas con varios equipos administrativos y mayor dependencia del correo.",
+    monthlyPrice: "$47.481",
+    yearlyPrice: "$522.410",
+    yearlySaving: "$39.800",
+    responseTime: "Respuesta en hasta 12 horas hábiles.",
+    includes: [
+      "Hasta 45 minutos mensuales de soporte remoto",
+      "2 gestiones de correo al mes",
+      "Configuración y reparación de cuentas",
+      "Atención para equipos administrativos",
+    ],
+    excludes: [
+      "Atenciones no acumulables",
+      "No incluye visitas a terreno",
+      "No incluye migraciones masivas ni proyectos web",
+    ],
+    accent: true,
+  },
+  {
+    name: "Prioritario",
+    recommendedFor:
+      "Operaciones con varios dispositivos o necesidad de atención preferente.",
+    monthlyPrice: "$83.181",
+    yearlyPrice: "$915.110",
+    yearlySaving: "$69.800",
+    responseTime: "Respuesta objetivo de 4 horas hábiles.",
+    includes: [
+      "Hasta 90 minutos mensuales de soporte remoto",
+      "4 gestiones de correo al mes",
+      "Atención prioritaria para incidencias",
+      "Soporte para varios dispositivos y usuarios",
+    ],
+    excludes: [
+      "Atenciones no acumulables",
+      "No incluye visitas a terreno",
+      "No incluye desarrollo web ni migraciones masivas",
+    ],
+  },
+];
+
+const whatsappNumber = "56974330586";
+
+export default function SupportPlans() {
+  const sectionRef = useRef<HTMLElement>(null);
+
+  useEffect(() => {
+    const elements =
+      sectionRef.current?.querySelectorAll<HTMLElement>(
+        "[data-support-reveal]",
+      );
+
+    if (!elements?.length) return;
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add(styles.visible);
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.15,
+        rootMargin: "0px 0px -50px",
+      },
+    );
+
+    elements.forEach((element) => observer.observe(element));
+
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <section ref={sectionRef} className={styles.supportSection}>
+      <div className={styles.container}>
+        <header className={styles.heading} data-support-reveal>
+          <p className={styles.eyebrow}>SOPORTE TÉCNICO RECURRENTE</p>
+
+          <h2>
+            Soporte cuando lo necesitas.
+            <span> Sin resolver todo a última hora.</span>
+          </h2>
+
+          <p>
+            Planes mensuales para empresas que necesitan mantener sus correos,
+            equipos y configuraciones bajo control durante todo el año.
+          </p>
+        </header>
+
+        <div className={styles.cards}>
+          {supportPlans.map((plan, index) => {
+            const whatsappMessage = encodeURIComponent(
+              `Hola, me interesa conocer el Plan de Soporte ${plan.name} de Vialoop.`,
+            );
+
+            return (
+              <article
+                key={plan.name}
+                className={`${styles.card} ${
+                  plan.accent ? styles.accentCard : ""
+                }`}
+                data-support-reveal
+                style={{
+                  transitionDelay: `${index * 110}ms`,
+                }}
+              >
+                {plan.accent && (
+                  <span className={styles.badge}>RECOMENDADO</span>
+                )}
+
+                <p className={styles.cardEyebrow}>PLAN DE SOPORTE</p>
+
+                <h3>{plan.name}</h3>
+
+                <p className={styles.recommendedFor}>
+                  {plan.recommendedFor}
+                </p>
+
+                <div className={styles.priceBlock}>
+                  <div>
+                    <span>Valor mensual</span>
+                    <strong>{plan.monthlyPrice}</strong>
+                    <small>IVA incluido</small>
+                  </div>
+
+                  <div className={styles.yearlyPrice}>
+                    <span>Plan anual</span>
+                    <strong>{plan.yearlyPrice}</strong>
+                    <small>Ahorras {plan.yearlySaving} al año</small>
+                  </div>
+                </div>
+
+                <div className={styles.response}>
+                  <span>TIEMPO DE RESPUESTA</span>
+                  <strong>{plan.responseTime}</strong>
+                </div>
+
+                <div className={styles.listBlock}>
+                  <p>INCLUYE</p>
+
+                  <ul className={styles.includedList}>
+                    {plan.includes.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <div className={styles.listBlock}>
+                  <p>CONDICIONES</p>
+
+                  <ul className={styles.excludedList}>
+                    {plan.excludes.map((item) => (
+                      <li key={item}>{item}</li>
+                    ))}
+                  </ul>
+                </div>
+
+                <a
+                  href={`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className={styles.whatsappButton}
+                >
+                  SOLICITAR ESTE PLAN <span>↗</span>
+                </a>
+              </article>
+            );
+          })}
+        </div>
+
+        <p className={styles.bottomNote} data-support-reveal>
+          ¿Necesitas una atención puntual? También contamos con servicios por
+          evento para creación de correos, diagnóstico, soporte remoto y
+          configuración de equipos.
+        </p>
+      </div>
+    </section>
+  );
+}

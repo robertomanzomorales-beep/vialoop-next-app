@@ -1,0 +1,368 @@
+.hostingSection {
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  padding: clamp(112px, 13vw, 176px) 24px 120px;
+  color: #f7faff;
+  background: #06172f;
+  background-image:
+    radial-gradient(
+      circle at 19% 10%,
+      rgba(23, 92, 190, 0.34),
+      transparent 30%
+    ),
+    radial-gradient(
+      circle at 86% 58%,
+      rgba(20, 108, 224, 0.18),
+      transparent 31%
+    );
+}
+
+.glowOne,
+.glowTwo {
+  position: absolute;
+  z-index: -1;
+  border-radius: 999px;
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+.glowOne {
+  top: 17%;
+  left: -18rem;
+  width: 34rem;
+  height: 34rem;
+  background: rgba(22, 94, 209, 0.16);
+}
+
+.glowTwo {
+  right: -20rem;
+  bottom: 7%;
+  width: 44rem;
+  height: 44rem;
+  background: rgba(17, 109, 234, 0.12);
+}
+
+.container {
+  width: min(100%, 1240px);
+  margin: 0 auto;
+}
+
+.hero {
+  max-width: 800px;
+  margin: 0 auto clamp(36px, 5vw, 64px);
+  text-align: center;
+}
+
+.eyebrow,
+.cardEyebrow,
+.domainLabel {
+  margin: 0;
+  color: #65a8ff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+}
+
+.hero h1 {
+  max-width: 740px;
+  margin: 17px auto 20px;
+  font-size: clamp(42px, 6.2vw, 76px);
+  font-weight: 800;
+  letter-spacing: -0.072em;
+  line-height: 0.94;
+}
+
+.hero h1 span {
+  color: #67a8ff;
+}
+
+.heroText {
+  max-width: 600px;
+  margin: 0 auto;
+  color: rgba(226, 235, 249, 0.7);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+.notice {
+  display: flex;
+  gap: 14px;
+  max-width: 940px;
+  margin: 0 auto 46px;
+  padding: 17px 20px;
+  border: 1px solid rgba(153, 183, 228, 0.2);
+  border-radius: 12px;
+  background: rgba(12, 33, 64, 0.6);
+  color: rgba(232, 240, 251, 0.72);
+  font-size: 13px;
+  line-height: 1.6;
+}
+
+.notice p {
+  margin: 0;
+}
+
+.noticeMark {
+  display: grid;
+  flex: 0 0 21px;
+  width: 21px;
+  height: 21px;
+  place-items: center;
+  border: 1px solid rgba(104, 166, 255, 0.82);
+  border-radius: 50%;
+  color: #78b5ff;
+  font-family: Georgia, serif;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.card {
+  position: relative;
+  display: flex;
+  min-height: 550px;
+  flex-direction: column;
+  padding: 29px;
+  border: 1px solid rgba(174, 199, 236, 0.16);
+  border-radius: 14px;
+  background: linear-gradient(
+    150deg,
+    rgba(28, 48, 80, 0.92),
+    rgba(12, 30, 57, 0.94)
+  );
+  box-shadow: 0 18px 46px rgba(0, 0, 0, 0.18);
+}
+
+.accentCard {
+  border-color: rgba(53, 139, 255, 0.78);
+  background: linear-gradient(
+    150deg,
+    rgba(29, 63, 112, 0.96),
+    rgba(11, 39, 76, 0.98)
+  );
+  box-shadow: 0 24px 58px rgba(12, 97, 230, 0.21);
+}
+
+.badge {
+  position: absolute;
+  top: -11px;
+  right: 23px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: #2182f2;
+  color: #ffffff;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.13em;
+}
+
+.card h2 {
+  margin: 11px 0 12px;
+  color: #ffffff;
+  font-size: clamp(27px, 2.5vw, 34px);
+  letter-spacing: -0.055em;
+  line-height: 1;
+}
+
+.description {
+  min-height: 58px;
+  margin: 0;
+  color: rgba(222, 232, 247, 0.67);
+  font-size: 13px;
+  line-height: 1.55;
+}
+
+.features {
+  display: grid;
+  gap: 9px;
+  margin: 24px 0 27px;
+  padding: 0;
+  list-style: none;
+}
+
+.features li {
+  position: relative;
+  padding-left: 15px;
+  color: rgba(229, 237, 248, 0.78);
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.features li::before {
+  position: absolute;
+  top: 6px;
+  left: 0;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #5da5ff;
+  content: "";
+}
+
+.pricing {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-top: auto;
+  padding-top: 19px;
+  border-top: 1px solid rgba(190, 209, 238, 0.13);
+}
+
+.pricing > div {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.pricing span {
+  color: rgba(207, 221, 242, 0.52);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.pricing strong {
+  color: #ffffff;
+  font-size: 19px;
+  letter-spacing: -0.04em;
+}
+
+.pricing small {
+  color: rgba(207, 221, 242, 0.48);
+  font-size: 10px;
+}
+
+.installments {
+  padding-left: 12px;
+  border-left: 1px solid rgba(190, 209, 238, 0.13);
+}
+
+.installments strong {
+  color: #70b1ff;
+}
+
+.paymentButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 22px;
+  padding: 14px 16px;
+  border-radius: 7px;
+  background: #1976e8;
+  color: #ffffff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-decoration: none;
+  transition:
+    transform 220ms ease,
+    background 220ms ease,
+    box-shadow 220ms ease;
+}
+
+.paymentButton:hover {
+  transform: translateY(-3px);
+  background: #2a8cff;
+  box-shadow: 0 12px 24px rgba(17, 121, 244, 0.3);
+}
+
+.paymentButton span {
+  font-size: 16px;
+  line-height: 0;
+}
+
+.domainWrap {
+  display: grid;
+  max-width: 394px;
+  margin: 72px auto 0;
+  justify-items: center;
+}
+
+.domainLabel {
+  margin-bottom: 17px;
+}
+
+.domainWrap .card {
+  width: 100%;
+  min-height: 520px;
+}
+
+.hostingSection [data-reveal] {
+  opacity: 0;
+  transform: translateY(76px) scale(0.96);
+  filter: blur(7px);
+  transition:
+    opacity 720ms cubic-bezier(0.22, 1, 0.36, 1),
+    transform 820ms cubic-bezier(0.22, 1, 0.36, 1),
+    filter 620ms ease;
+}
+
+.hostingSection [data-reveal].visible {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+}
+
+@media (max-width: 980px) {
+  .grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 620px) {
+  .hostingSection {
+    padding: 104px 16px 90px;
+  }
+
+  .hero {
+    text-align: left;
+  }
+
+  .hero h1,
+  .heroText {
+    margin-left: 0;
+  }
+
+  .notice {
+    margin-bottom: 30px;
+    padding: 15px;
+  }
+
+  .grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .card {
+    min-height: auto;
+    padding: 24px 20px;
+  }
+
+  .description {
+    min-height: 0;
+  }
+
+  .domainWrap .card {
+    min-height: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hostingSection [data-reveal],
+  .hostingSection [data-reveal].visible {
+    opacity: 1;
+    transform: none;
+    filter: none;
+    transition: none;
+  }
+
+  .paymentButton {
+    transition: none;
+  }
+}
