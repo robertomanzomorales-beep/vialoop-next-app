@@ -63,7 +63,13 @@ export default function Services() {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
 
-          const itemIndex = Number(entry.target.dataset.revealIndex);
+          const target = entry.target as HTMLElement;
+          const itemIndex = Number(target.dataset.revealIndex);
+
+          if (Number.isNaN(itemIndex)) {
+            observer.unobserve(target);
+            return;
+          }
 
           setVisibleItems((currentItems) => {
             if (currentItems[itemIndex]) return currentItems;
@@ -74,7 +80,7 @@ export default function Services() {
             return updatedItems;
           });
 
-          observer.unobserve(entry.target);
+          observer.unobserve(target);
         });
       },
       {
