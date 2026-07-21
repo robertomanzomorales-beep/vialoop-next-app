@@ -38,6 +38,7 @@ const totalRevealElements = services.length + 3;
 export default function Services() {
   const sectionRef = useRef<HTMLElement | null>(null);
   const revealRefs = useRef<Array<HTMLElement | null>>([]);
+
   const [visibleItems, setVisibleItems] = useState<boolean[]>(
     Array(totalRevealElements).fill(false),
   );
@@ -58,6 +59,15 @@ export default function Services() {
       return;
     }
 
+    const mobileViewport = window.matchMedia(
+      "(max-width: 680px)",
+    ).matches;
+
+    const mobileRevealMargin = Math.max(
+      180,
+      Math.round(window.innerHeight * 0.32),
+    );
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -72,7 +82,9 @@ export default function Services() {
           }
 
           setVisibleItems((currentItems) => {
-            if (currentItems[itemIndex]) return currentItems;
+            if (currentItems[itemIndex]) {
+              return currentItems;
+            }
 
             const updatedItems = [...currentItems];
             updatedItems[itemIndex] = true;
@@ -83,15 +95,24 @@ export default function Services() {
           observer.unobserve(target);
         });
       },
-      {
-        threshold: 0.22,
-        rootMargin: "0px 0px -9% 0px",
-      },
+      mobileViewport
+        ? {
+            threshold: 0.01,
+            rootMargin: `0px 0px ${mobileRevealMargin}px 0px`,
+          }
+        : {
+            threshold: 0.22,
+            rootMargin: "0px 0px -9% 0px",
+          },
     );
 
-    elements.forEach((element) => observer.observe(element));
+    elements.forEach((element) => {
+      observer.observe(element);
+    });
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   return (

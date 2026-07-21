@@ -154,7 +154,6 @@
   min-height: 46px;
   align-items: center;
   justify-content: center;
-  gap: 13px;
   padding: 0 22px;
   border-radius: 999px;
   font-family: inherit;
@@ -176,11 +175,6 @@
   background: #2563eb;
   color: #ffffff;
   box-shadow: 0 14px 28px rgba(37, 99, 235, 0.24);
-}
-
-.primaryButton span {
-  font-size: 15px;
-  line-height: 1;
 }
 
 .primaryButton:hover {
@@ -662,54 +656,6 @@
   }
 
   .showcase {
-    min-height: 326px;
-  }
-
-  .mockup {
-    border-radius: 17px;
-  }
-
-  .browserTop {
-    height: 39px;
-    padding: 0 12px;
-  }
-
-  .dashboard {
-    padding: 18px;
-  }
-
-  .dashboardHeader h2 {
-    font-size: 27px;
-  }
-
-  .dashboardMain {
-    grid-template-columns: minmax(0, 1fr) 86px;
-  }
-
-  .result {
-    padding: 12px;
-  }
-
-  .result strong {
-    font-size: 27px;
-  }
-
-  .metric {
-    min-height: 59px;
-    padding: 9px;
-  }
-
-  .tagFast {
-    top: 54%;
-    left: -3%;
-  }
-
-  .tagSeo {
-    top: 5%;
-    right: -2%;
-  }
-
-  .tagTrust {
     display: none;
   }
 }

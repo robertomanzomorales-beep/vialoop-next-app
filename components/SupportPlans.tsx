@@ -97,7 +97,10 @@ export default function SupportPlans() {
     ).matches;
 
     if (reducedMotion) {
-      elements.forEach((element) => element.classList.add(styles.visible));
+      elements.forEach((element) => {
+        element.classList.add(styles.visible);
+      });
+
       return;
     }
 
@@ -111,14 +114,18 @@ export default function SupportPlans() {
         });
       },
       {
-        threshold: 0.2,
-        rootMargin: "0px 0px -7% 0px",
+        threshold: 0.12,
+        rootMargin: "0px 0px -5% 0px",
       },
     );
 
-    elements.forEach((element) => observer.observe(element));
+    elements.forEach((element) => {
+      observer.observe(element);
+    });
 
-    return () => observer.disconnect();
+    return () => {
+      observer.disconnect();
+    };
   }, []);
 
   return (
@@ -126,7 +133,7 @@ export default function SupportPlans() {
       <div className={styles.container}>
         <header className={styles.heading}>
           <p
-            className={styles.eyebrow}
+            className={`${styles.eyebrow} ${styles.reveal}`}
             data-support-reveal
             style={{ transitionDelay: "0ms" }}
           >
@@ -134,6 +141,7 @@ export default function SupportPlans() {
           </p>
 
           <h2
+            className={styles.reveal}
             data-support-reveal
             style={{ transitionDelay: "110ms" }}
           >
@@ -142,7 +150,7 @@ export default function SupportPlans() {
           </h2>
 
           <p
-            className={styles.headingText}
+            className={`${styles.headingText} ${styles.reveal}`}
             data-support-reveal
             style={{ transitionDelay: "220ms" }}
           >
@@ -160,12 +168,12 @@ export default function SupportPlans() {
             return (
               <article
                 key={plan.name}
-                className={`${styles.card} ${
+                className={`${styles.card} ${styles.reveal} ${
                   plan.accent ? styles.accentCard : ""
                 }`}
                 data-support-reveal
                 style={{
-                  transitionDelay: `${300 + index * 145}ms`,
+                  transitionDelay: `${120 + index * 140}ms`,
                 }}
               >
                 {plan.accent && (
@@ -234,7 +242,7 @@ export default function SupportPlans() {
                   rel="noreferrer"
                   className={styles.whatsappButton}
                 >
-                  SOLICITAR ESTE PLAN <span>↗</span>
+                  SOLICITAR ESTE PLAN
                 </a>
               </article>
             );
@@ -242,9 +250,9 @@ export default function SupportPlans() {
         </div>
 
         <p
-          className={styles.bottomNote}
+          className={`${styles.bottomNote} ${styles.reveal}`}
           data-support-reveal
-          style={{ transitionDelay: "180ms" }}
+          style={{ transitionDelay: "100ms" }}
         >
           ¿Necesitas una atención puntual? También contamos con servicios por
           evento para creación de correos, diagnóstico, soporte remoto y

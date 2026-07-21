@@ -34,6 +34,7 @@
     #000000 78%,
     transparent 100%
   );
+  pointer-events: none;
 }
 
 .container {
@@ -240,7 +241,11 @@
     filter 1000ms ease;
 }
 
-.revealVisible {
+/*
+ * Se utilizan las dos clases juntas para que el estado visible
+ * siempre tenga prioridad sobre el estado inicial.
+ */
+.reveal.revealVisible {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
   filter: blur(0);
@@ -265,15 +270,16 @@
 
 @media (max-width: 680px) {
   .servicesSection {
-    padding: 88px 16px;
+    padding: 24px 16px 72px;
   }
 
   .header {
-    gap: 30px;
-    margin-bottom: 36px;
+    gap: 27px;
+    margin-bottom: 34px;
   }
 
   .heading {
+    margin-top: 16px;
     font-size: clamp(34px, 10vw, 46px);
   }
 
@@ -282,23 +288,21 @@
   }
 
   .cardsGrid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     gap: 13px;
   }
 
   .card {
+    width: 100%;
+    min-width: 0;
     min-height: 305px;
     padding: 24px 20px;
-  }
-
-  .reveal {
-    transform: translate3d(0, 112px, 0) scale(0.96);
   }
 }
 
 @media (prefers-reduced-motion: reduce) {
   .reveal,
-  .revealVisible {
+  .reveal.revealVisible {
     opacity: 1;
     transform: none;
     filter: none;

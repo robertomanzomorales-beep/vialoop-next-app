@@ -323,7 +323,7 @@ export default function Hero() {
                 }`}
               >
                 <a href="/portafolio-web" className={styles.primaryButton}>
-                  PORTAFOLIO <span>↗</span>
+                  PORTAFOLIO
                 </a>
 
                 <button
