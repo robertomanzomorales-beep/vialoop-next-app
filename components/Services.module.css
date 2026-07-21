@@ -241,10 +241,6 @@
     filter 1000ms ease;
 }
 
-/*
- * Se utilizan las dos clases juntas para que el estado visible
- * siempre tenga prioridad sobre el estado inicial.
- */
 .reveal.revealVisible {
   opacity: 1;
   transform: translate3d(0, 0, 0) scale(1);
@@ -270,7 +266,7 @@
 
 @media (max-width: 680px) {
   .servicesSection {
-    padding: 24px 16px 72px;
+    padding: 56px 16px 72px;
   }
 
   .header {
