@@ -1,0 +1,341 @@
+.footer {
+  position: relative;
+  width: 100%;
+  padding: 72px 32px 30px;
+  overflow: hidden;
+  color: #f4f5f6;
+  background: #181a1e;
+  border-top: 1px solid rgba(255, 255, 255, 0.09);
+}
+
+.container {
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+}
+
+.mainGrid {
+  display: grid;
+  grid-template-columns:
+    minmax(0, 1.3fr)
+    minmax(280px, 0.82fr)
+    minmax(190px, 0.48fr);
+  gap: clamp(48px, 7vw, 100px);
+  align-items: start;
+}
+
+.brandColumn {
+  max-width: 560px;
+}
+
+.logo {
+  display: block;
+  width: 112px;
+  height: 112px;
+  margin-bottom: 28px;
+  object-fit: contain;
+}
+
+.description {
+  max-width: 550px;
+  margin: 0;
+  color: rgba(244, 245, 246, 0.82);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 1.75;
+}
+
+.coverage {
+  max-width: 500px;
+  margin: 14px 0 0;
+  color: rgba(210, 213, 218, 0.6);
+  font-size: 14px;
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.7;
+}
+
+.columnTitle {
+  margin: 0 0 25px;
+  color: rgba(226, 228, 231, 0.66);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+}
+
+.contactList {
+  display: grid;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.contactItem {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  padding: 0 0 18px;
+  margin-bottom: 18px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.contactIconBox {
+  display: grid;
+  width: 28px;
+  height: 28px;
+  flex: 0 0 28px;
+  place-items: center;
+}
+
+.contactIcon {
+  display: block;
+  width: 21px;
+  height: 21px;
+  object-fit: contain;
+  opacity: 0.9;
+  filter: brightness(0) invert(1);
+}
+
+.contactContent {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.contactLabel {
+  color: rgba(207, 210, 215, 0.5);
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.contactLink {
+  width: fit-content;
+  color: rgba(244, 245, 246, 0.92);
+  font-size: 14px;
+  font-weight: 650;
+  line-height: 1.4;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.contactLink:hover {
+  color: #ffffff;
+}
+
+.scheduleButton {
+  display: inline-flex;
+  min-height: 42px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 5px;
+  padding: 0 19px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+  color: rgba(244, 245, 246, 0.86);
+  background: rgba(255, 255, 255, 0.045);
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.12em;
+  text-decoration: none;
+  text-transform: uppercase;
+  transition:
+    color 180ms ease,
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.scheduleButton:hover {
+  color: #181a1e;
+  border-color: #ffffff;
+  background: #ffffff;
+  transform: translateY(-2px);
+}
+
+.instagramButton {
+  display: grid;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.045);
+  transition:
+    border-color 180ms ease,
+    background-color 180ms ease,
+    transform 180ms ease;
+}
+
+.instagramButton:hover {
+  border-color: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.1);
+  transform: translateY(-2px);
+}
+
+.instagramIcon {
+  display: block;
+  width: 19px;
+  height: 19px;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+}
+
+.socialText {
+  max-width: 240px;
+  margin: 22px 0 0;
+  color: rgba(207, 210, 215, 0.59);
+  font-size: 13px;
+  line-height: 1.65;
+}
+
+.bottomBar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  margin-top: 58px;
+  padding-top: 24px;
+  border-top: 1px solid rgba(255, 255, 255, 0.11);
+}
+
+.copyright,
+.credit {
+  margin: 0;
+}
+
+.copyright {
+  color: rgba(207, 210, 215, 0.56);
+  font-size: 12px;
+  line-height: 1.6;
+}
+
+.legalLinks {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 20px;
+}
+
+.legalLink {
+  color: rgba(226, 228, 231, 0.7);
+  font-size: 12px;
+  line-height: 1.6;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.legalLink:hover {
+  color: #ffffff;
+}
+
+.credit {
+  color: rgba(207, 210, 215, 0.55);
+  font-size: 12px;
+  font-style: italic;
+  line-height: 1.6;
+}
+
+.creditBrand {
+  color: rgba(244, 245, 246, 0.9);
+  font-weight: 700;
+}
+
+@media (max-width: 1024px) {
+  .footer {
+    padding: 64px 28px 28px;
+  }
+
+  .mainGrid {
+    grid-template-columns: 1.15fr 0.85fr;
+    gap: 54px 64px;
+  }
+
+  .socialColumn {
+    grid-column: 1 / -1;
+  }
+
+  .socialText {
+    max-width: 420px;
+  }
+
+  .bottomBar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .legalLinks {
+    justify-content: flex-start;
+  }
+}
+
+@media (max-width: 720px) {
+  .footer {
+    padding: 54px 22px 26px;
+  }
+
+  .mainGrid {
+    grid-template-columns: 1fr;
+    gap: 42px;
+  }
+
+  .brandColumn,
+  .socialText {
+    max-width: none;
+  }
+
+  .logo {
+    width: 96px;
+    height: 96px;
+    margin-bottom: 22px;
+  }
+
+  .description {
+    font-size: 15px;
+    line-height: 1.7;
+  }
+
+  .coverage {
+    font-size: 13px;
+  }
+
+  .columnTitle {
+    margin-bottom: 20px;
+  }
+
+  .socialColumn {
+    grid-column: auto;
+  }
+
+  .bottomBar {
+    margin-top: 46px;
+    padding-top: 22px;
+  }
+
+  .legalLinks {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 10px;
+  }
+}
+
+@media (max-width: 420px) {
+  .footer {
+    padding-right: 18px;
+    padding-left: 18px;
+  }
+
+  .contactLink {
+    font-size: 13px;
+  }
+
+  .scheduleButton {
+    width: 100%;
+  }
+}

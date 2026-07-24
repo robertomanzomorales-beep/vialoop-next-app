@@ -11,7 +11,7 @@ export type PortfolioItem = {
 };
 
 export const portfolioItems: PortfolioItem[] = [
-      {
+  {
     name: "Grúas TYS",
     type: "Grúas / Servicios",
     plan: "Landing",
@@ -109,7 +109,8 @@ export const portfolioItems: PortfolioItem[] = [
     description:
       "Sitio web para transporte turístico y traslados en rutas del desierto.",
     href: "https://transferatacamachile.cl/",
-    image: "/portfolio/trabajo_realizado_martin_atacama_transfers_600px.webp",
+    image:
+      "/portfolio/trabajo_realizado_martin_atacama_transfers_600px.webp",
   },
   {
     name: "Divinity Lux",
@@ -259,7 +260,8 @@ export const portfolioItems: PortfolioItem[] = [
     description:
       "Sitio corporativo sobrio y claro para servicios funerarios y atención familiar.",
     href: "https://funerariasagradocorazondejesus.cl/",
-    image: "/portfolio/mockup_sitio_web_lote2_01_600x310.webp",
+    image:
+      "/portfolio/mockup_sitio_web_lote2_01_600x310.webp",
   },
   {
     name: "GM Especialistas",
@@ -269,7 +271,8 @@ export const portfolioItems: PortfolioItem[] = [
     description:
       "Sitio para presentar servicios especializados, experiencia y contacto profesional.",
     href: "https://gmespecialistas.cl/",
-    image: "/portfolio/mockup_sitio_web_lote2_02_600x310.webp",
+    image:
+      "/portfolio/mockup_sitio_web_lote2_02_600x310.webp",
   },
   {
     name: "GSPECO Lavados Industriales",
@@ -279,17 +282,8 @@ export const portfolioItems: PortfolioItem[] = [
     description:
       "Landing enfocada en servicios industriales, claridad operativa y solicitud de contacto.",
     href: "https://gspecolavadosindustriales.cl/",
-    image: "/portfolio/mockup_sitio_web_lote2_03_600x310.webp",
-  },
-  {
-    name: "Hospedaje Carolina",
-    type: "Hospedaje",
-    plan: "Landing",
-    category: "landing",
-    description:
-      "Sitio directo para mostrar alojamiento, ubicación, servicios y canales de reserva.",
-    href: "https://hospedajecarolina.cl/",
-    image: "/portfolio/mockup_sitio_web_lote2_04_600x310.webp",
+    image:
+      "/portfolio/mockup_sitio_web_lote2_03_600x310.webp",
   },
   {
     name: "Hottap Chile Servicios",
@@ -299,7 +293,8 @@ export const portfolioItems: PortfolioItem[] = [
     description:
       "Landing para comunicar servicios, diferenciales y contacto de manera simple.",
     href: "https://hottapchileservicios.cl/",
-    image: "/portfolio/mockup_sitio_web_lote2_05_600x310.webp",
+    image:
+      "/portfolio/mockup_sitio_web_lote2_05_600x310.webp",
   },
   {
     name: "Grúas y Servicios The Marine",
@@ -309,7 +304,8 @@ export const portfolioItems: PortfolioItem[] = [
     description:
       "Sitio tipo landing para servicios de grúas, operación en terreno y contacto rápido.",
     href: "https://gruasyserviciosthemarine.cl/",
-    image: "/portfolio/mockup_sitio_web_lote2_06_600x310.webp",
+    image:
+      "/portfolio/mockup_sitio_web_lote2_06_600x310.webp",
   },
   {
     name: "JLS Maquinarias",
@@ -319,7 +315,8 @@ export const portfolioItems: PortfolioItem[] = [
     description:
       "Landing para presentar servicios de maquinaria, capacidades y solicitud comercial.",
     href: "https://jlsmaquinarias.cl/",
-    image: "/portfolio/mockup_sitio_web_lote2_07_600x310.webp",
+    image:
+      "/portfolio/mockup_sitio_web_lote2_07_600x310.webp",
   },
   {
     name: "MGC Chile",
@@ -329,7 +326,8 @@ export const portfolioItems: PortfolioItem[] = [
     description:
       "Sitio profesional para servicios, presentación comercial y posicionamiento digital.",
     href: "https://mgcchile.cl/",
-    image: "/portfolio/mockup_sitio_web_lote2_08_600x310.webp",
+    image:
+      "/portfolio/mockup_sitio_web_lote2_08_600x310.webp",
   },
   {
     name: "Motel Elegance Calama",
@@ -339,7 +337,8 @@ export const portfolioItems: PortfolioItem[] = [
     description:
       "Sitio empresarial para presentar espacios, servicios y experiencia de reserva.",
     href: "https://motelelegancecalama.cl/",
-    image: "/portfolio/mockup_sitio_web_lote2_09_600x310.webp",
+    image:
+      "/portfolio/mockup_sitio_web_lote2_09_600x310.webp",
   },
   {
     name: "Muba SPA",
@@ -349,17 +348,18 @@ export const portfolioItems: PortfolioItem[] = [
     description:
       "Sitio web para comunicar servicios, propuesta de valor y contacto comercial.",
     href: "https://mubaspa.cl/",
-    image: "/portfolio/mockup_sitio_web_lote2_10_600x310.webp",
+    image:
+      "/portfolio/mockup_sitio_web_lote2_10_600x310.webp",
   },
   {
-    name: "Angamos Chile",
-    type: "Servicios",
-    plan: "Plan Crece",
-    category: "crece",
+    name: "Maryland SpA",
+    type: "Construcción / Minería",
+    plan: "Plan Empresa",
+    category: "empresa",
     description:
-      "Sitio profesional para fortalecer presencia digital, servicios y contacto con clientes.",
-    href: "https://angamoschile.cl/",
-    image: "/portfolio/mockup_sitio_web_lote3_01_600x310.webp",
+      "Sitio corporativo para presentar experiencia, servicios especializados, proyectos y capacidad operacional para la gran minería.",
+    href: "https://www.marylandspa.cl/",
+    image: "/mockup-maryland.webp",
   },
   {
     name: "Transyt",

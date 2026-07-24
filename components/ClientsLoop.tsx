@@ -45,6 +45,10 @@ const clientLogos: LogoItem[] = [
     alt: "Rerchar",
   },
   {
+    src: "/logo-rio-loa-carrusel-240px (1).webp",
+    alt: "Ferretería Río Loa",
+  },
+  {
     src: "/logo-carrusel-rohuer-ingenieria-v2.webp",
     alt: "Rohuer Ingeniería",
   },

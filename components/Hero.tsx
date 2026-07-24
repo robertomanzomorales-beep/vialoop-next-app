@@ -1,6 +1,9 @@
 "use client";
 
-import type { ChangeEvent, MouseEvent as ReactMouseEvent } from "react";
+import type {
+  ChangeEvent,
+  MouseEvent as ReactMouseEvent,
+} from "react";
 import { useEffect, useRef, useState } from "react";
 import styles from "./Hero.module.css";
 
@@ -21,9 +24,9 @@ type Plan = {
 const WHATSAPP_NUMBER = "56974330586";
 
 const heroStats = [
-  ["SEO", "Calama · Antofagasta"],
-  ["Leads", "WhatsApp + formulario"],
-  ["Confianza", "Imagen profesional"],
+  ["Sitios web", "Rápidos y comerciales"],
+  ["Sistemas", "Procesos a medida"],
+  ["Soporte", "Acompañamiento real"],
 ];
 
 const services: Service[] = [
@@ -31,6 +34,12 @@ const services: Service[] = [
     id: "diseno-web",
     title: "Diseño Web",
     description: "Sitios profesionales para empresas",
+  },
+  {
+    id: "sistemas-a-medida",
+    title: "Sistemas a medida",
+    description:
+      "Plataformas para ordenar procesos, documentos, clientes y operaciones",
   },
   {
     id: "google-visibilidad",
@@ -41,12 +50,6 @@ const services: Service[] = [
     id: "material-comercial",
     title: "Material comercial",
     description: "Brochures, presentaciones y piezas corporativas",
-  },
-  {
-    id: "automatizacion-flujo-trabajo",
-    title: "Automatización flujo de trabajo",
-    description:
-      "Plataforma a medida para mejorar la trazabilidad de tu negocio",
   },
 ];
 
@@ -96,7 +99,8 @@ export default function Hero() {
   const [visible, setVisible] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [step, setStep] = useState<1 | 2 | 3>(1);
-  const [selectedService, setSelectedService] = useState<Service | null>(null);
+  const [selectedService, setSelectedService] =
+    useState<Service | null>(null);
   const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
 
   const [formData, setFormData] = useState({
@@ -124,10 +128,10 @@ export default function Hero() {
 
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry?.isIntersecting) {
-          setVisible(true);
-          observer.unobserve(entry.target);
-        }
+        if (!entry?.isIntersecting) return;
+
+        setVisible(true);
+        observer.unobserve(entry.target);
       },
       {
         threshold: 0.18,
@@ -157,7 +161,9 @@ export default function Hero() {
     };
   }, [modalOpen]);
 
-  function handleMockupMove(event: ReactMouseEvent<HTMLDivElement>) {
+  function handleMockupMove(
+    event: ReactMouseEvent<HTMLDivElement>,
+  ) {
     const mockup = mockupRef.current;
 
     if (!mockup) return;
@@ -238,7 +244,9 @@ export default function Hero() {
       "Hola VÍA LOOP, quiero comenzar un proyecto.",
       "",
       `Servicio: ${selectedService?.title ?? "No seleccionado"}`,
-      selectedPlan ? `Plan: ${selectedPlan.name} - ${selectedPlan.price}` : "",
+      selectedPlan
+        ? `Plan: ${selectedPlan.name} - ${selectedPlan.price}`
+        : "",
       "",
       `Empresa: ${formData.company}`,
       `Nombre: ${formData.name}`,
@@ -246,13 +254,17 @@ export default function Hero() {
       `WhatsApp: ${formData.phone}`,
       "",
       `Objetivo del proyecto: ${formData.objective}`,
-      formData.reference ? `Referencia: ${formData.reference}` : "",
+      formData.reference
+        ? `Referencia: ${formData.reference}`
+        : "",
     ]
       .filter(Boolean)
       .join("\n");
 
     window.open(
-      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`,
+      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
+        message,
+      )}`,
       "_blank",
       "noopener,noreferrer",
     );
@@ -269,7 +281,7 @@ export default function Hero() {
       <section
         ref={heroRef}
         id="inicio"
-        aria-label="Diseño web para empresas en Calama, Antofagasta y el norte de Chile"
+        aria-label="Diseño web y sistemas a medida para empresas en Calama, Antofagasta y el norte de Chile"
         className={styles.hero}
       >
         <div className={styles.gridTexture} />
@@ -279,15 +291,6 @@ export default function Hero() {
         <div className={styles.container}>
           <div className={styles.layout}>
             <div className={styles.copy}>
-              <div
-                className={`${styles.kicker} ${
-                  visible ? styles.visible : ""
-                }`}
-              >
-                <span />
-                <p>DISEÑO WEB PARA EMPRESAS</p>
-              </div>
-
               <h1
                 className={`${styles.title} ${
                   visible ? styles.visible : ""
@@ -302,9 +305,13 @@ export default function Hero() {
                   visible ? styles.visible : ""
                 }`}
               >
-                Diseño web profesional para empresas industriales, mineras y de
-                servicios que buscan generar confianza, mejorar su presencia
-                digital y conseguir más clientes.
+                Diseñamos sitios web profesionales y desarrollamos sistemas a
+                medida para empresas industriales, mineras, de transporte y
+                servicios. Soluciones claras,{" "}
+                <em className={styles.humanAccent}>
+                  hechas para la realidad de cada empresa
+                </em>
+                , no plataformas genéricas.
               </p>
 
               <p
@@ -312,9 +319,10 @@ export default function Hero() {
                   visible ? styles.visible : ""
                 }`}
               >
-                Creamos sitios web para empresas del norte de Chile: Calama,
-                Antofagasta, Iquique, Alto Hospicio, Pozo Almonte, Tocopilla,
-                Mejillones, Taltal, Sierra Gorda y San Pedro de Atacama.
+                Trabajamos con empresas de Calama, Antofagasta y el norte de
+                Chile, creando desde sitios web rápidos y comerciales hasta
+                plataformas internas para ordenar procesos, documentos,
+                clientes y operaciones.
               </p>
 
               <div
@@ -322,7 +330,10 @@ export default function Hero() {
                   visible ? styles.visible : ""
                 }`}
               >
-                <a href="/portafolio-web" className={styles.primaryButton}>
+                <a
+                  href="/portafolio-web"
+                  className={styles.primaryButton}
+                >
                   PORTAFOLIO
                 </a>
 
@@ -331,7 +342,7 @@ export default function Hero() {
                   onClick={openModal}
                   className={styles.secondaryButton}
                 >
-                  QUIERO COMENZAR
+                  COTIZAR PROYECTO
                 </button>
               </div>
             </div>
@@ -366,13 +377,13 @@ export default function Hero() {
                 <div className={styles.dashboard}>
                   <div className={styles.dashboardHeader}>
                     <div>
-                      <p>PROYECTO DIGITAL</p>
-                      <h2>Empresa industrial</h2>
+                      <p>SOLUCIÓN DIGITAL</p>
+                      <h2>Web + sistemas</h2>
                     </div>
 
                     <div className={styles.online}>
                       <span />
-                      Online
+                      Activo
                     </div>
                   </div>
 
@@ -397,8 +408,8 @@ export default function Hero() {
 
                     <div className={styles.result}>
                       <p>RESULTADO</p>
-                      <strong>+38%</strong>
-                      <span>más interacción</span>
+                      <strong>ORDEN</strong>
+                      <span>procesos bajo control</span>
                     </div>
                   </div>
 
@@ -420,12 +431,12 @@ export default function Hero() {
 
               <div className={`${styles.tag} ${styles.tagSeo}`}>
                 <span />
-                SEO regional
+                Sistema a medida
               </div>
 
               <div className={`${styles.tag} ${styles.tagTrust}`}>
                 <span />
-                Imagen profesional
+                Gestión centralizada
               </div>
             </div>
           </div>
@@ -491,6 +502,7 @@ export default function Hero() {
                         <strong className="block text-[15px] font-black text-[#07142b]">
                           {service.title}
                         </strong>
+
                         <span className="mt-1 block text-[13px] text-slate-500">
                           {service.description}
                         </span>
@@ -525,6 +537,7 @@ export default function Hero() {
                             <strong className="block text-[16px] font-black text-[#07142b]">
                               {plan.name}
                             </strong>
+
                             <span className="mt-1 block text-[13px] text-slate-500">
                               {plan.description}
                             </span>
@@ -568,6 +581,7 @@ export default function Hero() {
                       <span className="text-[13px] font-bold text-[#07142b]">
                         Nombre de tu empresa/negocio *
                       </span>
+
                       <input
                         name="company"
                         value={formData.company}
@@ -581,6 +595,7 @@ export default function Hero() {
                       <span className="text-[13px] font-bold text-[#07142b]">
                         Tu nombre *
                       </span>
+
                       <input
                         name="name"
                         value={formData.name}
@@ -594,6 +609,7 @@ export default function Hero() {
                       <span className="text-[13px] font-bold text-[#07142b]">
                         Email
                       </span>
+
                       <input
                         name="email"
                         type="email"
@@ -608,6 +624,7 @@ export default function Hero() {
                       <span className="text-[13px] font-bold text-[#07142b]">
                         WhatsApp *
                       </span>
+
                       <input
                         name="phone"
                         value={formData.phone}
@@ -621,11 +638,12 @@ export default function Hero() {
                       <span className="text-[13px] font-bold text-[#07142b]">
                         ¿Qué objetivo principal tiene tu proyecto? *
                       </span>
+
                       <textarea
                         name="objective"
                         value={formData.objective}
                         onChange={updateField}
-                        placeholder="Ej: generar leads, mostrar mi portafolio, vender servicios..."
+                        placeholder="Ej: captar clientes, ordenar procesos, controlar documentos..."
                         rows={3}
                         className={textareaClass}
                       />
@@ -638,6 +656,7 @@ export default function Hero() {
                           opcional
                         </span>
                       </span>
+
                       <input
                         name="reference"
                         value={formData.reference}

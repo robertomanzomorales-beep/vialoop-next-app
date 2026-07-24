@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import type { ChangeEvent } from "react";
 import { useEffect, useRef, useState } from "react";
 import styles from "./Pricing.module.css";
@@ -187,10 +188,7 @@ export default function Pricing() {
               PLANES VIALOOP
             </p>
 
-            <h2
-              data-pricing-reveal
-              style={{ transitionDelay: "110ms" }}
-            >
+            <h2 data-pricing-reveal style={{ transitionDelay: "110ms" }}>
               Una inversión clara para
               <span> avanzar con tu empresa.</span>
             </h2>
@@ -256,7 +254,14 @@ export default function Pricing() {
                   onClick={() => openModal(plan)}
                   className={styles.quoteButton}
                 >
-                  COTIZAR ESTE PLAN <span>↗</span>
+                  COTIZAR ESTE PLAN
+                  <Image
+                    src="/flecha-horizontal.webp"
+                    alt=""
+                    width={22}
+                    height={22}
+                    className={styles.buttonArrow}
+                  />
                 </button>
               </article>
             ))}
@@ -324,7 +329,14 @@ export default function Pricing() {
                 onClick={sendToWhatsApp}
                 disabled={!canSend}
               >
-                ENVIAR POR WHATSAPP <span>↗</span>
+                ENVIAR POR WHATSAPP
+                <Image
+                  src="/flecha-horizontal.webp"
+                  alt=""
+                  width={20}
+                  height={20}
+                  className={styles.modalArrow}
+                />
               </button>
             </div>
           </div>

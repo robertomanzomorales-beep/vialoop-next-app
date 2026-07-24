@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import MainMenu from "@/components/MainMenu";
+import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,7 +16,8 @@ const geistMono = Geist_Mono({
 
 export const metadata: Metadata = {
   title: "Vialoop.cl",
-  description: "Diseño web para empresas de Calama y Antofagasta.",
+  description:
+    "Diseño web y sistemas digitales para empresas de Calama y Antofagasta.",
   icons: {
     icon: "/vialoop-logo-original-optimizado-e1780251299821.webp",
     shortcut: "/vialoop-logo-original-optimizado-e1780251299821.webp",
@@ -35,7 +37,10 @@ export default function RootLayout({
     >
       <body className="min-h-full flex flex-col">
         <MainMenu />
+
         {children}
+
+        <FloatingWhatsApp />
       </body>
     </html>
   );

@@ -1,25 +1,11 @@
-import type { Metadata } from "next";
 import Footer from "@/components/Footer";
-import HostingFaq from "@/components/HostingFaq";
-import HostingPlans from "@/components/HostingPlans";
-import SupportPlans from "@/components/SupportPlans";
+import PortfolioWeb from "@/components/PortfolioWeb";
 
-export const metadata: Metadata = {
-  title: "Hosting y soporte técnico | Vialoop",
-  description:
-    "Planes anuales de hosting, correo corporativo, soporte técnico y renovación de dominios para empresas.",
-};
-
-export default function HostingPage() {
+export default function PortafolioWebPage() {
   return (
-    <>
-      <main>
-        <HostingPlans />
-        <SupportPlans />
-        <HostingFaq />
-      </main>
-
+    <main>
+      <PortfolioWeb />
       <Footer />
-    </>
+    </main>
   );
 }
