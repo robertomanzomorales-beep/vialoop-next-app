@@ -5,6 +5,7 @@ function WhatsAppIcon() {
     <svg
       viewBox="0 0 32 32"
       aria-hidden="true"
+      focusable="false"
       className={styles.whatsappIcon}
     >
       <path
