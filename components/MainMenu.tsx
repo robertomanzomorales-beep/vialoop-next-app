@@ -25,6 +25,7 @@ type Plan = {
 };
 
 const WHATSAPP_NUMBER = "56974330586";
+const PORTAL_URL = "https://portal-vialoop.vercel.app/";
 const HEADER_HEIGHT = 92;
 
 const services: Service[] = [
@@ -318,6 +319,31 @@ export default function MainMenu() {
             <Link href="/faq" className={desktopLinkClass}>
               FAQ
             </Link>
+
+            <a
+              href={PORTAL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="ml-2 inline-flex min-h-[40px] items-center justify-center gap-2 rounded-full border border-white/22 bg-white/[0.06] px-4 text-[10px] font-black uppercase tracking-[0.14em] text-white transition-colors duration-200 hover:border-white/40 hover:bg-white/[0.12] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35"
+              aria-label="Abrir Portal Vialoop en una pestaña nueva"
+            >
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 24 24"
+                fill="none"
+                className="h-3.5 w-3.5"
+              >
+                <path
+                  d="M7.5 10V7.5a4.5 4.5 0 0 1 9 0V10M6.5 10h11A1.5 1.5 0 0 1 19 11.5v7A1.5 1.5 0 0 1 17.5 20h-11A1.5 1.5 0 0 1 5 18.5v-7A1.5 1.5 0 0 1 6.5 10Z"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+
+              Portal Vialoop
+            </a>
           </nav>
 
           <button
@@ -441,6 +467,38 @@ export default function MainMenu() {
                 →
               </span>
             </Link>
+
+            <a
+              href={PORTAL_URL}
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => setMobileOpen(false)}
+              className={mobileLinkClass}
+              aria-label="Abrir Portal Vialoop en una pestaña nueva"
+            >
+              <span className="flex items-center gap-3">
+                <svg
+                  aria-hidden="true"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  className="h-[17px] w-[17px] text-white/55"
+                >
+                  <path
+                    d="M7.5 10V7.5a4.5 4.5 0 0 1 9 0V10M6.5 10h11A1.5 1.5 0 0 1 19 11.5v7A1.5 1.5 0 0 1 17.5 20h-11A1.5 1.5 0 0 1 5 18.5v-7A1.5 1.5 0 0 1 6.5 10Z"
+                    stroke="currentColor"
+                    strokeWidth="1.8"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+
+                Portal Vialoop
+              </span>
+
+              <span className="text-[17px] text-white/40 transition-transform group-hover:translate-x-1">
+                ↗
+              </span>
+            </a>
           </nav>
 
           <div className="mt-auto pt-8">
