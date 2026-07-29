@@ -255,7 +255,7 @@ export default function MainMenu() {
     "rounded-full px-4 py-2 text-[11px] font-black uppercase tracking-[0.15em] text-white/66 transition-colors duration-200 hover:bg-white/[0.075] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-white/35";
 
   const mobileLinkClass =
-    "group flex min-h-[64px] items-center justify-between border-b border-white/10 text-[15px] font-black uppercase tracking-[0.16em] text-white/78 transition-colors hover:text-white";
+    "flex min-h-[64px] items-center border-b border-white/10 text-[15px] font-black uppercase tracking-[0.16em] text-white/78 transition-colors hover:text-white";
 
   const inputClass =
     "h-12 rounded-[14px] border border-slate-200 bg-white px-4 text-[14px] text-[#07142b] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10";
@@ -410,10 +410,6 @@ export default function MainMenu() {
               className={mobileLinkClass}
             >
               Inicio
-
-              <span className="text-[17px] text-white/40 transition-transform group-hover:translate-x-1">
-                →
-              </span>
             </Link>
 
             <Link
@@ -424,10 +420,6 @@ export default function MainMenu() {
               className={mobileLinkClass}
             >
               Servicios
-
-              <span className="text-[17px] text-white/40 transition-transform group-hover:translate-x-1">
-                →
-              </span>
             </Link>
 
             <Link
@@ -438,10 +430,6 @@ export default function MainMenu() {
               className={mobileLinkClass}
             >
               Planes
-
-              <span className="text-[17px] text-white/40 transition-transform group-hover:translate-x-1">
-                →
-              </span>
             </Link>
 
             <Link
@@ -450,10 +438,6 @@ export default function MainMenu() {
               className={mobileLinkClass}
             >
               Portafolio
-
-              <span className="text-[17px] text-white/40 transition-transform group-hover:translate-x-1">
-                →
-              </span>
             </Link>
 
             <Link
@@ -462,10 +446,6 @@ export default function MainMenu() {
               className={mobileLinkClass}
             >
               FAQ
-
-              <span className="text-[17px] text-white/40 transition-transform group-hover:translate-x-1">
-                →
-              </span>
             </Link>
 
             <a
@@ -493,10 +473,6 @@ export default function MainMenu() {
                 </svg>
 
                 Portal Vialoop
-              </span>
-
-              <span className="text-[17px] text-white/40 transition-transform group-hover:translate-x-1">
-                ↗
               </span>
             </a>
           </nav>
