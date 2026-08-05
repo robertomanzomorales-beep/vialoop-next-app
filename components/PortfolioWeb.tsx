@@ -116,6 +116,16 @@ const webPlans: Plan[] = [
 
 const portfolioItems: PortfolioItem[] = [
   {
+    name: "Ferretería Río Loa",
+    type: "Ferretería / Construcción",
+    plan: "Landing",
+    category: "landing",
+    description:
+      "Landing corporativa para presentar productos ferreteros, soluciones para construcción y minería, marcas asociadas y canales de cotización directa.",
+    href: "https://ferreteriarioloa.cl/",
+    image: "/portfolio/trabajo_realizado_rio_loa_600px.webp",
+  },
+  {
     name: "Grúas TYS",
     type: "Grúas / Servicios",
     plan: "Landing",
