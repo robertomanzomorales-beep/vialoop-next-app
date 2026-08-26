@@ -7,9 +7,11 @@ import styles from "./Pricing.module.css";
 
 type Plan = {
   name: string;
+  category: string;
   price: string;
   description: string;
   features: string[];
+  note?: string;
   featured?: boolean;
   from?: boolean;
 };
@@ -18,51 +20,73 @@ const WHATSAPP_NUMBER = "56974330586";
 
 const plans: Plan[] = [
   {
-    name: "Plan Emprendedor",
+    name: "Plan Emprende",
+    category: "LANDING PAGE",
     price: "280.000",
     description:
-      "Para empresas que necesitan una presencia digital clara, profesional y bien estructurada.",
+      "Una landing page de una sola página para presentar tu empresa, destacar una oferta principal y generar contactos.",
     features: [
-      "One-page hasta 6 secciones",
+      "Landing page de una sola página",
+      "Contenido organizado en hasta 6 secciones",
       "Hasta 15 imágenes optimizadas",
-      "1 formulario + botón WhatsApp",
-      "Diseño web profesional",
-      "Optimización WebP + caché",
-      "Configuración técnica para indexación web",
-      "1 ronda de cambios",
+      "Formulario de contacto + botón WhatsApp",
+      "Diseño profesional adaptable a móviles",
+      "SEO técnico inicial + optimización de velocidad",
+      "Publicación + 1 ronda de cambios",
     ],
   },
   {
     name: "Plan Crece",
-    price: "420.000",
+    category: "SITIO WEB EMPRESARIAL",
+    price: "390.000",
     description:
-      "Para empresas que necesitan más estructura, contenido y puntos de contacto comercial.",
+      "Un sitio web empresarial con mayor contenido y navegación para presentar servicios, experiencia y respaldo comercial.",
     features: [
-      "Hasta 3 páginas multi-página",
+      "Sitio web empresarial con navegación completa",
+      "Contenido ampliado para empresa y servicios",
       "Hasta 30 imágenes optimizadas",
       "2 formularios: contacto + cotización",
-      "Diseño a medida + guía de estilo",
-      "Optimización de rendimiento avanzada",
-      "Configuración técnica para indexación web",
-      "2 rondas de cambios",
+      "Diseño personalizado + línea visual",
+      "SEO técnico y local + medición básica",
+      "Publicación + 2 rondas de cambios",
     ],
     featured: true,
   },
   {
     name: "Plan Empresa",
+    category: "SITIO WEB CORPORATIVO",
+    price: "620.000",
+    from: true,
+    description:
+      "Una solución corporativa avanzada para empresas con múltiples servicios, áreas, públicos o requerimientos de integración.",
+    features: [
+      "Arquitectura corporativa para múltiples áreas",
+      "Contenido avanzado y hasta 50 imágenes optimizadas",
+      "Formularios personalizados + agendamiento",
+      "UX/UI avanzada + diseño de mayor profundidad",
+      "Gestión de contenido e integraciones según alcance",
+      "Rendimiento, seguridad y SEO avanzados",
+      "Capacitación + 3 rondas de cambios",
+    ],
+  },
+  {
+    name: "Plan E-commerce",
+    category: "TIENDA ONLINE",
     price: "790.000",
     from: true,
     description:
-      "Para empresas que requieren una presencia digital robusta, escalable y de mayor nivel.",
+      "Una tienda online personalizada y autoadministrable para vender productos, gestionar pedidos y recibir pagos.",
     features: [
-      "Hasta 6 páginas escala empresarial",
-      "30+ imágenes optimizadas",
-      "3 formularios + Calendly",
-      "UX/UI avanzada + diseño premium",
-      "Performance y seguridad reforzada",
-      "Configuración técnica para indexación web",
-      "3 rondas de cambios",
+      "Tienda online desarrollada en Next.js + React",
+      "Panel para productos, stock, pedidos y clientes",
+      "Carrito de compra + integración inicial con Flow",
+      "Carga inicial de hasta 20 productos",
+      "Hasta 40 imágenes de productos optimizadas",
+      "Configuración básica de despacho o retiro",
+      "SEO técnico, capacitación + 2 rondas de cambios",
     ],
+    note:
+      "La infraestructura administrada y las comisiones del medio de pago se contratan por separado.",
   },
 ];
 
@@ -90,7 +114,10 @@ export default function Pricing() {
     ).matches;
 
     if (reducedMotion) {
-      elements.forEach((element) => element.classList.add(styles.visible));
+      elements.forEach((element) => {
+        element.classList.add(styles.visible);
+      });
+
       return;
     }
 
@@ -98,14 +125,20 @@ export default function Pricing() {
       (entries) => {
         entries.forEach((entry) => {
           if (!entry.isIntersecting) return;
+
           entry.target.classList.add(styles.visible);
           observer.unobserve(entry.target);
         });
       },
-      { threshold: 0.2, rootMargin: "0px 0px -7% 0px" },
+      {
+        threshold: 0.2,
+        rootMargin: "0px 0px -7% 0px",
+      },
     );
 
-    elements.forEach((element) => observer.observe(element));
+    elements.forEach((element) => {
+      observer.observe(element);
+    });
 
     return () => observer.disconnect();
   }, []);
@@ -113,10 +146,20 @@ export default function Pricing() {
   useEffect(() => {
     if (!modalOpen) return;
 
+    const previousOverflow = document.body.style.overflow;
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") {
+        closeModal();
+      }
+    }
+
     document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.body.style.overflow = "";
+      document.body.style.overflow = previousOverflow;
+      window.removeEventListener("keydown", handleKeyDown);
     };
   }, [modalOpen]);
 
@@ -141,29 +184,32 @@ export default function Pricing() {
     }));
   }
 
-  const canSend =
+  const canSend = Boolean(
     selectedPlan &&
-    formData.company.trim() &&
-    formData.name.trim() &&
-    formData.phone.trim() &&
-    formData.objective.trim();
+      formData.company.trim() &&
+      formData.name.trim() &&
+      formData.phone.trim() &&
+      formData.objective.trim(),
+  );
 
   function sendToWhatsApp() {
     if (!canSend || !selectedPlan) return;
 
-    const priceText = `${selectedPlan.from ? "Desde " : ""}$${selectedPlan.price} + IVA`;
+    const priceText = `${selectedPlan.from ? "Desde " : ""}$${
+      selectedPlan.price
+    } + IVA`;
 
     const message = [
-      "Hola Vialoop, quiero cotizar un proyecto web.",
+      "Hola Vialoop, quiero cotizar una solución digital.",
       "",
       `Plan de interés: ${selectedPlan.name}`,
-      `Valor: ${priceText}`,
+      `Valor publicado: ${priceText}`,
       "",
-      `Empresa: ${formData.company}`,
-      `Nombre: ${formData.name}`,
-      `WhatsApp: ${formData.phone}`,
+      `Empresa: ${formData.company.trim()}`,
+      `Nombre: ${formData.name.trim()}`,
+      `WhatsApp: ${formData.phone.trim()}`,
       "",
-      `Objetivo del proyecto: ${formData.objective}`,
+      `Objetivo del proyecto: ${formData.objective.trim()}`,
     ].join("\n");
 
     window.open(
@@ -176,7 +222,7 @@ export default function Pricing() {
   return (
     <>
       <section ref={sectionRef} id="planes" className={styles.pricingSection}>
-        <div className={styles.gridTexture} />
+        <div className={styles.gridTexture} aria-hidden="true" />
 
         <div className={styles.container}>
           <header className={styles.heading}>
@@ -189,8 +235,8 @@ export default function Pricing() {
             </p>
 
             <h2 data-pricing-reveal style={{ transitionDelay: "110ms" }}>
-              Una inversión clara para
-              <span> avanzar con tu empresa.</span>
+              Una solución clara para
+              <span> cada etapa de tu empresa.</span>
             </h2>
 
             <p
@@ -198,8 +244,9 @@ export default function Pricing() {
               data-pricing-reveal
               style={{ transitionDelay: "220ms" }}
             >
-              Cada plan está diseñado para ordenar tu presencia digital,
-              presentar mejor tus servicios y facilitar el contacto comercial.
+              Desde una landing page para comenzar hasta un sitio corporativo o
+              una tienda online. Elige la solución que mejor responde a tus
+              objetivos.
             </p>
           </header>
 
@@ -219,11 +266,13 @@ export default function Pricing() {
 
                 <div className={styles.cardHeader}>
                   <div>
-                    <p className={styles.planKicker}>DISEÑO WEB</p>
+                    <p className={styles.planKicker}>{plan.category}</p>
                     <h3>{plan.name}</h3>
                   </div>
 
-                  <span className={styles.planNumber}>0{index + 1}</span>
+                  <span className={styles.planNumber}>
+                    {String(index + 1).padStart(2, "0")}
+                  </span>
                 </div>
 
                 <p className={styles.description}>{plan.description}</p>
@@ -233,8 +282,11 @@ export default function Pricing() {
 
                   <div className={styles.price}>
                     {plan.from && <em>DESDE</em>}
+
                     <small>$</small>
+
                     <strong>{plan.price}</strong>
+
                     <b>+ IVA</b>
                   </div>
                 </div>
@@ -249,12 +301,16 @@ export default function Pricing() {
                   </ul>
                 </div>
 
+                {plan.note && <p className={styles.planNote}>{plan.note}</p>}
+
                 <button
                   type="button"
                   onClick={() => openModal(plan)}
                   className={styles.quoteButton}
+                  aria-label={`Cotizar ${plan.name}`}
                 >
                   COTIZAR ESTE PLAN
+
                   <Image
                     src="/flecha-horizontal.webp"
                     alt=""
@@ -266,12 +322,36 @@ export default function Pricing() {
               </article>
             ))}
           </div>
+
+          <p
+            className={styles.pricingNote}
+            data-pricing-reveal
+            style={{ transitionDelay: "920ms" }}
+          >
+            Los valores “desde” se determinan después de revisar el volumen de
+            contenido, las funcionalidades y las integraciones del proyecto.
+            Hosting, licencias, aplicaciones y servicios externos no están
+            incluidos, salvo que la cotización indique lo contrario.
+          </p>
         </div>
       </section>
 
       {modalOpen && selectedPlan && (
-        <div className={styles.modalBackdrop} role="dialog" aria-modal="true">
-          <div className={styles.modal}>
+        <div
+          className={styles.modalBackdrop}
+          role="presentation"
+          onMouseDown={(event) => {
+            if (event.target === event.currentTarget) {
+              closeModal();
+            }
+          }}
+        >
+          <div
+            className={styles.modal}
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="pricing-modal-title"
+          >
             <button
               type="button"
               className={styles.closeButton}
@@ -282,38 +362,48 @@ export default function Pricing() {
             </button>
 
             <p className={styles.modalEyebrow}>COTIZACIÓN PERSONALIZADA</p>
-            <h2>{selectedPlan.name}</h2>
+
+            <h2 id="pricing-modal-title">{selectedPlan.name}</h2>
 
             <p className={styles.modalPrice}>
-              {selectedPlan.from && "Desde "} ${selectedPlan.price}{" "}
+              {selectedPlan.from && "Desde "}${selectedPlan.price}{" "}
               <span>+ IVA</span>
             </p>
 
             <p className={styles.modalText}>
-              Completa estos datos y se abrirá WhatsApp con tu solicitud lista
-              para enviar.
+              Completa los siguientes datos y se abrirá WhatsApp con tu
+              solicitud preparada para enviar.
             </p>
 
             <div className={styles.form}>
               <input
+                type="text"
                 name="company"
                 value={formData.company}
                 onChange={updateField}
                 placeholder="Nombre de tu empresa o negocio *"
+                aria-label="Nombre de tu empresa o negocio"
+                autoComplete="organization"
               />
 
               <input
+                type="text"
                 name="name"
                 value={formData.name}
                 onChange={updateField}
                 placeholder="Tu nombre *"
+                aria-label="Tu nombre"
+                autoComplete="name"
               />
 
               <input
+                type="tel"
                 name="phone"
                 value={formData.phone}
                 onChange={updateField}
                 placeholder="WhatsApp *"
+                aria-label="Número de WhatsApp"
+                autoComplete="tel"
               />
 
               <textarea
@@ -321,7 +411,8 @@ export default function Pricing() {
                 value={formData.objective}
                 onChange={updateField}
                 rows={4}
-                placeholder="¿Qué objetivo principal tiene tu proyecto? *"
+                placeholder="Cuéntanos qué necesita tu empresa *"
+                aria-label="Objetivo o necesidad del proyecto"
               />
 
               <button
@@ -330,6 +421,7 @@ export default function Pricing() {
                 disabled={!canSend}
               >
                 ENVIAR POR WHATSAPP
+
                 <Image
                   src="/flecha-horizontal.webp"
                   alt=""
