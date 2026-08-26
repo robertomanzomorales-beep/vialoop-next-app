@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import CookieSettingsButton from "@/components/privacy/CookieSettingsButton";
 import styles from "./Footer.module.css";
 
 export default function Footer() {
@@ -15,7 +16,7 @@ export default function Footer() {
           <div className={styles.brandColumn}>
             <Image
               src="/logo-blanco-vialoop.webp"
-              alt="Vialoop"
+              alt="Vialoop Studio SpA"
               width={512}
               height={512}
               className={styles.logo}
@@ -23,13 +24,19 @@ export default function Footer() {
             />
 
             <p className={styles.description}>
-              Diseñamos sitios web y sistemas digitales para empresas
-              industriales, de servicios y negocios que buscan crecer y
-              proyectarse profesionalmente.
+              Diseñamos sitios web y sistemas digitales para
+              empresas industriales, de servicios y negocios
+              que buscan crecer y proyectarse
+              profesionalmente.
             </p>
 
             <p className={styles.coverage}>
-              Desde Calama y Antofagasta, con atención remota para todo Chile.
+              Desde Calama y Antofagasta, con atención remota
+              para empresas de todo Chile.
+            </p>
+
+            <p className={styles.companyData}>
+              Vialoop Studio SpA · RUT 78.455.385-K
             </p>
           </div>
 
@@ -50,7 +57,9 @@ export default function Footer() {
                 </div>
 
                 <div className={styles.contactContent}>
-                  <span className={styles.contactLabel}>Email</span>
+                  <span className={styles.contactLabel}>
+                    Email
+                  </span>
 
                   <a
                     href="mailto:contacto@vialoop.cl"
@@ -74,7 +83,9 @@ export default function Footer() {
                 </div>
 
                 <div className={styles.contactContent}>
-                  <span className={styles.contactLabel}>Teléfono</span>
+                  <span className={styles.contactLabel}>
+                    Teléfono y WhatsApp
+                  </span>
 
                   <a
                     href="tel:+56974330586"
@@ -117,30 +128,61 @@ export default function Footer() {
             </a>
 
             <p className={styles.socialText}>
-              Conoce nuestros proyectos, novedades y contenido para empresas.
+              Conoce nuestros proyectos, novedades y
+              contenido para empresas.
             </p>
           </div>
         </div>
 
         <div className={styles.bottomBar}>
           <p className={styles.copyright}>
-            © 2026 Vialoop Studio SpA · Diseño web y sistemas digitales.
+            © 2026 Vialoop Studio SpA · Diseño web y
+            sistemas digitales.
           </p>
 
-          <div className={styles.legalLinks}>
-            <Link href="/politicasdeuso" className={styles.legalLink}>
+          <nav
+            className={styles.legalLinks}
+            aria-label="Información legal y privacidad"
+          >
+            <Link
+              href="/politicasdeuso"
+              className={styles.legalLink}
+            >
               Políticas de Uso
             </Link>
 
-            <Link href="/politicasprivacidad" className={styles.legalLink}>
+            <Link
+              href="/politicasprivacidad"
+              className={styles.legalLink}
+            >
               Política de Privacidad
             </Link>
 
+            <Link
+              href="/politicadecookies"
+              className={styles.legalLink}
+            >
+              Política de Cookies
+            </Link>
+
+            <Link
+              href="/solicitud-datos"
+              className={styles.legalLink}
+            >
+              Ejercer derechos
+            </Link>
+
+            <CookieSettingsButton
+              className={styles.legalButton}
+            />
+
             <p className={styles.credit}>
               Diseñado y potenciado por{" "}
-              <span className={styles.creditBrand}>Vialoop.cl</span>
+              <span className={styles.creditBrand}>
+                Vialoop.cl
+              </span>
             </p>
-          </div>
+          </nav>
         </div>
       </div>
     </footer>

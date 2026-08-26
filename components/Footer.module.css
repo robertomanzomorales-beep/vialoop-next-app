@@ -1,11 +1,11 @@
 .footer {
   position: relative;
   width: 100%;
-  padding: 72px 32px 30px;
   overflow: hidden;
-  color: #f4f5f6;
-  background: #181a1e;
+  padding: 72px 32px 30px;
   border-top: 1px solid rgba(255, 255, 255, 0.09);
+  background: #181a1e;
+  color: #f4f5f6;
 }
 
 .container {
@@ -55,6 +55,18 @@
   line-height: 1.7;
 }
 
+.companyData {
+  width: fit-content;
+  margin: 19px 0 0;
+  padding-top: 17px;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  color: rgba(226, 228, 231, 0.65);
+  font-size: 12px;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  line-height: 1.6;
+}
+
 .columnTitle {
   margin: 0 0 25px;
   color: rgba(226, 228, 231, 0.66);
@@ -76,8 +88,8 @@
   display: flex;
   gap: 15px;
   align-items: center;
-  padding: 0 0 18px;
   margin-bottom: 18px;
+  padding: 0 0 18px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
@@ -127,6 +139,15 @@
   color: #ffffff;
 }
 
+.contactLink:focus-visible,
+.scheduleButton:focus-visible,
+.instagramButton:focus-visible,
+.legalLink:focus-visible,
+.legalButton:focus-visible {
+  outline: 3px solid rgba(102, 173, 255, 0.38);
+  outline-offset: 4px;
+}
+
 .scheduleButton {
   display: inline-flex;
   min-height: 42px;
@@ -136,8 +157,8 @@
   padding: 0 19px;
   border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: 999px;
-  color: rgba(244, 245, 246, 0.86);
   background: rgba(255, 255, 255, 0.045);
+  color: rgba(244, 245, 246, 0.86);
   font-size: 11px;
   font-weight: 800;
   letter-spacing: 0.12em;
@@ -151,9 +172,9 @@
 }
 
 .scheduleButton:hover {
-  color: #181a1e;
   border-color: #ffffff;
   background: #ffffff;
+  color: #181a1e;
   transform: translateY(-2px);
 }
 
@@ -195,7 +216,7 @@
 
 .bottomBar {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 30px;
   margin-top: 58px;
@@ -209,6 +230,8 @@
 }
 
 .copyright {
+  max-width: 330px;
+  flex: 0 0 auto;
   color: rgba(207, 210, 215, 0.56);
   font-size: 12px;
   line-height: 1.6;
@@ -219,18 +242,29 @@
   flex-wrap: wrap;
   align-items: center;
   justify-content: flex-end;
-  gap: 20px;
+  gap: 10px 20px;
 }
 
-.legalLink {
+.legalLink,
+.legalButton {
   color: rgba(226, 228, 231, 0.7);
+  font-family: inherit;
   font-size: 12px;
   line-height: 1.6;
   text-decoration: none;
   transition: color 180ms ease;
 }
 
-.legalLink:hover {
+.legalButton {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+}
+
+.legalLink:hover,
+.legalButton:hover {
   color: #ffffff;
 }
 
@@ -244,6 +278,18 @@
 .creditBrand {
   color: rgba(244, 245, 246, 0.9);
   font-weight: 700;
+}
+
+@media (max-width: 1100px) {
+  .bottomBar {
+    align-items: flex-start;
+    flex-direction: column;
+    gap: 17px;
+  }
+
+  .legalLinks {
+    justify-content: flex-start;
+  }
 }
 
 @media (max-width: 1024px) {
@@ -262,16 +308,6 @@
 
   .socialText {
     max-width: 420px;
-  }
-
-  .bottomBar {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 15px;
-  }
-
-  .legalLinks {
-    justify-content: flex-start;
   }
 }
 
@@ -305,6 +341,10 @@
     font-size: 13px;
   }
 
+  .companyData {
+    font-size: 11px;
+  }
+
   .columnTitle {
     margin-bottom: 20px;
   }
@@ -318,14 +358,25 @@
     padding-top: 22px;
   }
 
+  .copyright {
+    max-width: none;
+  }
+
   .legalLinks {
-    align-items: flex-start;
-    flex-direction: column;
-    gap: 10px;
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr 1fr;
+    align-items: start;
+    gap: 11px 18px;
+  }
+
+  .credit {
+    grid-column: 1 / -1;
+    margin-top: 6px;
   }
 }
 
-@media (max-width: 420px) {
+@media (max-width: 460px) {
   .footer {
     padding-right: 18px;
     padding-left: 18px;
@@ -337,5 +388,28 @@
 
   .scheduleButton {
     width: 100%;
+  }
+
+  .legalLinks {
+    grid-template-columns: 1fr;
+  }
+
+  .credit {
+    grid-column: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .contactLink,
+  .scheduleButton,
+  .instagramButton,
+  .legalLink,
+  .legalButton {
+    transition: none;
+  }
+
+  .scheduleButton:hover,
+  .instagramButton:hover {
+    transform: none;
   }
 }

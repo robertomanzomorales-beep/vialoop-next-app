@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import MainMenu from "@/components/MainMenu";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
+import GoogleTagManager from "@/components/analytics/GoogleTagManager";
+import CookieConsent from "@/components/privacy/CookieConsent";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -15,13 +17,22 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Vialoop.cl",
+  metadataBase: new URL("https://vialoop.cl"),
+
+  title: {
+    default: "Vialoop.cl",
+    template: "%s | Vialoop",
+  },
+
   description:
-    "Diseño web y sistemas digitales para empresas de Calama y Antofagasta.",
+    "Diseño web y sistemas digitales para empresas de Calama, Antofagasta y todo Chile.",
+
   icons: {
     icon: "/vialoop-logo-original-optimizado-e1780251299821.webp",
-    shortcut: "/vialoop-logo-original-optimizado-e1780251299821.webp",
-    apple: "/vialoop-logo-original-optimizado-e1780251299821.webp",
+    shortcut:
+      "/vialoop-logo-original-optimizado-e1780251299821.webp",
+    apple:
+      "/vialoop-logo-original-optimizado-e1780251299821.webp",
   },
 };
 
@@ -41,6 +52,10 @@ export default function RootLayout({
         {children}
 
         <FloatingWhatsApp />
+
+        <GoogleTagManager />
+
+        <CookieConsent />
       </body>
     </html>
   );
