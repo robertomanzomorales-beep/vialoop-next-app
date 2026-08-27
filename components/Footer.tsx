@@ -36,7 +36,7 @@ export default function Footer() {
             </p>
 
             <p className={styles.companyData}>
-              Vialoop Studio SpA · RUT 78.455.385-K
+              Vialoop Studio SpA
             </p>
           </div>
 
@@ -62,10 +62,10 @@ export default function Footer() {
                   </span>
 
                   <a
-                    href="mailto:contacto@vialoop.cl"
+                    href="mailto:dloayza@vialoop.cl"
                     className={styles.contactLink}
                   >
-                    contacto@vialoop.cl
+                    dloayza@vialoop.cl
                   </a>
                 </div>
               </li>
