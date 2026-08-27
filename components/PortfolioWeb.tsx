@@ -34,8 +34,10 @@ type Plan = {
   id: string;
   name: string;
   price: string;
+  pricePrefix?: string;
   description: string;
   features: string[];
+  note?: string;
 };
 
 type RevealStyle = CSSProperties & {
@@ -80,37 +82,69 @@ const webPlans: Plan[] = [
     id: "emprendedor",
     name: "Plan Emprendedor",
     price: "$280.000 + IVA",
-    description: "Ideal para iniciar con presencia web profesional.",
+    description:
+      "Una landing page de una sola página para presentar tu empresa, destacar una oferta principal y generar contactos.",
     features: [
-      "One-page hasta 6 secciones",
-      "1 formulario + botón WhatsApp",
-      "Diseño básico profesional",
-      "Optimización WebP + caché",
+      "Landing page de una sola página",
+      "Contenido organizado en hasta 6 secciones",
+      "Hasta 15 imágenes optimizadas",
+      "Formulario de contacto + botón WhatsApp",
+      "Diseño profesional adaptable a móviles",
+      "SEO técnico inicial + optimización de velocidad",
+      "Publicación + 1 ronda de cambios",
     ],
   },
   {
     id: "crece",
     name: "Plan Crece",
-    price: "$420.000 + IVA",
-    description: "Para empresas que necesitan más estructura y conversión.",
+    price: "$390.000 + IVA",
+    description:
+      "Un sitio web empresarial con mayor contenido y navegación para presentar servicios, experiencia y respaldo comercial.",
     features: [
-      "Hasta 3 páginas",
+      "Sitio web empresarial con navegación completa",
+      "Contenido ampliado para empresa y servicios",
+      "Hasta 30 imágenes optimizadas",
       "2 formularios: contacto + cotización",
-      "Diseño a medida + guía de estilo",
-      "Optimización de rendimiento avanzada",
+      "Diseño personalizado + línea visual",
+      "SEO técnico y local + medición básica",
+      "Publicación + 2 rondas de cambios",
     ],
   },
   {
     id: "empresa",
     name: "Plan Empresa",
-    price: "$790.000 + IVA",
-    description: "Para empresas que necesitan una web robusta y escalable.",
+    price: "$620.000 + IVA",
+    pricePrefix: "Desde",
+    description:
+      "Una solución corporativa avanzada para empresas con múltiples servicios, áreas, públicos o requerimientos de integración.",
     features: [
-      "Hasta 6 páginas",
-      "3 formularios + Calendly",
-      "UX/UI avanzada + diseño premium",
-      "Performance y seguridad reforzada",
+      "Arquitectura corporativa para múltiples áreas",
+      "Contenido avanzado y hasta 50 imágenes optimizadas",
+      "Formularios personalizados + agendamiento",
+      "UX/UI avanzada + diseño de mayor profundidad",
+      "Gestión de contenido e integraciones según alcance",
+      "Rendimiento, seguridad y SEO avanzados",
+      "Capacitación + 3 rondas de cambios",
     ],
+  },
+  {
+    id: "ecommerce",
+    name: "Plan E-commerce",
+    price: "$790.000 + IVA",
+    pricePrefix: "Desde",
+    description:
+      "Una tienda online personalizada y autoadministrable para vender productos, gestionar pedidos y recibir pagos.",
+    features: [
+      "Tienda online desarrollada en Next.js + React",
+      "Panel para productos, stock, pedidos y clientes",
+      "Carrito de compra + integración inicial con Flow",
+      "Carga inicial de hasta 20 productos",
+      "Hasta 40 imágenes de productos optimizadas",
+      "Configuración básica de despacho o retiro",
+      "SEO técnico, capacitación + 2 rondas de cambios",
+    ],
+    note:
+      "La infraestructura administrada y las comisiones del medio de pago se contratan por separado.",
   },
 ];
 
@@ -1004,6 +1038,11 @@ export default function PortfolioWeb() {
                           </div>
 
                           <span className="shrink-0 rounded-full bg-[#07142b] px-3 py-1.5 text-[11px] font-black text-white">
+                            {plan.pricePrefix && (
+                              <span className="mr-1 text-[9px] uppercase tracking-[0.08em] text-white/65">
+                                {plan.pricePrefix}
+                              </span>
+                            )}
                             {plan.price}
                           </span>
                         </div>
@@ -1020,6 +1059,12 @@ export default function PortfolioWeb() {
                             </li>
                           ))}
                         </ul>
+
+                        {plan.note && (
+                          <p className="mt-4 rounded-xl border border-blue-100 bg-blue-50 px-3 py-2.5 text-[11px] leading-relaxed text-slate-500">
+                            {plan.note}
+                          </p>
+                        )}
                       </button>
                     ))}
                   </div>
