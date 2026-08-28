@@ -211,10 +211,7 @@ export default function MainMenu() {
 
   function openModal() {
     setMobileOpen(false);
-    setModalOpen(true);
-    setStep(1);
-    setSelectedService(null);
-    setSelectedPlan(null);
+    window.location.href = "/contacto";
   }
 
   function closeModal() {
