@@ -300,11 +300,15 @@ function emailFrame(title: string, eyebrow: string, content: string, footer: str
     </head>
     <body style="margin:0;padding:30px 12px;background:#eef3f8;font-family:Arial,Helvetica,sans-serif;color:#172943;">
       <div style="max-width:720px;margin:0 auto;border:1px solid #d7e0ea;border-radius:14px;background:#ffffff;overflow:hidden;box-shadow:0 20px 60px rgba(7,22,47,.08);">
-        <div style="padding:31px 34px;background:linear-gradient(135deg,#07162f,#123c6a);color:#ffffff;">
-          <p style="margin:0 0 24px;color:#ffffff;font-size:16px;font-weight:800;letter-spacing:2.4px;line-height:1;">VIALOOP STUDIO</p>
-          <p style="margin:0 0 9px;color:#86bfff;font-size:10px;font-weight:700;letter-spacing:1.8px;">${eyebrow}</p>
-          <h1 style="margin:0;font-size:27px;line-height:1.18;letter-spacing:-.5px;">${title}</h1>
-        </div>
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#0b2b50" style="width:100%;border-collapse:collapse;background-color:#0b2b50;color:#ffffff;">
+          <tr>
+            <td bgcolor="#0b2b50" style="padding:31px 34px;background-color:#0b2b50;color:#ffffff;">
+              <p style="margin:0 0 24px;color:#ffffff;font-size:16px;font-weight:800;letter-spacing:2.4px;line-height:1;">VIALOOP STUDIO</p>
+              <p style="margin:0 0 9px;color:#86bfff;font-size:10px;font-weight:700;letter-spacing:1.8px;line-height:1.4;">${eyebrow}</p>
+              <h1 style="margin:0;color:#ffffff;font-size:27px;font-weight:700;line-height:1.18;letter-spacing:-.5px;">${title}</h1>
+            </td>
+          </tr>
+        </table>
         <div style="padding:34px;">${content}</div>
         <div style="padding:19px 34px;border-top:1px solid #e0e6ed;background:#f7f9fb;color:#68788b;font-size:10px;line-height:1.65;">${footer}</div>
       </div>
