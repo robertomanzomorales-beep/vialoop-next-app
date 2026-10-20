@@ -176,6 +176,7 @@
   font-weight: 800;
   letter-spacing: 0.12em;
   cursor: pointer;
+  text-decoration: none;
   box-shadow: 0 15px 34px rgba(32, 106, 234, 0.25);
   transition:
     background 280ms ease,
@@ -492,263 +493,6 @@
   filter: blur(0);
 }
 
-.modalBackdrop {
-  position: fixed;
-  z-index: 500;
-  inset: 0;
-  display: grid;
-  place-items: center;
-  overflow-y: auto;
-  padding: 24px;
-  background: rgba(2, 8, 20, 0.7);
-  backdrop-filter: blur(9px);
-  animation: backdropIn 300ms ease both;
-}
-
-.modal {
-  position: relative;
-  display: grid;
-  width: min(100%, 900px);
-  max-height: 92vh;
-  overflow-y: auto;
-  grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.08fr);
-  border-radius: 24px;
-  background: #ffffff;
-  box-shadow: 0 36px 110px rgba(1, 8, 21, 0.4);
-  animation: modalIn 550ms cubic-bezier(0.16, 1, 0.3, 1) both;
-}
-
-.closeButton {
-  position: absolute;
-  z-index: 5;
-  top: 15px;
-  right: 15px;
-  display: grid;
-  width: 38px;
-  height: 38px;
-  place-items: center;
-  border: 0;
-  border-radius: 50%;
-  background: #eef2f7;
-  color: #536174;
-  font-size: 22px;
-  cursor: pointer;
-  transition:
-    background 240ms ease,
-    color 240ms ease,
-    transform 240ms ease;
-}
-
-.closeButton:hover {
-  background: #e1e8f2;
-  color: #07142b;
-  transform: rotate(5deg);
-}
-
-.modalInformation {
-  position: relative;
-  overflow: hidden;
-  padding: 48px 38px 40px;
-  border-radius: 23px 0 0 23px;
-  background:
-    radial-gradient(
-      circle at 10% 90%,
-      rgba(47, 127, 255, 0.18),
-      transparent 35%
-    ),
-    linear-gradient(145deg, #06152d, #091e3c);
-  color: #ffffff;
-}
-
-.modalInformation::before {
-  position: absolute;
-  right: -90px;
-  bottom: -90px;
-  width: 240px;
-  height: 240px;
-  border: 1px solid rgba(102, 166, 255, 0.17);
-  border-radius: 50%;
-  content: "";
-}
-
-.modalEyebrow,
-.formEyebrow {
-  margin: 0;
-  font-size: 8px;
-  font-weight: 800;
-  letter-spacing: 0.19em;
-}
-
-.modalEyebrow {
-  color: #72b1ff;
-}
-
-.modalInformation h2 {
-  margin: 16px 0 0;
-  color: #ffffff;
-  font-size: var(--font-section-title);
-  font-weight: 800;
-  letter-spacing: -0.058em;
-  line-height: 0.98;
-}
-
-.modalIntroduction {
-  margin: 19px 0 0;
-  color: rgba(221, 232, 248, 0.7);
-  font-size: 13px;
-  line-height: 1.7;
-}
-
-.modalFeatures {
-  display: grid;
-  gap: 12px;
-  margin: 26px 0 0;
-  padding: 0;
-  list-style: none;
-}
-
-.modalFeatures li {
-  position: relative;
-  padding-left: 17px;
-  color: rgba(233, 240, 250, 0.8);
-  font-size: 11px;
-  line-height: 1.45;
-}
-
-.modalFeatures li::before {
-  position: absolute;
-  top: 6px;
-  left: 0;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: #559eff;
-  content: "";
-}
-
-.modalNote {
-  position: relative;
-  display: grid;
-  grid-template-columns: 32px 1fr;
-  gap: 12px;
-  margin-top: 30px;
-  padding-top: 20px;
-  border-top: 1px solid rgba(198, 219, 246, 0.12);
-}
-
-.modalNote span {
-  color: #5ca4ff;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-}
-
-.modalNote p {
-  margin: 0;
-  color: rgba(213, 226, 243, 0.55);
-  font-size: 10px;
-  line-height: 1.55;
-}
-
-.modalFormArea {
-  padding: 48px 38px 38px;
-  background: #ffffff;
-}
-
-.formEyebrow {
-  color: #2563eb;
-}
-
-.form {
-  display: grid;
-  gap: 14px;
-  margin-top: 20px;
-}
-
-.form label {
-  display: grid;
-  gap: 7px;
-}
-
-.form label > span {
-  color: #1d293b;
-  font-size: 10px;
-  font-weight: 750;
-}
-
-.form input,
-.form textarea {
-  width: 100%;
-  border: 1px solid #d9e2ee;
-  border-radius: 10px;
-  padding: 12px 13px;
-  background: #fbfdff;
-  color: #07142b;
-  font: inherit;
-  font-size: 12px;
-  outline: none;
-  transition:
-    border-color 240ms ease,
-    box-shadow 240ms ease,
-    background 240ms ease;
-}
-
-.form input {
-  min-height: 44px;
-}
-
-.form textarea {
-  resize: vertical;
-  min-height: 105px;
-}
-
-.form input:focus,
-.form textarea:focus {
-  border-color: #347df1;
-  background: #ffffff;
-  box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.09);
-}
-
-.sendButton {
-  display: flex;
-  min-height: 50px;
-  align-items: center;
-  justify-content: center;
-  margin-top: 4px;
-  padding: 0 18px;
-  border: 0;
-  border-radius: 10px;
-  background: #07172f;
-  color: #ffffff;
-  font-family: inherit;
-  font-size: 9px;
-  font-weight: 800;
-  letter-spacing: 0.13em;
-  cursor: pointer;
-  transition:
-    background 260ms ease,
-    transform 280ms ease,
-    box-shadow 280ms ease;
-}
-
-.sendButton:hover:not(:disabled) {
-  background: #2563eb;
-  box-shadow: 0 16px 34px rgba(37, 99, 235, 0.22);
-  transform: translateY(-2px);
-}
-
-.sendButton:disabled {
-  background: #aab5c5;
-  cursor: not-allowed;
-}
-
-.formDisclaimer {
-  margin: -3px 0 0;
-  color: #94a0b1;
-  font-size: 9px;
-  text-align: center;
-}
-
 @keyframes statusPulse {
   0%,
   100% {
@@ -757,28 +501,6 @@
 
   50% {
     box-shadow: 0 0 0 9px rgba(55, 215, 143, 0);
-  }
-}
-
-@keyframes backdropIn {
-  from {
-    opacity: 0;
-  }
-
-  to {
-    opacity: 1;
-  }
-}
-
-@keyframes modalIn {
-  from {
-    opacity: 0;
-    transform: translate3d(0, 42px, 0) scale(0.96);
-  }
-
-  to {
-    opacity: 1;
-    transform: translate3d(0, 0, 0) scale(1);
   }
 }
 
@@ -889,31 +611,6 @@
   .cardReports {
     display: none;
   }
-
-  .modalBackdrop {
-    align-items: start;
-    padding: 14px;
-  }
-
-  .modal {
-    max-height: none;
-    grid-template-columns: 1fr;
-    border-radius: 20px;
-  }
-
-  .modalInformation {
-    padding: 45px 22px 31px;
-    border-radius: 19px 19px 0 0;
-  }
-
-  .modalFormArea {
-    padding: 31px 22px 25px;
-  }
-
-  .closeButton {
-    top: 12px;
-    right: 12px;
-  }
 }
 
 @media (max-width: 440px) {
@@ -949,11 +646,6 @@
   }
 
   .statusPulse {
-    animation: none;
-  }
-
-  .modalBackdrop,
-  .modal {
     animation: none;
   }
 

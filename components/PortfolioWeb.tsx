@@ -34,8 +34,8 @@ const portfolioItems: PortfolioItem[] = [
   {
     name: "RyF Group · R&F Limitada",
     type: "Servicios mineros e industriales",
-    plan: "Web corporativa",
-    category: "empresa",
+    plan: "Plan Crece",
+    category: "crece",
     description: "Sitio corporativo para presentar servicios técnicos, cobertura operativa y oportunidades de trabajo en minería e industria.",
     href: "https://ryfgroup.cl/",
     image: "/portfolio/ryf-group.webp",
@@ -43,8 +43,8 @@ const portfolioItems: PortfolioItem[] = [
   {
     name: "Transportes San Andrés",
     type: "Transporte de pasajeros",
-    plan: "Web corporativa",
-    category: "empresa",
+    plan: "Plan Crece",
+    category: "crece",
     description: "Sitio web para transporte de pasajeros, servicios a empresas, traslados turísticos y solicitudes de cotización desde Calama.",
     href: "https://www.transportesanandres.cl/",
     image: "/portfolio/transportes-san-andres.webp",
