@@ -5,11 +5,11 @@
 .hero .eyebrow { color: #b3c9e5; }
 .hero .eyebrow span { color: #d88345; }
 .heroGrid { display: grid; grid-template-columns: 1.2fr .8fr; align-items: center; gap: 64px; padding: 24px 0 64px; }
-.hero h1 { font-size: clamp(36px, 3.8vw, 57px); line-height: 1.1; letter-spacing: -.055em; margin: 0; font-weight: 750; }
+.hero h1 { font-size: var(--font-page-title); line-height: 1.1; letter-spacing: -.035em; margin: 0; font-weight: 650; }
 .hero h1 em { color: #9eb9df; font-style: normal; }
 .heroLead { color: #bac8da; font-size: 15px; line-height: 1.9; max-width: 520px; margin: 27px 0 0; }
 .actions { display: flex; flex-wrap: wrap; gap: 15px; align-items: center; margin-top: 31px; }
-.primaryButton { display: inline-flex; justify-content: center; align-items: center; gap: 22px; min-height: 49px; padding: 14px 23px; background: #2464d6; color: #fff; border: 1px solid #3478eb; border-radius: 999px; font-size: 12px; font-weight: 650; line-height: 1.5; text-decoration: none; transition: background 200ms, transform 200ms; }
+.primaryButton { display: inline-flex; justify-content: center; align-items: center; gap: 22px; min-height: 49px; padding: 14px 23px; background: #2464d6; color: #fff; border: 1px solid #3478eb; border-radius: 7px; font-size: 12px; font-weight: 650; line-height: 1.5; text-decoration: none; transition: background 200ms, transform 200ms; }
 .primaryButton:hover { background: #184fba; transform: translateY(-2px); }
 .primaryButton span { font-size: 18px; line-height: 1; }
 .secondaryButton { color: #cedaeb; padding: 14px 3px; font-size: 12px; font-weight: 600; text-decoration: none; }
@@ -34,7 +34,7 @@
 .concept > p { position: absolute; bottom: -16px; margin: 0; color: #8aa0ba; font-size: 10px; letter-spacing: .03em; }
 .solutions { padding: 96px 0; background: #f6f8fb; scroll-margin-top: 110px; }
 .sectionHeading { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: end; margin-bottom: 44px; }
-.sectionHeading h2, .method h2, .contact h2 { font-size: clamp(30px, 3.2vw, 44px); line-height: 1.14; letter-spacing: -.05em; font-weight: 700; margin: 0; }
+.sectionHeading h2, .method h2, .contact h2 { font-size: var(--font-section-title); line-height: 1.14; letter-spacing: -.03em; font-weight: 700; margin: 0; }
 .sectionHeading h2 span, .method h2 span, .contact h2 span { color: #71829a; }
 .sectionHeading > p { font-size: 14px; line-height: 1.9; color: #5c6c81; margin: 0; max-width: 480px; }
 .caseList { display: grid; gap: 32px; }
@@ -53,7 +53,7 @@
 .focus { grid-column:1 / -1; margin-top:20px; display:grid; grid-template-columns:180px 1fr; align-items:baseline; gap:20px; }
 .focus p { margin-top:0; }
 .caseCategory { font-size: 10px; font-weight: 600; color: #6d7b8d; margin: 0 0 12px; }
-.caseContent h3 { font-size: 30px; font-weight: 750; letter-spacing: -.05em; line-height: 1.1; margin: 0 0 17px; }
+.caseContent h3 { font-size: 23px; font-weight: 650; letter-spacing: -.03em; line-height: 1.1; margin: 0 0 17px; }
 .caseTitle { font-size: 18px; color: #253c5a; letter-spacing: -.02em; line-height: 1.45; font-weight: 600; margin: 0 0 15px; }
 .caseDescription { margin: 0; font-size: 13px; line-height: 1.9; color: #66768b; }
 .moduleList { display: grid; grid-template-columns: 1fr 1fr; gap: 14px 22px; list-style: none; padding: 22px 0; margin: 21px 0 0; border-top: 1px solid #e8edf3; }
@@ -96,7 +96,7 @@
  .container { width: calc(100% - 44px); }
  .hero { padding-top: 38px; }
  .heroGrid { grid-template-columns: 1fr; gap: 28px; padding: 10px 0 40px; }
- .hero h1 { font-size: clamp(32px,8.5vw,44px); }
+ .hero h1 { font-size: var(--font-page-title); }
  .heroLead { margin-top: 22px; font-size: 14px; }
  .concept { min-height: 290px; max-width: 350px; margin: 0 auto; }
  .conceptRing { width: 240px; height: 240px; }
@@ -117,7 +117,7 @@
  .caseBrand { gap:15px; }
  .caseLogo { width:92px; }
  .caseBrand h3 { font-size:22px; }
- .caseContent h3 { font-size: 28px; }
+ .caseContent h3 { font-size: 22px; }
  .caseTitle { font-size: 17px; }
  .capabilityGrid { gap: 30px 22px; }
  .capability h3 { font-size: 15px; }
@@ -126,3 +126,6 @@
  .contactInner { align-items: flex-start; flex-direction: column; gap: 28px; }
 }
 @media(prefers-reduced-motion:reduce) { .primaryButton { transition: none; } .primaryButton:hover { transform: none; } }
+
+.moduleList li::before { content:""; flex:0 0 3px; width:3px; height:3px; margin-top:7px; border-radius:50%; background:#7c98ba; }
+.caseWebsite { display:inline-block; color:#2d66ab; font-size:12px; font-weight:500; margin-top:12px; text-decoration:none; border-bottom:1px solid #2d66ab50; padding-bottom:3px; transition:color 220ms,border-color 220ms; }.caseWebsite:hover { color:#174d8e; border-color:currentColor; }

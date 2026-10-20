@@ -102,14 +102,14 @@ export default function Hero() {
                   href="/portafolio-web"
                   className={styles.primaryButton}
                 >
-                  DISEÑO WEB
+                  Diseño web
                 </Link>
 
                 <Link href="/software-a-medida" className={styles.secondaryButton}>
-                  SOFTWARE A MEDIDA
+                  Software a medida
                 </Link>
                 <Link href="/contacto" className={styles.contactLink}>
-                  Cuéntanos tu proyecto <span aria-hidden="true">↗</span>
+                  Cuéntanos tu proyecto
                 </Link>
               </div>
             </div>

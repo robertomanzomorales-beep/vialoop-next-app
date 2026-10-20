@@ -201,7 +201,7 @@ export default function FAQPage() {
               }
 
               .faq-title {
-                font-size: 46px !important;
+                font-size: var(--font-page-title) !important;
               }
 
               .faq-summary {
@@ -255,10 +255,10 @@ export default function FAQPage() {
               style={{
                 margin: 0,
                 maxWidth: 680,
-                fontSize: "clamp(46px, 6vw, 78px)",
-                lineHeight: ".9",
-                letterSpacing: "-.08em",
-                fontWeight: 950,
+                fontSize: "var(--font-page-title)",
+                lineHeight: "1.15",
+                letterSpacing: "-.035em",
+                fontWeight: 650,
                 color: "#ffffff",
               }}
             >

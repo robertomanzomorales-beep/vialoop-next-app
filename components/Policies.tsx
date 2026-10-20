@@ -325,7 +325,7 @@ export default function Policies() {
             Condiciones generales
           </span>
 
-          <h1 className="text-[clamp(34px,4vw,52px)] font-black leading-tight tracking-[-0.055em] text-slate-950">
+          <h1 className="text-[length:var(--font-page-title)] font-semibold leading-tight tracking-[-0.055em] text-slate-950">
             Políticas de Vialoop
           </h1>
 

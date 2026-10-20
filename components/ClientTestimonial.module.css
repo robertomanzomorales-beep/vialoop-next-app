@@ -160,10 +160,10 @@
   max-width: 575px;
   margin: 0;
   color: #081d40;
-  font-size: clamp(38px, 4vw, 53px);
-  font-weight: 760;
-  line-height: 0.98;
-  letter-spacing: -0.058em;
+  font-size: var(--font-section-title);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.03em;
   text-wrap: balance;
   opacity: 0;
   transform: translate3d(0, 112px, 0);
@@ -302,7 +302,7 @@
   }
 
   .content h2 {
-    font-size: clamp(35px, 5vw, 47px);
+    font-size: var(--font-section-title);
   }
 
   .testimonial {
@@ -338,7 +338,7 @@
 
   .content h2 {
     max-width: 540px;
-    font-size: clamp(35px, 9.2vw, 46px);
+    font-size: var(--font-section-title);
   }
 
   .testimonial {
@@ -369,7 +369,7 @@
   }
 
   .content h2 {
-    font-size: 34px;
+    font-size: var(--font-section-title);
     letter-spacing: -0.047em;
   }
 

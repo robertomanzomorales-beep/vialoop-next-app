@@ -9,7 +9,7 @@ import styles from "./page.module.css";
 
 export const metadata: Metadata = {
   title: "Software y sistemas a medida para empresas",
-  description: "Desarrollo de software para conectar procesos, documentos y equipos de trabajo. Conoce las soluciones de Vialoop para RERCHAR y GM Especialistas.",
+  description: "Desarrollo de software para conectar procesos, documentos y equipos de trabajo. Conoce sistemas de gestión, reservas en línea y pagos integrados con Flow.",
   alternates: { canonical: "/software-a-medida" },
   openGraph: {
     title: "Software que se adapta a tu empresa | Vialoop",
@@ -39,8 +39,8 @@ export default function SoftwarePage() {
                 <h1 id="software-title">La forma en que trabajas.<br /><em>Convertida en software.</em></h1>
                 <p className={styles.heroLead}>Diseñamos sistemas alrededor de los procesos de tu empresa. Para conectar a las personas, ordenar la información y dar continuidad a cada tarea.</p>
                 <div className={styles.actions}>
-                  <Link href="/contacto?servicio=sistema" className={styles.primaryButton}>Conversemos sobre tu sistema <span aria-hidden="true">↗</span></Link>
-                  <Link href="#soluciones" className={styles.secondaryButton}>Conocer las soluciones <span aria-hidden="true">↓</span></Link>
+                  <Link href="/contacto?servicio=sistema" className={styles.primaryButton}>Conversemos sobre tu sistema </Link>
+                  <Link href="#soluciones" className={styles.secondaryButton}>Conocer las soluciones </Link>
                 </div>
               </Reveal>
               <Reveal delay={180}><div className={styles.concept} aria-hidden="true">
@@ -64,21 +64,21 @@ export default function SoftwarePage() {
             </Reveal>
 
             <div className={styles.caseList}>
-              {softwareProjects.map((project, index) => (
+              {softwareProjects.map((project) => (
                 <Reveal key={project.id}>
-                  <article id={project.id} className={`${styles.case} ${index === 1 ? styles.gmCase : ""}`} aria-labelledby={`${project.id}-title`}>
-                    <div className={styles.systemPreview}>
-                      <SoftwareMockup variant={index === 0 ? "operations" : "laboratory"} />
-                    </div>
+                  <article id={project.id} className={styles.case} aria-labelledby={`${project.id}-title`}>
                     <div className={styles.caseContent}>
                       <div className={styles.caseBrand}>
-                        <Image className={index === 1 ? styles.caseLogoGm : styles.caseLogo} src={project.logo} alt={`Logotipo de ${project.name}`} width={project.logoWidth} height={project.logoHeight} sizes={index === 1 ? "48px" : "115px"} />
+                        <Image className={project.variant !== "operations" ? styles.caseLogoGm : styles.caseLogo} src={project.logo} alt={`Logotipo de ${project.name}`} width={project.logoWidth} height={project.logoHeight} sizes={project.variant !== "operations" ? "48px" : "115px"} />
                         <div><p className={styles.caseCategory}>{project.category}</p><h3 id={`${project.id}-title`}>{project.name}</h3></div>
                       </div>
                       <p className={styles.caseTitle}>{project.title}</p>
                       <p className={styles.caseDescription}>{project.description}</p>
-                      <ul className={styles.moduleList}>{project.capabilities.map((item) => <li key={item}><span aria-hidden="true">↗</span>{item}</li>)}</ul>
-                      <div className={styles.focus}><span>ENFOQUE DEL SISTEMA</span><p>{project.focus}</p></div>
+                      <ul className={styles.moduleList}>{project.capabilities.map((item) => <li key={item}>{item}</li>)}</ul>
+                      <div className={styles.focus}><span>ENFOQUE DEL SISTEMA</span><div><p>{project.focus}</p>{project.website && <a href={project.website} className={styles.caseWebsite} target="_blank" rel="noopener noreferrer">Visitar sitio web</a>}</div></div>
+                    </div>
+                    <div className={styles.systemPreview}>
+                      <SoftwareMockup variant={project.variant} />
                     </div>
                   </article>
                 </Reveal>
@@ -116,7 +116,7 @@ export default function SoftwarePage() {
         <section className={styles.contact} aria-labelledby="software-contact-title">
           <Reveal className={`${styles.container} ${styles.contactInner}`}>
             <div><p className={styles.eyebrow}>HABLEMOS DE TU OPERACIÓN</p><h2 id="software-contact-title">¿Qué proceso necesitas<br /><span>ordenar o simplificar?</span></h2><p>Cuéntanos cómo lo resuelven hoy y qué les gustaría mejorar.</p></div>
-            <Link href="/contacto?servicio=sistema" className={styles.primaryButton}>Cuéntanos tu proyecto <span aria-hidden="true">↗</span></Link>
+            <Link href="/contacto?servicio=sistema" className={styles.primaryButton}>Cuéntanos tu proyecto </Link>
           </Reveal>
         </section>
       </main>

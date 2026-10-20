@@ -2,7 +2,7 @@
   position: relative;
   isolation: isolate;
   overflow: hidden;
-  padding: 116px 24px;
+  padding: 88px 24px;
   color: #ffffff;
   background:
     radial-gradient(
@@ -72,10 +72,10 @@
   max-width: 860px;
   margin: 18px 0 0;
   color: #ffffff;
-  font-size: clamp(35px, 3.65vw, 57px);
-  font-weight: 800;
-  letter-spacing: -0.06em;
-  line-height: 1.03;
+  font-size: var(--font-section-title);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1.2;
 }
 
 .heading span {
@@ -189,7 +189,7 @@
   gap: 1px;
   margin: 30px 0 0;
   color: #ffffff;
-  font-size: 24px;
+  font-size: 20px;
   font-weight: 800;
   letter-spacing: -0.052em;
   line-height: 1.02;
@@ -276,7 +276,7 @@
 
   .heading {
     margin-top: 16px;
-    font-size: clamp(34px, 10vw, 46px);
+    font-size: var(--font-section-title);
   }
 
   .introText {
@@ -308,3 +308,5 @@
 .serviceLink { display: inline-flex; align-items: center; gap: 14px; margin: 20px 0 6px; color: #a8c9ff; font-size: 12px; font-weight: 650; text-decoration: none; }
 .serviceLink:hover { color: #fff; }
 .serviceLink:focus-visible { outline: 2px solid #a8c9ff; outline-offset: 5px; }
+
+.serviceLink { width:max-content; border-bottom:1px solid transparent; padding-bottom:4px; transition:color 220ms,border-color 220ms; }.serviceLink:hover { border-color:currentColor; }

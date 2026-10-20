@@ -289,7 +289,7 @@ export default function PoliticasPrivacidadPage() {
           max-width: 820px;
           margin: 24px auto 0;
           color: #07142b;
-          font-size: clamp(36px, 4.4vw, 58px);
+          font-size: var(--font-page-title);
           line-height: 1.04;
           font-weight: 900;
           letter-spacing: -0.045em;

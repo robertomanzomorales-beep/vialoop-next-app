@@ -284,7 +284,7 @@ function PlanCard({
         rel="noreferrer"
         aria-label={`Pagar ${plan.name} hasta en 3 cuotas`}
       >
-        PAGAR HASTA EN 3 CUOTAS <span aria-hidden="true">↗</span>
+        PAGAR HASTA EN 3 CUOTAS
       </a>
     </article>
   );

@@ -60,15 +60,6 @@ export default function ServicioSuspendidoPage() {
               href={paymentEmailHref}
             >
               <span>Contactar Área de Pagos</span>
-
-              <Image
-                className={styles.buttonArrow}
-                src="/flecha-horizontal.webp"
-                alt=""
-                width={18}
-                height={18}
-                aria-hidden="true"
-              />
             </a>
 
             <a

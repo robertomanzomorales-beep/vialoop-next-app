@@ -32,6 +32,24 @@ const filters: { label: string; value: PortfolioFilter }[] = [
 
 const portfolioItems: PortfolioItem[] = [
   {
+    name: "RyF Group · R&F Limitada",
+    type: "Servicios mineros e industriales",
+    plan: "Web corporativa",
+    category: "empresa",
+    description: "Sitio corporativo para presentar servicios técnicos, cobertura operativa y oportunidades de trabajo en minería e industria.",
+    href: "https://ryfgroup.cl/",
+    image: "/portfolio/ryf-group.webp",
+  },
+  {
+    name: "Transportes San Andrés",
+    type: "Transporte de pasajeros",
+    plan: "Web corporativa",
+    category: "empresa",
+    description: "Sitio web para transporte de pasajeros, servicios a empresas, traslados turísticos y solicitudes de cotización desde Calama.",
+    href: "https://www.transportesanandres.cl/",
+    image: "/portfolio/transportes-san-andres.webp",
+  },
+  {
     name: "Ferretería Río Loa",
     type: "Ferretería / Construcción",
     plan: "Landing",
@@ -455,12 +473,12 @@ export default function PortfolioWeb() {
               data-portfolio-reveal
               style={revealDelay(0)}
             >
-              <div className="mb-5 flex items-center gap-3 text-[12px] font-black uppercase leading-none tracking-[0.22em] text-[#2563eb]">
+              <div className="mb-5 flex items-center gap-3 text-[10px] font-semibold uppercase leading-none tracking-[0.14em] text-[#2563eb]">
                 <span className="h-[2px] w-11 rounded-full bg-gradient-to-r from-[#2563eb] to-[#38bdf8]" />
                 Sitios desarrollados
               </div>
 
-              <h1 className="max-w-[780px] text-[clamp(44px,5.5vw,82px)] font-black leading-[0.9] tracking-[-0.08em] text-[#07162f]">
+              <h1 className="max-w-[780px] text-[length:var(--font-page-title)] font-semibold leading-[1.14] tracking-[-0.035em] text-[#07162f]">
                 Portafolio web
 
                 <span className="block text-[#2563eb]">
@@ -478,7 +496,7 @@ export default function PortfolioWeb() {
               desarrollo digital. Puedes filtrar por tipo de solución para
               revisar sitios tipo landing, proyectos de crecimiento y
               desarrollos corporativos más completos.{" "}
-              <strong className="font-black text-[#07162f]">
+              <strong className="font-semibold text-[#07162f]">
                 Cada sitio fue diseñado para comunicar mejor, generar
                 confianza y facilitar el contacto comercial.
               </strong>
@@ -490,8 +508,8 @@ export default function PortfolioWeb() {
             data-portfolio-reveal
             style={revealDelay(240)}
           >
-            <div className="max-w-full overflow-x-auto rounded-full p-1">
-              <div className="inline-flex min-w-max rounded-full border border-[#d1ddee] bg-white/82 p-2 shadow-[0_18px_54px_rgba(7,22,47,.08)] backdrop-blur-xl">
+            <div className={styles.filterWrap}>
+              <div className={styles.filters}>
                 {filters.map((filter) => {
                   const isActive = activeFilter === filter.value;
 
@@ -503,9 +521,9 @@ export default function PortfolioWeb() {
                         setActiveFilter(filter.value)
                       }
                       aria-pressed={isActive}
-                      className={`min-h-[42px] rounded-full px-5 text-[12px] font-black uppercase tracking-[0.055em] transition ${
+                      className={`min-h-[44px] rounded-full px-3 sm:px-5 text-[12px] font-medium tracking-[0.01em] transition ${
                         isActive
-                          ? "bg-gradient-to-br from-[#07162f] to-[#174ea6] text-white shadow-[0_12px_28px_rgba(37,99,235,.28)]"
+                          ? "bg-[#07162f] text-white"
                           : "text-[#53657f] hover:bg-[#f1f6ff] hover:text-[#07162f]"
                       }`}
                     >
@@ -530,10 +548,10 @@ export default function PortfolioWeb() {
                   href={item.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`${styles.projectLink} group relative flex min-h-full flex-col overflow-hidden rounded-[26px] border border-[#e2ebf7] bg-white/95 text-inherit no-underline shadow-[0_18px_54px_rgba(7,22,47,.075)] transition duration-300 hover:-translate-y-2 hover:border-[#2563eb]/35 hover:shadow-[0_34px_90px_rgba(7,22,47,.15)]`}
+                  className={`${styles.projectLink} group relative flex min-h-full flex-col overflow-hidden rounded-[16px] border border-[#e2ebf7] bg-white/95 text-inherit no-underline shadow-[0_18px_54px_rgba(7,22,47,.075)] transition duration-300 hover:-translate-y-1 hover:border-[#2563eb]/35 hover:shadow-[0_34px_90px_rgba(7,22,47,.15)]`}
                 >
                   <figure className="relative aspect-[600/310] w-full overflow-hidden border-b border-[#e4ebf5] bg-[#eef3fb]">
-                    <span className="absolute left-4 top-4 z-10 inline-flex min-h-[30px] items-center rounded-full border border-white/25 bg-[#07162f]/75 px-3 text-[10.5px] font-black uppercase tracking-[0.08em] text-white backdrop-blur-md">
+                    <span className="absolute left-4 top-4 z-10 inline-flex min-h-[30px] items-center rounded-full border border-white/25 bg-[#07162f]/75 px-3 text-[10.5px] font-semibold uppercase tracking-[0.06em] text-white backdrop-blur-md">
                       {item.plan}
                     </span>
 
@@ -542,7 +560,7 @@ export default function PortfolioWeb() {
                       alt={item.name}
                       fill
                       priority={index < 4 && activeFilter === "all"}
-                      className="object-cover object-top transition duration-700 group-hover:scale-[1.055]"
+                      className="object-cover object-top transition duration-700 group-hover:scale-[1.02]"
                       sizes="(min-width: 1280px) 290px, (min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
                     />
                   </figure>
@@ -550,11 +568,11 @@ export default function PortfolioWeb() {
                   <div className="relative flex min-h-[228px] flex-1 flex-col bg-[radial-gradient(circle_at_100%_0%,rgba(37,99,235,.055),transparent_32%),linear-gradient(180deg,#fff_0%,#fbfdff_100%)] px-5 pb-5 pt-6">
                     <div className="absolute left-5 top-0 h-[3px] w-[52px] rounded-full bg-gradient-to-r from-[#2563eb] to-[#38bdf8]" />
 
-                    <span className="mb-3 text-[10.5px] font-black uppercase leading-snug tracking-[0.18em] text-slate-500">
+                    <span className="mb-3 text-[10px] font-semibold uppercase leading-snug tracking-[0.1em] text-slate-500">
                       {item.type}
                     </span>
 
-                    <h3 className="mb-2 text-[21px] font-black leading-[1.12] tracking-[-0.045em] text-[#07162f]">
+                    <h3 className="mb-2 text-[19px] font-semibold leading-[1.3] tracking-[-0.025em] text-[#07162f]">
                       {item.name}
                     </h3>
 
@@ -565,19 +583,6 @@ export default function PortfolioWeb() {
                     <div className={styles.projectFooter}>
                       <span className={styles.projectFooterText}>
                         Ver proyecto
-                      </span>
-
-                      <span
-                        className={styles.projectArrowBox}
-                        aria-hidden="true"
-                      >
-                        <Image
-                          src="/flecha-horizontal.webp"
-                          alt=""
-                          width={30}
-                          height={6}
-                          className={styles.projectArrow}
-                        />
                       </span>
                     </div>
                   </div>
@@ -611,19 +616,6 @@ export default function PortfolioWeb() {
 
                 <Link href="/contacto">
                   <span>Hablemos de tu proyecto</span>
-
-                  <span
-                    className={styles.ctaArrowBox}
-                    aria-hidden="true"
-                  >
-                    <Image
-                      src="/flecha-horizontal.webp"
-                      alt=""
-                      width={30}
-                      height={6}
-                      className={styles.ctaArrow}
-                    />
-                  </span>
                 </Link>
               </div>
             </section>

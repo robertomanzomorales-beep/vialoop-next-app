@@ -119,7 +119,7 @@ export default function Services() {
 
                 <p className={styles.cardText}>{service.text}</p>
 
-                {index < 2 && <Link className={styles.serviceLink} href={index === 0 ? "/portafolio-web" : "/software-a-medida"}>{index === 0 ? "Ver sitios web" : "Conocer el software"} <span aria-hidden="true">↗</span></Link>}
+                {index < 2 && <Link className={styles.serviceLink} href={index === 0 ? "/portafolio-web" : "/software-a-medida"}>{index === 0 ? "Ver sitios web" : "Conocer el software"} </Link>}
                 <div className={styles.cardFooter}>
                   <Image
                     src={service.image}

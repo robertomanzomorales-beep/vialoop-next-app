@@ -350,7 +350,7 @@ export default function Testimonials() {
 
             <h2
               id="testimonios-title"
-              className="max-w-[660px] text-[clamp(29px,3.25vw,46px)] font-black leading-[0.98] tracking-[-0.055em] text-[#07152d]"
+              className="max-w-[660px] text-[length:var(--font-section-title)] font-semibold leading-[1.2] tracking-[-0.03em] text-[#07152d]"
             >
               Empresas del norte de Chile ya confiaron en Vialoop.
             </h2>

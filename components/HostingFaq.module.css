@@ -38,7 +38,7 @@
 .heading h2 {
   margin: 17px 0 20px;
   color: #ffffff;
-  font-size: clamp(42px, 5.7vw, 68px);
+  font-size: var(--font-page-title);
   font-weight: 800;
   letter-spacing: -0.075em;
   line-height: 0.94;

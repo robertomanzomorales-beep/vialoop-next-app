@@ -3,6 +3,9 @@
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --header-height: 78px;
+  --font-page-title: clamp(32px, 3.4vw, 46px);
+  --font-section-title: clamp(26px, 2.7vw, 36px);
 }
 
 @theme inline {
@@ -18,6 +21,13 @@ body {
   font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }
 
-html { scroll-padding-top: 110px; }
+html { scrollbar-gutter:stable; scroll-behavior:smooth; scroll-padding-top: calc(var(--header-height) + 24px); }
 body { margin: 0; }
 ::selection { background: #c5dbff; color: #0b2340; }
+
+h1, h2, h3 { text-wrap: pretty; }
+@media (max-width: 680px) {
+  :root { --header-height: 70px; --font-page-title: clamp(29px, 7.8vw, 34px); --font-section-title: clamp(25px, 6.7vw, 29px); }
+}
+
+@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }

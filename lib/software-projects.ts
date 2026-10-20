@@ -1,6 +1,16 @@
-export const softwareProjects = [
+export type SoftwareVariant = "operations" | "laboratory" | "reservations";
+
+type SoftwareProject = {
+  id: string; name: string; category: string; title: string;
+  description: string; focus: string; capabilities: string[];
+  tags: string[]; logo: string; logoWidth: number; logoHeight: number;
+  variant: SoftwareVariant; website?: string;
+};
+
+export const softwareProjects: SoftwareProject[] = [
   {
     id: "rerchar",
+    variant: "operations",
     name: "RERCHAR",
     category: "Economía circular y gestión de materiales",
     title: "Una operación conectada, de la solicitud al cierre.",
@@ -21,6 +31,7 @@ export const softwareProjects = [
   },
   {
     id: "gm-especialistas",
+    variant: "laboratory",
     name: "GM Especialistas",
     category: "Calibración y servicios técnicos",
     title: "Cada equipo con su historia, cada servicio con su respaldo.",
@@ -39,4 +50,24 @@ export const softwareProjects = [
     logoWidth: 500,
     logoHeight: 500,
   },
-] as const;
+  {
+    id: "martin-atacama-transfers",
+    variant: "reservations",
+    name: "Martín Atacama Transfers",
+    category: "Reservas de traslados y pagos en línea",
+    title: "Del trayecto al pago, en un mismo sistema.",
+    description: "Sistema de reservas integrado al sitio web para solicitar traslados, coordinar cada servicio y gestionar su pago mediante Flow. Reúne los datos del viaje, la comunicación con el pasajero y el seguimiento del equipo.",
+    focus: "Conectar la solicitud, la revisión de disponibilidad y el pago del traslado, con información organizada para el pasajero y el equipo de administración.",
+    capabilities: [
+      "Origen, destino, fecha, horario y pasajeros",
+      "Panel de administración y seguimiento de reservas",
+      "Pagos de servicios integrados con Flow",
+      "Confirmaciones y notificaciones por correo",
+    ],
+    tags: ["Reservas", "Flow", "Notificaciones"],
+    logo: "/software/martin-atacama-logo.webp",
+    logoWidth: 256,
+    logoHeight: 256,
+    website: "https://www.transferatacamachile.cl/",
+  },
+];

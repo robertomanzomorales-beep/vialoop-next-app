@@ -310,14 +310,6 @@ export default function Pricing() {
                   aria-label={`Cotizar ${plan.name}`}
                 >
                   COTIZAR ESTE PLAN
-
-                  <Image
-                    src="/flecha-horizontal.webp"
-                    alt=""
-                    width={22}
-                    height={22}
-                    className={styles.buttonArrow}
-                  />
                 </button>
               </article>
             ))}
@@ -421,14 +413,6 @@ export default function Pricing() {
                 disabled={!canSend}
               >
                 ENVIAR POR WHATSAPP
-
-                <Image
-                  src="/flecha-horizontal.webp"
-                  alt=""
-                  width={20}
-                  height={20}
-                  className={styles.modalArrow}
-                />
               </button>
             </div>
           </div>

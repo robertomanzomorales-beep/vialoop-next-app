@@ -165,7 +165,7 @@ export default function HostingFaq() {
               href="mailto:contacto@vialoop.cl?subject=Comprobante%20de%20pago%20Vialoop"
               className={styles.emailButton}
             >
-              ENVIAR COMPROBANTE <span>↗</span>
+              ENVIAR COMPROBANTE
             </a>
           </aside>
         </div>

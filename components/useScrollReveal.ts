@@ -39,12 +39,12 @@ export default function useScrollReveal(
 
     function enter(element: HTMLElement) {
       animations.get(element)?.cancel();
-      const distance = window.matchMedia("(max-width: 680px)").matches ? 56 : 84;
-      const delay = Math.min(280, Math.max(0, Number(element.dataset.scrollDelay) || 0));
+      const distance = window.matchMedia("(max-width: 680px)").matches ? 26 : 40;
+      const delay = Math.min(180, Math.max(0, Number(element.dataset.scrollDelay) || 0));
       const animation = element.animate([
-        { opacity: 0, transform: `translate3d(0, ${distance}px, 0) scale(.985)`, filter: "blur(3px)" },
-        { opacity: 1, transform: "translate3d(0, 0, 0) scale(1)", filter: "blur(0px)" },
-      ], { duration: 1200, delay, easing: "cubic-bezier(.16,1,.3,1)", fill: "both" });
+        { opacity: 0, transform: `translate3d(0, ${distance}px, 0)` },
+        { opacity: 1, transform: "translate3d(0, 0, 0)" },
+      ], { duration: 950, delay, easing: "cubic-bezier(.25,.46,.35,1)", fill: "both" });
       element.dataset.scrollState = "entering";
       visited.current.add(element);
       animation.onfinish = () => {

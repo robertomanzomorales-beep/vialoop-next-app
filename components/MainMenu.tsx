@@ -3,7 +3,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
+import styles from "./MainMenu.module.css";
 
 const PORTAL_URL = "https://portal-vialoop.vercel.app/";
 const navigation = [
@@ -11,125 +12,101 @@ const navigation = [
   { href: "/#servicios", label: "Servicios" },
   { href: "/software-a-medida", label: "Software a medida" },
   { href: "/portafolio-web", label: "Portafolio web" },
-  { href: "/faq", label: "FAQ" },
+  { href: "/faq", label: "Preguntas frecuentes" },
 ];
+
+function Brand() {
+  return <Image src="/via loop - Diseño Web y Marketing Digital.webp" alt="Vialoop" width={360} height={72} loading="eager" className={styles.logo} />;
+}
 
 export default function MainMenu() {
   const pathname = usePathname();
+  const [hash, setHash] = useState("");
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [closing, setClosing] = useState(false);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const closingRef = useRef(false);
+  const restoreFocus = useRef(true);
+  const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  const finishClose = useCallback(() => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closingRef.current = false;
+    setClosing(false);
+    setMobileOpen(false);
+  }, []);
+
+  const requestClose = useCallback(() => {
+    if (!dialogRef.current?.open || closingRef.current) return;
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      finishClose();
+      return;
+    }
+    closingRef.current = true;
+    setClosing(true);
+    // A fallback also completes closing if an animation is interrupted.
+    closeTimer.current = setTimeout(finishClose, 320);
+  }, [finishClose]);
+
+  useEffect(() => {
+    const syncHash = () => setHash(window.location.hash);
+    syncHash();
+    window.addEventListener("hashchange", syncHash);
+    return () => window.removeEventListener("hashchange", syncHash);
+  }, [pathname]);
 
   useEffect(() => {
     const dialog = dialogRef.current;
-    if (!dialog) return;
-    if (mobileOpen) {
-      dialog.showModal();
-      const previousOverflow = document.body.style.overflow;
-      document.body.style.overflow = "hidden";
-      return () => {
-        document.body.style.overflow = previousOverflow;
-        dialog.close();
-      };
-    }
-    dialog.close();
+    if (!mobileOpen || !dialog) return;
+    const previousOverflow = document.body.style.overflow;
+    dialog.showModal();
+    document.body.style.overflow = "hidden";
+    return () => {
+      if (closeTimer.current) clearTimeout(closeTimer.current);
+      document.body.style.overflow = previousOverflow;
+      dialog.close();
+    };
   }, [mobileOpen]);
 
   useEffect(() => {
-    const desktop = window.matchMedia("(min-width: 1280px)");
-    const closeOnDesktop = () => {
-      if (desktop.matches) setMobileOpen(false);
-    };
-    desktop.addEventListener("change", closeOnDesktop);
-    return () => desktop.removeEventListener("change", closeOnDesktop);
-  }, []);
+    const desktop = window.matchMedia("(min-width: 1100px)");
+    const onResize = () => { if (desktop.matches) finishClose(); };
+    desktop.addEventListener("change", onResize);
+    return () => desktop.removeEventListener("change", onResize);
+  }, [finishClose]);
 
-  const linkClass = "rounded-full px-3 py-2 text-[10px] font-bold uppercase tracking-[0.1em] text-white/75 transition hover:bg-white/10 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white";
+  function isActive(href: string) {
+    if (href === "/#servicios") return pathname === "/" && hash === "#servicios";
+    if (href === "/") return pathname === "/" && hash !== "#servicios";
+    return pathname === href;
+  }
 
-  return (
-    <>
-      <header className="sticky top-0 z-[110] h-[92px] bg-[#041022] text-white shadow-[0_12px_34px_rgba(2,6,23,.2)]">
-        <div className="mx-auto flex h-full w-full max-w-[1320px] items-center justify-between gap-6 px-5 md:px-8">
-          <Link href="/" aria-label="Ir al inicio de Vialoop" className="flex shrink-0 items-center">
-            <Image
-              src="/via loop - Diseño Web y Marketing Digital.webp"
-              alt="Vialoop"
-              width={360}
-              height={72}
-              preload
-              className="h-[38px] w-auto max-w-[190px] object-contain"
-            />
-          </Link>
+  function followLink(href: string) {
+    setHash(href.includes("#") ? "#servicios" : "");
+    restoreFocus.current = false;
+    requestClose();
+  }
 
-          <nav aria-label="Navegación principal" className="hidden items-center gap-1 xl:flex">
-            {navigation.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                className={linkClass}
-                aria-current={item.href === pathname ? "page" : undefined}
-              >
-                {item.label}
-              </Link>
-            ))}
-            <a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" className={`${linkClass} ml-2 border border-white/20`}>
-              Portal Vialoop <span aria-hidden="true">↗</span>
-            </a>
-          </nav>
-
-          <Link href="/contacto" className="hidden min-h-[44px] shrink-0 items-center rounded-full bg-white px-5 text-[10px] font-extrabold uppercase tracking-[0.1em] text-[#07162f] transition hover:bg-blue-50 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-white xl:inline-flex">
-            Conversemos
-          </Link>
-
-          <button
-            ref={toggleRef}
-            type="button"
-            onClick={() => setMobileOpen(true)}
-            className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/20 bg-white/5 xl:hidden"
-            aria-label="Abrir menú"
-            aria-expanded={mobileOpen}
-            aria-controls="mobile-navigation"
-          >
-            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-              <path d="M4 8h16M4 16h16" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" />
-            </svg>
-          </button>
-        </div>
-      </header>
-
-      <dialog
-        ref={dialogRef}
-        id="mobile-navigation"
-        aria-label="Menú de navegación"
-        onCancel={() => setMobileOpen(false)}
-        onClose={() => toggleRef.current?.focus()}
-        className="fixed inset-0 m-0 h-dvh max-h-none w-screen max-w-none border-0 bg-[#041022] p-6 text-white backdrop:bg-[#041022]"
-      >
-        <div className="mx-auto flex h-full max-w-[640px] flex-col">
-          <div className="flex min-h-[60px] items-center justify-between gap-5">
-            <span className="text-[12px] font-bold tracking-[0.2em]">VIALOOP</span>
-            <button type="button" onClick={() => setMobileOpen(false)} aria-label="Cerrar menú" className="h-12 w-12 rounded-full border border-white/20 text-2xl">×</button>
-          </div>
-          <nav aria-label="Menú móvil" className="mt-6 grid overflow-y-auto">
-            {navigation.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setMobileOpen(false)}
-                aria-current={item.href === pathname ? "page" : undefined}
-                className="flex min-h-[62px] items-center border-b border-white/15 text-[18px] font-semibold tracking-[-0.02em] transition hover:text-blue-300"
-              >
-                {item.label}
-              </Link>
-            ))}
-            <a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" onClick={() => setMobileOpen(false)} className="flex min-h-[62px] items-center text-[15px] text-white/65">Portal Vialoop ↗</a>
-          </nav>
-          <div className="mt-auto pt-8 pb-6">
-            <Link href="/contacto" onClick={() => setMobileOpen(false)} className="flex min-h-[52px] items-center justify-center rounded-full bg-white text-[12px] font-bold uppercase tracking-[0.1em] text-[#07162f]">Conversemos sobre tu proyecto</Link>
-            <p className="mt-5 text-center text-xs text-white/55">Diseño web y software a medida.</p>
-          </div>
-        </div>
-      </dialog>
-    </>
-  );
+  return <>
+    <header className={styles.header}>
+      <div className={styles.bar}>
+        <Link href="/" aria-label="Ir al inicio de Vialoop" className={styles.brand} onClick={() => setHash("")}><Brand /></Link>
+        <nav aria-label="Navegación principal" className={styles.desktopNav}>
+          {navigation.map(item => <Link key={item.href} href={item.href} onClick={() => setHash(item.href.includes("#") ? "#servicios" : "")} className={`${styles.navLink} ${isActive(item.href) ? styles.active : ""}`} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</Link>)}
+        </nav>
+        <div className={styles.desktopActions}><a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" className={styles.portal}>Portal clientes</a><Link href="/contacto" className={styles.contact}>Conversemos</Link></div>
+        <button ref={toggleRef} type="button" className={styles.toggle} aria-label="Abrir menú" aria-expanded={mobileOpen} aria-controls="mobile-navigation" onClick={() => { restoreFocus.current = true; setClosing(false); setMobileOpen(true); }}><span /><span /></button>
+      </div>
+    </header>
+    <dialog ref={dialogRef} id="mobile-navigation" aria-label="Menú de navegación" className={styles.dialog} data-closing={closing || undefined}
+      onCancel={event => { event.preventDefault(); requestClose(); }}
+      onClose={() => { if (restoreFocus.current) toggleRef.current?.focus({ preventScroll: true }); }}
+      onAnimationEnd={event => { if (event.target === event.currentTarget && closingRef.current) finishClose(); }}
+      onClick={event => { const rect = event.currentTarget.getBoundingClientRect(); if (event.target === event.currentTarget && (event.clientX < rect.left || event.clientX > rect.right)) requestClose(); }}>
+      <div className={styles.mobileTop}><Link href="/" aria-label="Ir al inicio de Vialoop" onClick={() => followLink("/")}><Brand /></Link><button type="button" autoFocus aria-label="Cerrar menú" onClick={requestClose} className={styles.close}><span /><span /></button></div>
+      <div className={styles.mobileBody}><p className={styles.menuLabel}>Navegación</p><nav aria-label="Menú móvil" className={styles.mobileNav}>{navigation.map(item => <Link key={item.href} href={item.href} onClick={() => followLink(item.href)} className={isActive(item.href) ? styles.mobileActive : ""} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</Link>)}</nav><a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" className={styles.mobilePortal} onClick={requestClose}>Portal de clientes</a></div>
+      <div className={styles.mobileBottom}><p>Diseño web y software a medida.</p><Link href="/contacto" onClick={() => followLink("/contacto")} className={styles.contact}>Conversemos sobre tu proyecto</Link><a href="mailto:dloayza@vialoop.cl">dloayza@vialoop.cl</a></div>
+    </dialog>
+  </>;
 }
