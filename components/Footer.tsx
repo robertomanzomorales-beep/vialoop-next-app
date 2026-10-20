@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import CookieSettingsButton from "@/components/privacy/CookieSettingsButton";
 import styles from "./Footer.module.css";
+import Reveal from "./Reveal";
 
 export default function Footer() {
   return (
@@ -12,7 +13,7 @@ export default function Footer() {
       className={styles.footer}
     >
       <div className={styles.container}>
-        <div className={styles.mainGrid}>
+        <Reveal className={styles.mainGrid}>
           <div className={styles.brandColumn}>
             <Image
               src="/logo-blanco-vialoop.webp"
@@ -136,7 +137,7 @@ export default function Footer() {
               contenido para empresas.
             </p>
           </div>
-        </div>
+        </Reveal>
 
         <div className={styles.bottomBar}>
           <p className={styles.copyright}>

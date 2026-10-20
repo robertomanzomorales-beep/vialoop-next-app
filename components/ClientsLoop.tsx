@@ -1,5 +1,7 @@
 "use client";
 
+import { useRef } from "react";
+import useScrollReveal from "./useScrollReveal";
 import LogoLoop, { type LogoItem } from "./LogoLoop";
 import styles from "./ClientsLoop.module.css";
 
@@ -67,9 +69,11 @@ const clientLogos: LogoItem[] = [
 ];
 
 export default function ClientsLoop() {
+  const sectionRef = useRef<HTMLElement>(null);
+  useScrollReveal(sectionRef);
   return (
-    <section className={styles.section} aria-labelledby="clientes-vialoop">
-      <div className={styles.container}>
+    <section ref={sectionRef} className={styles.section} aria-labelledby="clientes-vialoop">
+      <div data-scroll-reveal className={styles.container}>
         <div className={styles.summaryCard}>
           <div className={styles.ratingBlock}>
             <div className={styles.ratingRow}>
@@ -110,7 +114,7 @@ export default function ClientsLoop() {
         </div>
       </div>
 
-      <div className={styles.carousel}>
+      <div data-scroll-reveal data-scroll-delay="120" className={styles.carousel}>
         <LogoLoop
           logos={clientLogos}
           speed={34}

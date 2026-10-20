@@ -35,22 +35,22 @@ export default function SoftwarePage() {
           <div className={styles.container}>
             <p className={styles.eyebrow}>VIALOOP <span aria-hidden="true">/</span> SOFTWARE A MEDIDA</p>
             <div className={styles.heroGrid}>
-              <div>
+              <Reveal>
                 <h1 id="software-title">La forma en que trabajas.<br /><em>Convertida en software.</em></h1>
                 <p className={styles.heroLead}>Diseñamos sistemas alrededor de los procesos de tu empresa. Para conectar a las personas, ordenar la información y dar continuidad a cada tarea.</p>
                 <div className={styles.actions}>
                   <Link href="/contacto?servicio=sistema" className={styles.primaryButton}>Conversemos sobre tu sistema <span aria-hidden="true">↗</span></Link>
                   <Link href="#soluciones" className={styles.secondaryButton}>Conocer las soluciones <span aria-hidden="true">↓</span></Link>
                 </div>
-              </div>
-              <div className={styles.concept} aria-hidden="true">
+              </Reveal>
+              <Reveal delay={180}><div className={styles.concept} aria-hidden="true">
                 <div className={styles.conceptRing} />
                 <div className={styles.conceptCore}><span>HECHO A MEDIDA</span><strong>Tu operación,<br />conectada.</strong><i /></div>
                 <div className={`${styles.conceptTag} ${styles.people}`}>Personas</div>
                 <div className={`${styles.conceptTag} ${styles.processes}`}>Procesos</div>
                 <div className={`${styles.conceptTag} ${styles.information}`}>Información</div>
                 <p>Un mismo entorno de trabajo.</p>
-              </div>
+              </div></Reveal>
             </div>
             <div className={styles.heroBottom}><span>PLATAFORMAS DE GESTIÓN</span><span>AUTOMATIZACIÓN</span><span>DESARROLLO A MEDIDA</span></div>
           </div>
@@ -94,7 +94,7 @@ export default function SoftwarePage() {
               <p>El alcance se define contigo. Podemos abordar una necesidad puntual o conectar distintas áreas en una plataforma que evolucione con tu empresa.</p>
             </Reveal>
             <div className={styles.capabilityGrid}>{capabilities.map((item) => (
-              <Reveal key={item.number}><div className={styles.capability}><span>{item.number}</span><h3>{item.title}</h3><p>{item.text}</p></div></Reveal>
+              <Reveal key={item.number} delay={Number(item.number) * 60}><div className={styles.capability}><span>{item.number}</span><h3>{item.title}</h3><p>{item.text}</p></div></Reveal>
             ))}</div>
           </div>
         </section>

@@ -38,14 +38,20 @@
 .sectionHeading h2 span, .method h2 span, .contact h2 span { color: #71829a; }
 .sectionHeading > p { font-size: 14px; line-height: 1.9; color: #5c6c81; margin: 0; max-width: 480px; }
 .caseList { display: grid; gap: 32px; }
-.case { display:grid; grid-template-columns: .9fr 1.1fr; border:1px solid #dfe6ef; border-radius:20px; background:#fff; overflow:hidden; scroll-margin-top:116px; }
-.systemPreview { display:flex; align-items:center; justify-content:center; padding:28px 24px; background:#f0f4f8; order:1; }
+.case { display:grid; grid-template-columns: 1fr; border:1px solid #dfe6ef; border-radius:20px; background:#fff; overflow:hidden; scroll-margin-top:116px; }
+.systemPreview { display:flex; min-width:0; align-items:center; justify-content:center; padding:32px 36px 26px; background:linear-gradient(145deg,#eaf0f7,#f2f6fb); border-top:1px solid #e1e8f1; order:1; }
 .caseBrand { display:flex; align-items:center; gap:20px; margin:0 0 25px; }
 .caseLogo { width:115px; height:auto; max-height:48px; object-fit:contain; }
 .caseLogoGm { width:48px; height:48px; object-fit:contain; }
 .caseBrand .caseCategory { font-size:9px; line-height:1.5; margin:0 0 8px; }
 .caseBrand h3 { font-size:24px; margin:0; }
-.caseContent { padding: 36px 30px 32px; order:0; }
+.caseContent { display:grid; grid-template-columns:.85fr 1.15fr; gap:0 65px; padding:38px 40px 28px; order:0; }
+.caseBrand { grid-column:1; grid-row:1; }
+.caseTitle { grid-column:1; grid-row:2; }
+.caseDescription { grid-column:2; grid-row:1; }
+.moduleList { grid-column:2; grid-row:2; }
+.focus { grid-column:1 / -1; margin-top:20px; display:grid; grid-template-columns:180px 1fr; align-items:baseline; gap:20px; }
+.focus p { margin-top:0; }
 .caseCategory { font-size: 10px; font-weight: 600; color: #6d7b8d; margin: 0 0 12px; }
 .caseContent h3 { font-size: 30px; font-weight: 750; letter-spacing: -.05em; line-height: 1.1; margin: 0 0 17px; }
 .caseTitle { font-size: 18px; color: #253c5a; letter-spacing: -.02em; line-height: 1.45; font-weight: 600; margin: 0 0 15px; }
@@ -81,7 +87,7 @@
  .sectionHeading { gap: 45px; }
  .case { grid-template-columns: 1fr; }
  .systemPreview { padding:30px; }
- .caseContent { padding: 35px 30px; }
+ .caseContent { padding: 32px; column-gap:35px; }
  .moduleList { grid-template-columns: 1fr; gap: 10px; }
  .capabilityGrid { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 35px; }
  .steps { gap: 28px; }
@@ -104,7 +110,9 @@
  .sectionHeading { grid-template-columns: 1fr; gap: 22px; margin-bottom: 32px; }
  .sectionHeading .eyebrow { margin-bottom: 16px; }
  .case { grid-template-columns: 1fr; border-radius: 16px; }
- .caseContent { padding: 28px 24px; }
+ .caseContent { display:block; padding:28px 24px; }
+ .focus { display:block; margin-top:0; }
+ .focus p { margin-top:9px; }
  .systemPreview { padding:20px 12px; }
  .caseBrand { gap:15px; }
  .caseLogo { width:92px; }

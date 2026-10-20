@@ -1,8 +1,9 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
+import { useRef, type MouseEvent as ReactMouseEvent } from "react";
 import styles from "./Hero.module.css";
+import useScrollReveal from "./useScrollReveal";
 
 const heroStats = [
   ["Sitios web", "Presencia profesional"],
@@ -13,38 +14,7 @@ const heroStats = [
 export default function Hero() {
   const heroRef = useRef<HTMLElement | null>(null);
   const mockupRef = useRef<HTMLDivElement | null>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const hero = heroRef.current;
-
-    if (!hero) return;
-
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    if (reducedMotion) {
-      setVisible(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry?.isIntersecting) return;
-
-        setVisible(true);
-        observer.unobserve(entry.target);
-      },
-      {
-        threshold: 0.18,
-      },
-    );
-
-    observer.observe(hero);
-
-    return () => observer.disconnect();
-  }, []);
+  useScrollReveal(heroRef);
 
   function handleMockupMove(
     event: ReactMouseEvent<HTMLDivElement>,
@@ -89,8 +59,9 @@ export default function Hero() {
           <div className={styles.layout}>
             <div className={styles.copy}>
               <h1
+                data-scroll-reveal
                 className={`${styles.title} ${
-                  visible ? styles.visible : ""
+                  styles.visible
                 }`}
               >
                 Diseño web y software
@@ -98,8 +69,9 @@ export default function Hero() {
               </h1>
 
               <p
+                data-scroll-reveal data-scroll-delay="120"
                 className={`${styles.primaryText} ${
-                  visible ? styles.visible : ""
+                  styles.visible
                 }`}
               >
                 Creamos sitios web que presentan tu negocio y sistemas que
@@ -110,8 +82,9 @@ export default function Hero() {
               </p>
 
               <p
+                data-scroll-reveal data-scroll-delay="120"
                 className={`${styles.secondaryText} ${
-                  visible ? styles.visible : ""
+                  styles.visible
                 }`}
               >
                 Acompañamos a empresas, negocios y profesionales en su presencia
@@ -120,8 +93,9 @@ export default function Hero() {
               </p>
 
               <div
+                data-scroll-reveal data-scroll-delay="220"
                 className={`${styles.actions} ${
-                  visible ? styles.visible : ""
+                  styles.visible
                 }`}
               >
                 <Link
@@ -142,8 +116,9 @@ export default function Hero() {
 
             <div
               ref={mockupRef}
+              data-scroll-reveal data-scroll-delay="180"
               className={`${styles.showcase} ${
-                visible ? styles.showcaseVisible : ""
+                styles.showcaseVisible
               }`}
               onMouseMove={handleMockupMove}
               onMouseLeave={resetMockup}

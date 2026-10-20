@@ -1,4 +1,5 @@
 import Footer from "@/components/Footer";
+import Reveal from "@/components/Reveal";
 
 const faqs = [
   {
@@ -235,7 +236,7 @@ export default function FAQPage() {
             margin: "0 auto",
           }}
         >
-          <header style={{ marginBottom: 44 }}>
+          <Reveal><header style={{ marginBottom: 44 }}>
             <p
               style={{
                 margin: "0 0 18px",
@@ -284,7 +285,7 @@ export default function FAQPage() {
               Si no encuentras tu respuesta, escríbenos y te ayudamos a revisar
               tu caso.
             </p>
-          </header>
+          </header></Reveal>
 
           <div
             style={{
@@ -297,8 +298,8 @@ export default function FAQPage() {
             }}
           >
             {faqs.map((faq, index) => (
+              <Reveal key={faq.question}>
               <details
-                key={faq.question}
                 open={index === 0}
                 className="faq-card"
                 style={{
@@ -350,10 +351,11 @@ export default function FAQPage() {
                   </p>
                 </div>
               </details>
+              </Reveal>
             ))}
           </div>
 
-          <div style={{ marginTop: 40, textAlign: "center" }}>
+          <Reveal><div style={{ marginTop: 40, textAlign: "center" }}>
             <p
               style={{
                 margin: "0 0 16px",
@@ -388,7 +390,7 @@ export default function FAQPage() {
             >
               Escríbenos por WhatsApp →
             </a>
-          </div>
+          </div></Reveal>
         </div>
       </section>
 

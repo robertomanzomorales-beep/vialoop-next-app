@@ -1,54 +1,23 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import styles from "./ClientTestimonial.module.css";
+import useScrollReveal from "./useScrollReveal";
 
 export default function ClientTestimonial() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-
-    if (!section) return;
-
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    if (reducedMotion) {
-      setVisible(true);
-      return;
-    }
-
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry.isIntersecting) return;
-
-        setVisible(true);
-        observer.unobserve(section);
-      },
-      {
-        threshold: 0.18,
-        rootMargin: "0px 0px -70px 0px",
-      },
-    );
-
-    observer.observe(section);
-
-    return () => observer.disconnect();
-  }, []);
+  useScrollReveal(sectionRef);
 
   return (
     <section
       ref={sectionRef}
-      className={`${styles.section} ${visible ? styles.visible : ""}`}
+      className={`${styles.section} ${styles.visible}`}
       aria-labelledby="client-testimonial-title"
     >
       <div className={styles.gridTexture} />
 
       <div className={styles.container}>
-        <div className={styles.videoColumn}>
+        <div data-scroll-reveal data-scroll-delay="120" className={styles.videoColumn}>
           <div className={styles.videoFrame}>
             <video
               className={styles.video}
@@ -69,16 +38,16 @@ export default function ClientTestimonial() {
         </div>
 
         <div className={styles.content}>
-          <div className={styles.eyebrow}>
+          <div data-scroll-reveal data-scroll-delay="120" className={styles.eyebrow}>
             <span className={styles.eyebrowLine} />
             <span>TESTIMONIO DE CLIENTE</span>
           </div>
 
-          <h2 id="client-testimonial-title">
+          <h2 data-scroll-reveal id="client-testimonial-title">
             Una experiencia real de trabajo con Vialoop.
           </h2>
 
-          <div className={styles.testimonial}>
+          <div data-scroll-reveal data-scroll-delay="120" className={styles.testimonial}>
             <div className={styles.rating}>
               <div className={styles.stars} aria-label="Cinco estrellas">
                 <span>★</span>
@@ -116,7 +85,7 @@ export default function ClientTestimonial() {
               </p>
             </blockquote>
 
-            <footer className={styles.author}>
+            <footer data-scroll-reveal data-scroll-delay="120" className={styles.author}>
               <span className={styles.authorLine} />
               <div>
                 <strong>Osvaldo González</strong>

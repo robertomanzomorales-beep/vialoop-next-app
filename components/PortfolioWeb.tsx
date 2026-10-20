@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useMemo, useRef, useState, type CSSProperties } from "react";
+import { useMemo, useRef, useState, type CSSProperties } from "react";
 import styles from "./PortfolioWeb.module.css";
+import useScrollReveal from "./useScrollReveal";
 
 type PortfolioCategory = "landing" | "crece" | "empresa";
 type PortfolioFilter = "all" | PortfolioCategory;
@@ -434,37 +435,7 @@ export default function PortfolioWeb() {
 
 
 
-  useEffect(() => {
-    const elements = Array.from(sectionRef.current?.querySelectorAll<HTMLElement>("[data-portfolio-reveal]") ?? [])
-      .filter((element) => !element.classList.contains(styles.visible));
-    if (!elements.length) return;
-    const show = (element: HTMLElement) => {
-      element.classList.remove(styles.pending);
-      element.classList.add(styles.visible);
-    };
-    if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-      elements.forEach(show);
-      return;
-    }
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        show(entry.target as HTMLElement);
-        observer.unobserve(entry.target);
-      });
-    }, { threshold: 0.01, rootMargin: "0px 0px 100px 0px" });
-    elements.forEach((element) => {
-      if (element.getBoundingClientRect().top < window.innerHeight + 80) show(element);
-      else {
-        element.classList.add(styles.pending);
-        observer.observe(element);
-      }
-    });
-    return () => {
-      observer.disconnect();
-      elements.forEach((element) => element.classList.remove(styles.pending));
-    };
-  }, [activeFilter]);
+  useScrollReveal(sectionRef, "[data-portfolio-reveal]", activeFilter);
 
   return (
     <>
@@ -552,6 +523,7 @@ export default function PortfolioWeb() {
                 key={`${item.href}-${activeFilter}`}
                 className={`${styles.reveal} ${styles.cardReveal}`}
                 data-portfolio-reveal
+                data-scroll-delay={(index % 4) * 90}
                 style={revealDelay((index % 4) * 90)}
               >
                 <a

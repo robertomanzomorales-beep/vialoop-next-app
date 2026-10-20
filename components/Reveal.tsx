@@ -1,26 +1,11 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useRef, type ReactNode } from "react";
+import useScrollReveal from "./useScrollReveal";
 import styles from "./Reveal.module.css";
 
-export default function Reveal({ children, className = "" }: { children: ReactNode; className?: string }) {
+export default function Reveal({ children, className = "", delay = 0 }: { children: ReactNode; className?: string; delay?: number }) {
   const ref = useRef<HTMLDivElement>(null);
-
-  useEffect(() => {
-    const element = ref.current;
-    if (!element || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-    // Content stays visible if JavaScript or IntersectionObserver is unavailable.
-    if (!("IntersectionObserver" in window)) return;
-    element.classList.add(styles.pending);
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry?.isIntersecting) {
-        element.classList.remove(styles.pending);
-        observer.disconnect();
-      }
-    }, { threshold: 0.06, rootMargin: "0px 0px 30px 0px" });
-    observer.observe(element);
-    return () => observer.disconnect();
-  }, []);
-
-  return <div ref={ref} className={`${styles.reveal} ${className}`}>{children}</div>;
+  useScrollReveal(ref);
+  return <div ref={ref} data-scroll-reveal data-scroll-delay={delay} className={`${styles.reveal} ${className}`}>{children}</div>;
 }

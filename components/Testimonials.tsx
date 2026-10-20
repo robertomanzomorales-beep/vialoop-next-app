@@ -1,5 +1,6 @@
 "use client";
 
+import useScrollReveal from "./useScrollReveal";
 import { useEffect, useRef, useState } from "react";
 
 const testimonials = [
@@ -148,6 +149,7 @@ export default function Testimonials() {
   const pausedRef = useRef(false);
   const manualMoveRef = useRef(false);
 
+  useScrollReveal(sectionRef);
   const [visible, setVisible] = useState(false);
   const [count, setCount] = useState(0);
 
@@ -320,10 +322,6 @@ export default function Testimonials() {
     manualFrameRef.current = requestAnimationFrame(animate);
   }
 
-  const reveal = visible
-    ? "translate-y-0 opacity-100 blur-0"
-    : "translate-y-6 opacity-0 blur-[2px]";
-
   return (
     <section
       ref={sectionRef}
@@ -339,7 +337,8 @@ export default function Testimonials() {
 
       <div className="mx-auto flex w-full max-w-[1180px] flex-col gap-8">
         <header
-          className={`grid gap-6 transition-all duration-[900ms] ease-[cubic-bezier(.22,1,.36,1)] lg:grid-cols-[1fr_320px] lg:items-end ${reveal}`}
+          data-scroll-reveal
+          className="grid gap-6 lg:grid-cols-[1fr_320px] lg:items-end"
         >
           <div>
             <div className="mb-3 flex items-center gap-3">
@@ -387,11 +386,8 @@ export default function Testimonials() {
         </header>
 
         <div
-          className={`relative transition-all delay-150 duration-[900ms] ease-[cubic-bezier(.22,1,.36,1)] ${
-            visible
-              ? "translate-y-0 opacity-100 blur-0"
-              : "translate-y-8 opacity-0 blur-[2px]"
-          }`}
+          data-scroll-reveal data-scroll-delay="160"
+          className="relative"
         >
           <div className="mb-4 flex items-center justify-between gap-4">
             <p className="text-[12px] font-black uppercase tracking-[0.18em] text-slate-400">

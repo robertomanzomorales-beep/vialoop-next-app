@@ -2,8 +2,9 @@
 
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import styles from "./Services.module.css";
+import useScrollReveal from "./useScrollReveal";
 
 type Service = {
   titleLines: string[];
@@ -34,87 +35,9 @@ const services: Service[] = [
   },
 ];
 
-const totalRevealElements = services.length + 3;
-
 export default function Services() {
   const sectionRef = useRef<HTMLElement | null>(null);
-  const revealRefs = useRef<Array<HTMLElement | null>>([]);
-
-  const [visibleItems, setVisibleItems] = useState<boolean[]>(
-    Array(totalRevealElements).fill(false),
-  );
-
-  useEffect(() => {
-    const elements = revealRefs.current.filter(
-      (element): element is HTMLElement => element !== null,
-    );
-
-    if (!elements.length) return;
-
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)",
-    ).matches;
-
-    if (reducedMotion) {
-      setVisibleItems(Array(totalRevealElements).fill(true));
-      return;
-    }
-
-    const mobileViewport = window.matchMedia(
-      "(max-width: 680px)",
-    ).matches;
-
-    const mobileRevealMargin = Math.max(
-      180,
-      Math.round(window.innerHeight * 0.32),
-    );
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-
-          const target = entry.target as HTMLElement;
-          const itemIndex = Number(target.dataset.revealIndex);
-
-          if (Number.isNaN(itemIndex)) {
-            observer.unobserve(target);
-            return;
-          }
-
-          setVisibleItems((currentItems) => {
-            if (currentItems[itemIndex]) {
-              return currentItems;
-            }
-
-            const updatedItems = [...currentItems];
-            updatedItems[itemIndex] = true;
-
-            return updatedItems;
-          });
-
-          observer.unobserve(target);
-        });
-      },
-      mobileViewport
-        ? {
-            threshold: 0.01,
-            rootMargin: `0px 0px ${mobileRevealMargin}px 0px`,
-          }
-        : {
-            threshold: 0.22,
-            rootMargin: "0px 0px -9% 0px",
-          },
-    );
-
-    elements.forEach((element) => {
-      observer.observe(element);
-    });
-
-    return () => {
-      observer.disconnect();
-    };
-  }, []);
+  useScrollReveal(sectionRef);
 
   return (
     <section
@@ -129,12 +52,9 @@ export default function Services() {
         <header className={styles.header}>
           <div className={styles.headerTitle}>
             <div
-              ref={(element) => {
-                revealRefs.current[0] = element;
-              }}
-              data-reveal-index="0"
+              data-scroll-reveal
               className={`${styles.reveal} ${
-                visibleItems[0] ? styles.revealVisible : ""
+                styles.revealVisible
               }`}
             >
               <div className={styles.eyebrow}>
@@ -145,15 +65,12 @@ export default function Services() {
 
             <h2
               id="servicios-title"
-              ref={(element) => {
-                revealRefs.current[1] = element;
-              }}
-              data-reveal-index="1"
+              data-scroll-reveal
               className={`${styles.heading} ${styles.reveal} ${
-                visibleItems[1] ? styles.revealVisible : ""
+                styles.revealVisible
               }`}
               style={{
-                transitionDelay: visibleItems[1] ? "100ms" : "0ms",
+                transitionDelay: "0ms",
               }}
             >
               Presencia digital y gestión.{" "}
@@ -162,15 +79,12 @@ export default function Services() {
           </div>
 
           <p
-            ref={(element) => {
-              revealRefs.current[2] = element;
-            }}
-            data-reveal-index="2"
+            data-scroll-reveal
             className={`${styles.introText} ${styles.reveal} ${
-              visibleItems[2] ? styles.revealVisible : ""
+              styles.revealVisible
             }`}
             style={{
-              transitionDelay: visibleItems[2] ? "180ms" : "0ms",
+              transitionDelay: "0ms",
             }}
           >
             Una web para presentar lo que haces. Un sistema para organizar cómo
@@ -181,22 +95,15 @@ export default function Services() {
 
         <div className={styles.cardsGrid}>
           {services.map((service, index) => {
-            const revealIndex = index + 3;
-
             return (
               <article
                 key={service.titleLines.join(" ")}
-                ref={(element) => {
-                  revealRefs.current[revealIndex] = element;
-                }}
-                data-reveal-index={revealIndex}
+                data-scroll-reveal data-scroll-delay={index * 90}
                 className={`${styles.card} ${styles.reveal} ${
-                  visibleItems[revealIndex] ? styles.revealVisible : ""
+                  styles.revealVisible
                 }`}
                 style={{
-                  transitionDelay: visibleItems[revealIndex]
-                    ? `${index * 145}ms`
-                    : "0ms",
+                  transitionDelay: "0ms",
                 }}
               >
                 <div className={styles.cardTop}>

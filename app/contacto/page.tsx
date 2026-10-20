@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
+import Reveal from "@/components/Reveal";
 import QuoteWizard, { type ServiceId } from "@/components/contact/QuoteWizard";
 
 export const metadata: Metadata = {
@@ -22,7 +23,7 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
   return (
     <>
       <main>
-        <QuoteWizard key={initialService ?? "general"} initialService={initialService} />
+        <Reveal><QuoteWizard key={initialService ?? "general"} initialService={initialService} /></Reveal>
       </main>
 
       <Footer />
