@@ -2,6 +2,14 @@ import Footer from "@/components/Footer";
 
 const faqs = [
   {
+    question: "¿También desarrollan software y sistemas a medida?",
+    answer: "Sí. Desarrollamos sistemas de gestión, plataformas operativas y automatizaciones según los procesos de cada empresa. Primero revisamos la necesidad para definir las funciones, los plazos y la propuesta económica.",
+  },
+  {
+    question: "¿Cómo puedo solicitar una propuesta?",
+    answer: "En el formulario de contacto puede seleccionar los servicios y describir su proyecto. Recibirá un resumen de su solicitud y el área comercial revisará los antecedentes para preparar una propuesta personalizada.",
+  },
+  {
     question: "¿Cuánto demoran en entregar una página web?",
     answer:
       "El plazo habitual es de 10 a 15 días hábiles. El tiempo final depende del tipo de sitio, la cantidad de secciones y la rapidez en la entrega de contenidos y feedback.",
@@ -54,7 +62,7 @@ const faqs = [
   {
     question: "¿También hacen sitios web para empresas en Calama?",
     answer:
-      "Sí. Diseñamos sitios web para empresas en Calama, especialmente negocios industriales, mineros, técnicos, comerciales y de servicios.",
+      "Sí. Diseñamos sitios web para empresas, comercios, profesionales y organizaciones de distintos rubros en Calama. También trabajamos de forma remota con clientes de todo Chile.",
   },
 ];
 
@@ -74,7 +82,7 @@ const faqSchema = {
 export const metadata = {
   title: "Preguntas frecuentes | Vialoop",
   description:
-    "Preguntas frecuentes sobre diseño web, hosting, dominio, SEO, pagos, plazos y páginas web para empresas en Calama y Antofagasta.",
+    "Preguntas frecuentes sobre diseño web, desarrollo de software a medida, hosting, propuestas, pagos y plazos con Vialoop.",
 };
 
 export default function FAQPage() {

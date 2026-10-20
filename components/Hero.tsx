@@ -1,150 +1,19 @@
 "use client";
 
-import type {
-  ChangeEvent,
-  MouseEvent as ReactMouseEvent,
-} from "react";
-import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
+import { useEffect, useRef, useState, type MouseEvent as ReactMouseEvent } from "react";
 import styles from "./Hero.module.css";
 
-type Service = {
-  id: string;
-  title: string;
-  description: string;
-};
-
-type Plan = {
-  id: string;
-  name: string;
-  price: string;
-  pricePrefix?: string;
-  description: string;
-  features: string[];
-  note?: string;
-};
-
-const WHATSAPP_NUMBER = "56974330586";
-
 const heroStats = [
-  ["Sitios web", "Rápidos y comerciales"],
-  ["Sistemas", "Procesos a medida"],
-  ["Soporte", "Acompañamiento real"],
-];
-
-const services: Service[] = [
-  {
-    id: "diseno-web",
-    title: "Diseño Web",
-    description: "Sitios profesionales para empresas",
-  },
-  {
-    id: "sistemas-a-medida",
-    title: "Sistemas a medida",
-    description:
-      "Plataformas para ordenar procesos, documentos, clientes y operaciones",
-  },
-  {
-    id: "google-visibilidad",
-    title: "Google y visibilidad",
-    description: "Posicionamiento local, Google Maps y campañas Ads",
-  },
-  {
-    id: "material-comercial",
-    title: "Material comercial",
-    description: "Brochures, presentaciones y piezas corporativas",
-  },
-];
-
-const webPlans: Plan[] = [
-  {
-    id: "emprendedor",
-    name: "Plan Emprendedor",
-    price: "$280.000 + IVA",
-    description:
-      "Una landing page de una sola página para presentar tu empresa, destacar una oferta principal y generar contactos.",
-    features: [
-      "Landing page de una sola página",
-      "Contenido organizado en hasta 6 secciones",
-      "Hasta 15 imágenes optimizadas",
-      "Formulario de contacto + botón WhatsApp",
-      "Diseño profesional adaptable a móviles",
-      "SEO técnico inicial + optimización de velocidad",
-      "Publicación + 1 ronda de cambios",
-    ],
-  },
-  {
-    id: "crece",
-    name: "Plan Crece",
-    price: "$390.000 + IVA",
-    description:
-      "Un sitio web empresarial con mayor contenido y navegación para presentar servicios, experiencia y respaldo comercial.",
-    features: [
-      "Sitio web empresarial con navegación completa",
-      "Contenido ampliado para empresa y servicios",
-      "Hasta 30 imágenes optimizadas",
-      "2 formularios: contacto + cotización",
-      "Diseño personalizado + línea visual",
-      "SEO técnico y local + medición básica",
-      "Publicación + 2 rondas de cambios",
-    ],
-  },
-  {
-    id: "empresa",
-    name: "Plan Empresa",
-    price: "$620.000 + IVA",
-    pricePrefix: "Desde",
-    description:
-      "Una solución corporativa avanzada para empresas con múltiples servicios, áreas, públicos o requerimientos de integración.",
-    features: [
-      "Arquitectura corporativa para múltiples áreas",
-      "Contenido avanzado y hasta 50 imágenes optimizadas",
-      "Formularios personalizados + agendamiento",
-      "UX/UI avanzada + diseño de mayor profundidad",
-      "Gestión de contenido e integraciones según alcance",
-      "Rendimiento, seguridad y SEO avanzados",
-      "Capacitación + 3 rondas de cambios",
-    ],
-  },
-  {
-    id: "ecommerce",
-    name: "Plan E-commerce",
-    price: "$790.000 + IVA",
-    pricePrefix: "Desde",
-    description:
-      "Una tienda online personalizada y autoadministrable para vender productos, gestionar pedidos y recibir pagos.",
-    features: [
-      "Tienda online desarrollada en Next.js + React",
-      "Panel para productos, stock, pedidos y clientes",
-      "Carrito de compra + integración inicial con Flow",
-      "Carga inicial de hasta 20 productos",
-      "Hasta 40 imágenes de productos optimizadas",
-      "Configuración básica de despacho o retiro",
-      "SEO técnico, capacitación + 2 rondas de cambios",
-    ],
-    note:
-      "La infraestructura administrada y las comisiones del medio de pago se contratan por separado.",
-  },
+  ["Sitios web", "Presencia profesional"],
+  ["Software", "Gestión a tu medida"],
+  ["Soporte", "Acompañamiento cercano"],
 ];
 
 export default function Hero() {
   const heroRef = useRef<HTMLElement | null>(null);
   const mockupRef = useRef<HTMLDivElement | null>(null);
-
   const [visible, setVisible] = useState(false);
-  const [modalOpen, setModalOpen] = useState(false);
-  const [step, setStep] = useState<1 | 2 | 3>(1);
-  const [selectedService, setSelectedService] =
-    useState<Service | null>(null);
-  const [selectedPlan, setSelectedPlan] = useState<Plan | null>(null);
-
-  const [formData, setFormData] = useState({
-    company: "",
-    name: "",
-    email: "",
-    phone: "",
-    objective: "",
-    reference: "",
-  });
 
   useEffect(() => {
     const hero = heroRef.current;
@@ -177,24 +46,6 @@ export default function Hero() {
     return () => observer.disconnect();
   }, []);
 
-  useEffect(() => {
-    if (!modalOpen) return;
-
-    function handleKeyDown(event: KeyboardEvent) {
-      if (event.key === "Escape") {
-        closeModal();
-      }
-    }
-
-    document.body.style.overflow = "hidden";
-    window.addEventListener("keydown", handleKeyDown);
-
-    return () => {
-      document.body.style.overflow = "";
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [modalOpen]);
-
   function handleMockupMove(
     event: ReactMouseEvent<HTMLDivElement>,
   ) {
@@ -223,99 +74,11 @@ export default function Hero() {
     mockup.style.setProperty("--shine-y", "50%");
   }
 
-  function openModal() {
-    setModalOpen(true);
-    setStep(1);
-  }
-
-  function closeModal() {
-    setModalOpen(false);
-    setStep(1);
-    setSelectedService(null);
-    setSelectedPlan(null);
-  }
-
-  function selectService(service: Service) {
-    setSelectedService(service);
-    setSelectedPlan(null);
-
-    if (service.id === "diseno-web") {
-      setStep(2);
-      return;
-    }
-
-    setStep(3);
-  }
-
-  function selectPlan(plan: Plan) {
-    setSelectedPlan(plan);
-    setStep(3);
-  }
-
-  function updateField(
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
-  ) {
-    const { name, value } = event.target;
-
-    setFormData((currentData) => ({
-      ...currentData,
-      [name]: value,
-    }));
-  }
-
-  const canSend =
-    selectedService &&
-    (selectedService.id !== "diseno-web" || selectedPlan) &&
-    formData.company.trim() &&
-    formData.name.trim() &&
-    formData.phone.trim() &&
-    formData.objective.trim();
-
-  function sendToWhatsApp() {
-    if (!canSend) return;
-
-    const message = [
-      "Hola VÍA LOOP, quiero comenzar un proyecto.",
-      "",
-      `Servicio: ${selectedService?.title ?? "No seleccionado"}`,
-      selectedPlan
-        ? `Plan: ${selectedPlan.name} - ${selectedPlan.price}`
-        : "",
-      "",
-      `Empresa: ${formData.company}`,
-      `Nombre: ${formData.name}`,
-      formData.email ? `Email: ${formData.email}` : "",
-      `WhatsApp: ${formData.phone}`,
-      "",
-      `Objetivo del proyecto: ${formData.objective}`,
-      formData.reference
-        ? `Referencia: ${formData.reference}`
-        : "",
-    ]
-      .filter(Boolean)
-      .join("\n");
-
-    window.open(
-      `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(
-        message,
-      )}`,
-      "_blank",
-      "noopener,noreferrer",
-    );
-  }
-
-  const inputClass =
-    "h-12 rounded-xl border border-slate-200 bg-white px-4 text-[14px] text-[#07142b] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10";
-
-  const textareaClass =
-    "resize-none rounded-xl border border-slate-200 bg-white px-4 py-3 text-[14px] text-[#07142b] outline-none transition placeholder:text-slate-400 focus:border-blue-600 focus:ring-4 focus:ring-blue-600/10";
-
   return (
-    <>
       <section
         ref={heroRef}
         id="inicio"
-        aria-label="Diseño web y sistemas a medida para empresas en Calama, Antofagasta y el norte de Chile"
+        aria-label="Diseño web y software a medida para empresas en Chile"
         className={styles.hero}
       >
         <div className={styles.gridTexture} />
@@ -330,8 +93,8 @@ export default function Hero() {
                   visible ? styles.visible : ""
                 }`}
               >
-                Diseño Web para Empresas en Calama y Antofagasta
-                <span>.</span>
+                Diseño web y software
+                <span> a medida para tu empresa.</span>
               </h1>
 
               <p
@@ -339,13 +102,11 @@ export default function Hero() {
                   visible ? styles.visible : ""
                 }`}
               >
-                Diseñamos sitios web profesionales y desarrollamos sistemas a
-                medida para empresas industriales, mineras, de transporte y
-                servicios. Soluciones claras,{" "}
+                Creamos sitios web que presentan tu negocio y sistemas que
+                simplifican tu operación. Diseño y desarrollo con un mismo enfoque:{" "}
                 <em className={styles.humanAccent}>
-                  hechas para la realidad de cada empresa
+                  entender lo que tu empresa necesita.
                 </em>
-                , no plataformas genéricas.
               </p>
 
               <p
@@ -353,10 +114,9 @@ export default function Hero() {
                   visible ? styles.visible : ""
                 }`}
               >
-                Trabajamos con empresas de Calama, Antofagasta y el norte de
-                Chile, creando desde sitios web rápidos y comerciales hasta
-                plataformas internas para ordenar procesos, documentos,
-                clientes y operaciones.
+                Acompañamos a empresas, negocios y profesionales en su presencia
+                digital y su gestión interna. Desde Calama y Antofagasta, trabajamos
+                con clientes de todo Chile.
               </p>
 
               <div
@@ -364,20 +124,19 @@ export default function Hero() {
                   visible ? styles.visible : ""
                 }`}
               >
-                <a
+                <Link
                   href="/portafolio-web"
                   className={styles.primaryButton}
                 >
-                  PORTAFOLIO
-                </a>
+                  DISEÑO WEB
+                </Link>
 
-                <button
-                  type="button"
-                  onClick={openModal}
-                  className={styles.secondaryButton}
-                >
-                  COTIZAR PROYECTO
-                </button>
+                <Link href="/software-a-medida" className={styles.secondaryButton}>
+                  SOFTWARE A MEDIDA
+                </Link>
+                <Link href="/contacto" className={styles.contactLink}>
+                  Cuéntanos tu proyecto <span aria-hidden="true">↗</span>
+                </Link>
               </div>
             </div>
 
@@ -477,255 +236,5 @@ export default function Hero() {
         </div>
       </section>
 
-      {modalOpen && (
-        <div
-          className="fixed inset-0 z-[300] flex items-center justify-center bg-slate-950/60 px-4 py-6 backdrop-blur-sm"
-          role="dialog"
-          aria-modal="true"
-          aria-label="Cotización personalizada"
-        >
-          <div className="relative max-h-[92vh] w-full max-w-[620px] overflow-hidden rounded-[24px] bg-white shadow-[0_30px_90px_rgba(2,6,23,.35)]">
-            <div className="flex items-start justify-between gap-5 border-b border-slate-950/8 px-6 py-5">
-              <div>
-                <p className="mb-1 text-[13px] font-bold text-blue-600">
-                  Cotización personalizada
-                </p>
-
-                <h2 className="text-[24px] font-black leading-tight tracking-[-0.04em] text-[#07142b]">
-                  {step === 1 && "¿Qué necesitas?"}
-                  {step === 2 && "Elige tu plan web"}
-                  {step === 3 &&
-                    (selectedPlan?.name ??
-                      selectedService?.title ??
-                      "Cuéntanos de tu proyecto")}
-                </h2>
-              </div>
-
-              <button
-                type="button"
-                onClick={closeModal}
-                className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full text-slate-400 transition hover:bg-slate-100 hover:text-slate-950"
-                aria-label="Cerrar formulario"
-              >
-                ✕
-              </button>
-            </div>
-
-            <div className="max-h-[calc(92vh-98px)] overflow-y-auto px-6 py-5">
-              <div className="mb-6 flex gap-2">
-                {[1, 2, 3].map((item) => (
-                  <span
-                    key={item}
-                    className={`h-1 flex-1 rounded-full ${
-                      item <= step ? "bg-blue-600" : "bg-slate-200"
-                    }`}
-                  />
-                ))}
-              </div>
-
-              {step === 1 && (
-                <div className="grid gap-3">
-                  {services.map((service) => (
-                    <button
-                      key={service.id}
-                      type="button"
-                      onClick={() => selectService(service)}
-                      className="group flex items-center justify-between rounded-2xl border border-slate-200 bg-white p-4 text-left transition hover:border-blue-600/40 hover:shadow-[0_14px_30px_rgba(37,99,235,.1)]"
-                    >
-                      <span>
-                        <strong className="block text-[15px] font-black text-[#07142b]">
-                          {service.title}
-                        </strong>
-
-                        <span className="mt-1 block text-[13px] text-slate-500">
-                          {service.description}
-                        </span>
-                      </span>
-
-                      <span className="text-xl text-blue-600">›</span>
-                    </button>
-                  ))}
-                </div>
-              )}
-
-              {step === 2 && (
-                <div>
-                  <button
-                    type="button"
-                    onClick={() => setStep(1)}
-                    className="mb-4 text-[13px] font-bold text-slate-500 transition hover:text-blue-600"
-                  >
-                    ‹ Volver a servicios
-                  </button>
-
-                  <div className="grid gap-3">
-                    {webPlans.map((plan) => (
-                      <button
-                        key={plan.id}
-                        type="button"
-                        onClick={() => selectPlan(plan)}
-                        className="rounded-2xl border border-slate-200 bg-white p-4 text-left transition hover:border-blue-600/40 hover:shadow-[0_14px_30px_rgba(37,99,235,.1)]"
-                      >
-                        <div className="flex items-start justify-between gap-4">
-                          <div>
-                            <strong className="block text-[16px] font-black text-[#07142b]">
-                              {plan.name}
-                            </strong>
-
-                            <span className="mt-1 block text-[13px] text-slate-500">
-                              {plan.description}
-                            </span>
-                          </div>
-
-                          <span className="shrink-0 rounded-full bg-[#07142b] px-3 py-1.5 text-[11px] font-black text-white">
-                            {plan.pricePrefix && (
-                              <span className="mr-1 text-[9px] uppercase tracking-[0.08em] text-white/65">
-                                {plan.pricePrefix}
-                              </span>
-                            )}
-                            {plan.price}
-                          </span>
-                        </div>
-
-                        <ul className="mt-4 grid gap-1.5 text-[12px] text-slate-600 sm:grid-cols-2">
-                          {plan.features.map((feature) => (
-                            <li key={feature} className="flex gap-2">
-                              <span className="mt-[7px] h-1.5 w-1.5 shrink-0 rounded-full bg-blue-600" />
-                              {feature}
-                            </li>
-                          ))}
-                        </ul>
-
-                        {plan.note && (
-                          <p className="mt-4 rounded-xl border border-blue-100 bg-blue-50 px-3 py-2.5 text-[11px] leading-relaxed text-slate-500">
-                            {plan.note}
-                          </p>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                </div>
-              )}
-
-              {step === 3 && (
-                <div>
-                  <button
-                    type="button"
-                    onClick={() =>
-                      selectedService?.id === "diseno-web"
-                        ? setStep(2)
-                        : setStep(1)
-                    }
-                    className="mb-4 text-[13px] font-bold text-slate-500 transition hover:text-blue-600"
-                  >
-                    ‹ Volver
-                  </button>
-
-                  <div className="grid gap-4">
-                    <label className="grid gap-1.5">
-                      <span className="text-[13px] font-bold text-[#07142b]">
-                        Nombre de tu empresa/negocio *
-                      </span>
-
-                      <input
-                        name="company"
-                        value={formData.company}
-                        onChange={updateField}
-                        placeholder="Mi Empresa SPA"
-                        className={inputClass}
-                      />
-                    </label>
-
-                    <label className="grid gap-1.5">
-                      <span className="text-[13px] font-bold text-[#07142b]">
-                        Tu nombre *
-                      </span>
-
-                      <input
-                        name="name"
-                        value={formData.name}
-                        onChange={updateField}
-                        placeholder="Juan Pérez"
-                        className={inputClass}
-                      />
-                    </label>
-
-                    <label className="grid gap-1.5">
-                      <span className="text-[13px] font-bold text-[#07142b]">
-                        Email
-                      </span>
-
-                      <input
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={updateField}
-                        placeholder="juan@empresa.cl"
-                        className={inputClass}
-                      />
-                    </label>
-
-                    <label className="grid gap-1.5">
-                      <span className="text-[13px] font-bold text-[#07142b]">
-                        WhatsApp *
-                      </span>
-
-                      <input
-                        name="phone"
-                        value={formData.phone}
-                        onChange={updateField}
-                        placeholder="+56 9 1234 5678"
-                        className={inputClass}
-                      />
-                    </label>
-
-                    <label className="grid gap-1.5">
-                      <span className="text-[13px] font-bold text-[#07142b]">
-                        ¿Qué objetivo principal tiene tu proyecto? *
-                      </span>
-
-                      <textarea
-                        name="objective"
-                        value={formData.objective}
-                        onChange={updateField}
-                        placeholder="Ej: captar clientes, ordenar procesos, controlar documentos..."
-                        rows={3}
-                        className={textareaClass}
-                      />
-                    </label>
-
-                    <label className="grid gap-1.5">
-                      <span className="text-[13px] font-bold text-[#07142b]">
-                        Web o referencia{" "}
-                        <span className="font-medium text-slate-400">
-                          opcional
-                        </span>
-                      </span>
-
-                      <input
-                        name="reference"
-                        value={formData.reference}
-                        onChange={updateField}
-                        placeholder="https://miempresa.cl o una web de referencia"
-                        className={inputClass}
-                      />
-                    </label>
-
-                    <button
-                      type="button"
-                      onClick={sendToWhatsApp}
-                      disabled={!canSend}
-                      className="mt-2 inline-flex min-h-12 items-center justify-center gap-2 rounded-xl bg-blue-600 px-5 text-[14px] font-black text-white shadow-[0_16px_35px_rgba(37,99,235,.22)] transition hover:-translate-y-0.5 hover:bg-blue-700 disabled:cursor-not-allowed disabled:bg-slate-300 disabled:shadow-none disabled:hover:translate-y-0"
-                    >
-                      Enviar por WhatsApp <span>↗</span>
-                    </button>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-      )}
-    </>
   );
 }

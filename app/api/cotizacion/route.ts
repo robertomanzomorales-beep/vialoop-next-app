@@ -8,7 +8,7 @@ export const dynamic = "force-dynamic";
 const INTERNAL_RECIPIENTS = ["contacto@vialoop.cl", "dloayza@vialoop.cl"];
 const SERVICES = {
   web: "Sitio web",
-  sistema: "Sistema o automatización",
+  sistema: "Software a medida",
   google: "Google y visibilidad",
   material: "Identidad y material comercial",
   hosting: "Hosting y correos",
@@ -17,10 +17,7 @@ const SERVICES = {
 
 const WEB_PLANS = {
   emprendedor: {
-    name: "Plan Emprende",
-    net: 280000,
-    prefix: "",
-    payment: "Pago único al comenzar",
+    name: "Landing page",
     description: "Landing page de una sola página para presentar la empresa, destacar una oferta y generar contactos.",
     features: [
       "Landing page de una sola página",
@@ -34,10 +31,7 @@ const WEB_PLANS = {
     ],
   },
   crece: {
-    name: "Plan Crece",
-    net: 390000,
-    prefix: "",
-    payment: "50% al comenzar, 25% al presentar la maqueta y 25% al finalizar",
+    name: "Sitio web empresarial",
     description: "Sitio web empresarial con mayor contenido y navegación para presentar servicios, experiencia y respaldo comercial.",
     features: [
       "Sitio web empresarial con navegación completa",
@@ -51,10 +45,7 @@ const WEB_PLANS = {
     ],
   },
   empresa: {
-    name: "Plan Empresa",
-    net: 620000,
-    prefix: "Desde",
-    payment: "50% al comenzar, 25% al presentar la maqueta y 25% al finalizar",
+    name: "Sitio corporativo",
     description: "Solución corporativa avanzada para empresas con múltiples servicios, áreas, públicos o requerimientos de integración.",
     features: [
       "Arquitectura corporativa para múltiples áreas",
@@ -68,10 +59,7 @@ const WEB_PLANS = {
     ],
   },
   ecommerce: {
-    name: "Plan E-commerce",
-    net: 790000,
-    prefix: "Desde",
-    payment: "50% al comenzar, 25% al presentar la maqueta y 25% al finalizar",
+    name: "Tienda online",
     description: "Tienda online personalizada y autoadministrable para vender productos, gestionar pedidos y recibir pagos.",
     features: [
       "Tienda online desarrollada en Next.js y React",
@@ -90,8 +78,6 @@ const WEB_PLANS = {
 const MATERIALS = {
   logotipo: {
     name: "Diseño de logotipo",
-    net: 50000,
-    payment: "Pago único al iniciar",
     description: "Desarrollo de identidad visual inicial para una empresa o nueva marca.",
     features: [
       "2 propuestas iniciales de logotipo",
@@ -102,8 +88,6 @@ const MATERIALS = {
   },
   brochure: {
     name: "Brochure corporativo",
-    net: 150000,
-    payment: "Pago único al iniciar",
     description: "Documento comercial para presentar profesionalmente la empresa, sus servicios y capacidades.",
     features: [
       "Hasta 8 páginas interiores",
@@ -117,8 +101,6 @@ const MATERIALS = {
 const HOSTING_PLANS = {
   hosting1gb: {
     name: "Hosting 1 GB",
-    net: 65900,
-    payment: "Pago anual",
     description: "Alternativa básica para ampliar la capacidad del sitio y sus correos corporativos.",
     features: [
       "1 GB de almacenamiento SSD",
@@ -129,8 +111,6 @@ const HOSTING_PLANS = {
   },
   hosting8gb: {
     name: "Hosting Empresa 8 GB SSD",
-    net: 129059,
-    payment: "Pago anual",
     description: "Alternativa empresarial inicial para sitios y organizaciones con mayor uso de correo.",
     features: [
       "8 GB de almacenamiento SSD",
@@ -141,18 +121,10 @@ const HOSTING_PLANS = {
   },
 } as const;
 
-const GOOGLE_INVESTMENTS = {
-  "200000": 200000,
-  "400000": 400000,
-  "600000": 600000,
-  definir: null,
-} as const;
-
 type ServiceId = keyof typeof SERVICES;
 type WebPlanId = keyof typeof WEB_PLANS;
 type MaterialId = keyof typeof MATERIALS;
 type HostingPlanId = keyof typeof HOSTING_PLANS;
-type GoogleInvestmentId = keyof typeof GOOGLE_INVESTMENTS;
 
 type QuoteBody = {
   serviceIds?: unknown;
@@ -186,12 +158,8 @@ type RateLimitEntry = { count: number; resetAt: number };
 type QuoteItem = {
   id: string;
   name: string;
-  net: number;
-  prefix: string;
-  payment: string;
   description: string;
   features: string[];
-  category: "vialoop" | "external";
 };
 
 const RATE_LIMIT_WINDOW = 15 * 60 * 1000;
@@ -230,14 +198,6 @@ function escapeHtml(value: string) {
 
 function htmlText(value: string) {
   return escapeHtml(value).replaceAll("\n", "<br />");
-}
-
-function formatCLP(value: number) {
-  return new Intl.NumberFormat("es-CL", {
-    style: "currency",
-    currency: "CLP",
-    maximumFractionDigits: 0,
-  }).format(value);
 }
 
 function getClientAddress(request: NextRequest) {
@@ -324,22 +284,12 @@ function detailRow(label: string, value: string, strong = false) {
 }
 
 function productEmailBlock(item: QuoteItem) {
-  const price = item.category === "external"
-    ? formatCLP(item.net)
-    : `${item.prefix ? `${item.prefix} ` : ""}${formatCLP(item.net)} + IVA`;
-
   return `<div style="padding:20px 0;border-bottom:1px solid #dfe6ee;">
-    <table role="presentation" style="width:100%;border-collapse:collapse;">
-      <tr>
-        <td style="padding:0 18px 7px 0;color:#152d4b;font-size:14px;font-weight:700;">${escapeHtml(item.name)}</td>
-        <td style="padding:0 0 7px;text-align:right;color:#185db2;font-size:13px;font-weight:700;white-space:nowrap;">${escapeHtml(price)}</td>
-      </tr>
-    </table>
+    <h2 style="margin:0 0 8px;color:#152d4b;font-size:14px;">${escapeHtml(item.name)}</h2>
     <p style="margin:0;color:#667991;font-size:11px;line-height:1.65;">${escapeHtml(item.description)}</p>
-    <ul style="margin:11px 0 0;padding:0 0 0 17px;color:#52677f;font-size:10.5px;line-height:1.7;">
+    <ul style="margin:11px 0 0;padding-left:17px;color:#52677f;font-size:10.5px;line-height:1.7;">
       ${item.features.map((feature) => `<li style="margin:3px 0;">${escapeHtml(feature)}</li>`).join("")}
     </ul>
-    <p style="margin:11px 0 0;color:#70839a;font-size:10px;"><strong>Forma de pago:</strong> ${escapeHtml(item.payment)}</p>
   </div>`;
 }
 
@@ -373,7 +323,6 @@ export async function POST(request: NextRequest) {
   const materialIds = uniqueValues(getStringArray(body.materialIds, 2, 30)) as MaterialId[];
   const hostingPlanId = getText(body.hostingPlanId, 30) as HostingPlanId;
   const googleNeed = getText(body.googleNeed, 160);
-  const googleInvestment = getText(body.googleInvestment, 30) as GoogleInvestmentId;
   const systemArea = getText(body.systemArea, 160);
   const systemUsers = getText(body.systemUsers, 80);
   const systemIntegrations = getText(body.systemIntegrations, 800);
@@ -396,7 +345,7 @@ export async function POST(request: NextRequest) {
     return NextResponse.json({ ok: false, message: "Seleccione al menos un servicio válido." }, { status: 400 });
   }
   if (serviceIds.includes("web") && !Object.hasOwn(WEB_PLANS, webPlanId)) {
-    return NextResponse.json({ ok: false, message: "Seleccione un plan web válido." }, { status: 400 });
+    return NextResponse.json({ ok: false, message: "Seleccione un tipo de sitio web válido." }, { status: 400 });
   }
   if (serviceIds.includes("material") && (materialIds.length === 0 || materialIds.some((id) => !Object.hasOwn(MATERIALS, id)))) {
     return NextResponse.json({ ok: false, message: "Seleccione al menos un material comercial válido." }, { status: 400 });
@@ -404,8 +353,8 @@ export async function POST(request: NextRequest) {
   if (serviceIds.includes("hosting") && !Object.hasOwn(HOSTING_PLANS, hostingPlanId)) {
     return NextResponse.json({ ok: false, message: "Seleccione una alternativa de hosting válida." }, { status: 400 });
   }
-  if (serviceIds.includes("google") && (!googleNeed || !Object.hasOwn(GOOGLE_INVESTMENTS, googleInvestment))) {
-    return NextResponse.json({ ok: false, message: "Complete la necesidad y la inversión de Google." }, { status: 400 });
+  if (serviceIds.includes("google") && !googleNeed) {
+    return NextResponse.json({ ok: false, message: "Complete la necesidad principal para Google." }, { status: 400 });
   }
   if (serviceIds.includes("sistema") && (!systemArea || !systemUsers)) {
     return NextResponse.json({ ok: false, message: "Complete el área y la cantidad estimada de usuarios." }, { status: 400 });
@@ -431,78 +380,30 @@ export async function POST(request: NextRequest) {
   const items: QuoteItem[] = [];
   if (serviceIds.includes("web")) {
     const plan = WEB_PLANS[webPlanId];
-    items.push({ id: webPlanId, name: plan.name, net: plan.net, prefix: plan.prefix, payment: plan.payment, description: plan.description, features: [...plan.features], category: "vialoop" });
+    items.push({ id: webPlanId, name: plan.name, description: plan.description, features: [...plan.features] });
   }
   if (serviceIds.includes("material")) {
     materialIds.forEach((id) => {
       const item = MATERIALS[id];
-      items.push({ id, name: item.name, net: item.net, prefix: "", payment: item.payment, description: item.description, features: [...item.features], category: "vialoop" });
+      items.push({ id, name: item.name, description: item.description, features: [...item.features] });
     });
   }
   if (serviceIds.includes("hosting")) {
     const hosting = HOSTING_PLANS[hostingPlanId];
-    items.push({ id: hostingPlanId, name: hosting.name, net: hosting.net, prefix: "", payment: hosting.payment, description: hosting.description, features: [...hosting.features], category: "vialoop" });
+    items.push({ id: hostingPlanId, name: hosting.name, description: hosting.description, features: [...hosting.features] });
+  }
+  if (serviceIds.includes("sistema")) {
+    items.push({ id: "sistema", name: "Software a medida", description: "Desarrollo de software según los procesos y requerimientos de la empresa.", features: [systemArea, systemUsers, systemIntegrations].filter(Boolean) });
   }
   if (serviceIds.includes("google")) {
-    items.push({
-      id: "google-management",
-      name: "Gestión Google y visibilidad",
-      net: 130000,
-      prefix: "Desde",
-      payment: "Servicio mensual",
-      description: "Configuración, gestión y optimización mensual según el objetivo definido.",
-      features: [
-        `Objetivo informado: ${googleNeed}`,
-        "Configuración o revisión inicial de la presencia y medición",
-        "Gestión y optimización mensual según alcance",
-        "La inversión publicitaria no está incluida en los honorarios de Vialoop",
-      ],
-      category: "vialoop",
-    });
-    const investment = GOOGLE_INVESTMENTS[googleInvestment];
-    if (investment !== null) {
-      items.push({
-        id: "google-investment",
-        name: "Inversión publicitaria en Google Ads",
-        net: investment,
-        prefix: "",
-        payment: "Pago mensual directo a Google",
-        description: "Presupuesto sugerido para que la campaña obtenga un volumen inicial útil de datos y oportunidades.",
-        features: [
-          "Monto pagado directamente a la plataforma Google Ads",
-          "No forma parte de la factura de servicios emitida por Vialoop",
-          "Puede ajustarse después de evaluar competencia, zona, objetivos y costo por clic",
-        ],
-        category: "external",
-      });
-    }
+    items.push({ id: "google", name: "Google y visibilidad", description: googleNeed, features: ["El alcance de la gestión se define en la propuesta.", "El presupuesto publicitario se acuerda por separado y se paga directamente a Google."] });
   }
-
-  const customServices = [
-    serviceIds.includes("sistema") ? "Sistema o automatización a medida" : "",
-    serviceIds.includes("otro") ? `Otra consulta: ${otherSubject}` : "",
-  ].filter(Boolean);
-
-  const vialoopItems = items.filter((item) => item.category === "vialoop");
-  const externalItems = items.filter((item) => item.category === "external");
-  const subtotal = vialoopItems.reduce((sum, item) => sum + item.net, 0);
-  const vat = Math.round(subtotal * 0.19);
-  const vialoopTotal = subtotal + vat;
-  const externalTotal = externalItems.reduce((sum, item) => sum + item.net, 0);
-  const estimatedInvestment = vialoopTotal + externalTotal;
-  const initialNet = vialoopItems.reduce((sum, item) => {
-    const isInstallmentWebPlan = ["crece", "empresa", "ecommerce"].includes(item.id);
-    return sum + Math.round(item.net * (isInstallmentWebPlan ? 0.5 : 1));
-  }, 0);
-  const initialVat = Math.round(initialNet * 0.19);
-  const initialTotal = initialNet + initialVat;
+  if (serviceIds.includes("otro")) {
+    items.push({ id: "otro", name: "Otra consulta", description: otherSubject, features: [] });
+  }
 
   const requestId = `VC-${new Date().toISOString().slice(0, 10).replaceAll("-", "")}-${randomUUID().slice(0, 8).toUpperCase()}`;
   const now = new Date();
-  const validDate = new Date(now);
-  validDate.setDate(validDate.getDate() + 7);
-  const dateFormatter = new Intl.DateTimeFormat("es-CL", { dateStyle: "medium", timeZone: "America/Santiago" });
-  const validUntil = dateFormatter.format(validDate);
   const receivedAt = new Intl.DateTimeFormat("es-CL", { dateStyle: "full", timeStyle: "short", timeZone: "America/Santiago" }).format(now);
 
   const branchDetails = [
@@ -518,43 +419,27 @@ export async function POST(request: NextRequest) {
   const safeName = escapeHtml(fullName);
   const safeCompany = escapeHtml(company || "No informada");
   const productsHtml = items.map(productEmailBlock).join("");
-  const customHtml = customServices.length
-    ? `<div style="padding:20px 0;border-bottom:1px solid #dfe6ee;">
-        <p style="margin:0;color:#152d4b;font-size:14px;font-weight:700;">Servicios sujetos a evaluación</p>
-        ${customServices.map((service) => `<p style="margin:9px 0 0;color:#667991;font-size:11px;line-height:1.6;">${escapeHtml(service)} · El valor será confirmado después de revisar el alcance.</p>`).join("")}
-      </div>`
-    : "";
-
-  const totalsHtml = subtotal > 0
-    ? `<div style="margin:25px 0 0;padding:22px;border-radius:10px;background:#0b2340;color:#ffffff;">
-        <p style="margin:0 0 13px;color:#8dc2ff;font-size:9px;font-weight:700;letter-spacing:1.3px;">RESUMEN ECONÓMICO</p>
-        <table role="presentation" style="width:100%;border-collapse:collapse;color:#ffffff;">
-          <tr><td style="padding:6px 0;color:#b8cbe0;font-size:11px;">Subtotal servicios Vialoop</td><td style="padding:6px 0;text-align:right;font-size:11px;">${formatCLP(subtotal)}</td></tr>
-          <tr><td style="padding:6px 0;color:#b8cbe0;font-size:11px;">IVA 19%</td><td style="padding:6px 0;text-align:right;font-size:11px;">${formatCLP(vat)}</td></tr>
-          <tr><td style="padding:10px 0;border-top:1px solid #42607e;font-size:12px;font-weight:700;">Total servicios Vialoop</td><td style="padding:10px 0;border-top:1px solid #42607e;text-align:right;font-size:13px;font-weight:700;">${formatCLP(vialoopTotal)}</td></tr>
-          <tr><td style="padding:11px 0;border-top:1px solid #42607e;color:#8dc2ff;font-size:12px;font-weight:700;">Monto inicial para comenzar</td><td style="padding:11px 0;border-top:1px solid #42607e;color:#8dc2ff;text-align:right;font-size:14px;font-weight:700;">${formatCLP(initialTotal)}</td></tr>
-          ${externalTotal > 0 ? `<tr><td style="padding:7px 0;color:#b8cbe0;font-size:11px;">Inversión directa en Google</td><td style="padding:7px 0;text-align:right;font-size:11px;">${formatCLP(externalTotal)}</td></tr><tr><td style="padding:10px 0;border-top:1px solid #42607e;color:#8dc2ff;font-size:12px;font-weight:700;">Inversión estimada del primer mes</td><td style="padding:10px 0;border-top:1px solid #42607e;color:#8dc2ff;text-align:right;font-size:13px;font-weight:700;">${formatCLP(estimatedInvestment)}</td></tr>` : ""}
-        </table>
-      </div>`
-    : `<div style="margin:25px 0 0;padding:22px;border-radius:10px;background:#0b2340;color:#ffffff;"><p style="margin:0 0 8px;color:#8dc2ff;font-size:9px;font-weight:700;letter-spacing:1.3px;">EVALUACIÓN PERSONALIZADA</p><strong style="font-size:21px;">Valor sujeto a revisión de alcance</strong></div>`;
+  const evaluationHtml = `<div style="margin:25px 0 0;padding:22px;border-radius:10px;background:#0b2340;color:#ffffff;">
+    <p style="margin:0 0 10px;color:#8dc2ff;font-size:9px;font-weight:700;letter-spacing:1.3px;">PROPUESTA A MEDIDA</p>
+    <p style="margin:0;font-size:13px;line-height:1.7;">Revisaremos sus antecedentes para definir el alcance, los plazos y la propuesta económica. Este mensaje confirma la recepción de su solicitud.</p>
+  </div>`;
 
   const clientContent = `
     <p style="margin:0;color:#41566d;font-size:13px;line-height:1.75;">Estimado/a <strong>${safeName}</strong>:</p>
-    <p style="margin:17px 0 0;color:#41566d;font-size:13px;line-height:1.75;">Preparamos un resumen de los servicios seleccionados para <strong>${safeCompany}</strong>, junto con la inversión estimada y el monto inicial para comenzar.</p>
+    <p style="margin:17px 0 0;color:#41566d;font-size:13px;line-height:1.75;">Preparamos un resumen de los servicios seleccionados para <strong>${safeCompany}</strong>, y los antecedentes de su proyecto.</p>
     <table role="presentation" style="width:100%;margin-top:22px;border-collapse:collapse;">
       ${detailRow("Identificador", escapeHtml(requestId), true)}
       ${detailRow("Servicios", escapeHtml(serviceIds.map((id) => SERVICES[id]).join(" · ")), true)}
       ${detailRow("Inicio esperado", escapeHtml(desiredStart))}
-      ${detailRow("Vigencia referencial", escapeHtml(validUntil))}
     </table>
-    <div style="margin-top:27px;border-top:2px solid #2366c7;">${productsHtml}${customHtml}</div>
-    ${totalsHtml}
+    <div style="margin-top:27px;border-top:2px solid #2366c7;">${productsHtml}</div>
+    ${evaluationHtml}
     <p style="margin:24px 0 0;color:#41566d;font-size:13px;line-height:1.75;"><strong>Doris, del área comercial de Vialoop, se comunicará con usted</strong> por ${escapeHtml(preferredContact.toLowerCase())} para revisar los antecedentes, responder sus consultas y confirmar el alcance definitivo.</p>
-    <p style="margin:22px 0 0;color:#728197;font-size:10px;line-height:1.7;">Esta estimación es referencial y no constituye todavía una propuesta definitiva. Doris confirmará alcance, requerimientos, disponibilidad y valor final antes de iniciar. La inversión de Google Ads se paga directamente a Google.</p>
+
     <p style="margin:22px 0 0;color:#172943;font-size:11px;line-height:1.7;">Saludos cordiales,<br /><strong>Área Comercial Vialoop</strong><br /><a href="mailto:contacto@vialoop.cl" style="color:#1768c5;">contacto@vialoop.cl</a><br /><a href="https://vialoop.cl" style="color:#1768c5;">www.vialoop.cl</a></p>`;
 
   const internalContent = `
-    <p style="margin:0 0 20px;color:#41566d;font-size:13px;line-height:1.7;">Se recibió una nueva solicitud desde el cotizador de vialoop.cl. El cliente recibió por correo esta misma estimación orientativa.</p>
+    <p style="margin:0 0 20px;color:#41566d;font-size:13px;line-height:1.7;">Se recibió una nueva solicitud desde el formulario de vialoop.cl. El cliente recibió un resumen de los servicios y antecedentes, sin valores automáticos.</p>
     <table role="presentation" style="width:100%;border-collapse:collapse;">
       ${detailRow("Identificador", escapeHtml(requestId), true)}
       ${detailRow("Recepción", escapeHtml(receivedAt))}
@@ -567,7 +452,8 @@ export async function POST(request: NextRequest) {
       ${detailRow("Servicios", escapeHtml(serviceIds.map((id) => SERVICES[id]).join(" · ")), true)}
       ${detailRow("Inicio esperado", escapeHtml(desiredStart))}
     </table>
-    ${totalsHtml}
+    ${productsHtml}
+    ${evaluationHtml}
     <div style="margin-top:24px;padding:20px 0;border-top:1px solid #dce3eb;border-bottom:1px solid #dce3eb;">
       <p style="margin:0 0 8px;color:#2366c7;font-size:9px;font-weight:700;letter-spacing:1.2px;">OBJETIVO DEL PROYECTO</p>
       <p style="margin:0;color:#172943;font-size:12px;line-height:1.75;">${htmlText(objective)}</p>
@@ -596,14 +482,12 @@ export async function POST(request: NextRequest) {
           `Correo: ${email}`,
           `Teléfono: ${phone}`,
           `Servicios: ${serviceIds.map((id) => SERVICES[id]).join(", ")}`,
-          `Total servicios Vialoop: ${subtotal > 0 ? formatCLP(vialoopTotal) : "Evaluación personalizada"}`,
-          subtotal > 0 ? `Monto inicial estimado: ${formatCLP(initialTotal)}` : "",
-          externalTotal > 0 ? `Inversión directa en Google: ${formatCLP(externalTotal)}` : "",
+          ...items.map((item) => `${item.name}: ${item.description}`),
           "",
           "Objetivo:",
           objective,
         ].filter(Boolean).join("\n"),
-        html: emailFrame("Nueva solicitud de proyecto", "COTIZADOR VIALOOP", internalContent, "Mensaje generado automáticamente. La persona aceptó el aviso de privacidad para evaluar y responder su solicitud."),
+        html: emailFrame("Nueva solicitud de proyecto", "SOLICITUD VIALOOP", internalContent, "Mensaje generado automáticamente. La persona aceptó el aviso de privacidad para evaluar y responder su solicitud."),
       }),
       transporter.sendMail({
         from: `"Vialoop Cotizaciones" <${smtpUser}>`,
@@ -613,12 +497,10 @@ export async function POST(request: NextRequest) {
         text: [
           `Estimado/a ${fullName}:`,
           "",
-          "Recibimos su solicitud y preparamos este resumen orientativo.",
+          "Recibimos su solicitud. Revisaremos sus antecedentes para preparar una propuesta a medida.",
           `Identificador: ${requestId}`,
           `Servicios: ${serviceIds.map((id) => SERVICES[id]).join(", ")}`,
-          `Total servicios Vialoop: ${subtotal > 0 ? formatCLP(vialoopTotal) : "Evaluación personalizada"}`,
-          subtotal > 0 ? `Monto inicial estimado: ${formatCLP(initialTotal)}` : "",
-          externalTotal > 0 ? `Inversión directa en Google: ${formatCLP(externalTotal)}` : "",
+          ...items.map((item) => `${item.name}: ${item.description}`),
           "",
           "Doris, del área comercial de Vialoop, se comunicará con usted para validar el alcance y los próximos pasos.",
           "",
@@ -632,7 +514,7 @@ export async function POST(request: NextRequest) {
 
     return NextResponse.json({ ok: true, requestId, message: "La solicitud fue registrada y enviamos el resumen a su correo." });
   } catch (error) {
-    console.error("Error al enviar la estimación:", error);
-    return NextResponse.json({ ok: false, message: "No fue posible enviar la estimación en este momento. Intente nuevamente más tarde." }, { status: 500 });
+    console.error("Error al enviar la solicitud:", error);
+    return NextResponse.json({ ok: false, message: "No fue posible enviar la solicitud en este momento. Intente nuevamente más tarde." }, { status: 500 });
   }
 }

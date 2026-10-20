@@ -1,0 +1,63 @@
+VIALOOP · ACTUALIZACIÓN DEL SITIO WEB
+20 de octubre de 2026
+
+Este directorio contiene el proyecto completo en Next.js, con los cambios aplicados.
+
+CAMBIOS
+- Portada enfocada en diseño web y desarrollo de software a medida.
+- Mensaje dirigido a empresas, negocios y profesionales de distintos rubros.
+- Retiro de la sección de precios y de los valores del recorrido comercial.
+- Nuevo enlace Software a medida en el menú y en el pie de página.
+- Nueva página /software-a-medida, con RERCHAR y GM Especialistas.
+- Presentación mediante logos y descripciones, sin capturas de sus paneles,
+  datos internos ni etiquetas sobre el estado de los proyectos.
+- Formulario y correos automáticos centrados en solicitar una propuesta,
+  sin generar montos, anticipos ni cotizaciones automáticas.
+- Metadatos y sitemap actualizados.
+
+ACTUALIZAR EL PROYECTO EXISTENTE
+1. Descomprima el ZIP.
+2. Abra la carpeta vialoop-next-app-main. Contiene app, components, lib,
+   public, scripts y package.json, entre otros archivos.
+3. Actualice esos contenidos en su repositorio vialoop-next-app, conservando
+   la misma estructura y las carpetas existentes.
+4. Los archivos deben quedar directamente en la raíz del repositorio.
+   Evite crear una segunda carpeta vialoop-next-app-main dentro de él.
+5. No suba el ZIP como archivo al repositorio: GitHub no lo descomprime.
+6. Si el repositorio sigue vinculado a Vercel, el commit en la rama configurada
+   activará el despliegue. Revise que termine correctamente antes de dar
+   por publicada la actualización.
+
+El ZIP no publica cambios por sí solo. No se modificó el sitio en producción.
+
+DÓNDE EDITAR
+- Portada: components/Hero.tsx
+- Servicios: components/Services.tsx
+- Resumen de software del inicio: components/SystemsSection.tsx
+- Textos y logos de ambos sistemas: lib/software-projects.ts
+- Página de software: app/software-a-medida/page.tsx y page.module.css
+- Logos: public/software/
+- Menú: components/MainMenu.tsx
+- Contacto: components/contact/QuoteWizard.tsx
+- Correos de solicitud: app/api/cotizacion/route.ts
+
+DESARROLLO LOCAL
+npm ci
+npm run dev
+
+COMPILACIÓN DE PRODUCCIÓN
+npm run build
+npm start
+
+CONFIGURACIÓN DE CORREO
+Mantenga las variables SMTP_HOST, SMTP_PORT, SMTP_SECURE, SMTP_USER
+Y SMTP_PASSWORD que ya utiliza el proyecto en el entorno de despliegue.
+No se incluyeron contraseñas ni archivos de configuración privados.
+
+VERIFICACIÓN
+- Compilación de producción y revisión de TypeScript correctas.
+- Portada, página de software y contacto revisados en navegador.
+- Vistas móviles revisadas a 390 px y menú móvil comprobado.
+- Flujo de contacto hasta el resumen y validación del envío comprobados.
+- 19 pruebas de selección de servicios, validación y correos, con transporte
+  simulado. No se enviaron correos reales ni se verificó la entrega SMTP.

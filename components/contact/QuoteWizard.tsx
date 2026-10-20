@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useMemo, useState, type ChangeEvent, type FormEvent } from "react";
 import styles from "./QuoteWizard.module.css";
 
-type ServiceId = "web" | "sistema" | "google" | "material" | "hosting" | "otro";
+export type ServiceId = "web" | "sistema" | "google" | "material" | "hosting" | "otro";
 type WebPlanId = "emprendedor" | "crece" | "empresa" | "ecommerce";
 type MaterialId = "logotipo" | "brochure";
 type HostingPlanId = "hosting1gb" | "hosting8gb";
@@ -43,16 +43,6 @@ type SubmitState = {
   requestId?: string;
 };
 
-type QuoteItem = {
-  id: string;
-  name: string;
-  net: number;
-  prefix?: string;
-  payment: string;
-  category: "vialoop" | "external";
-  initialRate: number;
-};
-
 const services = [
   {
     id: "web" as const,
@@ -63,7 +53,7 @@ const services = [
   {
     id: "sistema" as const,
     number: "02",
-    title: "Sistema o automatización",
+    title: "Software a medida",
     description: "Herramientas a medida para ordenar procesos, registros, documentos y operaciones.",
   },
   {
@@ -95,34 +85,22 @@ const services = [
 const webPlans = [
   {
     id: "emprendedor" as const,
-    name: "Plan Emprende",
-    price: 280000,
-    prefix: "",
-    payment: "Pago único al comenzar",
+    name: "Landing page",
     description: "Landing page de una sola página, organizada en hasta 6 secciones.",
   },
   {
     id: "crece" as const,
-    name: "Plan Crece",
-    price: 390000,
-    prefix: "",
-    payment: "50% al comenzar, 25% al presentar la maqueta y 25% al finalizar",
+    name: "Sitio web empresarial",
     description: "Sitio empresarial con mayor contenido, navegación y capacidad comercial.",
   },
   {
     id: "empresa" as const,
-    name: "Plan Empresa",
-    price: 620000,
-    prefix: "Desde",
-    payment: "50% al comenzar, 25% al presentar la maqueta y 25% al finalizar",
+    name: "Sitio corporativo",
     description: "Solución corporativa avanzada para múltiples servicios, áreas o públicos.",
   },
   {
     id: "ecommerce" as const,
-    name: "Plan E-commerce",
-    price: 790000,
-    prefix: "Desde",
-    payment: "50% al comenzar, 25% al presentar la maqueta y 25% al finalizar",
+    name: "Tienda online",
     description: "Tienda online personalizada para productos, pedidos, clientes y pagos.",
   },
 ];
@@ -131,15 +109,11 @@ const materialOptions = [
   {
     id: "logotipo" as const,
     name: "Diseño de logotipo",
-    price: 50000,
-    payment: "Pago único al iniciar",
     description: "2 propuestas iniciales y hasta 3 cambios sobre la alternativa elegida.",
   },
   {
     id: "brochure" as const,
     name: "Brochure corporativo",
-    price: 150000,
-    payment: "Pago único al iniciar",
     description: "Hasta 8 páginas interiores, más portada, índice y contraportada.",
   },
 ];
@@ -148,24 +122,13 @@ const hostingOptions = [
   {
     id: "hosting1gb" as const,
     name: "Hosting 1 GB",
-    price: 65900,
-    payment: "Pago anual",
     description: "1 GB de almacenamiento SSD y hasta 5 correos corporativos.",
   },
   {
     id: "hosting8gb" as const,
     name: "Hosting Empresa 8 GB SSD",
-    price: 129059,
-    payment: "Pago anual",
     description: "8 GB SSD y correos corporativos ilimitados dentro de la capacidad contratada.",
   },
-];
-
-const googleInvestments = [
-  { value: "200000", label: "$200.000 mensuales · mínimo sugerido" },
-  { value: "400000", label: "$400.000 mensuales · recomendado" },
-  { value: "600000", label: "$600.000 mensuales · mayor alcance" },
-  { value: "definir", label: "Definir después de la evaluación" },
 ];
 
 const initialForm: QuoteForm = {
@@ -174,7 +137,7 @@ const initialForm: QuoteForm = {
   materialIds: [],
   hostingPlanId: "",
   googleNeed: "",
-  googleInvestment: "200000",
+  googleInvestment: "definir",
   systemArea: "",
   systemUsers: "",
   systemIntegrations: "",
@@ -195,17 +158,9 @@ const initialForm: QuoteForm = {
   website: "",
 };
 
-function formatCLP(value: number) {
-  return new Intl.NumberFormat("es-CL", {
-    style: "currency",
-    currency: "CLP",
-    maximumFractionDigits: 0,
-  }).format(value);
-}
-
-export default function QuoteWizard() {
+export default function QuoteWizard({ initialService }: { initialService?: ServiceId }) {
   const [step, setStep] = useState<Step>(1);
-  const [form, setForm] = useState<QuoteForm>(initialForm);
+  const [form, setForm] = useState<QuoteForm>(() => ({ ...initialForm, serviceIds: initialService ? [initialService] : [] }));
   const [submitState, setSubmitState] = useState<SubmitState>({ status: "idle", message: "" });
   const [isTransitioning, setIsTransitioning] = useState(false);
 
@@ -224,86 +179,14 @@ export default function QuoteWizard() {
     [form.hostingPlanId],
   );
 
-  const quoteItems = useMemo<QuoteItem[]>(() => {
-    const items: QuoteItem[] = [];
-
-    if (form.serviceIds.includes("web") && selectedWebPlan) {
-      items.push({
-        id: selectedWebPlan.id,
-        name: selectedWebPlan.name,
-        net: selectedWebPlan.price,
-        prefix: selectedWebPlan.prefix,
-        payment: selectedWebPlan.payment,
-        category: "vialoop",
-        initialRate: selectedWebPlan.id === "emprendedor" ? 1 : 0.5,
-      });
-    }
-
-    if (form.serviceIds.includes("material")) {
-      selectedMaterials.forEach((item) => {
-        items.push({
-          id: item.id,
-          name: item.name,
-          net: item.price,
-          payment: item.payment,
-          category: "vialoop",
-          initialRate: 1,
-        });
-      });
-    }
-
-    if (form.serviceIds.includes("hosting") && selectedHosting) {
-      items.push({
-        id: selectedHosting.id,
-        name: selectedHosting.name,
-        net: selectedHosting.price,
-        payment: selectedHosting.payment,
-        category: "vialoop",
-        initialRate: 1,
-      });
-    }
-
-    if (form.serviceIds.includes("google")) {
-      items.push({
-        id: "google-management",
-        name: "Gestión Google y visibilidad",
-        net: 130000,
-        prefix: "Desde",
-        payment: "Servicio mensual",
-        category: "vialoop",
-        initialRate: 1,
-      });
-
-      const investment = Number(form.googleInvestment);
-      if (Number.isFinite(investment) && investment > 0) {
-        items.push({
-          id: "google-investment",
-          name: "Inversión publicitaria en Google Ads",
-          net: investment,
-          payment: "Pago mensual directo a Google",
-          category: "external",
-          initialRate: 1,
-        });
-      }
-    }
-
-    return items;
-  }, [form.googleInvestment, form.serviceIds, selectedHosting, selectedMaterials, selectedWebPlan]);
-
-  const vialoopItems = quoteItems.filter((item) => item.category === "vialoop");
-  const externalItems = quoteItems.filter((item) => item.category === "external");
-  const subtotal = vialoopItems.reduce((sum, item) => sum + item.net, 0);
-  const vat = Math.round(subtotal * 0.19);
-  const vialoopTotal = subtotal + vat;
-  const externalTotal = externalItems.reduce((sum, item) => sum + item.net, 0);
-  const estimatedInvestment = vialoopTotal + externalTotal;
-  const initialNet = vialoopItems.reduce(
-    (sum, item) => sum + Math.round(item.net * item.initialRate),
-    0,
-  );
-  const initialVat = Math.round(initialNet * 0.19);
-  const initialTotal = initialNet + initialVat;
-  const hasCustomEvaluation = form.serviceIds.some((id) => id === "sistema" || id === "otro");
+  const selectionDetails = [
+    ...(form.serviceIds.includes("web") && selectedWebPlan ? [selectedWebPlan] : []),
+    ...(form.serviceIds.includes("material") ? selectedMaterials : []),
+    ...(form.serviceIds.includes("hosting") && selectedHosting ? [selectedHosting] : []),
+    ...(form.serviceIds.includes("sistema") ? [{ id: "sistema", name: "Software a medida", description: [form.systemArea, form.systemUsers].filter(Boolean).join(" · ") }] : []),
+    ...(form.serviceIds.includes("google") ? [{ id: "google", name: "Google y visibilidad", description: form.googleNeed }] : []),
+    ...(form.serviceIds.includes("otro") ? [{ id: "otro", name: "Otra consulta", description: form.otherSubject }] : []),
+  ];
 
   function updateField(
     event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>,
@@ -394,9 +277,9 @@ export default function QuoteWizard() {
 
   async function submitQuote(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    if (step !== 3 || submitState.status === "sending") return;
+    if (step !== 3 || submitState.status === "sending" || !canContinueFrom(1) || !canContinueFrom(2) || !canContinueFrom(3)) return;
 
-    setSubmitState({ status: "sending", message: "Enviando su estimación…" });
+    setSubmitState({ status: "sending", message: "Enviando su solicitud…" });
 
     try {
       const response = await fetch("/api/cotizacion", {
@@ -444,13 +327,13 @@ export default function QuoteWizard() {
             <h1 id="success-title">
               Gracias, <span>{form.fullName.split(" ")[0]}.</span>
             </h1>
-            <p>Su estimación fue enviada y el proyecto ya ingresó al equipo comercial de Vialoop.</p>
+            <p>Recibimos su solicitud. El equipo comercial de Vialoop revisará los antecedentes de su proyecto.</p>
           </div>
 
           <div className={styles.successDetail}>
             <p className={styles.successLead}>
-              Enviamos a <strong>{form.email}</strong> un resumen claro de los servicios,
-              la inversión estimada y el monto inicial para comenzar.
+              Enviamos a <strong>{form.email}</strong> un resumen de los servicios
+              y los antecedentes que compartió con nosotros.
             </p>
 
             <div className={styles.successReference}>
@@ -459,7 +342,7 @@ export default function QuoteWizard() {
             </div>
 
             <ol className={styles.successSteps}>
-              <li><span>01</span><p><strong>Resumen enviado.</strong> Revise su correo para consultar los servicios y valores seleccionados.</p></li>
+              <li><span>01</span><p><strong>Resumen enviado.</strong> Revise su correo para consultar los servicios y detalles de su solicitud.</p></li>
               <li><span>02</span><p><strong>Revisión comercial.</strong> Doris revisará personalmente los antecedentes y el alcance informado.</p></li>
               <li><span>03</span><p><strong>Próximo contacto.</strong> Se comunicará por {form.preferredContact.toLowerCase()} para confirmar la propuesta y los siguientes pasos.</p></li>
             </ol>
@@ -480,14 +363,14 @@ export default function QuoteWizard() {
 
       <header className={styles.hero}>
         <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}><span /> COTIZADOR DE PROYECTOS</p>
-          <h1 id="quote-title">Definamos la inversión <em>de su proyecto.</em></h1>
+          <p className={styles.eyebrow}><span /> HABLEMOS DE SU PROYECTO</p>
+          <h1 id="quote-title">Cuéntenos qué necesita. <em>Le damos forma juntos.</em></h1>
         </div>
 
         <div className={styles.heroIntro}>
           <p>
-            Combine los servicios que necesita, conozca el monto estimado para comenzar
-            y reciba un resumen profesional en su correo.
+            Seleccione los servicios que necesita y cuéntenos qué quiere resolver.
+            Revisaremos sus antecedentes para preparar una propuesta a su medida.
           </p>
           <div className={styles.stageMeta}>
             <span>ETAPA</span>
@@ -522,19 +405,9 @@ export default function QuoteWizard() {
           </dl>
 
           <div className={styles.summaryTotal}>
-            <span>ESTIMACIÓN ACTUAL</span>
-            {subtotal > 0 ? (
-              <>
-                <strong>{formatCLP(vialoopTotal)}</strong>
-                <small>Pago inicial estimado: {formatCLP(initialTotal)}</small>
-                {externalTotal > 0 && <small>Más {formatCLP(externalTotal)} de inversión directa en Google</small>}
-              </>
-            ) : (
-              <>
-                <strong>Evaluación personalizada</strong>
-                <small>El valor se definirá después de revisar el alcance.</small>
-              </>
-            )}
+            <span>PROPUESTA A MEDIDA</span>
+            <strong>Conozcamos su proyecto</strong>
+            <small>Definimos el alcance y la inversión después de revisar su solicitud.</small>
           </div>
         </aside>
 
@@ -589,7 +462,7 @@ export default function QuoteWizard() {
                     <section className={styles.configSection}>
                       <div className={styles.configHeading}>
                         <span>SITIO WEB</span>
-                        <h3>Seleccione un plan</h3>
+                        <h3>¿Qué tipo de sitio necesita?</h3>
                       </div>
                       <div className={styles.optionList}>
                         {webPlans.map((plan) => (
@@ -597,13 +470,13 @@ export default function QuoteWizard() {
                             key={plan.id}
                             type="button"
                             className={`${styles.optionLine} ${form.webPlanId === plan.id ? styles.optionSelected : ""}`}
+                            aria-pressed={form.webPlanId === plan.id}
                             onClick={() => setForm((current) => ({ ...current, webPlanId: plan.id }))}
                           >
                             <div>
                               <strong>{plan.name}</strong>
                               <p>{plan.description}</p>
                             </div>
-                            <span>{plan.prefix ? `${plan.prefix} ` : ""}{formatCLP(plan.price)} + IVA</span>
                           </button>
                         ))}
                       </div>
@@ -623,13 +496,13 @@ export default function QuoteWizard() {
                             key={item.id}
                             type="button"
                             className={`${styles.optionLine} ${form.materialIds.includes(item.id) ? styles.optionSelected : ""}`}
+                            aria-pressed={form.materialIds.includes(item.id)}
                             onClick={() => toggleMaterial(item.id)}
                           >
                             <div>
                               <strong>{item.name}</strong>
                               <p>{item.description}</p>
                             </div>
-                            <span>{formatCLP(item.price)} + IVA</span>
                           </button>
                         ))}
                       </div>
@@ -648,17 +521,17 @@ export default function QuoteWizard() {
                             key={item.id}
                             type="button"
                             className={`${styles.optionLine} ${form.hostingPlanId === item.id ? styles.optionSelected : ""}`}
+                            aria-pressed={form.hostingPlanId === item.id}
                             onClick={() => setForm((current) => ({ ...current, hostingPlanId: item.id }))}
                           >
                             <div>
                               <strong>{item.name}</strong>
                               <p>{item.description}</p>
                             </div>
-                            <span>{formatCLP(item.price)} + IVA / año</span>
                           </button>
                         ))}
                       </div>
-                      {form.serviceIds.includes("web") && <p className={styles.note}>Esta alternativa amplía y reemplaza la capacidad de hosting incluida en el plan web. Su valor se cobra por separado.</p>}
+                      {form.serviceIds.includes("web") && <p className={styles.note}>Esta alternativa amplía y reemplaza la capacidad de hosting incluida en el plan web. Su alcance se revisa en la propuesta.</p>}
                     </section>
                   )}
 
@@ -666,7 +539,7 @@ export default function QuoteWizard() {
                     <section className={styles.configSection}>
                       <div className={styles.configHeading}>
                         <span>GOOGLE Y VISIBILIDAD</span>
-                        <h3>Defina el objetivo y la inversión</h3>
+                        <h3>¿Qué busca mejorar?</h3>
                       </div>
                       <div className={styles.fieldsGrid}>
                         <label>
@@ -680,14 +553,9 @@ export default function QuoteWizard() {
                             <option value="Necesito una recomendación">Necesito una recomendación</option>
                           </select>
                         </label>
-                        <label>
-                          <span>Inversión publicitaria mensual *</span>
-                          <select name="googleInvestment" value={form.googleInvestment} onChange={updateField}>
-                            {googleInvestments.map((option) => <option key={option.value} value={option.value}>{option.label}</option>)}
-                          </select>
-                        </label>
+
                       </div>
-                      <p className={styles.note}>Gestión Vialoop desde $130.000 + IVA mensuales. La inversión publicitaria se paga directamente a Google y no forma parte de la factura de Vialoop.</p>
+                      <p className={styles.note}>Revisaremos el objetivo y el alcance de la gestión. El presupuesto publicitario se define por separado y se paga directamente a Google.</p>
                     </section>
                   )}
 
@@ -747,7 +615,7 @@ export default function QuoteWizard() {
                   <section className={styles.configSection}>
                     <div className={styles.configHeading}>
                       <span>SU PROYECTO</span>
-                      <h3>Contexto para orientar la estimación</h3>
+                      <h3>Contexto para orientar la propuesta</h3>
                     </div>
                     <div className={styles.fieldsGrid}>
                       <label><span>Empresa o negocio *</span><input name="company" value={form.company} onChange={updateField} maxLength={120} /></label>
@@ -831,49 +699,21 @@ export default function QuoteWizard() {
                   <div className={`${styles.privacy} ${styles.fieldFull}`}>
                     <label className={styles.checkboxLabel}>
                       <input type="checkbox" name="privacyAccepted" checked={form.privacyAccepted} onChange={updateField} />
-                      <span>He leído la Política de Privacidad y autorizo a Vialoop Studio SpA a tratar estos datos para evaluar mi solicitud, enviarme esta estimación y contactarme respecto del proyecto. *</span>
+                      <span>He leído la Política de Privacidad y autorizo a Vialoop Studio SpA a tratar estos datos para evaluar mi solicitud, enviarme el resumen de la solicitud y contactarme respecto del proyecto. *</span>
                     </label>
                     <p>No ingrese contraseñas, datos bancarios ni información sensible. Revise la <Link href="/politicasprivacidad" target="_blank">Política de Privacidad</Link> y el <Link href="/solicitud-datos" target="_blank">canal para ejercer sus derechos</Link>.</p>
                   </div>
                 </div>
 
                 <div className={styles.reviewList}>
-                  {vialoopItems.map((item) => (
+                  {selectionDetails.map((item) => (
                     <div key={item.id}>
-                      <span>{item.name}</span>
-                      <strong>{item.prefix ? `${item.prefix} ` : ""}{formatCLP(item.net)} + IVA</strong>
-                      <small>{item.payment}</small>
+                      <strong>{item.name}</strong>
+                      <small>{item.description}</small>
                     </div>
                   ))}
-                  {externalItems.map((item) => (
-                    <div key={item.id}>
-                      <span>{item.name}</span>
-                      <strong>{formatCLP(item.net)}</strong>
-                      <small>{item.payment}</small>
-                    </div>
-                  ))}
-                  {hasCustomEvaluation && (
-                    <div>
-                      <span>{form.serviceIds.includes("sistema") ? "Sistema o automatización" : "Consulta adicional"}</span>
-                      <strong>Evaluación personalizada</strong>
-                      <small>El valor se confirma después de revisar el alcance.</small>
-                    </div>
-                  )}
                 </div>
-
-                {subtotal > 0 && (
-                  <div className={styles.totals}>
-                    <dl>
-                      <div><dt>Subtotal servicios Vialoop</dt><dd>{formatCLP(subtotal)}</dd></div>
-                      <div><dt>IVA 19%</dt><dd>{formatCLP(vat)}</dd></div>
-                      <div className={styles.totalPrimary}><dt>Total servicios Vialoop</dt><dd>{formatCLP(vialoopTotal)}</dd></div>
-                      <div className={styles.initialPrimary}><dt>Monto inicial para comenzar</dt><dd>{formatCLP(initialTotal)}</dd></div>
-                      {externalTotal > 0 && <div><dt>Inversión directa en Google</dt><dd>{formatCLP(externalTotal)}</dd></div>}
-                      {externalTotal > 0 && <div className={styles.totalInvestment}><dt>Inversión estimada del primer mes</dt><dd>{formatCLP(estimatedInvestment)}</dd></div>}
-                    </dl>
-                    <p>Estimación referencial basada en la selección realizada. Doris confirmará alcance, disponibilidad y valor definitivo antes de iniciar. La inversión publicitaria se paga directamente a Google.</p>
-                  </div>
-                )}
+                <p className={styles.note}>Revisaremos los antecedentes para definir el alcance, los plazos y la propuesta económica de su proyecto.</p>
 
                 <div className={styles.clientReview}>
                   <div><span>Empresa</span><strong>{form.company || "No informada"}</strong><p>{[form.industry, form.city].filter(Boolean).join(" · ")}</p></div>
@@ -890,7 +730,7 @@ export default function QuoteWizard() {
             {step < 3 ? (
               <button type="button" className={styles.primaryButton} onClick={goNext} disabled={!canContinueFrom(step) || isTransitioning}>Continuar</button>
             ) : (
-              <button type="submit" className={styles.primaryButton} disabled={submitState.status === "sending"}>
+              <button type="submit" className={styles.primaryButton} disabled={submitState.status === "sending" || !canContinueFrom(1) || !canContinueFrom(2) || !canContinueFrom(3)}>
                 {submitState.status === "sending" ? "Enviando…" : "Enviar solicitud y recibir resumen"}
               </button>
             )}

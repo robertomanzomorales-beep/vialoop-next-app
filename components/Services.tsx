@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import styles from "./Services.module.css";
 
@@ -13,12 +14,12 @@ type Service = {
 const services: Service[] = [
   {
     titleLines: ["Web para", "empresas"],
-    text: "Diseñamos sitios web claros, rápidos y bien estructurados con React y tecnologías modernas. Ordenamos tus servicios, reforzamos la confianza y dejamos el camino simple para que el cliente cotice, llame o escriba.",
+    text: "Diseñamos sitios web para empresas, negocios y profesionales. Damos forma a tus servicios y tu identidad con una experiencia clara, rápida y adaptable a cada pantalla.",
     image: "/web-para-empresas.webp",
   },
   {
-    titleLines: ["Automatización", "de procesos"],
-    text: "Desarrollamos plataformas a medida para ordenar registros, tareas y flujos internos. Integramos bases de datos, paneles y herramientas que reducen trabajo manual sin hacer más compleja la operación.",
+    titleLines: ["Software", "a medida"],
+    text: "Desarrollamos sistemas para conectar procesos, registros y equipos de trabajo. Organizamos la gestión de tu empresa en herramientas adaptadas a su operación.",
     image: "/automatizacion-flujo-de-trabajo.webp",
   },
   {
@@ -155,8 +156,8 @@ export default function Services() {
                 transitionDelay: visibleItems[1] ? "100ms" : "0ms",
               }}
             >
-              Tu empresa ya transmite una impresión online.{" "}
-              <span>La pregunta es si te ayuda o te perjudica.</span>
+              Presencia digital y gestión.{" "}
+              <span>Soluciones que acompañan a tu empresa.</span>
             </h2>
           </div>
 
@@ -172,10 +173,9 @@ export default function Services() {
               transitionDelay: visibleItems[2] ? "180ms" : "0ms",
             }}
           >
-            Cuando un cliente busca tu empresa, revisa tu web o recibe tu
-            presentación, se forma una opinión antes de contactarte. En Vialoop
-            ordenamos esa primera impresión para que tu negocio se vea{" "}
-            <strong>claro, profesional y confiable.</strong>
+            Una web para presentar lo que haces. Un sistema para organizar cómo
+            lo haces. Combinamos diseño y desarrollo para acompañar tanto tu{" "}
+            <strong>presencia comercial como tu operación diaria.</strong>
           </p>
         </header>
 
@@ -212,6 +212,7 @@ export default function Services() {
 
                 <p className={styles.cardText}>{service.text}</p>
 
+                {index < 2 && <Link className={styles.serviceLink} href={index === 0 ? "/portafolio-web" : "/software-a-medida"}>{index === 0 ? "Ver sitios web" : "Conocer el software"} <span aria-hidden="true">↗</span></Link>}
                 <div className={styles.cardFooter}>
                   <Image
                     src={service.image}

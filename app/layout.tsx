@@ -20,12 +20,12 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://vialoop.cl"),
 
   title: {
-    default: "Vialoop.cl",
+    default: "Diseño web y software a medida | Vialoop",
     template: "%s | Vialoop",
   },
 
   description:
-    "Diseño web y sistemas digitales para empresas de Calama, Antofagasta y todo Chile.",
+    "Diseño de sitios web y desarrollo de software a medida para empresas, negocios y profesionales. Desde Calama y Antofagasta, trabajamos con todo Chile.",
 
   icons: {
     icon: "/vialoop-logo-original-optimizado-e1780251299821.webp",

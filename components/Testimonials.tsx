@@ -379,8 +379,8 @@ export default function Testimonials() {
               </div>
 
               <p className="mt-3 max-w-[250px] text-[13px] font-bold leading-6 text-slate-600">
-                proyectos desarrollados para empresas industriales, servicios y
-                negocios del norte de Chile.
+                proyectos desarrollados para empresas, comercios y
+                servicios de distintos rubros.
               </p>
             </div>
           </aside>

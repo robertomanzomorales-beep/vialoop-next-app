@@ -19,13 +19,13 @@ const policies = [
     content: (
       <ul>
         <li>
-          <strong>Plan Emprende:</strong> $36.900 + IVA por ronda adicional.
+          <strong>Plan Emprende:</strong> rondas adicionales sujetas a cotización.
         </li>
         <li>
-          <strong>Plan Crece:</strong> $73.800 + IVA por ronda adicional.
+          <strong>Plan Crece:</strong> rondas adicionales sujetas a cotización.
         </li>
         <li>
-          <strong>Plan Empresa:</strong> $110.700 + IVA por ronda adicional.
+          <strong>Plan Empresa:</strong> rondas adicionales sujetas a cotización.
         </li>
       </ul>
     ),
@@ -196,11 +196,11 @@ const policies = [
     content: (
       <>
         <p>
-          El servicio de diseño de logotipo tiene un valor de{" "}
-          <strong>$49.900 + IVA</strong>.
+          El servicio de diseño de logotipo se cotiza según el alcance
+          acordado con el cliente.
         </p>
         <p>
-          Este valor incluye la presentación de hasta{" "}
+          El servicio considera la presentación de hasta{" "}
           <strong>2 propuestas iniciales de logotipo</strong>, desarrolladas
           según la información entregada por el cliente al momento de solicitar
           el servicio.
@@ -278,8 +278,8 @@ const policies = [
         <p>
           Si el cliente necesita más propuestas después de recibir las{" "}
           <strong>2 propuestas iniciales</strong>, podrá solicitar{" "}
-          <strong>2 propuestas adicionales</strong> por un valor de{" "}
-          <strong>$29.900 + IVA</strong>.
+          <strong>2 propuestas adicionales</strong>, sujetas a una
+          cotización complementaria.
         </p>
         <p>
           Estas propuestas se desarrollarán considerando las nuevas indicaciones

@@ -24,10 +24,9 @@ export default function Footer() {
             />
 
             <p className={styles.description}>
-              Diseñamos sitios web y sistemas digitales para
-              empresas industriales, de servicios y negocios
-              que buscan crecer y proyectarse
-              profesionalmente.
+              Diseño web y software a medida para empresas,
+              negocios y profesionales. Conectamos la presencia digital
+              con las herramientas que necesita cada operación.
             </p>
 
             <p className={styles.coverage}>
@@ -127,6 +126,11 @@ export default function Footer() {
               />
             </a>
 
+            <nav className={styles.serviceLinks} aria-label="Servicios de Vialoop">
+              <Link href="/portafolio-web">Diseño web ↗</Link>
+              <Link href="/software-a-medida">Software a medida ↗</Link>
+              <Link href="/contacto">Cuéntanos tu proyecto ↗</Link>
+            </nav>
             <p className={styles.socialText}>
               Conoce nuestros proyectos, novedades y
               contenido para empresas.
@@ -137,7 +141,7 @@ export default function Footer() {
         <div className={styles.bottomBar}>
           <p className={styles.copyright}>
             © 2026 Vialoop Studio SpA · Diseño web y
-            sistemas digitales.
+            software a medida.
           </p>
 
           <nav

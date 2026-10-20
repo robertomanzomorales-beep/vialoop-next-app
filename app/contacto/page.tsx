@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
-import QuoteWizard from "@/components/contact/QuoteWizard";
+import QuoteWizard, { type ServiceId } from "@/components/contact/QuoteWizard";
 
 export const metadata: Metadata = {
-  title: "Contacto y cotizador de proyectos",
+  title: "Contacto y solicitud de propuesta",
   description:
     "Cotice sitios web, sistemas a medida, servicios de Google y material comercial con Vialoop Studio SpA.",
   alternates: {
@@ -15,11 +15,14 @@ export const metadata: Metadata = {
   },
 };
 
-export default function ContactPage() {
+export default async function ContactPage({ searchParams }: { searchParams: Promise<{ servicio?: string }> }) {
+  const { servicio } = await searchParams;
+  const validServices: ServiceId[] = ["web", "sistema", "google", "material", "hosting", "otro"];
+  const initialService = validServices.find((id) => id === servicio);
   return (
     <>
       <main>
-        <QuoteWizard />
+        <QuoteWizard key={initialService ?? "general"} initialService={initialService} />
       </main>
 
       <Footer />

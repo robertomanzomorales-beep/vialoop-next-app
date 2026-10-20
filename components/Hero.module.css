@@ -57,6 +57,29 @@
   max-width: 610px;
 }
 
+.contactLink {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 7px;
+  color: #405777;
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.contactLink:hover {
+  color: #2563eb;
+}
+
+.contactLink:focus-visible,
+.primaryButton:focus-visible,
+.secondaryButton:focus-visible {
+  outline: 3px solid #2563eb;
+  outline-offset: 5px;
+}
+
 .title {
   max-width: 610px;
   margin: 0;

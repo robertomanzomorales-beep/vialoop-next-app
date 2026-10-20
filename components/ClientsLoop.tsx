@@ -94,7 +94,7 @@ export default function ClientsLoop() {
             </p>
 
             <p className={styles.description}>
-              Para clientes del norte de Chile
+              Para empresas de distintos rubros
             </p>
           </div>
         </div>

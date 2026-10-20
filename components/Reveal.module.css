@@ -1,0 +1,11 @@
+.reveal {
+  transition: opacity 700ms ease, transform 850ms cubic-bezier(.2,.7,.3,1);
+}
+.pending {
+  opacity: 0;
+  transform: translateY(28px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal { transition: none; }
+  .pending { opacity: 1; transform: none; }
+}

@@ -305,3 +305,6 @@
     transition: none;
   }
 }
+.serviceLink { display: inline-flex; align-items: center; gap: 14px; margin: 20px 0 6px; color: #a8c9ff; font-size: 12px; font-weight: 650; text-decoration: none; }
+.serviceLink:hover { color: #fff; }
+.serviceLink:focus-visible { outline: 2px solid #a8c9ff; outline-offset: 5px; }
