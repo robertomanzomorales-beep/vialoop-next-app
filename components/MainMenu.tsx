@@ -68,6 +68,10 @@ export default function MainMenu() {
       const target = document.getElementById(homeScroll.target);
       if (!target) return false;
       frame = requestAnimationFrame(() => {
+        const href = homeScroll.target === "servicios" ? "/#servicios" : "/";
+        // Normalize after a route commit, including cached home entries with an old hash.
+        window.history.replaceState(null, "", href);
+        setHash(homeScroll.target === "servicios" ? "#servicios" : "");
         if (homeScroll.target === "inicio") {
           window.scrollTo({ top: 0, behavior: homeScroll.behavior });
         } else {
@@ -118,8 +122,13 @@ export default function MainMenu() {
     if (target) {
       const smooth = pathname === "/" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       setHomeScroll({ target, behavior: smooth ? "smooth" : "instant" });
-      // One scroll owner avoids a second jump from the router's anchor handling.
-      router.push(href, { scroll: false });
+      // Same-page anchors need no route transition; the scroll effect owns positioning.
+      if (pathname === "/") {
+        const current = window.location.pathname + window.location.search + window.location.hash;
+        if (current !== href) window.history.pushState(null, "", href);
+      } else {
+        router.push("/", { scroll: false });
+      }
     } else {
       setHomeScroll(null);
       router.push(href);
