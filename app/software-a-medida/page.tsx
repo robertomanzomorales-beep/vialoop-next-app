@@ -3,6 +3,7 @@ import Image from "next/image";
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
+import SoftwareMockup from "@/components/SoftwareMockup";
 import { softwareProjects } from "@/lib/software-projects";
 import styles from "./page.module.css";
 
@@ -66,17 +67,14 @@ export default function SoftwarePage() {
               {softwareProjects.map((project, index) => (
                 <Reveal key={project.id}>
                   <article id={project.id} className={`${styles.case} ${index === 1 ? styles.gmCase : ""}`} aria-labelledby={`${project.id}-title`}>
-                    <div className={styles.brandVisual}>
-                      <div className={styles.brandMeta}><span>VIALOOP / SOFTWARE</span><span>0{index + 1}</span></div>
-                      <div className={styles.brandOrbit} aria-hidden="true" />
-                      <div className={`${styles.logoCard} ${index === 1 ? styles.gmLogo : ""}`}>
-                        <Image src={project.logo} alt={`Logotipo de ${project.name}`} width={project.logoWidth} height={project.logoHeight} sizes="(max-width: 680px) 220px, 280px" />
-                      </div>
-                      <div className={styles.brandTags}>{project.tags.map((tag) => <span key={tag}>{tag}</span>)}</div>
+                    <div className={styles.systemPreview}>
+                      <SoftwareMockup variant={index === 0 ? "operations" : "laboratory"} />
                     </div>
                     <div className={styles.caseContent}>
-                      <p className={styles.caseCategory}>{project.category}</p>
-                      <h3 id={`${project.id}-title`}>{project.name}</h3>
+                      <div className={styles.caseBrand}>
+                        <Image className={index === 1 ? styles.caseLogoGm : styles.caseLogo} src={project.logo} alt={`Logotipo de ${project.name}`} width={project.logoWidth} height={project.logoHeight} sizes={index === 1 ? "48px" : "115px"} />
+                        <div><p className={styles.caseCategory}>{project.category}</p><h3 id={`${project.id}-title`}>{project.name}</h3></div>
+                      </div>
                       <p className={styles.caseTitle}>{project.title}</p>
                       <p className={styles.caseDescription}>{project.description}</p>
                       <ul className={styles.moduleList}>{project.capabilities.map((item) => <li key={item}><span aria-hidden="true">↗</span>{item}</li>)}</ul>

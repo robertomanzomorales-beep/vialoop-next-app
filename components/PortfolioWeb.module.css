@@ -1,17 +1,14 @@
 .reveal {
-  opacity: 0;
-  transform: translate3d(0, 76px, 0);
-  filter: blur(5px);
-  will-change: opacity, transform, filter;
-  backface-visibility: hidden;
-  -webkit-backface-visibility: hidden;
-
-  transition:
-    opacity 900ms cubic-bezier(0.16, 1, 0.3, 1),
-    transform 1250ms cubic-bezier(0.16, 1, 0.3, 1),
-    filter 820ms ease;
-
+  opacity: 1;
+  transform: none;
+  filter: none;
+  transition: opacity 650ms ease, transform 800ms cubic-bezier(.2,.7,.3,1);
   transition-delay: var(--portfolio-delay, 0ms);
+}
+
+.reveal.pending {
+  opacity: 0;
+  transform: translate3d(0, 26px, 0);
 }
 
 .reveal.visible {
@@ -147,7 +144,7 @@
   line-height: 1.7;
 }
 
-.ctaContent button {
+.ctaContent a {
   display: inline-flex;
   min-height: 56px;
   align-items: center;
@@ -172,7 +169,7 @@
     box-shadow 320ms ease;
 }
 
-.ctaContent button:hover {
+.ctaContent a:hover {
   color: #ffffff;
   background: #2563eb;
   box-shadow: 0 24px 60px rgba(37, 99, 235, 0.34);
@@ -199,7 +196,7 @@
   transition: transform 300ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.ctaContent button:hover .ctaArrow {
+.ctaContent a:hover .ctaArrow {
   transform: translateX(3px);
 }
 
@@ -217,7 +214,7 @@
     transition-delay: var(--portfolio-delay, 0ms);
   }
 
-  .reveal:not(.visible) {
+  .reveal.pending {
     opacity: 0;
     transform: translate3d(0, 72px, 0);
     filter: blur(3px);
@@ -253,7 +250,7 @@
     font-size: 14px;
   }
 
-  .ctaContent button {
+  .ctaContent a {
     min-height: 54px;
     padding-left: 20px;
     font-size: 12px;
@@ -264,8 +261,8 @@
   .projectLink:hover .projectFooterText,
   .projectLink:hover .projectArrowBox,
   .projectLink:hover .projectArrow,
-  .ctaContent button:hover,
-  .ctaContent button:hover .ctaArrow {
+  .ctaContent a:hover,
+  .ctaContent a:hover .ctaArrow {
     transform: none;
   }
 }
@@ -282,8 +279,10 @@
   .projectFooterText,
   .projectArrowBox,
   .projectArrow,
-  .ctaContent button,
+  .ctaContent a,
   .ctaArrow {
     transition: none;
   }
 }
+.ctaContent a { text-decoration: none; }
+.ctaContent a:focus-visible { outline: 3px solid #7db2ff; outline-offset: 6px; }

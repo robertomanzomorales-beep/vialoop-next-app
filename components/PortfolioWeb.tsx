@@ -434,6 +434,38 @@ export default function PortfolioWeb() {
 
 
 
+  useEffect(() => {
+    const elements = Array.from(sectionRef.current?.querySelectorAll<HTMLElement>("[data-portfolio-reveal]") ?? [])
+      .filter((element) => !element.classList.contains(styles.visible));
+    if (!elements.length) return;
+    const show = (element: HTMLElement) => {
+      element.classList.remove(styles.pending);
+      element.classList.add(styles.visible);
+    };
+    if (!("IntersectionObserver" in window) || window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      elements.forEach(show);
+      return;
+    }
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        show(entry.target as HTMLElement);
+        observer.unobserve(entry.target);
+      });
+    }, { threshold: 0.01, rootMargin: "0px 0px 100px 0px" });
+    elements.forEach((element) => {
+      if (element.getBoundingClientRect().top < window.innerHeight + 80) show(element);
+      else {
+        element.classList.add(styles.pending);
+        observer.observe(element);
+      }
+    });
+    return () => {
+      observer.disconnect();
+      elements.forEach((element) => element.classList.remove(styles.pending));
+    };
+  }, [activeFilter]);
+
   return (
     <>
       <section
@@ -499,6 +531,7 @@ export default function PortfolioWeb() {
                       onClick={() =>
                         setActiveFilter(filter.value)
                       }
+                      aria-pressed={isActive}
                       className={`min-h-[42px] rounded-full px-5 text-[12px] font-black uppercase tracking-[0.055em] transition ${
                         isActive
                           ? "bg-gradient-to-br from-[#07162f] to-[#174ea6] text-white shadow-[0_12px_28px_rgba(37,99,235,.28)]"
