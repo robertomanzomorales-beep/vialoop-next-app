@@ -3,6 +3,7 @@
 import Link from "next/link";
 import type { CSSProperties, PointerEvent } from "react";
 import styles from "./Hero.module.css";
+import HeroTypewriter from "./HeroTypewriter";
 
 const services = [
   { title: "Diseño web", text: "Una presencia a la altura de tu negocio.", href: "/portafolio-web", icon: "web" },
@@ -29,9 +30,9 @@ export default function Hero() {
       <div className={styles.container}>
         <div className={styles.intro}>
           <p className={styles.eyebrow}><span aria-hidden="true" />Diseño, tecnología y personas</p>
-          <h1 id="hero-title" className={styles.title}>
+          <h1 id="hero-title" aria-label="Diseño web y software a medida de tu empresa." className={styles.title}>
             <span className={styles.line}><span>Diseño web y software</span></span>{" "}
-            <span className={styles.line}><em>a medida de tu empresa.</em></span>
+            <span className={styles.line}><HeroTypewriter /></span>
           </h1>
           <p className={styles.description}>Creamos experiencias digitales que presentan tu negocio y simplifican tu operación. Con diseño cuidado y acompañamiento cercano.</p>
           <div className={styles.actions}>

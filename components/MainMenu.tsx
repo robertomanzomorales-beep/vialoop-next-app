@@ -3,7 +3,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
 import styles from "./MainMenu.module.css";
 
 const PORTAL_URL = "https://portal-vialoop.vercel.app/";
@@ -29,6 +29,7 @@ export default function MainMenu() {
   const [homeScroll, setHomeScroll] = useState<HomeScroll | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
+  const panelRef = useRef<HTMLDivElement>(null);
   const closingRef = useRef(false);
   const restoreFocus = useRef(true);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -50,7 +51,7 @@ export default function MainMenu() {
     closingRef.current = true;
     setClosing(true);
     // A fallback also completes closing if an animation is interrupted.
-    closeTimer.current = setTimeout(finishClose, 320);
+    closeTimer.current = setTimeout(finishClose, 380);
   }, [finishClose]);
 
   useEffect(() => {
@@ -169,11 +170,20 @@ export default function MainMenu() {
         if (href) navigateTo(href);
         else if (restoreFocus.current) toggleRef.current?.focus({ preventScroll: true });
       }}
-      onAnimationEnd={event => { if (event.target === event.currentTarget && closingRef.current) finishClose(); }}
-      onClick={event => { const rect = event.currentTarget.getBoundingClientRect(); if (event.target === event.currentTarget && (event.clientX < rect.left || event.clientX > rect.right)) requestClose(); }}>
+      onAnimationEnd={event => { if (event.target === panelRef.current && closingRef.current) finishClose(); }}
+      onClick={event => { if (event.target === event.currentTarget) requestClose(); }}>
       <div className={styles.mobileTop}><Link href="/" aria-label="Ir al inicio de Vialoop" onNavigate={event => followLink(event, "/")}><Brand /></Link><button type="button" autoFocus aria-label="Cerrar menú" onClick={requestClose} className={styles.close}><span /><span /></button></div>
-      <div className={styles.mobileBody}><p className={styles.menuLabel}>Navegación</p><nav aria-label="Menú móvil" className={styles.mobileNav}>{navigation.map(item => <Link key={item.href} href={item.href} onNavigate={event => followLink(event, item.href)} className={isActive(item.href) ? styles.mobileActive : ""} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</Link>)}</nav><a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" className={styles.mobilePortal} onClick={requestClose}>Portal de clientes</a></div>
-      <div className={styles.mobileBottom}><p>Diseño web y software a medida.</p><Link href="/contacto" onNavigate={event => followLink(event, "/contacto")} className={styles.contact}>Conversemos sobre tu proyecto</Link><a href="mailto:dloayza@vialoop.cl">dloayza@vialoop.cl</a></div>
+      <div ref={panelRef} className={styles.mobilePanel}>
+        <div className={styles.mobileBody}>
+          <nav aria-label="Menú móvil" className={styles.mobileNav}>
+            {navigation.map((item, index) => <Link key={item.href} href={item.href} onNavigate={event => followLink(event, item.href)} className={isActive(item.href) ? styles.mobileActive : ""} style={{ "--item-index": index } as CSSProperties} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</Link>)}
+          </nav>
+          <a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" className={styles.mobilePortal} onClick={requestClose}>Portal de clientes</a>
+        </div>
+        <div className={styles.mobileBottom}>
+          <Link href="/contacto" onNavigate={event => followLink(event, "/contacto")} className={styles.contact}>Conversemos</Link>
+        </div>
+      </div>
     </dialog>
   </>;
 }

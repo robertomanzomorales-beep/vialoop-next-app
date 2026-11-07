@@ -48,3 +48,13 @@
 @media (max-width: 800px) { .container { width: calc(100% - 48px); padding-top: 58px; padding-bottom: 58px; } .title { font-size: clamp(34px, 5.6vw, 44px); } .description { max-width: 49ch; font-size: 15px; } .services { margin-top: 43px; } .service { flex-direction: column; align-items: flex-start; gap: 14px; padding: 23px 18px; } .serviceContent > strong { font-size: 14px; } .serviceContent > span { font-size: 12px; } }
 @media (max-width: 560px) { .container { width: calc(100% - 40px); padding-top: 42px; padding-bottom: 43px; } .eyebrow { font-size: 10px; letter-spacing: .085em; margin-bottom: 23px; } .title { font-size: clamp(27px, 7.65vw, 36px); line-height: 1.23; } .description { margin-top: 21px; font-size: 15px; line-height: 1.8; max-width: 37ch; } .actions { gap: 18px; margin-top: 25px; } .primaryButton, .secondaryButton { min-height: 46px; font-size: 12px; } .primaryButton { padding: 0 17px; } .services { grid-template-columns: minmax(0, 1fr); margin-top: 35px; border-radius: 8px; } .service { flex-direction: row; align-items: center; min-height: 88px; gap: 16px; padding: 18px 21px; } .service + .service { border-left: 0; border-top: 1px solid #a4bce51f; } .serviceIcon { width: 25px; } .serviceContent { gap: 5px; } .serviceContent > strong { font-size: 14px; } .serviceContent > span { font-size: 12px; max-width: none; } .serviceMark { display: block; } .footnote { margin-top: 21px; gap: 0; flex-direction: column; } .footnote > span { display: none; } .footnote p { font-size: 11px; line-height: 1.8; } .footnote p:last-child { display: none; } }
 @media (prefers-reduced-motion: reduce) { .hero *, .hero *::before, .hero *::after { animation: none; transition: none; } .primaryButton:hover, .service:hover .serviceIcon, .service:focus-visible .serviceIcon { transform: none; } }
+
+.line > .typingLine { display: grid; position: relative; place-items: center; background: none; -webkit-text-fill-color: initial; }
+.typingSizer, .typedPhrase { grid-area: 1 / 1; min-width: 0; max-width: 100%; }
+.typingSizer { visibility: hidden; pointer-events: none; }
+.typedPhrase { color: #9dbdf8; background: none; -webkit-text-fill-color: currentColor; }
+.cursorSpace { display: inline-block; width: 7px; }
+.typingCursor { display: inline-block; width: 0; height: .8em; margin-left: 5px; border-left: 2px solid #9fc6ff; vertical-align: -.035em; animation: caret 1.05s steps(1) infinite; animation-play-state: paused; }
+.typingLine[data-typing-active] .typingCursor { animation-play-state: running; }
+@keyframes caret { 0%, 45% { opacity: 1; } 46%, 100% { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .typingCursor { display: none; } }

@@ -97,14 +97,12 @@ export default function Footer({ ambient = false }: { ambient?: boolean }) {
               </li>
             </ul>
 
-            <a
-              href="https://calendly.com/contacto-vialoop/diseno-web"
-              target="_blank"
-              rel="noopener noreferrer"
+            <Link
+              href="/contacto"
               className={styles.scheduleButton}
             >
               Agendar revisión
-            </a>
+            </Link>
           </div>
 
           <div className={styles.socialColumn}>
