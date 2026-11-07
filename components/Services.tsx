@@ -1,142 +1,88 @@
 "use client";
 
-import Image from "next/image";
 import Link from "next/link";
 import { useRef } from "react";
-import styles from "./Services.module.css";
+import ServiceTools from "./ServiceTools";
 import useScrollReveal from "./useScrollReveal";
+import styles from "./Services.module.css";
 
-type Service = {
-  titleLines: string[];
-  text: string;
-  image: string;
-};
-
-const services: Service[] = [
+const services = [
   {
-    titleLines: ["Web para", "empresas"],
-    text: "Diseñamos sitios web para empresas, negocios y profesionales. Damos forma a tus servicios y tu identidad con una experiencia clara, rápida y adaptable a cada pantalla.",
-    image: "/web-para-empresas.webp",
+    title: "Diseño web",
+    text: "Sitios rápidos y claros, diseñados para mostrar lo que haces y facilitar el contacto.",
+    href: "/portafolio-web",
+    link: "Ver sitios web",
+    icon: "web",
   },
   {
-    titleLines: ["Software", "a medida"],
-    text: "Desarrollamos sistemas para conectar procesos, registros y equipos de trabajo. Organizamos la gestión de tu empresa en herramientas adaptadas a su operación.",
-    image: "/automatizacion-flujo-de-trabajo.webp",
+    title: "Software a medida",
+    text: "Procesos, información y equipos conectados en una herramienta hecha para tu operación.",
+    href: "/software-a-medida",
+    link: "Explorar el software",
+    icon: "software",
   },
   {
-    titleLines: ["Google y", "visibilidad"],
-    text: "Mejoramos cómo aparece tu empresa en Google, Maps y resultados de búsqueda. Trabajamos estructura SEO, presencia local, medición y campañas para que tus servicios sean más fáciles de encontrar.",
-    image: "/google-y-visibilidad.webp",
+    title: "Google y visibilidad",
+    text: "SEO, presencia local y campañas para que tus clientes encuentren tus servicios.",
+    href: "/contacto?servicio=google",
+    link: "Mejorar mi visibilidad",
+    icon: "visibility",
   },
   {
-    titleLines: ["Material", "comercial"],
-    text: "Creamos brochures, presentaciones y piezas corporativas para reuniones, licitaciones y ventas. Cuidamos que el material se vea consistente, profesional y fácil de entender para tus clientes.",
-    image: "/web-para-empresas-recortado.webp",
+    title: "Material comercial",
+    text: "Brochures y presentaciones que comunican tu propuesta con claridad y coherencia.",
+    href: "/contacto?servicio=material",
+    link: "Preparar mi material",
+    icon: "design",
   },
 ];
 
+function ServiceIcon({ type }: { type: string }) {
+  return (
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+      {type === "web" ? (
+        <><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18M7 6.5h.01M10 6.5h.01M7 13h6M7 16h10" /></>
+      ) : type === "software" ? (
+        <><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /><path d="M14 6h3a1 1 0 0 1 1 1v3M10 18H7a1 1 0 0 1-1-1v-3M14 10l4-4M10 14l-4 4" /></>
+      ) : type === "visibility" ? (
+        <><circle cx="10" cy="10" r="6" /><path d="m15 15 6 6M7 12V9m3 3V7m3 5V9" /></>
+      ) : (
+        <><path d="M4 5h7a3 3 0 0 1 3 3v13a4 4 0 0 0-4-3H4Zm16 0h-3a3 3 0 0 0-3 3v13a4 4 0 0 1 4-3h2ZM7 9h3M7 12h3" /></>
+      )}
+    </svg>
+  );
+}
+
 export default function Services() {
-  const sectionRef = useRef<HTMLElement | null>(null);
+  const sectionRef = useRef<HTMLElement>(null);
   useScrollReveal(sectionRef);
 
   return (
-    <section
-      ref={sectionRef}
-      id="servicios"
-      aria-labelledby="servicios-title"
-      className={styles.servicesSection}
-    >
-      <div className={styles.backgroundGrid} />
-
+    <section ref={sectionRef} id="servicios" aria-labelledby="servicios-title" className={styles.servicesSection}>
       <div className={styles.container}>
         <header className={styles.header}>
-          <div className={styles.headerTitle}>
-            <div
-              data-scroll-reveal
-              className={`${styles.reveal} ${
-                styles.revealVisible
-              }`}
-            >
-              <div className={styles.eyebrow}>
-                <span />
-                <p>CÓMO TE AYUDAMOS</p>
-              </div>
-            </div>
-
-            <h2
-              id="servicios-title"
-              data-scroll-reveal
-              className={`${styles.heading} ${styles.reveal} ${
-                styles.revealVisible
-              }`}
-              style={{
-                transitionDelay: "0ms",
-              }}
-            >
-              Presencia digital y gestión.{" "}
-              <span>Soluciones que acompañan a tu empresa.</span>
-            </h2>
+          <div data-scroll-reveal>
+            <p className={styles.eyebrow}><span aria-hidden="true" />Cómo te ayudamos</p>
+            <h2 id="servicios-title" className={styles.heading}>Soluciones digitales,{" "}<em>a tu medida.</em></h2>
           </div>
-
-          <p
-            data-scroll-reveal
-            className={`${styles.introText} ${styles.reveal} ${
-              styles.revealVisible
-            }`}
-            style={{
-              transitionDelay: "0ms",
-            }}
-          >
-            Una web para presentar lo que haces. Un sistema para organizar cómo
-            lo haces. Combinamos diseño y desarrollo para acompañar tanto tu{" "}
-            <strong>presencia comercial como tu operación diaria.</strong>
-          </p>
+          <p data-scroll-reveal data-scroll-delay="90" className={styles.introText}>Diseño web, software y comunicación para conectar tu negocio con sus clientes y simplificar el trabajo diario.</p>
         </header>
 
         <div className={styles.cardsGrid}>
-          {services.map((service, index) => {
-            return (
-              <article
-                key={service.titleLines.join(" ")}
-                data-scroll-reveal data-scroll-delay={index * 90}
-                className={`${styles.card} ${styles.reveal} ${
-                  styles.revealVisible
-                }`}
-                style={{
-                  transitionDelay: "0ms",
-                }}
-              >
-                <div className={styles.cardTop}>
-                  <span className={styles.cardNumber}>0{index + 1}</span>
-                  <span className={styles.cardLine} />
-                </div>
-
-                <h3>
-                  {service.titleLines.map((line) => (
-                    <span key={line}>{line}</span>
-                  ))}
-                </h3>
-
-                <p className={styles.cardText}>{service.text}</p>
-
-                {index < 2 && <Link className={styles.serviceLink} href={index === 0 ? "/portafolio-web" : "/software-a-medida"}>{index === 0 ? "Ver sitios web" : "Conocer el software"} </Link>}
-                <div className={styles.cardFooter}>
-                  <Image
-                    src={service.image}
-                    alt={`Herramientas utilizadas en ${service.titleLines.join(
-                      " ",
-                    )}`}
-                    width={320}
-                    height={90}
-                    className={styles.serviceImage}
-                    sizes="(min-width: 1280px) 250px, (min-width: 768px) 40vw, 78vw"
-                    priority={index === 0}
-                  />
-                </div>
-              </article>
-            );
-          })}
+          {services.map((service, index) => (
+            <article key={service.title} data-scroll-reveal data-scroll-delay={index * 70} className={styles.card}>
+              <div className={styles.cardTop}>
+                <span className={styles.serviceIcon}><ServiceIcon type={service.icon} /></span>
+                <span className={styles.cardMark} aria-hidden="true" />
+              </div>
+              <h3>{service.title}</h3>
+              <p className={styles.cardText}>{service.text}</p>
+              <Link href={service.href} className={styles.serviceLink}>{service.link}</Link>
+            </article>
+          ))}
         </div>
+
+        <ServiceTools />
       </div>
     </section>
   );
