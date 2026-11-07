@@ -1,215 +1,57 @@
 "use client";
 
 import Link from "next/link";
-import { useRef, type MouseEvent as ReactMouseEvent } from "react";
+import type { CSSProperties, PointerEvent } from "react";
 import styles from "./Hero.module.css";
-import useScrollReveal from "./useScrollReveal";
 
-const heroStats = [
-  ["Sitios web", "Presencia profesional"],
-  ["Software", "Gestión a tu medida"],
-  ["Soporte", "Acompañamiento cercano"],
+const services = [
+  { title: "Diseño web", text: "Una presencia a la altura de tu negocio.", href: "/portafolio-web", icon: "web" },
+  { title: "Software a medida", text: "Tu operación, más simple y conectada.", href: "/software-a-medida", icon: "software" },
+  { title: "Soporte y continuidad", text: "Acompañamiento para seguir avanzando.", href: "/contacto?servicio=hosting", icon: "support" },
 ];
 
+function ServiceIcon({ type }: { type: string }) {
+  return <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+    {type === "web" ? <><rect x="3" y="4" width="18" height="16" rx="2" /><path d="M3 9h18M7 6.5h.01M10 6.5h.01M7 13h6M7 16h10" /></> : type === "software" ? <><rect x="3" y="3" width="7" height="7" rx="1.5" /><rect x="14" y="14" width="7" height="7" rx="1.5" /><path d="M14 6h3a1 1 0 0 1 1 1v3M10 18H7a1 1 0 0 1-1-1v-3M14 10l4-4M10 14l-4 4" /></> : <><path d="M5 13v-2a7 7 0 0 1 14 0v2M5 12H4a1 1 0 0 0-1 1v4a1 1 0 0 0 1 1h3v-6Zm14 0h1a1 1 0 0 1 1 1v4a1 1 0 0 1-1 1h-3v-6Zm0 6v1a2 2 0 0 1-2 2h-4" /></>}
+  </svg>;
+}
+
 export default function Hero() {
-  const heroRef = useRef<HTMLElement | null>(null);
-  const mockupRef = useRef<HTMLDivElement | null>(null);
-  useScrollReveal(heroRef);
-
-  function handleMockupMove(
-    event: ReactMouseEvent<HTMLDivElement>,
-  ) {
-    const mockup = mockupRef.current;
-
-    if (!mockup) return;
-
-    const rect = mockup.getBoundingClientRect();
-    const pointerX = (event.clientX - rect.left) / rect.width - 0.5;
-    const pointerY = (event.clientY - rect.top) / rect.height - 0.5;
-
-    mockup.style.setProperty("--tilt-x", `${pointerY * -6}deg`);
-    mockup.style.setProperty("--tilt-y", `${pointerX * 7}deg`);
-    mockup.style.setProperty("--shine-x", `${50 + pointerX * 55}%`);
-    mockup.style.setProperty("--shine-y", `${50 + pointerY * 55}%`);
-  }
-
-  function resetMockup() {
-    const mockup = mockupRef.current;
-
-    if (!mockup) return;
-
-    mockup.style.setProperty("--tilt-x", "0deg");
-    mockup.style.setProperty("--tilt-y", "0deg");
-    mockup.style.setProperty("--shine-x", "50%");
-    mockup.style.setProperty("--shine-y", "50%");
+  function moveLight(event: PointerEvent<HTMLAnchorElement>) {
+    if (event.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    const bounds = event.currentTarget.getBoundingClientRect();
+    event.currentTarget.style.setProperty("--pointer-x", `${event.clientX - bounds.left}px`);
+    event.currentTarget.style.setProperty("--pointer-y", `${event.clientY - bounds.top}px`);
   }
 
   return (
-      <section
-        ref={heroRef}
-        id="inicio"
-        aria-label="Diseño web y software a medida para empresas en Chile"
-        className={styles.hero}
-      >
-        <div className={styles.gridTexture} />
-        <div className={styles.glowLeft} />
-        <div className={styles.glowRight} />
-
-        <div className={styles.container}>
-          <div className={styles.layout}>
-            <div className={styles.copy}>
-              <h1
-                data-scroll-reveal
-                className={`${styles.title} ${
-                  styles.visible
-                }`}
-              >
-                Diseño web y software
-                <span> a medida para tu empresa.</span>
-              </h1>
-
-              <p
-                data-scroll-reveal data-scroll-delay="120"
-                className={`${styles.primaryText} ${
-                  styles.visible
-                }`}
-              >
-                Creamos sitios web que presentan tu negocio y sistemas que
-                simplifican tu operación. Diseño y desarrollo con un mismo enfoque:{" "}
-                <em className={styles.humanAccent}>
-                  entender lo que tu empresa necesita.
-                </em>
-              </p>
-
-              <p
-                data-scroll-reveal data-scroll-delay="120"
-                className={`${styles.secondaryText} ${
-                  styles.visible
-                }`}
-              >
-                Acompañamos a empresas, negocios y profesionales en su presencia
-                digital y su gestión interna. Desde Calama y Antofagasta, trabajamos
-                con clientes de todo Chile.
-              </p>
-
-              <div
-                data-scroll-reveal data-scroll-delay="220"
-                className={`${styles.actions} ${
-                  styles.visible
-                }`}
-              >
-                <Link
-                  href="/portafolio-web"
-                  className={styles.primaryButton}
-                >
-                  Diseño web
-                </Link>
-
-                <Link href="/software-a-medida" className={styles.secondaryButton}>
-                  Software a medida
-                </Link>
-                <Link href="/contacto" className={styles.contactLink}>
-                  Cuéntanos tu proyecto
-                </Link>
-              </div>
-            </div>
-
-            <div
-              ref={mockupRef}
-              data-scroll-reveal data-scroll-delay="180"
-              className={`${styles.showcase} ${
-                styles.showcaseVisible
-              }`}
-              onMouseMove={handleMockupMove}
-              onMouseLeave={resetMockup}
-            >
-              <div className={styles.orbit} />
-              <div className={styles.lightBeam} />
-
-              <div className={styles.mockup}>
-                <div className={styles.shine} />
-
-                <div className={styles.browserTop}>
-                  <div className={styles.browserDots}>
-                    <span />
-                    <span />
-                    <span />
-                  </div>
-
-                  <div className={styles.browserAddress}>
-                    <span />
-                    vialoop.cl
-                  </div>
-                </div>
-
-                <div className={styles.dashboard}>
-                  <div className={styles.dashboardHeader}>
-                    <div>
-                      <p>SOLUCIÓN DIGITAL</p>
-                      <h2>Web + sistemas</h2>
-                    </div>
-
-                    <div className={styles.online}>
-                      <span />
-                      Activo
-                    </div>
-                  </div>
-
-                  <div className={styles.dashboardMain}>
-                    <div className={styles.preview}>
-                      <div className={styles.previewTop}>
-                        <span />
-                        <span />
-                      </div>
-
-                      <div className={styles.previewLines}>
-                        <span />
-                        <span />
-                        <span />
-                      </div>
-
-                      <div className={styles.previewBottom}>
-                        <span />
-                        <span />
-                      </div>
-                    </div>
-
-                    <div className={styles.result}>
-                      <p>RESULTADO</p>
-                      <strong>ORDEN</strong>
-                      <span>procesos bajo control</span>
-                    </div>
-                  </div>
-
-                  <div className={styles.metrics}>
-                    {heroStats.map(([title, text]) => (
-                      <div key={title} className={styles.metric}>
-                        <strong>{title}</strong>
-                        <span>{text}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              <div className={`${styles.tag} ${styles.tagFast}`}>
-                <span />
-                Sitio rápido
-              </div>
-
-              <div className={`${styles.tag} ${styles.tagSeo}`}>
-                <span />
-                Sistema a medida
-              </div>
-
-              <div className={`${styles.tag} ${styles.tagTrust}`}>
-                <span />
-                Gestión centralizada
-              </div>
-            </div>
+    <section id="inicio" aria-labelledby="hero-title" className={styles.hero}>
+      <div aria-hidden="true" className={styles.atmosphere} />
+      <div className={styles.container}>
+        <div className={styles.intro}>
+          <p className={styles.eyebrow}><span aria-hidden="true" />Diseño, tecnología y personas</p>
+          <h1 id="hero-title" className={styles.title}>
+            <span className={styles.line}><span>Diseño web y software</span></span>{" "}
+            <span className={styles.line}><em>a medida de tu empresa.</em></span>
+          </h1>
+          <p className={styles.description}>Creamos experiencias digitales que presentan tu negocio y simplifican tu operación. Con diseño cuidado y acompañamiento cercano.</p>
+          <div className={styles.actions}>
+            <Link href="/contacto" className={styles.primaryButton}>Hablemos de tu proyecto</Link>
+            <Link href="/#servicios" className={styles.secondaryButton}>Explorar soluciones</Link>
           </div>
         </div>
-      </section>
 
+        <div className={styles.services} aria-label="Soluciones de Vialoop">
+          {services.map((service, index) => (
+            <Link key={service.href} href={service.href} className={styles.service} onPointerMove={moveLight} style={{ "--entry-delay": `${420 + index * 90}ms` } as CSSProperties}>
+              <span className={styles.serviceIcon}><ServiceIcon type={service.icon} /></span>
+              <span className={styles.serviceContent}><strong>{service.title}</strong><span>{service.text}</span></span>
+              <span className={styles.serviceMark} aria-hidden="true" />
+            </Link>
+          ))}
+        </div>
+        <div className={styles.footnote}><p>Desde Calama y Antofagasta, para todo Chile.</p><span aria-hidden="true" /><p>Ideas claras. Soluciones a tu medida.</p></div>
+      </div>
+    </section>
   );
 }
