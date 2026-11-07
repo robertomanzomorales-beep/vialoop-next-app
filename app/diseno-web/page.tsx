@@ -6,9 +6,9 @@ import Testimonials from "@/components/Testimonials";
 import ClientTestimonial from "@/components/ClientTestimonial";
 import ContactForm from "@/components/contact/ContactForm";
 import Reveal from "@/components/Reveal";
-import WebProjects, { BrowserPreview } from "@/components/web-design/WebProjects";
-import { recentWebProjects } from "@/lib/web-design-projects";
+import WebProjects from "@/components/web-design/WebProjects";
 import styles from "@/components/web-design/WebDesign.module.css";
+import homeStyles from "@/app/page.module.css";
 
 export const metadata: Metadata = {
   title: "Diseño web para empresas en Chile",
@@ -33,10 +33,10 @@ function DetailIcon({ kind }: { kind: "design" | "mobile" | "support" }) {
 }
 
 export default function WebDesignPage() {
-  return <main className={styles.page}>
+  return <main className={`${homeStyles.home} ${styles.page}`}>
     <HomeAtmosphere />
     <section className={styles.hero} aria-labelledby="web-design-title">
-      <div className={`${styles.container} ${styles.heroGrid}`}>
+      <div className={styles.container}>
         <div className={styles.heroCopy}>
           <p className={styles.eyebrow}><span className={styles.statusDot} /> DISEÑO WEB · VIALOOP</p>
           <h1 id="web-design-title">Tu empresa tiene mucho que mostrar.<br /><em>Que tu web lo diga.</em></h1>
@@ -44,12 +44,7 @@ export default function WebDesignPage() {
           <div className={styles.actions}><Link href="#contacto" className={styles.primary}>Conversemos de tu web</Link><Link href="#trabajos" className={styles.secondary}>Explorar trabajos</Link></div>
           <p className={styles.included}><span aria-hidden="true">✓</span> Dominio <strong>.cl</strong> y hosting incluidos por <strong>1 año.</strong></p>
         </div>
-        <div className={styles.heroStage}>
-          <div className={styles.stageGlow} aria-hidden="true" />
-          <div className={styles.heroBack}><BrowserPreview project={recentWebProjects[8]} hero /></div>
-          <div className={styles.heroFront}><BrowserPreview project={recentWebProjects[0]} hero /></div>
-          <div className={styles.stageCaption}><span className={styles.statusDot} /><span>Proyectos reales.<br /><strong>Una identidad en cada detalle.</strong></span></div>
-        </div>
+
       </div>
       <div className={`${styles.container} ${styles.valueStrip}`}><span>Diseño con identidad</span><span>Experiencia móvil</span><span>Acompañamiento cercano</span><span>Desde Calama, para todo Chile</span></div>
     </section>
