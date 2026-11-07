@@ -130,6 +130,7 @@ export default function Footer() {
             <nav className={styles.serviceLinks} aria-label="Servicios de Vialoop">
               <Link href="/portafolio-web">Diseño web</Link>
               <Link href="/software-a-medida">Software a medida</Link>
+              <Link href="/hosting">Hosting y soporte</Link>
               <Link href="/contacto">Cuéntanos tu proyecto</Link>
             </nav>
             <p className={styles.socialText}>

@@ -1,31 +1,34 @@
 import type { Metadata } from "next";
 import Footer from "@/components/Footer";
-import Reveal from "@/components/Reveal";
-import QuoteWizard, { type ServiceId } from "@/components/contact/QuoteWizard";
-
+import ContactForm, {
+  type ContactService,
+} from "@/components/contact/ContactForm";
 export const metadata: Metadata = {
-  title: "Contacto y solicitud de propuesta",
+  title: "Conversemos de tu proyecto",
   description:
-    "Cotice sitios web, sistemas a medida, servicios de Google y material comercial con Vialoop Studio SpA.",
-  alternates: {
-    canonical: "/contacto",
-  },
-  robots: {
-    index: true,
-    follow: true,
-  },
+    "Cuéntanos tu idea. Contacta a Vialoop para diseño web, software a medida y soluciones digitales para tu empresa.",
+  alternates: { canonical: "/contacto" },
 };
-
-export default async function ContactPage({ searchParams }: { searchParams: Promise<{ servicio?: string }> }) {
+export default async function ContactPage({
+  searchParams,
+}: {
+  searchParams: Promise<{ servicio?: string }>;
+}) {
   const { servicio } = await searchParams;
-  const validServices: ServiceId[] = ["web", "sistema", "google", "material", "hosting", "otro"];
-  const initialService = validServices.find((id) => id === servicio);
+  const services: ContactService[] = [
+    "web",
+    "sistema",
+    "google",
+    "material",
+    "hosting",
+    "otro",
+  ];
+  const selected = services.find((item) => item === servicio);
   return (
     <>
       <main>
-        <Reveal><QuoteWizard key={initialService ?? "general"} initialService={initialService} /></Reveal>
+        <ContactForm initialService={selected} />
       </main>
-
       <Footer />
     </>
   );

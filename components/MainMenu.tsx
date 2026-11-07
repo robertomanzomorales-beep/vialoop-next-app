@@ -13,6 +13,7 @@ const navigation = [
   { href: "/#servicios", label: "Servicios" },
   { href: "/software-a-medida", label: "Software a medida" },
   { href: "/portafolio-web", label: "Portafolio web" },
+  { href: "/hosting", label: "Hosting" },
   { href: "/faq", label: "Preguntas frecuentes" },
 ];
 

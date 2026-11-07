@@ -85,9 +85,7 @@ function LogoLoopComponent({
 
   const [sequenceWidth, setSequenceWidth] = useState(0);
   const [sequenceHeight, setSequenceHeight] = useState(0);
-  const [copyCount, setCopyCount] = useState(
-    ANIMATION_CONFIG.MIN_COPIES
-  );
+  const [copyCount, setCopyCount] = useState(ANIMATION_CONFIG.MIN_COPIES);
   const [isHovered, setIsHovered] = useState(false);
 
   const isVertical = direction === "up" || direction === "down";
@@ -140,9 +138,7 @@ function LogoLoopComponent({
         Math.ceil(viewportHeight / measuredHeight) +
         ANIMATION_CONFIG.COPY_HEADROOM;
 
-      setCopyCount(
-        Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded)
-      );
+      setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded));
 
       return;
     }
@@ -155,9 +151,7 @@ function LogoLoopComponent({
       Math.ceil(containerWidth / measuredWidth) +
       ANIMATION_CONFIG.COPY_HEADROOM;
 
-    setCopyCount(
-      Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded)
-    );
+    setCopyCount(Math.max(ANIMATION_CONFIG.MIN_COPIES, copiesNeeded));
   }, [isVertical]);
 
   useEffect(() => {
@@ -211,10 +205,9 @@ function LogoLoopComponent({
     const track = trackRef.current;
 
     if (!track) return;
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-    const sequenceSize = isVertical
-      ? sequenceHeight
-      : sequenceWidth;
+    const sequenceSize = isVertical ? sequenceHeight : sequenceWidth;
 
     const animate = (timestamp: number) => {
       if (lastTimestampRef.current === null) {
@@ -232,22 +225,16 @@ function LogoLoopComponent({
           : targetVelocity;
 
       const easingFactor =
-        1 -
-        Math.exp(
-          -deltaTime / ANIMATION_CONFIG.SMOOTH_TAU
-        );
+        1 - Math.exp(-deltaTime / ANIMATION_CONFIG.SMOOTH_TAU);
 
       velocityRef.current +=
         (currentTarget - velocityRef.current) * easingFactor;
 
       if (sequenceSize > 0) {
-        let nextOffset =
-          offsetRef.current +
-          velocityRef.current * deltaTime;
+        let nextOffset = offsetRef.current + velocityRef.current * deltaTime;
 
         nextOffset =
-          ((nextOffset % sequenceSize) + sequenceSize) %
-          sequenceSize;
+          ((nextOffset % sequenceSize) + sequenceSize) % sequenceSize;
 
         offsetRef.current = nextOffset;
 
@@ -256,18 +243,25 @@ function LogoLoopComponent({
           : `translate3d(${-nextOffset}px, 0, 0)`;
       }
 
-      animationFrameRef.current =
-        requestAnimationFrame(animate);
+      animationFrameRef.current = requestAnimationFrame(animate);
     };
 
-    animationFrameRef.current =
-      requestAnimationFrame(animate);
-
-    return () => {
-      if (animationFrameRef.current !== null) {
+    function start() {
+      if (animationFrameRef.current !== null)
         cancelAnimationFrame(animationFrameRef.current);
+      lastTimestampRef.current = null;
+      if (preference.matches) {
+        track!.style.transform = "none";
+        return;
       }
-
+      animationFrameRef.current = requestAnimationFrame(animate);
+    }
+    start();
+    preference.addEventListener("change", start);
+    return () => {
+      preference.removeEventListener("change", start);
+      if (animationFrameRef.current !== null)
+        cancelAnimationFrame(animationFrameRef.current);
       lastTimestampRef.current = null;
     };
   }, [
@@ -281,9 +275,7 @@ function LogoLoopComponent({
 
   const rootClassName = [
     "logoLoop",
-    isVertical
-      ? "logoLoop--vertical"
-      : "logoLoop--horizontal",
+    isVertical ? "logoLoop--vertical" : "logoLoop--horizontal",
     fadeOut && "logoLoop--fade",
     scaleOnHover && "logoLoop--scale",
     className,
@@ -299,22 +291,15 @@ function LogoLoopComponent({
       : toCssLength(width),
     "--logo-loop-gap": `${gap}px`,
     "--logo-loop-height": `${logoHeight}px`,
-    ...(fadeOutColor
-      ? { "--logo-loop-fade": fadeOutColor }
-      : {}),
+    ...(fadeOutColor ? { "--logo-loop-fade": fadeOutColor } : {}),
     ...style,
   } as CSSProperties;
 
-  const renderLogo = (
-    item: LogoItem,
-    key: Key
-  ) => {
+  const renderLogo = (item: LogoItem, key: Key) => {
     const isNodeLogo = "node" in item;
 
     const content = isNodeLogo ? (
-      <span className="logoLoop__node">
-        {item.node}
-      </span>
+      <span className="logoLoop__node">{item.node}</span>
     ) : (
       <img
         src={item.src}
@@ -329,22 +314,14 @@ function LogoLoopComponent({
     );
 
     return (
-      <li
-        className="logoLoop__item"
-        key={key}
-        role="listitem"
-      >
+      <li className="logoLoop__item" key={key} role="listitem">
         {item.href ? (
           <a
             className="logoLoop__link"
             href={item.href}
             target="_blank"
             rel="noreferrer noopener"
-            aria-label={
-              isNodeLogo
-                ? item.ariaLabel ?? item.title
-                : item.alt
-            }
+            aria-label={isNodeLogo ? (item.ariaLabel ?? item.title) : item.alt}
           >
             {content}
           </a>
@@ -369,29 +346,19 @@ function LogoLoopComponent({
         onMouseEnter={() => setIsHovered(true)}
         onMouseLeave={() => setIsHovered(false)}
       >
-        {Array.from(
-          { length: copyCount },
-          (_, copyIndex) => (
-            <ul
-              className="logoLoop__list"
-              key={`copy-${copyIndex}`}
-              role="list"
-              aria-hidden={copyIndex > 0}
-              ref={
-                copyIndex === 0
-                  ? sequenceRef
-                  : undefined
-              }
-            >
-              {logos.map((item, itemIndex) =>
-                renderLogo(
-                  item,
-                  `${copyIndex}-${itemIndex}`
-                )
-              )}
-            </ul>
-          )
-        )}
+        {Array.from({ length: copyCount }, (_, copyIndex) => (
+          <ul
+            className="logoLoop__list"
+            key={`copy-${copyIndex}`}
+            role="list"
+            aria-hidden={copyIndex > 0}
+            ref={copyIndex === 0 ? sequenceRef : undefined}
+          >
+            {logos.map((item, itemIndex) =>
+              renderLogo(item, `${copyIndex}-${itemIndex}`),
+            )}
+          </ul>
+        ))}
       </div>
     </div>
   );

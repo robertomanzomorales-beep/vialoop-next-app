@@ -478,10 +478,10 @@ export default function PortfolioWeb() {
                 Sitios desarrollados
               </div>
 
-              <h1 className="max-w-[780px] text-[length:var(--font-page-title)] font-semibold leading-[1.14] tracking-[-0.035em] text-[#07162f]">
+              <h1 className="max-w-[780px] text-[length:var(--font-page-title)] font-medium leading-[1.18] tracking-[-0.035em] text-[#07162f]">
                 Portafolio web
 
-                <span className="block text-[#2563eb]">
+                <span className="editorial block text-[#416da8]">
                   para empresas
                 </span>
               </h1>
