@@ -16,15 +16,17 @@ export default function BrandMarquee({
   rows,
   label,
   variant = "tools",
+  colored = false,
 }: {
   rows: BrandMark[][];
   label: string;
   variant?: "tools" | "clients";
+  colored?: boolean;
 }) {
   const [paused, setPaused] = useState(false);
 
   return (
-    <div className={`${styles.marquee} ${styles[variant]}`} data-paused={paused || undefined}>
+    <div className={`${styles.marquee} ${styles[variant]}`} data-paused={paused || undefined} data-color={colored || undefined}>
       <div className={styles.rows}>
         {rows.map((row, rowIndex) => (
           <div key={rowIndex} className={styles.row}>

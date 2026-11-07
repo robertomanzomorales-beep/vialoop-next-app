@@ -39,3 +39,5 @@
   .mark, .mark img { transition: none; }
   .motionControl { display: none; }
 }
+
+.clients[data-color] .mark img,.clients[data-color] .mark:hover img { filter:none; mix-blend-mode:normal; opacity:1; }

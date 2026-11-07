@@ -1,4 +1,5 @@
 import Image from "next/image";
+import LandingReveal from "./LandingReveal";
 import RecentProjectsCarousel from "./RecentProjectsCarousel";
 import { moreWebProjects, recentWebProjects, type WebProject } from "@/lib/web-design-projects";
 import styles from "./WebDesign.module.css";
@@ -23,10 +24,12 @@ function Project({ project }: { project: WebProject }) {
 export default function WebProjects() {
   return <section id="trabajos" className={`${styles.section} ${styles.workSection}`} aria-labelledby="web-projects-title">
     <div className={styles.container}>
-      <div className={styles.sectionHeading}><div><p className={styles.eyebrow}>DISEÑO QUE YA ESTÁ EN LÍNEA</p><h2 id="web-projects-title">Cada empresa, <em>su propia web.</em></h2></div><p>Una selección de nuestros últimos trabajos. Explora los sitios y conoce cómo presentamos negocios de distintos rubros.</p></div>
+      <LandingReveal className={styles.sectionHeading}><div><p className={styles.eyebrow}>DISEÑO QUE YA ESTÁ EN LÍNEA</p><h2 id="web-projects-title">Cada empresa, <em>su propia web.</em></h2></div><p>Una selección de nuestros últimos trabajos. Explora los sitios y conoce cómo presentamos negocios de distintos rubros.</p></LandingReveal>
+      <LandingReveal delay={100}>
       <RecentProjectsCarousel names={recentWebProjects.map(project => project.name)}>
         {recentWebProjects.map(project => <Project key={project.href} project={project} />)}
       </RecentProjectsCarousel>
+      </LandingReveal>
       <details className={styles.moreProjects}>
         <summary><span>Más proyectos de Vialoop<small>{moreWebProjects.length} sitios para seguir explorando</small></span><span className={styles.plus} aria-hidden="true" /></summary>
         <div className={styles.archiveGrid}>{moreWebProjects.map(project => <Project key={project.href} project={project} />)}</div>
