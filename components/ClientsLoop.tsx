@@ -73,7 +73,8 @@ export default function ClientsLoop() {
   useScrollReveal(sectionRef);
   return (
     <section ref={sectionRef} className={styles.section} aria-labelledby="clientes-vialoop">
-      <div data-scroll-reveal className={styles.container}>
+      {/* The overlapping summary must remain visible independently of scroll reveals. */}
+      <div className={styles.container}>
         <div className={styles.summaryCard}>
           <div className={styles.ratingBlock}>
             <div className={styles.ratingRow}>
