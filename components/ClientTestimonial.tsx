@@ -14,8 +14,6 @@ export default function ClientTestimonial() {
       className={`${styles.section} ${styles.visible}`}
       aria-labelledby="client-testimonial-title"
     >
-      <div className={styles.gridTexture} />
-
       <div className={styles.container}>
         <div data-scroll-reveal data-scroll-delay="120" className={styles.videoColumn}>
           <div className={styles.videoFrame}>

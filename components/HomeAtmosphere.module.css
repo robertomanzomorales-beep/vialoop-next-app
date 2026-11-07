@@ -1,0 +1,81 @@
+.atmosphere {
+  position: absolute;
+  z-index: -1;
+  inset: 0;
+  overflow: clip;
+  pointer-events: none;
+}
+
+/* One canvas for the whole homepage. No section owns an opaque backdrop. */
+.wash {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 85vw 760px at 5% 18%, #75442d1f, transparent 75%),
+    radial-gradient(ellipse 95vw 1100px at 100% 38%, #183b6e2c, transparent 75%),
+    radial-gradient(ellipse 90vw 1000px at 0% 70%, #125a5721, transparent 75%),
+    radial-gradient(ellipse 80vw 800px at 90% 93%, #5f3e5220, transparent 75%);
+}
+
+.far,
+.near {
+  position: fixed;
+  inset: -18vh 0;
+  transform: translate3d(0, 0, 0);
+}
+
+.far {
+  background:
+    radial-gradient(ellipse 75% 55% at 94% 24%, #214a8738, transparent 78%),
+    radial-gradient(ellipse 68% 67% at -5% 88%, #8d563325, transparent 75%);
+}
+
+.near {
+  background:
+    radial-gradient(ellipse 54% 42% at 52% 91%, #1c6d7720, transparent 80%),
+    radial-gradient(ellipse 55% 50% at 10% 12%, #394b7920, transparent 76%);
+}
+
+/* Native scroll timelines keep the parallax off React's render cycle. */
+@supports (animation-timeline: scroll()) {
+  .far {
+    animation: far-depth linear both;
+    animation-timeline: scroll(root block);
+  }
+
+  .near {
+    animation: near-depth linear both;
+    animation-timeline: scroll(root block);
+  }
+}
+
+@keyframes far-depth {
+  from { transform: translate3d(0, 12vh, 0); }
+  to { transform: translate3d(0, -12vh, 0); }
+}
+
+@keyframes near-depth {
+  from { transform: translate3d(0, -8vh, 0); }
+  to { transform: translate3d(0, 16vh, 0); }
+}
+
+@media (max-width: 700px) {
+  .far { opacity: .85; }
+  .near { opacity: .7; }
+  @keyframes far-depth {
+    from { transform: translate3d(0, 4vh, 0); }
+    to { transform: translate3d(0, -4vh, 0); }
+  }
+  @keyframes near-depth {
+    from { transform: translate3d(0, -3vh, 0); }
+    to { transform: translate3d(0, 5vh, 0); }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .far,
+  .near {
+    animation: none;
+    transform: none;
+  }
+}

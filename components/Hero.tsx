@@ -26,7 +26,6 @@ export default function Hero() {
 
   return (
     <section id="inicio" aria-labelledby="hero-title" className={styles.hero}>
-      <div aria-hidden="true" className={styles.atmosphere} />
       <div className={styles.container}>
         <div className={styles.intro}>
           <p className={styles.eyebrow}><span aria-hidden="true" />Diseño, tecnología y personas</p>

@@ -1,4 +1,4 @@
-.section { position: relative; isolation: isolate; overflow: clip; padding: 58px 0 56px; color: #f0f5ff; background: radial-gradient(ellipse at 50% 48%, #163b7945 0%, transparent 59%), linear-gradient(180deg, #040e20, #07152b 65%, #050f21); border-top: 1px solid #ffffff08; }
+.section { position: relative; isolation: isolate; overflow: clip; padding: 58px 0 56px; color: #f0f5ff; background: transparent; }
 .section::before { content: ""; position: absolute; z-index: -1; top: 18%; left: 13%; width: 74%; height: 63%; pointer-events: none; background: radial-gradient(ellipse, #245bdb14, transparent 66%); }
 .container { width: min(1192px, calc(100% - 80px)); margin: 0 auto; }
 .header { max-width: 850px; margin: 0 auto 31px; text-align: center; }

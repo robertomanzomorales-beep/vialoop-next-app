@@ -4,13 +4,13 @@ import CookieSettingsButton from "@/components/privacy/CookieSettingsButton";
 import styles from "./Footer.module.css";
 import Reveal from "./Reveal";
 
-export default function Footer() {
+export default function Footer({ ambient = false }: { ambient?: boolean }) {
   return (
     <footer
       id="footer"
       role="contentinfo"
       aria-label="Pie de página Vialoop"
-      className={styles.footer}
+      className={`${styles.footer} ${ambient ? styles.ambient : ""}`}
     >
       <div className={styles.container}>
         <Reveal className={styles.mainGrid}>

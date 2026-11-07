@@ -1,133 +1,110 @@
-"use client";
-
-import { useRef } from "react";
-import useScrollReveal from "./useScrollReveal";
-import LogoLoop, { type LogoItem } from "./LogoLoop";
+import BrandMarquee from "./BrandMarquee";
 import styles from "./ClientsLoop.module.css";
 
-const clientLogos: LogoItem[] = [
+const clientLogos = [
   {
     src: "/logo-carrusel-afuen-v2.webp",
-    alt: "Afüen",
+    width: 352, height: 240,
+    name: "Afüen",
   },
   {
     src: "/logo-carrusel-chr-v2.webp",
-    alt: "CHR Transportes",
+    width: 636, height: 240,
+    name: "CHR Transportes",
   },
   {
     src: "/logo-carrusel-empresas-hc-v2.webp",
-    alt: "Empresas HC",
+    width: 177, height: 240,
+    name: "Empresas HC",
   },
   {
     src: "/logo-carrusel-gran-norte-v2.webp",
-    alt: "Gran Norte",
+    width: 195, height: 240,
+    name: "Gran Norte",
   },
   {
     src: "/logo-carrusel-klp-servicios-v2.webp",
-    alt: "KLP Servicios",
+    width: 118, height: 240,
+    name: "KLP Servicios",
   },
   {
     src: "/logo-carrusel-loa-rental-v2.webp",
-    alt: "Loa Rental",
+    width: 589, height: 240,
+    name: "Loa Rental",
   },
   {
     src: "/logo-carrusel-maryland-v2.webp",
-    alt: "Maryland",
+    width: 225, height: 240,
+    name: "Maryland",
   },
   {
     src: "/logo-carrusel-profleet-v2.webp",
-    alt: "ProFleet",
+    width: 502, height: 240,
+    name: "ProFleet",
   },
   {
     src: "/logo-carrusel-promaq-v2.webp",
-    alt: "Promaq Servicios Industriales",
+    width: 245, height: 240,
+    name: "Promaq Servicios Industriales",
   },
   {
     src: "/logo-carrusel-rerchar-v2.webp",
-    alt: "Rerchar",
+    width: 384, height: 240,
+    name: "Rerchar",
   },
   {
     src: "/logook-rio-loa-carrusel-240px.webp",
-    alt: "Ferretería Río Loa",
+    width: 384, height: 240,
+    name: "Ferretería Río Loa",
   },
   {
     src: "/logo-carrusel-rohuer-ingenieria-v2.webp",
-    alt: "Rohuer Ingeniería",
+    width: 264, height: 240,
+    name: "Rohuer Ingeniería",
   },
   {
     src: "/logo-carrusel-romaa-v2.webp",
-    alt: "ROMAA",
+    width: 136, height: 240,
+    name: "ROMAA",
   },
   {
     src: "/logo-carrusel-serven-v2.webp",
-    alt: "Serven Supply Chain",
+    width: 496, height: 240,
+    name: "Serven Supply Chain",
   },
   {
     src: "/logo-carrusel-transportes-greducam-v2.webp",
-    alt: "Transportes Greducam",
+    width: 636, height: 240,
+    name: "Transportes Greducam",
   },
 ];
 
 export default function ClientsLoop() {
-  const sectionRef = useRef<HTMLElement>(null);
-  useScrollReveal(sectionRef);
   return (
-    <section ref={sectionRef} className={styles.section} aria-labelledby="clientes-vialoop">
-      {/* The overlapping summary must remain visible independently of scroll reveals. */}
+    <section id="clientes" className={styles.section} aria-labelledby="clientes-vialoop">
+      {/* Keep the metric server-rendered and independent of reveal animations. */}
       <div className={styles.container}>
-        <div className={styles.summaryCard}>
-          <div className={styles.ratingBlock}>
+        <div className={styles.intro}>
+          <div className={styles.summaryCard}>
             <div className={styles.ratingRow}>
-              <span
-                className={styles.stars}
-                aria-label="Calificación de cinco estrellas"
-              >
-                ★★★★★
-              </span>
-
+              <span className={styles.stars} aria-label="Calificación de cinco estrellas">★★★★★</span>
               <span className={styles.rating}>5.0</span>
             </div>
-
             <p className={styles.metric}>
               <strong>+250</strong>
-
-              <span>
-                SITIOS WEB
-                <br />
-                REALIZADOS
-              </span>
+              <span>Sitios web<br />realizados</span>
             </p>
-
-            <p className={styles.description}>
-              Para empresas de distintos rubros
-            </p>
+            <p className={styles.description}>Para empresas de distintos rubros.</p>
+          </div>
+          <div className={styles.heading}>
+            <p className={styles.eyebrow}>Relaciones que perduran</p>
+            <h2 id="clientes-vialoop">Empresas que han<br className={styles.desktopBreak} /> confiado en <em>Vialoop.</em></h2>
           </div>
         </div>
-
-        <div className={styles.heading}>
-          <span className={styles.headingLine} aria-hidden="true" />
-
-          <p id="clientes-vialoop">
-            EMPRESAS QUE HAN CONFIADO EN VIALOOP
-          </p>
-
-          <span className={styles.headingLine} aria-hidden="true" />
-        </div>
-      </div>
-
-      <div data-scroll-reveal data-scroll-delay="120" className={styles.carousel}>
-        <LogoLoop
-          logos={clientLogos}
-          speed={34}
-          direction="left"
-          logoHeight={76}
-          gap={44}
-          hoverSpeed={34}
-          scaleOnHover={false}
-          fadeOut
-          fadeOutColor="#f4f7fc"
-          ariaLabel="Empresas que han confiado en Vialoop"
-        />
+        <BrandMarquee variant="clients" label="Logos de clientes" rows={[
+          clientLogos.slice(0, 8),
+          clientLogos.slice(8),
+        ]} />
       </div>
     </section>
   );

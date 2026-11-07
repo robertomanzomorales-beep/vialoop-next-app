@@ -1,0 +1,7 @@
+.home {
+  position: relative;
+  isolation: isolate;
+  overflow: clip;
+  background: #060e1b;
+  color: #edf3fd;
+}

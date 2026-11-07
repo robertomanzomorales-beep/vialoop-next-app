@@ -90,7 +90,7 @@ function Rating() {
       <span className="text-[13px] leading-none tracking-[0.08em] text-[#f4b400]">
         ★★★★★
       </span>
-      <span className="text-slate-400">5.0</span>
+      <span className="text-[#9bacc6]">5.0</span>
     </div>
   );
 }
@@ -105,31 +105,31 @@ function Card({
   quote: string;
 }) {
   return (
-    <article className="group relative flex h-[228px] w-[332px] shrink-0 flex-col overflow-hidden rounded-[26px] border border-slate-200/80 bg-white/90 p-5 shadow-[0_18px_52px_rgba(7,21,45,.065)] backdrop-blur transition-[transform,box-shadow,border-color,background-color] duration-700 ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-[3px] hover:border-blue-500/20 hover:bg-white hover:shadow-[0_26px_70px_rgba(7,21,45,.11)]">
-      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white via-white to-blue-600/[0.025] opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+    <article className="group relative flex h-[228px] w-[332px] shrink-0 flex-col overflow-hidden rounded-[26px] border border-[#a4bce524] bg-[#112039]/55 p-5 shadow-[0_18px_52px_rgba(7,21,45,.065)] backdrop-blur transition-[transform,box-shadow,border-color,background-color] duration-700 ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-[3px] hover:border-[#8fbaff57] hover:bg-[#142b44]/75 hover:shadow-[0_26px_70px_rgba(7,21,45,.11)]">
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-400/[0.025] via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
 
       <div className="absolute left-5 top-0 h-[3px] w-12 rounded-full bg-gradient-to-r from-[#07152d] via-[#2458f4] to-[#4f86ff] transition-[width] duration-700 group-hover:w-16" />
 
       <div className="relative z-10 mb-4 flex items-start justify-between gap-5">
         <Rating />
 
-        <span className="select-none text-[38px] font-black leading-none text-slate-100">
+        <span className="select-none text-[38px] font-black leading-none text-[#7b9ac344]">
           ”
         </span>
       </div>
 
-      <p className="relative z-10 line-clamp-4 text-[13.5px] font-bold leading-[1.68] tracking-[-0.018em] text-[#07152d]">
+      <p className="relative z-10 line-clamp-4 text-[13.5px] font-normal leading-[1.68] tracking-[-0.018em] text-[#e2ebfb]">
         “{quote}”
       </p>
 
       <div className="relative z-10 mt-auto pt-5">
-        <div className="mb-3 h-px w-full bg-gradient-to-r from-slate-200 via-slate-200 to-transparent" />
+        <div className="mb-3 h-px w-full bg-gradient-to-r from-[#9db8e32b] via-[#9db8e314] to-transparent" />
 
-        <strong className="block text-[13.5px] font-black leading-tight text-[#07152d]">
+        <strong className="block text-[13.5px] font-medium leading-tight text-[#e2ebfb]">
           {name}
         </strong>
 
-        <span className="mt-1 block text-[11.5px] font-bold leading-tight text-slate-500">
+        <span className="mt-1 block text-[11.5px] font-normal leading-tight text-[#93a7c4]">
           {detail}
         </span>
       </div>
@@ -151,7 +151,6 @@ export default function Testimonials() {
 
   useScrollReveal(sectionRef);
   const [visible, setVisible] = useState(false);
-  const [count, setCount] = useState(0);
 
   function applyTransform(value: number) {
     const track = trackRef.current;
@@ -180,20 +179,12 @@ export default function Testimonials() {
     const section = sectionRef.current;
     if (!section) return;
 
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
     const observer = new IntersectionObserver(
       ([entry]) => {
         if (!entry?.isIntersecting) return;
 
         setVisible(true);
         observer.disconnect();
-
-        if (reducedMotion) {
-          setCount(250);
-        }
       },
       {
         threshold: 0.22,
@@ -205,38 +196,6 @@ export default function Testimonials() {
 
     return () => observer.disconnect();
   }, []);
-
-  useEffect(() => {
-    if (!visible) return;
-
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    if (reducedMotion) {
-      setCount(250);
-      return;
-    }
-
-    let frame = 0;
-    const duration = 1500;
-    const start = performance.now();
-
-    function animate(now: number) {
-      const progress = Math.min((now - start) / duration, 1);
-      const eased = 1 - Math.pow(1 - progress, 3);
-
-      setCount(Math.round(eased * 250));
-
-      if (progress < 1) {
-        frame = requestAnimationFrame(animate);
-      }
-    }
-
-    frame = requestAnimationFrame(animate);
-
-    return () => cancelAnimationFrame(frame);
-  }, [visible]);
 
   useEffect(() => {
     const updateLoopWidth = () => {
@@ -327,14 +286,8 @@ export default function Testimonials() {
       ref={sectionRef}
       id="testimonios"
       aria-labelledby="testimonios-title"
-      className="relative isolate flex min-h-[720px] items-center overflow-hidden bg-[#f7f9fd] px-6 py-20 text-[#07152d] md:px-10 lg:py-24"
+      className="relative flex min-h-[660px] items-center overflow-hidden px-6 py-20 text-[#edf3fd] md:px-10 lg:py-24"
     >
-      <div className="pointer-events-none absolute inset-0 -z-30 bg-[radial-gradient(circle_at_12%_8%,rgba(36,88,244,.06),transparent_30%),radial-gradient(circle_at_92%_58%,rgba(15,23,42,.035),transparent_34%),linear-gradient(180deg,#ffffff_0%,#f7f9fd_100%)]" />
-
-      <div className="pointer-events-none absolute inset-0 -z-20 opacity-[0.38] [background-image:linear-gradient(rgba(37,99,235,.032)_1px,transparent_1px),linear-gradient(90deg,rgba(37,99,235,.032)_1px,transparent_1px)] [background-size:48px_48px] [mask-image:linear-gradient(180deg,transparent_0%,black_18%,black_82%,transparent_100%)]" />
-
-      <div className="pointer-events-none absolute right-[-140px] top-1/2 -z-10 h-[420px] w-[420px] -translate-y-1/2 rounded-full bg-blue-600/[0.05] blur-3xl" />
-
       <div className="mx-auto flex w-full max-w-[1180px] flex-col gap-8">
         <header
           data-scroll-reveal
@@ -342,34 +295,34 @@ export default function Testimonials() {
         >
           <div>
             <div className="mb-3 flex items-center gap-3">
-              <span className="h-px w-9 bg-[#07152d]/40" />
-              <span className="text-[10px] font-black uppercase tracking-[0.28em] text-slate-500">
+              <span className="h-px w-9 bg-[#8fb1e7]/60" />
+              <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-[#93a7c4]">
                 Testimonios
               </span>
             </div>
 
             <h2
               id="testimonios-title"
-              className="max-w-[660px] text-[length:var(--font-section-title)] font-semibold leading-[1.2] tracking-[-0.03em] text-[#07152d]"
+              className="max-w-[660px] text-[length:var(--font-section-title)] font-semibold leading-[1.2] tracking-[-0.03em] text-[#e2ebfb]"
             >
               Empresas del norte de Chile ya confiaron en Vialoop.
             </h2>
 
-            <p className="mt-3 max-w-[610px] text-[13.5px] leading-6 text-slate-600">
+            <p className="mt-3 max-w-[610px] text-[13.5px] leading-6 text-[#a0b1c9]">
               Opiniones reales de clientes que necesitaban mejorar su presencia
               digital, ordenar su imagen y comunicar mejor sus servicios.
             </p>
           </div>
 
-          <aside className="relative overflow-hidden rounded-[26px] border border-slate-200 bg-white/88 p-5 shadow-[0_18px_48px_rgba(7,21,45,.07)] backdrop-blur">
+          <aside className="relative overflow-hidden rounded-[26px] border border-[#a4bce529] bg-[#102039]/50 p-5 shadow-[0_18px_48px_rgba(7,21,45,.07)] backdrop-blur">
             <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(280px_140px_at_100%_0%,rgba(37,99,235,.09),transparent_62%)]" />
 
             <div className="relative z-10">
               <Rating />
 
               <div className="mt-5 flex items-end gap-2">
-                <strong className="text-[48px] font-black leading-none tracking-[-0.07em] text-[#07152d]">
-                  {count}
+                <strong className="text-[44px] font-semibold leading-none tracking-[-0.07em] text-[#e2ebfb]">
+                  250
                 </strong>
 
                 <span className="mb-1.5 text-[25px] font-black leading-none text-blue-600">
@@ -377,7 +330,7 @@ export default function Testimonials() {
                 </span>
               </div>
 
-              <p className="mt-3 max-w-[250px] text-[13px] font-bold leading-6 text-slate-600">
+              <p className="mt-3 max-w-[250px] text-[13px] font-normal leading-6 text-[#a0b1c9]">
                 proyectos desarrollados para empresas, comercios y
                 servicios de distintos rubros.
               </p>
@@ -390,7 +343,7 @@ export default function Testimonials() {
           className="relative"
         >
           <div className="mb-4 flex items-center justify-between gap-4">
-            <p className="text-[12px] font-black uppercase tracking-[0.18em] text-slate-400">
+            <p className="text-[10px] font-medium uppercase tracking-[0.14em] text-[#9bacc6]">
               Reseñas destacadas
             </p>
 
