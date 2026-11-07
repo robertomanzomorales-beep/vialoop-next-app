@@ -23,7 +23,7 @@ export default function WebDesignStory() {
           <h2 id="web-value-title">Tu próxima primera impresión.<em>A la altura de tu empresa.</em></h2>
           <p className={styles.lead}>Tu web es un espacio para contar quién eres, mostrar lo que haces y abrir nuevas conversaciones. Diseñamos cada parte para que esas tres cosas conecten.</p>
           <div className={styles.benefits}>{benefits.map(item => <div key={item.title}><span aria-hidden="true" /><div><h3>{item.title}</h3><p>{item.text}</p></div></div>)}</div>
-          <Link href="#contacto" className={styles.textLink}>Conversemos de tu nueva web</Link>
+          <Link href="/diseno-web#contacto" className={styles.textLink}>Conversemos de tu nueva web</Link>
         </LandingReveal>
         <LandingReveal motion="right" delay={130} className={styles.visual}>
           <div className={styles.visualLight} aria-hidden="true" />

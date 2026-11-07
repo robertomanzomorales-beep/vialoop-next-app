@@ -38,7 +38,7 @@ export default function WebDesignPage() {
           <p className={styles.eyebrow}><span className={styles.statusDot} /> DISEÑO WEB · VIALOOP</p>
           <h1 id="web-design-title">Tu empresa tiene mucho que mostrar.<br /><em>Que tu web lo diga.</em></h1>
           <p className={styles.heroLead}>Diseñamos una presencia digital con identidad, clara y hecha para conectar con tus próximos clientes. Te acompañamos desde la primera idea hasta verla en línea.</p>
-          <div className={styles.actions}><Link href="#contacto" className={styles.primary}>Conversemos de tu web</Link><Link href="#tu-nueva-web" className={styles.secondary}>Conoce la experiencia</Link></div>
+          <div className={styles.actions}><Link href="/diseno-web#contacto" className={styles.primary}>Conversemos de tu web</Link><Link href="/diseno-web#tu-nueva-web" className={styles.secondary}>Conoce la experiencia</Link></div>
           <p className={styles.included}><span aria-hidden="true">✓</span> Dominio <strong>.cl</strong> y hosting incluidos por <strong>1 año.</strong></p>
         </div>
       </div>
@@ -50,7 +50,7 @@ export default function WebDesignPage() {
     <MobileWebShowcase />
     <section className={styles.section} aria-labelledby="web-faq-title">
       <div className={`${styles.container} ${styles.faqLayout}`}>
-        <LandingReveal className={styles.faqIntro}><p className={styles.eyebrow}>ANTES DE DAR EL PASO</p><h2 id="web-faq-title">Hablemos con<br /><em>las cosas claras.</em></h2><p>Estas son algunas de las preguntas que nos hacen al comenzar una web.</p><Link href="#contacto" className={styles.secondary}>Tengo otra consulta</Link></LandingReveal>
+        <LandingReveal className={styles.faqIntro}><p className={styles.eyebrow}>ANTES DE DAR EL PASO</p><h2 id="web-faq-title">Hablemos con<br /><em>las cosas claras.</em></h2><p>Estas son algunas de las preguntas que nos hacen al comenzar una web.</p><Link href="/diseno-web#contacto" className={styles.secondary}>Tengo otra consulta</Link></LandingReveal>
         <LandingReveal motion="right" delay={120} className={styles.faqList}>{questions.map(item => <details key={item.q} name="web-faq"><summary>{item.q}<span className={styles.plus} aria-hidden="true" /></summary><p>{item.a}</p></details>)}</LandingReveal>
       </div>
     </section>
