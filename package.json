@@ -6,8 +6,7 @@
     "dev": "node scripts/dev.mjs",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
-    "test:contact": "node --test tests/contact-route.test.cjs"
+    "lint": "eslint"
   },
   "dependencies": {
     "next": "16.2.9",

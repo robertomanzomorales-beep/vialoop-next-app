@@ -56,8 +56,8 @@
 }
 
 .logoLoop__item:hover img {
-  filter: grayscale(1) brightness(0.64) contrast(1.02);
-  opacity: 0.78;
+  filter: none;
+  opacity: 1;
 }
 
 .logoLoop--scale .logoLoop__item:hover img {
@@ -131,4 +131,3 @@
     transition: none;
   }
 }
-@media(prefers-reduced-motion:reduce){.logoLoop{overflow-x:auto}.logoLoop__track{transform:none!important}.logoLoop::before,.logoLoop::after{display:none}.logoLoop__list[aria-hidden="true"]{display:none}}

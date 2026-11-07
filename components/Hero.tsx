@@ -1,110 +1,215 @@
 "use client";
-import Image from "next/image";
+
 import Link from "next/link";
-import { useState } from "react";
-import TextReveal from "./TextReveal";
-import styles from "./Studio.module.css";
-const projects = [
-  {
-    name: "RyF Group",
-    category: "Servicios mineros e industriales",
-    image: "/portfolio/ryf-group.webp",
-    href: "https://ryfgroup.cl/",
-  },
-  {
-    name: "San Andrés",
-    category: "Transporte de pasajeros",
-    image: "/portfolio/transportes-san-andres.webp",
-    href: "https://www.transportesanandres.cl/",
-  },
-  {
-    name: "Transfer Atacama",
-    category: "Reservas y pagos en línea",
-    image: "/portfolio/trabajo_realizado_martin_atacama_transfers_600px.webp",
-    href: "https://transferatacamachile.cl/",
-  },
+import { useRef, type MouseEvent as ReactMouseEvent } from "react";
+import styles from "./Hero.module.css";
+import useScrollReveal from "./useScrollReveal";
+
+const heroStats = [
+  ["Sitios web", "Presencia profesional"],
+  ["Software", "Gestión a tu medida"],
+  ["Soporte", "Acompañamiento cercano"],
 ];
+
 export default function Hero() {
-  const [active, setActive] = useState(0);
-  const project = projects[active];
+  const heroRef = useRef<HTMLElement | null>(null);
+  const mockupRef = useRef<HTMLDivElement | null>(null);
+  useScrollReveal(heroRef);
+
+  function handleMockupMove(
+    event: ReactMouseEvent<HTMLDivElement>,
+  ) {
+    const mockup = mockupRef.current;
+
+    if (!mockup) return;
+
+    const rect = mockup.getBoundingClientRect();
+    const pointerX = (event.clientX - rect.left) / rect.width - 0.5;
+    const pointerY = (event.clientY - rect.top) / rect.height - 0.5;
+
+    mockup.style.setProperty("--tilt-x", `${pointerY * -6}deg`);
+    mockup.style.setProperty("--tilt-y", `${pointerX * 7}deg`);
+    mockup.style.setProperty("--shine-x", `${50 + pointerX * 55}%`);
+    mockup.style.setProperty("--shine-y", `${50 + pointerY * 55}%`);
+  }
+
+  function resetMockup() {
+    const mockup = mockupRef.current;
+
+    if (!mockup) return;
+
+    mockup.style.setProperty("--tilt-x", "0deg");
+    mockup.style.setProperty("--tilt-y", "0deg");
+    mockup.style.setProperty("--shine-x", "50%");
+    mockup.style.setProperty("--shine-y", "50%");
+  }
+
   return (
-    <section id="inicio" className={styles.hero} aria-labelledby="hero-title">
-      <div className={styles.heroMesh} aria-hidden="true" />
-      <div className={`${styles.container} ${styles.heroInner}`}>
-        <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}>ESTUDIO DIGITAL · CALAMA, CHILE</p>
-          <h1 id="hero-title">
-            <TextReveal text="Diseño web y software" />
-            <br />
-            <TextReveal text="a medida para tu empresa." italic />
-          </h1>
-          <p className={styles.heroLead}>
-            Una presencia digital que te represente. Un software que haga más
-            simple tu operación. Diseño y desarrollo, con la misma atención al
-            detalle.
-          </p>
-          <div className={styles.actions}>
-            <Link href="/portafolio-web" className={styles.primary}>
-              Conoce nuestro trabajo
-            </Link>
-            <Link href="/software-a-medida" className={styles.secondary}>
-              Software a medida
-            </Link>
-          </div>
-          <Link href="/contacto" className={styles.textLink}>
-            Conversemos de tu próximo proyecto
-          </Link>
-          <div className={styles.heroSignature}>
-            <span>Desde el norte.</span>
-            <span>Para empresas de todo Chile.</span>
-          </div>
-        </div>
-        <div
-          className={styles.heroVisual}
-          aria-label="Proyectos web desarrollados por Vialoop"
-        >
-          <div className={styles.projectTop}>
-            <span>DISEÑO QUE SE PUEDE EXPLORAR</span>
-            <span className={styles.projectDot} aria-hidden="true" />
-          </div>
-          <a
-            className={styles.heroImage}
-            href={project.href}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={`Visitar ${project.name}`}
-          >
-            <Image
-              key={project.image}
-              src={project.image}
-              alt={`Sitio web de ${project.name} desarrollado por Vialoop`}
-              fill
-              sizes="(min-width:1100px) 520px, 80vw"
-              loading="lazy"
-              className={styles.projectScreenshot}
-            />
-          </a>
-          <div className={styles.heroProjectDetail} aria-live="polite">
-            <strong>{project.name}</strong>
-            <span>{project.category}</span>
-          </div>
-          <div className={styles.projectChoices} aria-label="Elegir proyecto">
-            {projects.map((item, index) => (
-              <button
-                type="button"
-                key={item.name}
-                aria-pressed={active === index}
-                onClick={() => setActive(index)}
+      <section
+        ref={heroRef}
+        id="inicio"
+        aria-label="Diseño web y software a medida para empresas en Chile"
+        className={styles.hero}
+      >
+        <div className={styles.gridTexture} />
+        <div className={styles.glowLeft} />
+        <div className={styles.glowRight} />
+
+        <div className={styles.container}>
+          <div className={styles.layout}>
+            <div className={styles.copy}>
+              <h1
+                data-scroll-reveal
+                className={`${styles.title} ${
+                  styles.visible
+                }`}
               >
-                {item.name}
-              </button>
-            ))}
+                Diseño web y software
+                <span> a medida para tu empresa.</span>
+              </h1>
+
+              <p
+                data-scroll-reveal data-scroll-delay="120"
+                className={`${styles.primaryText} ${
+                  styles.visible
+                }`}
+              >
+                Creamos sitios web que presentan tu negocio y sistemas que
+                simplifican tu operación. Diseño y desarrollo con un mismo enfoque:{" "}
+                <em className={styles.humanAccent}>
+                  entender lo que tu empresa necesita.
+                </em>
+              </p>
+
+              <p
+                data-scroll-reveal data-scroll-delay="120"
+                className={`${styles.secondaryText} ${
+                  styles.visible
+                }`}
+              >
+                Acompañamos a empresas, negocios y profesionales en su presencia
+                digital y su gestión interna. Desde Calama y Antofagasta, trabajamos
+                con clientes de todo Chile.
+              </p>
+
+              <div
+                data-scroll-reveal data-scroll-delay="220"
+                className={`${styles.actions} ${
+                  styles.visible
+                }`}
+              >
+                <Link
+                  href="/portafolio-web"
+                  className={styles.primaryButton}
+                >
+                  Diseño web
+                </Link>
+
+                <Link href="/software-a-medida" className={styles.secondaryButton}>
+                  Software a medida
+                </Link>
+                <Link href="/contacto" className={styles.contactLink}>
+                  Cuéntanos tu proyecto
+                </Link>
+              </div>
+            </div>
+
+            <div
+              ref={mockupRef}
+              data-scroll-reveal data-scroll-delay="180"
+              className={`${styles.showcase} ${
+                styles.showcaseVisible
+              }`}
+              onMouseMove={handleMockupMove}
+              onMouseLeave={resetMockup}
+            >
+              <div className={styles.orbit} />
+              <div className={styles.lightBeam} />
+
+              <div className={styles.mockup}>
+                <div className={styles.shine} />
+
+                <div className={styles.browserTop}>
+                  <div className={styles.browserDots}>
+                    <span />
+                    <span />
+                    <span />
+                  </div>
+
+                  <div className={styles.browserAddress}>
+                    <span />
+                    vialoop.cl
+                  </div>
+                </div>
+
+                <div className={styles.dashboard}>
+                  <div className={styles.dashboardHeader}>
+                    <div>
+                      <p>SOLUCIÓN DIGITAL</p>
+                      <h2>Web + sistemas</h2>
+                    </div>
+
+                    <div className={styles.online}>
+                      <span />
+                      Activo
+                    </div>
+                  </div>
+
+                  <div className={styles.dashboardMain}>
+                    <div className={styles.preview}>
+                      <div className={styles.previewTop}>
+                        <span />
+                        <span />
+                      </div>
+
+                      <div className={styles.previewLines}>
+                        <span />
+                        <span />
+                        <span />
+                      </div>
+
+                      <div className={styles.previewBottom}>
+                        <span />
+                        <span />
+                      </div>
+                    </div>
+
+                    <div className={styles.result}>
+                      <p>RESULTADO</p>
+                      <strong>ORDEN</strong>
+                      <span>procesos bajo control</span>
+                    </div>
+                  </div>
+
+                  <div className={styles.metrics}>
+                    {heroStats.map(([title, text]) => (
+                      <div key={title} className={styles.metric}>
+                        <strong>{title}</strong>
+                        <span>{text}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              <div className={`${styles.tag} ${styles.tagFast}`}>
+                <span />
+                Sitio rápido
+              </div>
+
+              <div className={`${styles.tag} ${styles.tagSeo}`}>
+                <span />
+                Sistema a medida
+              </div>
+
+              <div className={`${styles.tag} ${styles.tagTrust}`}>
+                <span />
+                Gestión centralizada
+              </div>
+            </div>
           </div>
-          <span className={styles.heroVisualNote}>
-            Ideas distintas. La misma dedicación.
-          </span>
         </div>
-      </div>
-    </section>
+      </section>
+
   );
 }

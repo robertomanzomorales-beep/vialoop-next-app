@@ -1,23 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, Instrument_Serif, Geist_Mono } from "next/font/google";
+import { Geist, Geist_Mono } from "next/font/google";
 import MainMenu from "@/components/MainMenu";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import GoogleTagManager from "@/components/analytics/GoogleTagManager";
 import CookieConsent from "@/components/privacy/CookieConsent";
 import "./globals.css";
 
-const geistSans = Inter({
+const geistSans = Geist({
   variable: "--font-geist-sans",
-  display: "swap",
   subsets: ["latin"],
-});
-
-const editorial = Instrument_Serif({
-  weight: "400",
-  style: "italic",
-  subsets: ["latin"],
-  variable: "--font-editorial",
-  display: "swap",
 });
 
 const geistMono = Geist_Mono({
@@ -38,8 +29,10 @@ export const metadata: Metadata = {
 
   icons: {
     icon: "/vialoop-logo-original-optimizado-e1780251299821.webp",
-    shortcut: "/vialoop-logo-original-optimizado-e1780251299821.webp",
-    apple: "/vialoop-logo-original-optimizado-e1780251299821.webp",
+    shortcut:
+      "/vialoop-logo-original-optimizado-e1780251299821.webp",
+    apple:
+      "/vialoop-logo-original-optimizado-e1780251299821.webp",
   },
 };
 
@@ -52,7 +45,7 @@ export default function RootLayout({
     <html
       lang="es"
       data-scroll-behavior="smooth"
-      className={`${geistSans.variable} ${geistMono.variable} ${editorial.variable} h-full antialiased`}
+      className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
         <MainMenu />

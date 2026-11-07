@@ -72,38 +72,49 @@ export default function ClientsLoop() {
   const sectionRef = useRef<HTMLElement>(null);
   useScrollReveal(sectionRef);
   return (
-    <section
-      ref={sectionRef}
-      className={styles.section}
-      aria-labelledby="clientes-vialoop"
-    >
+    <section ref={sectionRef} className={styles.section} aria-labelledby="clientes-vialoop">
       <div data-scroll-reveal className={styles.container}>
-        <div className={styles.trust}>
-          <span
-            className={styles.trustRating}
-            aria-label="Calificación cinco estrellas"
-          >
-            ★★★★★ <span>5.0</span>
-          </span>
-          <p>
-            <strong>+250 sitios web</strong> para empresas de distintos rubros
-          </p>
+        <div className={styles.summaryCard}>
+          <div className={styles.ratingBlock}>
+            <div className={styles.ratingRow}>
+              <span
+                className={styles.stars}
+                aria-label="Calificación de cinco estrellas"
+              >
+                ★★★★★
+              </span>
+
+              <span className={styles.rating}>5.0</span>
+            </div>
+
+            <p className={styles.metric}>
+              <strong>+250</strong>
+
+              <span>
+                SITIOS WEB
+                <br />
+                REALIZADOS
+              </span>
+            </p>
+
+            <p className={styles.description}>
+              Para empresas de distintos rubros
+            </p>
+          </div>
         </div>
 
         <div className={styles.heading}>
           <span className={styles.headingLine} aria-hidden="true" />
 
-          <p id="clientes-vialoop">EMPRESAS QUE HAN CONFIADO EN VIALOOP</p>
+          <p id="clientes-vialoop">
+            EMPRESAS QUE HAN CONFIADO EN VIALOOP
+          </p>
 
           <span className={styles.headingLine} aria-hidden="true" />
         </div>
       </div>
 
-      <div
-        data-scroll-reveal
-        data-scroll-delay="120"
-        className={styles.carousel}
-      >
+      <div data-scroll-reveal data-scroll-delay="120" className={styles.carousel}>
         <LogoLoop
           logos={clientLogos}
           speed={34}
@@ -113,7 +124,7 @@ export default function ClientsLoop() {
           hoverSpeed={34}
           scaleOnHover={false}
           fadeOut
-          fadeOutColor="#f1f4f9"
+          fadeOutColor="#f4f7fc"
           ariaLabel="Empresas que han confiado en Vialoop"
         />
       </div>
