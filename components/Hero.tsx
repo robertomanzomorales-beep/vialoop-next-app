@@ -6,7 +6,7 @@ import styles from "./Hero.module.css";
 import HeroTypewriter from "./HeroTypewriter";
 
 const services = [
-  { title: "Diseño web", text: "Una presencia a la altura de tu negocio.", href: "/portafolio-web", icon: "web" },
+  { title: "Diseño web", text: "Una presencia a la altura de tu negocio.", href: "/diseno-web", icon: "web" },
   { title: "Software a medida", text: "Tu operación, más simple y conectada.", href: "/software-a-medida", icon: "software" },
   { title: "Soporte y continuidad", text: "Acompañamiento para seguir avanzando.", href: "/contacto?servicio=hosting", icon: "support" },
 ];

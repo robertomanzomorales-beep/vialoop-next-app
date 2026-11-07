@@ -1,4 +1,3 @@
-import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 
 const faqs = [
@@ -394,7 +393,7 @@ export default function FAQPage() {
         </div>
       </section>
 
-      <Footer />
+
     </main>
   );
 }

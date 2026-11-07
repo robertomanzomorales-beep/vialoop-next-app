@@ -1,11 +1,5 @@
-import Footer from "@/components/Footer";
-import PortfolioWeb from "@/components/PortfolioWeb";
+import { permanentRedirect } from "next/navigation";
 
-export default function PortafolioWebPage() {
-  return (
-    <main>
-      <PortfolioWeb />
-      <Footer />
-    </main>
-  );
+export default function PortfolioRedirect() {
+  permanentRedirect("/diseno-web");
 }

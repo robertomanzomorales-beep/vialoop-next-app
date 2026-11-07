@@ -3,17 +3,14 @@
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import { useCallback, useEffect, useRef, useState, type CSSProperties } from "react";
+import { useCallback, useEffect, useRef, useState } from "react";
 import styles from "./MainMenu.module.css";
 
 const PORTAL_URL = "https://portal-vialoop.vercel.app/";
 type HomeScroll = { target: "inicio" | "servicios"; behavior: ScrollBehavior };
-const navigation = [
-  { href: "/", label: "Inicio" },
-  { href: "/#servicios", label: "Servicios" },
-  { href: "/software-a-medida", label: "Software a medida" },
-  { href: "/portafolio-web", label: "Portafolio web" },
-  { href: "/faq", label: "Preguntas frecuentes" },
+const serviceLinks = [
+  { href: "/diseno-web", label: "Diseño web", detail: "Una presencia con identidad propia." },
+  { href: "/software-a-medida", label: "Software", detail: "Herramientas para tu operación." },
 ];
 
 function Brand() {
@@ -23,13 +20,16 @@ function Brand() {
 export default function MainMenu() {
   const router = useRouter();
   const pathname = usePathname();
-  const [hash, setHash] = useState("");
+  const [, setHash] = useState("");
+  const [servicesOpen, setServicesOpen] = useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = useState(false);
+  const dropdownRef = useRef<HTMLDivElement>(null);
+  const servicesToggleRef = useRef<HTMLButtonElement>(null);
   const [mobileOpen, setMobileOpen] = useState(false);
   const [closing, setClosing] = useState(false);
   const [homeScroll, setHomeScroll] = useState<HomeScroll | null>(null);
   const dialogRef = useRef<HTMLDialogElement>(null);
   const toggleRef = useRef<HTMLButtonElement>(null);
-  const panelRef = useRef<HTMLDivElement>(null);
   const closingRef = useRef(false);
   const restoreFocus = useRef(true);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -51,7 +51,7 @@ export default function MainMenu() {
     closingRef.current = true;
     setClosing(true);
     // A fallback also completes closing if an animation is interrupted.
-    closeTimer.current = setTimeout(finishClose, 380);
+    closeTimer.current = setTimeout(finishClose, 260);
   }, [finishClose]);
 
   useEffect(() => {
@@ -111,11 +111,20 @@ export default function MainMenu() {
     return () => desktop.removeEventListener("change", onResize);
   }, [finishClose]);
 
-  function isActive(href: string) {
-    if (href === "/#servicios") return pathname === "/" && hash === "#servicios";
-    if (href === "/") return pathname === "/" && hash !== "#servicios";
-    return pathname === href;
-  }
+  useEffect(() => {
+    if (!servicesOpen) return;
+    const outside = (event: PointerEvent) => {
+      if (!dropdownRef.current?.contains(event.target as Node)) setServicesOpen(false);
+    };
+    const escape = (event: KeyboardEvent) => {
+      if (event.key === "Escape") { setServicesOpen(false); servicesToggleRef.current?.focus(); }
+    };
+    document.addEventListener("pointerdown", outside);
+    document.addEventListener("keydown", escape);
+    return () => { document.removeEventListener("pointerdown", outside); document.removeEventListener("keydown", escape); };
+  }, [servicesOpen]);
+
+  function isActive(href: string) { return pathname === href; }
 
   function navigateTo(href: string) {
     const target = href === "/" ? "inicio" : href === "/#servicios" ? "servicios" : null;
@@ -137,6 +146,7 @@ export default function MainMenu() {
   }
 
   function followLink(event: { preventDefault: () => void }, href: string) {
+    setServicesOpen(false);
     if (dialogRef.current?.open) {
       event.preventDefault();
       pendingNavigation.current = href;
@@ -156,10 +166,17 @@ export default function MainMenu() {
       <div className={styles.bar}>
         <Link href="/" aria-label="Ir al inicio de Vialoop" className={styles.brand} onNavigate={event => followLink(event, "/")}><Brand /></Link>
         <nav aria-label="Navegación principal" className={styles.desktopNav}>
-          {navigation.map(item => <Link key={item.href} href={item.href} onNavigate={event => followLink(event, item.href)} className={`${styles.navLink} ${isActive(item.href) ? styles.active : ""}`} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</Link>)}
+          <Link href="/" onNavigate={event => followLink(event, "/")} className={`${styles.navLink} ${isActive("/") ? styles.active : ""}`} aria-current={isActive("/") ? "page" : undefined}>Inicio</Link>
+          <div ref={dropdownRef} className={styles.dropdown} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setServicesOpen(false); }}>
+            <button ref={servicesToggleRef} type="button" className={`${styles.navLink} ${serviceLinks.some(item => isActive(item.href)) ? styles.active : ""}`} aria-expanded={servicesOpen} aria-controls="desktop-services" onClick={() => setServicesOpen(value => !value)}>Servicios<span className={styles.chevron} aria-hidden="true" /></button>
+            <div id="desktop-services" className={styles.dropdownPanel} data-open={servicesOpen || undefined} inert={!servicesOpen}>
+              {serviceLinks.map(item => <Link key={item.href} href={item.href} onNavigate={event => followLink(event, item.href)} aria-current={isActive(item.href) ? "page" : undefined}><strong>{item.label}</strong><span>{item.detail}</span></Link>)}
+            </div>
+          </div>
+          <Link href="/contacto" className={`${styles.navLink} ${isActive("/contacto") ? styles.active : ""}`} aria-current={isActive("/contacto") ? "page" : undefined}>Contacto</Link>
+          <a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" className={styles.portal}>Portal Vialoop</a>
         </nav>
-        <div className={styles.desktopActions}><a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" className={styles.portal}>Portal clientes</a><Link href="/contacto" className={styles.contact}>Conversemos</Link></div>
-        <button ref={toggleRef} type="button" className={styles.toggle} aria-label="Abrir menú" aria-expanded={mobileOpen} aria-controls="mobile-navigation" onClick={() => { restoreFocus.current = true; setClosing(false); setMobileOpen(true); }}><span /><span /></button>
+        <button ref={toggleRef} type="button" className={styles.toggle} aria-label="Abrir menú" aria-expanded={mobileOpen} aria-controls="mobile-navigation" onClick={() => { restoreFocus.current = true; setClosing(false); setMobileServicesOpen(serviceLinks.some(item => isActive(item.href))); setMobileOpen(true); }}><span /><span /></button>
       </div>
     </header>
     <dialog ref={dialogRef} id="mobile-navigation" aria-label="Menú de navegación" className={styles.dialog} data-closing={closing || undefined}
@@ -169,20 +186,22 @@ export default function MainMenu() {
         pendingNavigation.current = null;
         if (href) navigateTo(href);
         else if (restoreFocus.current) toggleRef.current?.focus({ preventScroll: true });
-      }}
-      onAnimationEnd={event => { if (event.target === panelRef.current && closingRef.current) finishClose(); }}
-      onClick={event => { if (event.target === event.currentTarget) requestClose(); }}>
+      }}>
       <div className={styles.mobileTop}><Link href="/" aria-label="Ir al inicio de Vialoop" onNavigate={event => followLink(event, "/")}><Brand /></Link><button type="button" autoFocus aria-label="Cerrar menú" onClick={requestClose} className={styles.close}><span /><span /></button></div>
-      <div ref={panelRef} className={styles.mobilePanel}>
-        <div className={styles.mobileBody}>
-          <nav aria-label="Menú móvil" className={styles.mobileNav}>
-            {navigation.map((item, index) => <Link key={item.href} href={item.href} onNavigate={event => followLink(event, item.href)} className={isActive(item.href) ? styles.mobileActive : ""} style={{ "--item-index": index } as CSSProperties} aria-current={isActive(item.href) ? "page" : undefined}>{item.label}</Link>)}
-          </nav>
-          <a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" className={styles.mobilePortal} onClick={requestClose}>Portal de clientes</a>
-        </div>
-        <div className={styles.mobileBottom}>
-          <Link href="/contacto" onNavigate={event => followLink(event, "/contacto")} className={styles.contact}>Conversemos</Link>
-        </div>
+      <div className={styles.mobilePanel}>
+        <p className={styles.menuEyebrow}>EXPLOREMOS TU PRÓXIMO PROYECTO</p>
+        <nav aria-label="Menú móvil" className={styles.mobileNav}>
+          <Link href="/" onNavigate={event => followLink(event, "/")} className={isActive("/") ? styles.mobileActive : ""} aria-current={isActive("/") ? "page" : undefined}>Inicio</Link>
+          <div className={styles.mobileServices}>
+            <button type="button" aria-expanded={mobileServicesOpen} aria-controls="mobile-services" onClick={() => setMobileServicesOpen(value => !value)}>Servicios<span className={styles.chevron} aria-hidden="true" /></button>
+            <div id="mobile-services" className={styles.mobileSubmenu} data-open={mobileServicesOpen || undefined} inert={!mobileServicesOpen}>
+              <div>{serviceLinks.map(item => <Link key={item.href} href={item.href} onNavigate={event => followLink(event, item.href)} aria-current={isActive(item.href) ? "page" : undefined}><span>{item.label}</span><small>{item.detail}</small></Link>)}</div>
+            </div>
+          </div>
+          <Link href="/contacto" onNavigate={event => followLink(event, "/contacto")} className={isActive("/contacto") ? styles.mobileActive : ""} aria-current={isActive("/contacto") ? "page" : undefined}>Contacto</Link>
+        </nav>
+        <a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" className={styles.mobilePortal} onClick={requestClose}>Portal Vialoop<span>Acceso para clientes</span></a>
+        <div className={styles.mobileBottom}><span>UNA BUENA IDEA EMPIEZA CON UNA CONVERSACIÓN.</span><a href="mailto:dloayza@vialoop.cl">dloayza@vialoop.cl</a><p>Desde Calama, para todo Chile.</p></div>
       </div>
     </dialog>
   </>;

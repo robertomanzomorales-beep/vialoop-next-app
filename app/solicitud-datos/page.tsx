@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Footer from "@/components/Footer";
 import DataRightsForm from "@/components/privacy/DataRightsForm";
 import styles from "./page.module.css";
 
@@ -205,7 +204,7 @@ export default function DataRequestPage() {
         </section>
       </main>
 
-      <Footer />
+
     </>
   );
 }

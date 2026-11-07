@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
+import ContactForm from "@/components/contact/ContactForm";
 import Image from "next/image";
 import Link from "next/link";
-import Footer from "@/components/Footer";
 import Reveal from "@/components/Reveal";
 import SoftwareMockup from "@/components/SoftwareMockup";
 import { softwareProjects } from "@/lib/software-projects";
@@ -113,14 +113,9 @@ export default function SoftwarePage() {
           </div>
         </section>
 
-        <section className={styles.contact} aria-labelledby="software-contact-title">
-          <Reveal className={`${styles.container} ${styles.contactInner}`}>
-            <div><p className={styles.eyebrow}>HABLEMOS DE TU OPERACIÓN</p><h2 id="software-contact-title">¿Qué proceso necesitas<br /><span>ordenar o simplificar?</span></h2><p>Cuéntanos cómo lo resuelven hoy y qué les gustaría mejorar.</p></div>
-            <Link href="/contacto?servicio=sistema" className={styles.primaryButton}>Cuéntanos tu proyecto </Link>
-          </Reveal>
-        </section>
+        <ContactForm embedded initialService="sistema" />
       </main>
-      <Footer />
+
     </>
   );
 }

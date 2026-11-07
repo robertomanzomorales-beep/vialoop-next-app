@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import Footer from "@/components/Footer";
 import CookieSettingsButton from "@/components/privacy/CookieSettingsButton";
 import styles from "./page.module.css";
 
@@ -260,7 +259,7 @@ export default function PoliticaDeCookiesPage() {
         </section>
       </main>
 
-      <Footer />
+
     </>
   );
 }

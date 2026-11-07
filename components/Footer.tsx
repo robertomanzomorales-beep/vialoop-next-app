@@ -4,13 +4,13 @@ import CookieSettingsButton from "@/components/privacy/CookieSettingsButton";
 import styles from "./Footer.module.css";
 import Reveal from "./Reveal";
 
-export default function Footer({ ambient = false }: { ambient?: boolean }) {
+export default function Footer() {
   return (
     <footer
       id="footer"
       role="contentinfo"
       aria-label="Pie de página Vialoop"
-      className={`${styles.footer} ${ambient ? styles.ambient : ""}`}
+      className={styles.footer}
     >
       <div className={styles.container}>
         <Reveal className={styles.mainGrid}>
@@ -126,7 +126,7 @@ export default function Footer({ ambient = false }: { ambient?: boolean }) {
             </a>
 
             <nav className={styles.serviceLinks} aria-label="Servicios de Vialoop">
-              <Link href="/portafolio-web">Diseño web</Link>
+              <Link href="/diseno-web">Diseño web</Link>
               <Link href="/software-a-medida">Software a medida</Link>
               <Link href="/contacto">Cuéntanos tu proyecto</Link>
             </nav>

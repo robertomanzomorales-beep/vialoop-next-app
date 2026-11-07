@@ -1,4 +1,3 @@
-import Footer from "@/components/Footer";
 
 export const metadata = {
   title: "Política de Privacidad | Vialoop",
@@ -238,7 +237,7 @@ export default function PoliticasPrivacidadPage() {
         </section>
       </main>
 
-      <Footer />
+
 
       <style>{`
         .privacy-page {

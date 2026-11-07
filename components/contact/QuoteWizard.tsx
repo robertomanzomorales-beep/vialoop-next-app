@@ -349,7 +349,7 @@ export default function QuoteWizard({ initialService }: { initialService?: Servi
 
             <div className={styles.successActions}>
               <Link href="/">Volver al inicio</Link>
-              <Link href="/portafolio-web">Revisar portafolio</Link>
+              <Link href="/diseno-web">Revisar portafolio</Link>
             </div>
           </div>
         </div>

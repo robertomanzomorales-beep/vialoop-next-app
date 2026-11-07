@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Footer from "@/components/Footer";
 import Policies from "@/components/Policies";
 
 export const metadata: Metadata = {
@@ -12,7 +11,7 @@ export default function PoliticasDeUsoPage() {
   return (
     <main>
       <Policies />
-      <Footer />
+
     </main>
   );
 }

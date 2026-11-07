@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Footer from "@/components/Footer";
 import ContactForm, { type ContactService } from "@/components/contact/ContactForm";
 
 export const metadata: Metadata = {
@@ -12,5 +11,5 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
   const { servicio } = await searchParams;
   const services: ContactService[] = ["web", "sistema", "google", "material", "hosting", "otro"];
   const initialService = services.find(item => item === servicio);
-  return <><main><ContactForm initialService={initialService} /></main><Footer /></>;
+  return <><main><ContactForm initialService={initialService} /></main></>;
 }

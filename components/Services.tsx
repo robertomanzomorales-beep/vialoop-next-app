@@ -10,7 +10,7 @@ const services = [
   {
     title: "Diseño web",
     text: "Sitios rápidos y claros, diseñados para mostrar lo que haces y facilitar el contacto.",
-    href: "/portafolio-web",
+    href: "/diseno-web",
     link: "Ver sitios web",
     icon: "web",
   },

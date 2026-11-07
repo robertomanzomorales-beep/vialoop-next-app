@@ -33,6 +33,7 @@ export default function ContactForm({
   const id = useId();
   const [result, setResult] = useState<Result>({ status: "idle", message: "" });
   const Heading = embedded ? "h2" : "h1";
+  const FormHeading = embedded ? "h3" : "h2";
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     if (result.status === "sending") return;
@@ -135,7 +136,7 @@ export default function ContactForm({
               aria-busy={result.status === "sending"}
             >
               <div className={styles.formHeading}>
-                <h2>Escríbenos</h2>
+                <FormHeading>Escríbenos</FormHeading>
                 <p>Solo necesitamos lo esencial para empezar.</p>
                 {initialService && (
                   <span className={styles.context}>

@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
+import Footer from "@/components/Footer";
 import MainMenu from "@/components/MainMenu";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import GoogleTagManager from "@/components/analytics/GoogleTagManager";
@@ -51,6 +52,8 @@ export default function RootLayout({
         <MainMenu />
 
         {children}
+
+        <Footer />
 
         <FloatingWhatsApp />
 
