@@ -16,9 +16,9 @@ export default function SystemsSection() {
         <header className={styles.header}>
           <div data-scroll-reveal>
             <p className={styles.eyebrow}><span aria-hidden="true" />Software a medida</p>
-            <h2 id="systems-title">Tu operación, conectada.{" "}<em>De principio a fin.</em></h2>
+            <h2 id="systems-title">Una acción.{" "}<em>Todo conectado.</em></h2>
           </div>
-          <p data-scroll-reveal data-scroll-delay="90" className={styles.description}>Registra una solicitud, cambia su estado y mira cómo se actualiza el resumen. Así puede trabajar el software de tu empresa.</p>
+          <p data-scroll-reveal data-scroll-delay="90" className={styles.description}>Crea una solicitud, avánzala y observa el resultado.</p>
         </header>
         <RequestDemo />
         <div className={styles.bottom}>
