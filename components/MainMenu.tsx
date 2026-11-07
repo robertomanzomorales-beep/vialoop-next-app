@@ -7,10 +7,11 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties } from "re
 import styles from "./MainMenu.module.css";
 
 const PORTAL_URL = "https://portal-vialoop.vercel.app/";
-type HomeScroll = { target: "inicio" | "servicios"; behavior: ScrollBehavior };
+type HomeScroll = { target: "inicio" | "servicios" | "clientes"; behavior: ScrollBehavior };
 const navigation = [
   { href: "/", label: "Inicio" },
   { href: "/#servicios", label: "Servicios" },
+  { href: "/#clientes", label: "Clientes" },
   { href: "/diseno-web", label: "Diseño web" },
   { href: "/software-a-medida", label: "Software" },
   { href: "/contacto", label: "Contacto" },
@@ -68,10 +69,10 @@ export default function MainMenu() {
       const target = document.getElementById(homeScroll.target);
       if (!target) return false;
       frame = requestAnimationFrame(() => {
-        const href = homeScroll.target === "servicios" ? "/#servicios" : "/";
+        const href = homeScroll.target === "inicio" ? "/" : `/#${homeScroll.target}`;
         // Normalize after a route commit, including cached home entries with an old hash.
         window.history.replaceState(null, "", href);
-        setHash(homeScroll.target === "servicios" ? "#servicios" : "");
+        setHash(homeScroll.target === "inicio" ? "" : `#${homeScroll.target}`);
         if (homeScroll.target === "inicio") {
           window.scrollTo({ top: 0, behavior: homeScroll.behavior });
         } else {
@@ -111,14 +112,14 @@ export default function MainMenu() {
   }, [finishClose]);
 
   function isActive(href: string) {
-    if (href === "/#servicios") return pathname === "/" && hash === "#servicios";
-    if (href === "/") return pathname === "/" && hash !== "#servicios";
+    if (href === "/#servicios" || href === "/#clientes") return pathname === "/" && hash === href.slice(1);
+    if (href === "/") return pathname === "/" && hash !== "#servicios" && hash !== "#clientes";
     return pathname === href;
   }
 
   function navigateTo(href: string) {
-    const target = href === "/" ? "inicio" : href === "/#servicios" ? "servicios" : null;
-    setHash(target === "servicios" ? "#servicios" : "");
+    const target = href === "/" ? "inicio" : href === "/#servicios" ? "servicios" : href === "/#clientes" ? "clientes" : null;
+    setHash(target && target !== "inicio" ? `#${target}` : "");
     if (target) {
       const smooth = pathname === "/" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       setHomeScroll({ target, behavior: smooth ? "smooth" : "instant" });
@@ -141,7 +142,7 @@ export default function MainMenu() {
       pendingNavigation.current = href;
       restoreFocus.current = false;
       requestClose();
-    } else if (href === "/" || href === "/#servicios") {
+    } else if (href === "/" || href === "/#servicios" || href === "/#clientes") {
       event.preventDefault();
       navigateTo(href);
     } else {

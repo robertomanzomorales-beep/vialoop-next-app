@@ -53,7 +53,7 @@ export default function useScrollReveal(
         animation.cancel();
         element.dataset.scrollState = "visible";
         const rect = element.getBoundingClientRect();
-        if (rect.bottom <= 0 || rect.top >= window.innerHeight) prepare(element);
+        if (rect.top >= window.innerHeight) prepare(element);
       };
       animations.set(element, animation);
     }
@@ -66,7 +66,7 @@ export default function useScrollReveal(
           const element = entry.target as HTMLElement;
           if (entry.isIntersecting) {
             if (element.dataset.scrollState === "waiting") enter(element);
-          } else if (element.dataset.scrollState !== "entering") {
+          } else if (entry.boundingClientRect.top >= window.innerHeight && element.dataset.scrollState !== "entering") {
             prepare(element);
           }
         });
@@ -75,7 +75,7 @@ export default function useScrollReveal(
       elements.forEach((element, index) => {
         element.dataset.scrollReveal = "";
         const rect = positions[index];
-        if (!visited.current.has(element) || rect.bottom <= 0 || rect.top >= window.innerHeight) prepare(element);
+        if (rect.top >= window.innerHeight || (!visited.current.has(element) && rect.bottom > 0)) prepare(element);
         observer?.observe(element);
       });
     }

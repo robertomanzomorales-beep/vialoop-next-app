@@ -1,3 +1,1 @@
-.page { min-width:0; animation:pageEnter 520ms cubic-bezier(.25,.46,.35,1) both; }
-@keyframes pageEnter { from { opacity:.35; } to { opacity:1; } }
-@media(prefers-reduced-motion:reduce) { .page { animation:none; } }
+.page { min-width:0; }
