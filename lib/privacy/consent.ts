@@ -36,7 +36,8 @@ function isValidConsent(
     consent.necessary === true &&
     typeof consent.analytics === "boolean" &&
     typeof consent.updatedAt === "string" &&
-    !Number.isNaN(Date.parse(consent.updatedAt))
+    !Number.isNaN(Date.parse(consent.updatedAt)) &&
+    Date.now() - Date.parse(consent.updatedAt) < CONSENT_MAX_AGE_SECONDS * 1000
   );
 }
 

@@ -108,72 +108,43 @@ export default function Testimonials() {
     const section = sectionRef.current;
     if (!section) return;
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (!entry?.isIntersecting) return;
-
-        setVisible(true);
-        observer.disconnect();
-      },
-      {
-        threshold: 0.22,
-        rootMargin: "0px 0px -8% 0px",
-      }
-    );
-
+    const observer = new IntersectionObserver(([entry]) => setVisible(entry.isIntersecting), { threshold: 0 });
     observer.observe(section);
-
     return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
-    const updateLoopWidth = () => {
-      loopWidthRef.current = testimonials.length * CARD_STEP;
-    };
-
-    updateLoopWidth();
-
-    window.addEventListener("resize", updateLoopWidth);
-
-    return () => window.removeEventListener("resize", updateLoopWidth);
-  }, []);
-
-  useEffect(() => {
     if (!visible) return;
-
-    const reducedMotion = window.matchMedia(
-      "(prefers-reduced-motion: reduce)"
-    ).matches;
-
-    if (reducedMotion) return;
-
+    const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     const speed = 0.028;
-
     function animate(now: number) {
-      if (lastTimeRef.current === null) {
-        lastTimeRef.current = now;
-      }
-
-      const delta = now - lastTimeRef.current;
+      const delta = lastTimeRef.current === null ? 0 : Math.min(now - lastTimeRef.current, 50);
       lastTimeRef.current = now;
-
       if (!pausedRef.current && !manualMoveRef.current) {
-        const nextOffset = normalizeOffset(offsetRef.current - delta * speed);
-        offsetRef.current = nextOffset;
-        applyTransform(nextOffset);
+        offsetRef.current = normalizeOffset(offsetRef.current - delta * speed);
+        applyTransform(offsetRef.current);
       }
-
       animationFrameRef.current = requestAnimationFrame(animate);
     }
-
-    animationFrameRef.current = requestAnimationFrame(animate);
-
+    function sync() {
+      if (animationFrameRef.current !== null) cancelAnimationFrame(animationFrameRef.current);
+      lastTimeRef.current = null;
+      if (!document.hidden && !preference.matches) animationFrameRef.current = requestAnimationFrame(animate);
+    }
+    sync();
+    document.addEventListener("visibilitychange", sync);
+    preference.addEventListener("change", sync);
     return () => {
-      if (animationFrameRef.current) {
-        cancelAnimationFrame(animationFrameRef.current);
-      }
+      if (animationFrameRef.current !== null) cancelAnimationFrame(animationFrameRef.current);
+      lastTimeRef.current = null;
+      document.removeEventListener("visibilitychange", sync);
+      preference.removeEventListener("change", sync);
     };
   }, [visible]);
+
+  useEffect(() => () => {
+    if (manualFrameRef.current !== null) cancelAnimationFrame(manualFrameRef.current);
+  }, []);
 
   function moveCarousel(direction: "prev" | "next") {
     if (manualFrameRef.current) {
@@ -287,7 +258,7 @@ export default function Testimonials() {
                   pausedRef.current = false;
                   lastTimeRef.current = performance.now();
                 }}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white shadow-[0_14px_30px_rgba(37,99,235,.22)] transition hover:-translate-y-0.5 hover:bg-blue-700"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#a6c3e535] bg-[#a6c3e50a] text-[#c6d9f3] transition hover:bg-[#a6c3e518]"
                 aria-label="Ver testimonios anteriores"
               >
                 <svg
@@ -316,7 +287,7 @@ export default function Testimonials() {
                   pausedRef.current = false;
                   lastTimeRef.current = performance.now();
                 }}
-                className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-blue-600 text-white shadow-[0_14px_30px_rgba(37,99,235,.22)] transition hover:-translate-y-0.5 hover:bg-blue-700"
+                className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#a6c3e535] bg-[#a6c3e50a] text-[#c6d9f3] transition hover:bg-[#a6c3e518]"
                 aria-label="Ver más testimonios"
               >
                 <svg

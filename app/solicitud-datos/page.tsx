@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import DataRightsForm from "@/components/privacy/DataRightsForm";
-import styles from "./page.module.css";
+import LegalPage from "@/components/legal/LegalPage";
+import styles from "@/components/legal/LegalPage.module.css";
 
 export const metadata: Metadata = {
   title: "Solicitud de derechos sobre datos personales | Vialoop",
@@ -49,162 +50,16 @@ const rights = [
 ] as const;
 
 export default function DataRequestPage() {
-  return (
-    <>
-      <main className={styles.main}>
-        <section className={styles.hero} aria-labelledby="page-title">
-          <div className={styles.heroTexture} aria-hidden="true" />
-
-          <div className={styles.container}>
-            <p className={styles.eyebrow}>PRIVACIDAD Y DATOS PERSONALES</p>
-
-            <h1 id="page-title">Solicitud de derechos sobre sus datos</h1>
-
-            <p className={styles.heroLead}>
-              Este canal permite presentar solicitudes relacionadas con el
-              tratamiento de datos personales realizado por Vialoop Studio SpA.
-            </p>
-
-            <div className={styles.responsibleData}>
-              <div>
-                <span>Responsable</span>
-                <strong>Vialoop Studio SpA</strong>
-              </div>
-
-              <div>
-                <span>RUT</span>
-                <strong>78.455.385-K</strong>
-              </div>
-
-              <div>
-                <span>Canal de privacidad</span>
-                <a href="mailto:contacto@vialoop.cl">contacto@vialoop.cl</a>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className={styles.introduction} aria-labelledby="rights-title">
-          <div className={styles.container}>
-            <div className={styles.sectionHeading}>
-              <div>
-                <p className={styles.sectionEyebrow}>DERECHOS DEL TITULAR</p>
-                <h2 id="rights-title">¿Qué puede solicitar?</h2>
-              </div>
-
-              <p>
-                Seleccione la alternativa que represente mejor su requerimiento.
-                Cada solicitud será revisada de acuerdo con su contexto, la
-                normativa aplicable y los antecedentes disponibles.
-              </p>
-            </div>
-
-            <div className={styles.rightsGrid}>
-              {rights.map((right) => (
-                <article key={right.number} className={styles.rightCard}>
-                  <span>{right.number}</span>
-                  <h3>{right.title}</h3>
-                  <p>{right.text}</p>
-                </article>
-              ))}
-            </div>
-          </div>
-        </section>
-
-        <section className={styles.process} aria-labelledby="process-title">
-          <div className={styles.container}>
-            <div className={styles.processGrid}>
-              <div className={styles.processIntro}>
-                <p className={styles.sectionEyebrow}>PROCESO DE ATENCIÓN</p>
-                <h2 id="process-title">Cómo gestionaremos su solicitud</h2>
-                <p>
-                  Registraremos el requerimiento y enviaremos un identificador
-                  de seguimiento al correo informado.
-                </p>
-              </div>
-
-              <ol className={styles.processSteps}>
-                <li>
-                  <span>01</span>
-                  <div>
-                    <strong>Recepción y registro</strong>
-                    <p>Recibiremos la solicitud mediante este canal seguro.</p>
-                  </div>
-                </li>
-
-                <li>
-                  <span>02</span>
-                  <div>
-                    <strong>Revisión de antecedentes</strong>
-                    <p>
-                      Evaluaremos su alcance y, si es necesario, solicitaremos
-                      información adicional para verificar identidad o localizar
-                      los datos.
-                    </p>
-                  </div>
-                </li>
-
-                <li>
-                  <span>03</span>
-                  <div>
-                    <strong>Respuesta</strong>
-                    <p>
-                      Informaremos el resultado y las medidas adoptadas a través
-                      del correo electrónico indicado.
-                    </p>
-                  </div>
-                </li>
-              </ol>
-            </div>
-          </div>
-        </section>
-
-        <section className={styles.formSection} aria-label="Formulario de solicitud">
-          <div className={styles.container}>
-            <DataRightsForm />
-
-            <aside className={styles.securityNotice}>
-              <p>
-                <strong>Protección de su información:</strong> no adjunte ni
-                escriba contraseñas, claves bancarias o antecedentes sensibles
-                que no hayan sido solicitados. Vialoop podrá aplicar medidas
-                razonables de verificación antes de entregar, modificar o
-                eliminar información.
-              </p>
-            </aside>
-          </div>
-        </section>
-
-        <section className={styles.contactSection} aria-labelledby="contact-title">
-          <div className={styles.container}>
-            <div className={styles.contactGrid}>
-              <div>
-                <p className={styles.sectionEyebrow}>CONTACTO DE PRIVACIDAD</p>
-                <h2 id="contact-title">¿Necesita orientación?</h2>
-              </div>
-
-              <div className={styles.contactDetails}>
-                <div>
-                  <span>Correo electrónico</span>
-                  <a href="mailto:contacto@vialoop.cl">contacto@vialoop.cl</a>
-                </div>
-
-                <div>
-                  <span>Teléfono y WhatsApp</span>
-                  <a href="tel:+56974330586">+56 9 7433 0586</a>
-                </div>
-
-                <div>
-                  <span>Atención</span>
-                  <strong>Calama, Antofagasta y todo Chile</strong>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-
-
-    </>
-  );
+  return <LegalPage current="rights" title="Tus datos, tus decisiones."
+    description="Un canal directo para presentar solicitudes relacionadas con tus datos personales y recibir una respuesta de Vialoop."
+    overview={<p>Responsable: <strong>Vialoop Studio SpA</strong> · RUT 78.455.385-K. Utilizaremos los antecedentes que entregues exclusivamente para gestionar tu solicitud.</p>}
+    sections={[
+      { id: "derechos", title: "Qué puedes solicitar", content: <dl className={styles.definitions}>{rights.map(right => <div key={right.number}><dt>{right.title}</dt><dd>{right.text}</dd></div>)}</dl> },
+      { id: "proceso", title: "Cómo lo gestionamos", content: <ol>
+        <li><strong>Recepción y registro.</strong> Recibiremos tu solicitud y enviaremos un identificador de seguimiento al correo informado.</li>
+        <li><strong>Revisión de antecedentes.</strong> Evaluaremos su alcance y, cuando sea necesario, te pediremos información para verificar tu identidad o localizar los datos.</li>
+        <li><strong>Respuesta.</strong> Informaremos el resultado y las medidas adoptadas a través del correo indicado.</li>
+      </ol> },
+      { id: "solicitud", title: "Presenta tu solicitud", content: <DataRightsForm /> },
+    ]} />;
 }

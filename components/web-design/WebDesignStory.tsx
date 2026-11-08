@@ -44,7 +44,7 @@ export default function WebDesignStory() {
         </LandingReveal>
         <LandingReveal motion="focus" delay={100} className={styles.launch}>
           <div><p className={styles.eyebrow}>UNA BASE LISTA PARA COMENZAR</p><h3>Tu nombre. Tu espacio.<em>Tu nueva web.</em></h3><p>Te orientamos para elegir tu dominio y preparar la puesta en línea.</p></div>
-          <div className={styles.launchOffer}><strong>.cl <span>+</span> hosting</strong><span>Incluidos durante el primer año</span></div>
+          <div className={styles.launchOffer}><strong>.cl <span>+</span> hosting</strong><span>Definidos en tu propuesta</span></div>
         </LandingReveal>
       </div>
     </section>

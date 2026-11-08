@@ -1,7 +1,5 @@
-"use client";
-
 import Image from "next/image";
-import { useState } from "react";
+import MotionRegion from "./MotionRegion";
 import styles from "./BrandMarquee.module.css";
 
 export type BrandMark = {
@@ -23,10 +21,8 @@ export default function BrandMarquee({
   variant?: "tools" | "clients" | "integrations";
   colored?: boolean;
 }) {
-  const [paused, setPaused] = useState(false);
-
   return (
-    <div className={`${styles.marquee} ${styles[variant]}`} data-paused={paused || undefined} data-color={colored || undefined}>
+    <MotionRegion className={`${styles.marquee} ${styles[variant]}`} colored={colored}>
       <div className={styles.rows}>
         {rows.map((row, rowIndex) => (
           <div key={rowIndex} className={styles.row}>
@@ -45,12 +41,6 @@ export default function BrandMarquee({
           </div>
         ))}
       </div>
-      <button type="button" className={styles.motionControl} aria-label={`${paused ? "Reanudar" : "Pausar"} ${label.toLowerCase()}`} onClick={() => setPaused(value => !value)}>
-        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true">
-          {paused ? <path d="m5 3 7 5-7 5Z" /> : <path d="M6 3v10M10 3v10" />}
-        </svg>
-        {paused ? "Reanudar movimiento" : "Pausar movimiento"}
-      </button>
-    </div>
+    </MotionRegion>
   );
 }

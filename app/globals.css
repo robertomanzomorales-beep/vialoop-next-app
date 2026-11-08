@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #061120;
+  --foreground: #dce8f9;
   --header-height: 78px;
   --font-page-title: clamp(32px, 3.4vw, 46px);
   --font-section-title: clamp(26px, 2.7vw, 36px);
@@ -23,11 +23,16 @@ body {
 
 html { scrollbar-gutter:stable; scroll-behavior:smooth; scroll-padding-top: calc(var(--header-height) + 24px); }
 body { margin: 0; }
+.skip-link { position: fixed; z-index: 250; top: 12px; left: 16px; padding: 12px 18px; border: 1px solid #b4d0f3; border-radius: 6px; background: #0b1b30; color: #e4efff; font-size: 13px; transform: translateY(-160%); }
+.skip-link:focus { transform: none; }
+.main-content:focus { outline: none; }
+a, button, input, select, textarea, summary { -webkit-tap-highlight-color: #a4c7f021; }
 ::selection { background: #c5dbff; color: #0b2340; }
 
 h1, h2, h3 { text-wrap: pretty; }
 @media (max-width: 680px) {
   :root { --header-height: 70px; --font-page-title: clamp(29px, 7.8vw, 34px); --font-section-title: clamp(25px, 6.7vw, 29px); }
 }
+@media (max-width: 700px) { body:has([data-cookie-notice]) [data-floating-contact] { visibility: hidden; } }
 
 @media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }

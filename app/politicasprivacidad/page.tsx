@@ -1,27 +1,13 @@
+import Link from "next/link";
+import LegalPage from "@/components/legal/LegalPage";
+
 
 export const metadata = {
-  title: "Política de Privacidad | Vialoop",
+  title: "Política de Privacidad",
+  alternates: { canonical: "/politicasprivacidad" },
   description:
     "Política de Privacidad de Vialoop.cl sobre tratamiento de datos personales, cookies, formularios, derechos de titulares, seguridad y contacto.",
 };
-
-const contactInfo = [
-  {
-    label: "Correo",
-    value: "contacto@vialoop.cl",
-    href: "mailto:contacto@vialoop.cl",
-  },
-  {
-    label: "Teléfono / WhatsApp",
-    value: "+56 9 6860 0694",
-    href: "https://wa.me/56968600694",
-  },
-  {
-    label: "Sitio web",
-    value: "https://vialoop.cl",
-    href: "https://vialoop.cl",
-  },
-];
 
 const sections = [
   {
@@ -34,8 +20,8 @@ const sections = [
   {
     title: "Responsable del tratamiento",
     body: [
-      "El responsable del tratamiento de los datos personales es Vialoop.cl, en adelante también “Vialoop”, “nosotros” o “nuestro”.",
-      "Para consultas relacionadas con privacidad, protección de datos personales o ejercicio de derechos, puedes escribir a contacto@vialoop.cl o comunicarte al +56 9 6860 0694.",
+      "El responsable del tratamiento de los datos personales es Vialoop Studio SpA, RUT 78.455.385-K, en adelante también “Vialoop”, “nosotros” o “nuestro”.",
+      "Para consultas relacionadas con privacidad, protección de datos personales o ejercicio de derechos, puedes escribir a contacto@vialoop.cl o comunicarte al +56 9 7433 0586.",
     ],
   },
   {
@@ -73,7 +59,7 @@ const sections = [
     body: [
       "Nuestro sitio puede utilizar cookies, píxeles, etiquetas, identificadores y tecnologías similares para permitir el funcionamiento del sitio, recordar preferencias, medir tráfico, analizar comportamiento de navegación y mejorar nuestros servicios.",
       "Podemos utilizar herramientas como Google Analytics, Google Tag Manager y servicios de seguridad, rendimiento, hosting, formularios, chat, CRM o email marketing necesarios para operar el sitio y responder solicitudes.",
-      "El usuario puede configurar su navegador para bloquear o eliminar cookies. Sin embargo, algunas cookies técnicas son necesarias para el funcionamiento del sitio y su bloqueo puede afectar la disponibilidad o calidad de ciertas funcionalidades.",
+      "La medición analítica permanece desactivada hasta que el visitante la autoriza desde el aviso o las preferencias de cookies. El usuario puede configurar su navegador para bloquear o eliminar cookies. Sin embargo, algunas cookies técnicas son necesarias para el funcionamiento del sitio y su bloqueo puede afectar la disponibilidad o calidad de ciertas funcionalidades.",
     ],
   },
   {
@@ -151,354 +137,16 @@ const sections = [
 ];
 
 export default function PoliticasPrivacidadPage() {
-  return (
-    <>
-      <main className="privacy-page">
-        <section className="privacy-hero">
-          <div className="privacy-shell privacy-center">
-            <p className="privacy-label">Privacidad y datos personales</p>
-
-            <h1>Política de Privacidad</h1>
-
-            <p className="privacy-subtitle">
-              Información sobre qué datos personales recopila Vialoop.cl, para
-              qué los utiliza, cómo los protege y qué derechos puede ejercer el
-              titular conforme a la legislación chilena aplicable.
-            </p>
-
-            <p className="privacy-date">
-              Última actualización: <strong>23 de junio de 2026</strong>
-            </p>
-          </div>
-        </section>
-
-        <section className="privacy-main">
-          <div className="privacy-shell">
-            <div className="privacy-intro">
-              <p className="privacy-label">Documento legal informativo</p>
-
-              <h2>Tratamiento de datos personales</h2>
-
-              <p>
-                Esta política describe el alcance, las finalidades, las bases de
-                licitud, la conservación, la seguridad y los derechos asociados
-                al tratamiento de datos personales realizado por Vialoop.cl.
-              </p>
-            </div>
-
-            <article className="privacy-list">
-              {sections.map((section, index) => (
-                <section className="privacy-item" key={section.title}>
-                  <h3>
-                    <span>{index + 1}.</span>
-                    {section.title}
-                  </h3>
-
-                  <div>
-                    {section.body.map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
-                    ))}
-                  </div>
-                </section>
-              ))}
-            </article>
-
-            <section className="privacy-contact">
-              <p className="privacy-label">Contacto de privacidad</p>
-
-              <h2>¿Necesitas consultar o ejercer tus derechos?</h2>
-
-              <p>
-                Puedes contactar a Vialoop para solicitar información,
-                rectificación, supresión, oposición, revocación del
-                consentimiento u otros derechos reconocidos por la normativa
-                aplicable.
-              </p>
-
-              <div className="privacy-contact-list">
-                {contactInfo.map((item) => (
-                  <a
-                    key={item.label}
-                    href={item.href}
-                    target={item.href.startsWith("http") ? "_blank" : undefined}
-                    rel={
-                      item.href.startsWith("http")
-                        ? "noopener noreferrer"
-                        : undefined
-                    }
-                  >
-                    <span>{item.label}</span>
-                    {item.value}
-                  </a>
-                ))}
-              </div>
-            </section>
-          </div>
-        </section>
-      </main>
-
-
-
-      <style>{`
-        .privacy-page {
-          background: #f5f8fc;
-          color: #07142b;
-          font-family: inherit;
-        }
-
-        .privacy-page,
-        .privacy-page * {
-          box-sizing: border-box;
-        }
-
-        .privacy-shell {
-          width: min(100% - 56px, 1180px);
-          margin-inline: auto;
-        }
-
-        .privacy-center {
-          text-align: center;
-        }
-
-        .privacy-hero {
-          padding: 118px 0 58px;
-          background: linear-gradient(
-            180deg,
-            #edf5ff 0%,
-            #f8fbff 68%,
-            #f5f8fc 100%
-          );
-        }
-
-        .privacy-label {
-          display: inline-block;
-          margin: 0;
-          color: #64748b;
-          background: #ffffff;
-          border-radius: 999px;
-          padding: 9px 16px;
-          font-size: 10px;
-          line-height: 1;
-          font-weight: 900;
-          text-transform: uppercase;
-          letter-spacing: 0.18em;
-        }
-
-        .privacy-hero h1 {
-          max-width: 820px;
-          margin: 24px auto 0;
-          color: #07142b;
-          font-size: var(--font-page-title);
-          line-height: 1.04;
-          font-weight: 900;
-          letter-spacing: -0.045em;
-        }
-
-        .privacy-subtitle {
-          max-width: 760px;
-          margin: 22px auto 0;
-          color: #5b6879;
-          font-size: 15.5px;
-          line-height: 1.75;
-          font-weight: 600;
-        }
-
-        .privacy-date {
-          margin: 24px 0 0;
-          color: #6b7788;
-          font-size: 13px;
-          line-height: 1.6;
-          font-weight: 700;
-        }
-
-        .privacy-date strong {
-          color: #07142b;
-          font-weight: 900;
-        }
-
-        .privacy-main {
-          padding: 54px 0 108px;
-        }
-
-        .privacy-intro {
-          max-width: 820px;
-          margin: 0 auto 64px;
-          text-align: center;
-        }
-
-        .privacy-intro h2 {
-          margin: 22px 0 0;
-          color: #07142b;
-          font-size: clamp(30px, 3.8vw, 46px);
-          line-height: 1.08;
-          font-weight: 900;
-          letter-spacing: -0.04em;
-        }
-
-        .privacy-intro p:not(.privacy-label) {
-          margin: 18px auto 0;
-          color: #5b6879;
-          font-size: 15.5px;
-          line-height: 1.75;
-          font-weight: 600;
-        }
-
-        .privacy-list {
-          display: grid;
-          grid-template-columns: 1fr;
-          gap: 34px;
-          width: 100%;
-          max-width: 1180px;
-          margin-inline: auto;
-        }
-
-        .privacy-item {
-          display: grid;
-          grid-template-columns: 280px minmax(0, 1fr);
-          gap: 56px;
-          align-items: start;
-        }
-
-        .privacy-item h3 {
-          display: flex;
-          gap: 8px;
-          align-items: baseline;
-          margin: 0;
-          color: #07142b;
-          font-size: 21px;
-          line-height: 1.15;
-          font-weight: 900;
-          letter-spacing: -0.03em;
-        }
-
-        .privacy-item h3 span {
-          color: #1457ff;
-          font-weight: 900;
-        }
-
-        .privacy-item p {
-          max-width: 820px;
-          margin: 0;
-          color: #5b6879;
-          font-size: 15px;
-          line-height: 1.82;
-          font-weight: 600;
-        }
-
-        .privacy-item p + p {
-          margin-top: 12px;
-        }
-
-        .privacy-contact {
-          max-width: 900px;
-          margin: 92px auto 0;
-          text-align: center;
-        }
-
-        .privacy-contact h2 {
-          margin: 22px auto 0;
-          color: #07142b;
-          font-size: clamp(30px, 3.8vw, 46px);
-          line-height: 1.06;
-          font-weight: 900;
-          letter-spacing: -0.045em;
-        }
-
-        .privacy-contact > p:not(.privacy-label) {
-          max-width: 720px;
-          margin: 18px auto 0;
-          color: #5b6879;
-          font-size: 15.5px;
-          line-height: 1.75;
-          font-weight: 600;
-        }
-
-        .privacy-contact-list {
-          display: grid;
-          grid-template-columns: repeat(3, minmax(0, 1fr));
-          gap: 28px;
-          margin-top: 38px;
-        }
-
-        .privacy-contact-list a {
-          color: #07142b;
-          font-size: 14px;
-          line-height: 1.45;
-          font-weight: 900;
-          text-decoration: none;
-          word-break: break-word;
-        }
-
-        .privacy-contact-list a span {
-          display: block;
-          margin-bottom: 8px;
-          color: #94a3b8;
-          font-size: 10px;
-          line-height: 1;
-          font-weight: 900;
-          text-transform: uppercase;
-          letter-spacing: 0.16em;
-        }
-
-        .privacy-contact-list a:hover {
-          color: #1457ff;
-        }
-
-        @media (max-width: 900px) {
-          .privacy-shell {
-            width: min(100% - 36px, 1180px);
-          }
-
-          .privacy-hero {
-            padding: 100px 0 48px;
-          }
-
-          .privacy-item {
-            grid-template-columns: 1fr;
-            gap: 12px;
-          }
-
-          .privacy-list {
-            gap: 36px;
-          }
-
-          .privacy-contact-list {
-            grid-template-columns: 1fr;
-            gap: 22px;
-          }
-        }
-
-        @media (max-width: 520px) {
-          .privacy-shell {
-            width: min(100% - 28px, 1180px);
-          }
-
-          .privacy-hero h1 {
-            font-size: 36px;
-          }
-
-          .privacy-intro h2,
-          .privacy-contact h2 {
-            font-size: 30px;
-          }
-
-          .privacy-subtitle,
-          .privacy-intro p:not(.privacy-label),
-          .privacy-contact > p:not(.privacy-label) {
-            font-size: 15px;
-            line-height: 1.68;
-          }
-
-          .privacy-item h3 {
-            font-size: 19px;
-          }
-
-          .privacy-item p {
-            font-size: 14px;
-            line-height: 1.75;
-          }
-        }
-      `}</style>
-    </>
-  );
+  const documentSections = sections.map((section, index) => ({
+    id: `privacidad-${index + 1}`,
+    title: section.title,
+    content: <>{section.body.map(paragraph => <p key={paragraph}>{paragraph}</p>)}
+      {index === 6 && <p><Link href="/politicadecookies">Consulta la Política de Cookies</Link> para conocer los registros utilizados y modificar tus preferencias.</p>}
+      {index === 11 && <p>También puedes utilizar el <Link href="/solicitud-datos">formulario de derechos sobre tus datos</Link>.</p>}
+    </>,
+  }));
+  return <LegalPage current="privacy" title="Política de Privacidad" updated
+    description="Qué información tratamos, para qué la utilizamos y cómo puedes ejercer tus derechos sobre tus datos personales."
+    navigation={[1, 3, 4, 6, 9, 10, 11, 16].map(index => documentSections[index])}
+    sections={documentSections} />;
 }

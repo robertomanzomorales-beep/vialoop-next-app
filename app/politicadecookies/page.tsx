@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import CookieSettingsButton from "@/components/privacy/CookieSettingsButton";
-import styles from "./page.module.css";
+import LegalPage from "@/components/legal/LegalPage";
+import styles from "@/components/legal/LegalPage.module.css";
 
 export const metadata: Metadata = {
-  title: "Política de Cookies | Vialoop",
+  title: "Política de Cookies",
   description:
     "Información sobre las cookies necesarias y analíticas utilizadas por Vialoop.cl, sus finalidades y las opciones de consentimiento disponibles.",
   alternates: {
@@ -20,7 +21,7 @@ const cookieRows = [
     purpose:
       "Conserva la elección de privacidad, la versión del consentimiento y la fecha de actualización para no solicitar la misma decisión en cada visita.",
     duration:
-      "Hasta que el usuario cambie su elección, elimine los datos del navegador o Vialoop actualice la versión del consentimiento.",
+      "Cookie y almacenamiento local: hasta 180 días. La elección puede modificarse en cualquier momento o eliminarse desde el navegador.",
   },
   {
     name: "_ga",
@@ -99,167 +100,37 @@ const sections = [
 ];
 
 export default function PoliticaDeCookiesPage() {
-  return (
-    <>
-      <main className={styles.page}>
-        <section className={styles.hero}>
-          <div className={styles.shell}>
-            <p className={styles.eyebrow}>PRIVACIDAD Y CONTROL</p>
-            <h1>Política de Cookies</h1>
-            <p className={styles.heroText}>
-              Información clara sobre las tecnologías utilizadas por
-              Vialoop.cl, sus finalidades y las decisiones disponibles para
-              cada visitante.
-            </p>
-            <p className={styles.updated}>
-              Última actualización: <strong>26 de agosto de 2026</strong>
-            </p>
-          </div>
-        </section>
-
-        <section className={styles.summarySection}>
-          <div className={`${styles.shell} ${styles.summaryGrid}`}>
-            <div>
-              <p className={styles.sectionLabel}>CONFIGURACIÓN ACTUAL</p>
-              <h2>Medición solo con autorización</h2>
-            </div>
-
-            <div className={styles.summaryText}>
-              <p>
-                Vialoop utiliza cookies necesarias para conservar la elección
-                de privacidad. Google Analytics permanece desactivado hasta
-                que el visitante autoriza expresamente la medición.
-              </p>
-
-              <div className={styles.statusList}>
-                <div className={styles.statusItem}>
-                  <span>Necesarias</span>
-                  <strong>Siempre activas</strong>
-                </div>
-                <div className={styles.statusItem}>
-                  <span>Analíticas</span>
-                  <strong>Requieren autorización</strong>
-                </div>
-                <div className={styles.statusItem}>
-                  <span>Publicidad</span>
-                  <strong>No utilizada</strong>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className={styles.contentSection}>
-          <div className={styles.shell}>
-            <div className={styles.sectionHeading}>
-              <p className={styles.sectionLabel}>INFORMACIÓN DETALLADA</p>
-              <h2>Uso de cookies y tecnologías similares</h2>
-            </div>
-
-            <article className={styles.sectionList}>
-              {sections.map((section) => (
-                <section className={styles.contentItem} key={section.number}>
-                  <div className={styles.itemHeading}>
-                    <span>{section.number}</span>
-                    <h3>{section.title}</h3>
-                  </div>
-
-                  <div className={styles.itemBody}>
-                    {section.paragraphs.map((paragraph) => (
-                      <p key={paragraph}>{paragraph}</p>
-                    ))}
-                  </div>
-                </section>
-              ))}
-            </article>
-          </div>
-        </section>
-
-        <section className={styles.tableSection}>
-          <div className={styles.shell}>
-            <div className={styles.sectionHeading}>
-              <p className={styles.sectionLabel}>REGISTROS UTILIZADOS</p>
-              <h2>Detalle de cookies</h2>
-              <p>
-                La presencia de cookies analíticas depende de la autorización
-                otorgada y de la configuración vigente de Google Analytics.
-              </p>
-            </div>
-
-            <div className={styles.tableWrapper}>
-              <table className={styles.cookieTable}>
-                <thead>
-                  <tr>
-                    <th>Nombre</th>
-                    <th>Proveedor</th>
-                    <th>Categoría</th>
-                    <th>Finalidad</th>
-                    <th>Duración</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {cookieRows.map((cookie) => (
-                    <tr key={cookie.name}>
-                      <td data-label="Nombre">
-                        <code>{cookie.name}</code>
-                      </td>
-                      <td data-label="Proveedor">{cookie.provider}</td>
-                      <td data-label="Categoría">{cookie.category}</td>
-                      <td data-label="Finalidad">{cookie.purpose}</td>
-                      <td data-label="Duración">{cookie.duration}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <section className={styles.controlSection}>
-          <div className={`${styles.shell} ${styles.controlGrid}`}>
-            <div>
-              <p className={styles.sectionLabel}>TU DECISIÓN</p>
-              <h2>Revisa o modifica tus preferencias</h2>
-              <p>
-                La autorización puede cambiarse en cualquier momento. Esta
-                acción no afecta la navegación ni el acceso a los servicios
-                publicados por Vialoop.
-              </p>
-            </div>
-
-            <div className={styles.controlActions}>
-              <CookieSettingsButton />
-              <Link href="/politicasprivacidad" className={styles.textLink}>
-                Consultar Política de Privacidad
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        <section className={styles.contactSection}>
-          <div className={`${styles.shell} ${styles.contactGrid}`}>
-            <div>
-              <p className={styles.sectionLabel}>RESPONSABLE</p>
-              <h2>Vialoop Studio SpA</h2>
-              <p>RUT 78.455.385-K</p>
-              <p>Providencia, Región Metropolitana, Chile</p>
-            </div>
-
-            <div className={styles.contactDetails}>
-              <div>
-                <span>Consultas de privacidad</span>
-                <a href="mailto:contacto@vialoop.cl">contacto@vialoop.cl</a>
-              </div>
-              <div>
-                <span>Teléfono / WhatsApp</span>
-                <a href="tel:+56974330586">+56 9 7433 0586</a>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-
-
-    </>
-  );
+  const documentSections = sections.map(section => ({
+    id: `cookies-${section.number}`,
+    title: section.title,
+    content: section.paragraphs.map(paragraph => <p key={paragraph}>{paragraph}</p>),
+  }));
+  return <LegalPage current="cookies" title="Política de Cookies" updated
+    description="Usamos lo necesario para recordar tu elección. La analítica se activa únicamente cuando tú lo autorizas."
+    navigation={[
+      { id: "cookies-01", title: "Uso de cookies" },
+      { id: "cookies-03", title: "Consentimiento y control" },
+      { id: "registros", title: "Registros utilizados" },
+      { id: "preferencias", title: "Cambiar mi elección" },
+    ]}
+    overview={<p>Puedes navegar, conocer nuestros servicios y contactarnos con las cookies analíticas desactivadas.</p>}
+    sections={[
+      ...documentSections,
+      { id: "registros", title: "Registros utilizados", content: <>
+        <p>La presencia de registros analíticos depende de tu autorización y de la configuración de medición.</p>
+        <table className={styles.cookieTable}>
+          <caption className="sr-only">Cookies y almacenamiento local de Vialoop</caption>
+          <thead><tr><th scope="col">Registro y proveedor</th><th scope="col">Finalidad</th><th scope="col">Duración</th></tr></thead>
+          <tbody>{cookieRows.map(cookie => <tr key={cookie.name}>
+            <td data-label="Registro"><code>{cookie.name}</code><small>{cookie.provider} · {cookie.category}</small></td>
+            <td data-label="Finalidad">{cookie.purpose}</td><td data-label="Duración">{cookie.duration}</td>
+          </tr>)}</tbody>
+        </table>
+      </> },
+      { id: "preferencias", title: "Tu elección puede cambiar", content: <>
+        <p>Revisa las categorías disponibles y guarda tus preferencias. También encontrarás esta opción en el pie de página.</p>
+        <CookieSettingsButton className={styles.button} />
+        <p><Link href="/politicasprivacidad">Más información sobre privacidad</Link></p>
+      </> },
+    ]} />;
 }

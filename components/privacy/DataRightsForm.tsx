@@ -175,7 +175,7 @@ export default function DataRightsForm() {
   }
 
   return (
-    <form className={styles.form} onSubmit={submitRequest} noValidate>
+    <form className={styles.form} onSubmit={submitRequest}>
       <div className={styles.formHeader}>
         <p className={styles.eyebrow}>CANAL DE PRIVACIDAD</p>
         <h2>Ingrese los antecedentes de su solicitud</h2>
@@ -338,7 +338,7 @@ export default function DataRightsForm() {
 
       <div className={styles.submitArea}>
         <button type="submit" disabled={isSending}>
-          {isSending ? "ENVIANDO SOLICITUD…" : "ENVIAR SOLICITUD"}
+          {isSending ? "Enviando solicitud…" : "Enviar solicitud"}
         </button>
 
         <p>

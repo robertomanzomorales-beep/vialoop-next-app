@@ -181,9 +181,9 @@
 .hubCore { fill: #d6f4ff; filter: drop-shadow(0 0 5px #a7e9fa); }
 .mobileConnections { display: none; }
 
-.flow[data-running] .signal,
-.flow[data-running] .outletSignal,
-.flow[data-running] .mobileSignal {
+.flow[data-running="true"] .signal,
+.flow[data-running="true"] .outletSignal,
+.flow[data-running="true"] .mobileSignal {
   animation-play-state: running;
 }
 
@@ -280,12 +280,7 @@
 }
 
 .cta:hover { border-color: #91baff; background: #327af5; box-shadow: 0 8px 30px #2168ef38; transform: translateY(-2px); }
-.cta:focus-visible, .motionControl:focus-visible { outline: 2px solid #b4d4ff; outline-offset: 5px; }
 .solutionNote { margin-top: 17px; color: #8d9fb7; font-size: 10px; line-height: 1.6; }
-.motionRow { margin-top: 23px; text-align: center; }
-.motionControl { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 36px; padding: 4px 11px; border: 0; border-radius: 4px; background: transparent; color: #92a6c1; font: inherit; font-size: 11px; line-height: 1.5; cursor: pointer; }
-.motionControl:hover { color: #d7e7ff; background: #ffffff04; }
-.motionControl svg { width: 13px; height: 13px; }
 .integrationsTeaser { display: flex; align-items: center; justify-content: space-between; gap: 30px; max-width: 1120px; margin: 29px auto 0; padding-top: 25px; border-top: 1px solid #a8c4e525; }
 .integrationsTeaser p { margin: 0; }
 .integrationsTeaser strong { display: block; margin-bottom: 7px; color: #d1e0f4; font-size: 15px; font-weight: 450; line-height: 1.5; }
@@ -328,8 +323,6 @@
   .solution h3 { font-size: 28px; }
   .solutionText { max-width: 38ch; font-size: 14px; }
   .solutionNote { font-size: 11px; }
-  .motionRow { margin-top: 15px; }
-  .motionControl { font-size: 12px; min-height: 40px; }
 }
 
 @media (max-width: 480px) {
@@ -357,5 +350,4 @@
   .signal, .outletSignal, .mobileSignal { display: none; animation: none; }
   .challenge, .port, .wire, .cta, .integrationsTeaser a { transition: none; }
   .cta:hover { transform: none; }
-  .motionRow { display: none; }
 }

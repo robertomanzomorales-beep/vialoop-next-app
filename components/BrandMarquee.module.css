@@ -1,18 +1,13 @@
 .marquee { text-align: center; }
 .rows { display: grid; gap: 15px; padding: 14px 0 9px; }
 .row { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 6%, #000 94%, transparent); }
-.track { display: flex; width: max-content; will-change: transform; animation: drift 58s linear infinite; }
+.track { display: flex; width: max-content; will-change: transform; animation: drift 58s linear infinite; animation-play-state: var(--ambient-play-state, running); }
 .reverse { animation-direction: reverse; animation-duration: 65s; }
 .list { display: flex; flex-shrink: 0; align-items: center; gap: 46px; list-style: none; margin: 0; padding: 0 46px 0 0; }
 .mark { display: inline-flex; flex-shrink: 0; align-items: center; justify-content: center; gap: 12px; min-width: 132px; min-height: 51px; color: #a9b8d0; font-size: 16px; font-weight: 480; line-height: 1.5; white-space: nowrap; transition: color 230ms ease; }
 .mark img { display: block; width: 29px; height: 29px; object-fit: contain; opacity: .84; filter: saturate(.82); transition: filter 250ms ease, opacity 250ms ease; }
 .mark:hover { color: #f2f7ff; }
 .mark:hover img { filter: none; opacity: 1; }
-.row:hover .track, .row:focus-within .track, .marquee[data-paused] .track { animation-play-state: paused; }
-.motionControl { display: inline-flex; align-items: center; justify-content: center; gap: 7px; min-height: 40px; margin: 16px 0 0; padding: 4px 10px; border: 0; border-radius: 4px; background: transparent; color: #94a7c0; font: inherit; font-size: 11px; line-height: 1.5; cursor: pointer; transition: color 220ms ease, background 220ms ease; }
-.motionControl svg { width: 13px; height: 13px; }
-.motionControl:hover { color: #d9e7ff; background: #ffffff04; }
-.motionControl:focus-visible { outline: 2px solid #a7c8ff; outline-offset: 3px; }
 .clients .rows { gap: 10px; }
 .clients .list { gap: 48px; padding-right: 48px; }
 .clients .mark { min-width: 142px; min-height: 82px; }
@@ -26,7 +21,6 @@
   .list { gap: 30px; padding-right: 30px; }
   .mark { min-width: 116px; gap: 10px; min-height: 47px; font-size: 14px; }
   .mark img { width: 26px; height: 26px; }
-  .motionControl { font-size: 12px; }
   .clients .list { gap: 30px; padding-right: 30px; }
   .clients .mark { min-width: 112px; min-height: 67px; }
   .clients .mark img { height: 61px; max-width: 172px; }
@@ -37,7 +31,6 @@
   .list[aria-hidden="true"] { display: none; }
   .row { mask-image: none; }
   .mark, .mark img { transition: none; }
-  .motionControl { display: none; }
 }
 
 .clients[data-color] .mark img,.clients[data-color] .mark:hover img { filter:none; mix-blend-mode:normal; opacity:1; }
@@ -50,7 +43,6 @@
 .integrations .mark[data-brand="SII"] img, .integrations .mark[data-brand="SII"]:hover img { height: 52px; filter: brightness(0) invert(1); }
 .integrations .track { animation-duration: 43s; }
 .integrations .reverse { animation-duration: 49s; }
-.integrations .motionControl { margin-top: 13px; }
 @media (max-width: 700px) {
   .integrations .rows { gap: 19px; }
   .integrations .list { gap: 34px; padding-right: 34px; }

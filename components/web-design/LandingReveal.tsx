@@ -27,19 +27,20 @@ export default function LandingReveal({ children, className = "", motion = "rise
       observer?.disconnect();
       animation?.cancel();
       if (preference.matches) { finish(); return; }
-      const distance = mobile ? 46 : 78;
-      const transform = motion === "left" ? `translate3d(-${distance}px,24px,0)` : motion === "right" ? `translate3d(${distance}px,24px,0)` : motion === "focus" ? "translate3d(0,36px,0) scale(.95)" : `translate3d(0,${distance}px,0)`;
+      const distance = mobile ? 22 : 34;
+      const transform = motion === "left" ? `translate3d(-${distance}px,12px,0)` : motion === "right" ? `translate3d(${distance}px,12px,0)` : motion === "focus" ? "translate3d(0,24px,0) scale(.985)" : `translate3d(0,${distance}px,0)`;
       element!.dataset.landingRevealState = "entering";
       animation = element!.animate([
-        { opacity: 0, transform, filter: `blur(${mobile ? 2 : 4}px)` },
-        { opacity: 1, transform: "translate3d(0,0,0) scale(1)", filter: "blur(0px)" },
-      ], { duration: mobile ? 900 : 1150, delay: Math.min(delay, 280), easing: "cubic-bezier(.16,1,.3,1)", fill: "both" });
+        { opacity: 0, transform },
+        { opacity: 1, transform: "translate3d(0,0,0) scale(1)" },
+      ], { duration: mobile ? 540 : 680, delay: Math.min(delay, 160), easing: "cubic-bezier(.16,1,.3,1)", fill: "both" });
       animation.onfinish = finish;
     }
     function focused() { finish(); }
     function changed() { if (preference.matches) finish(); }
 
-    if (preference.matches || element.getBoundingClientRect().bottom < 0) {
+    const initialPosition = element.getBoundingClientRect();
+    if (preference.matches || initialPosition.top < window.innerHeight) {
       finish();
     } else {
       element.dataset.landingRevealState = "waiting";

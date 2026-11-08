@@ -1,15 +1,11 @@
+import LegalPage from "@/components/legal/LegalPage";
+
 const policies = [
   {
     title: "1. Términos de Pago",
     content: (
       <>
-        <p>
-          Para el <strong>Plan Emprendedor</strong>, el pago se realiza al
-          comenzar. Para los planes <strong>Crece</strong> y{" "}
-          <strong>Empresa</strong>: <strong>50% al comenzar</strong>,{" "}
-          <strong>25% al presentar la maqueta</strong> y{" "}
-          <strong>25% al finalizar</strong>.
-        </p>
+        <p>La forma de pago, los hitos y las fechas se establecen en la propuesta o contrato aceptado para cada proyecto. Los servicios se cotizan de acuerdo con su alcance y necesidades.</p>
       </>
     ),
     featured: true,
@@ -17,38 +13,13 @@ const policies = [
   {
     title: "2. Rondas de Cambios Adicionales",
     content: (
-      <ul>
-        <li>
-          <strong>Plan Emprende:</strong> rondas adicionales sujetas a cotización.
-        </li>
-        <li>
-          <strong>Plan Crece:</strong> rondas adicionales sujetas a cotización.
-        </li>
-        <li>
-          <strong>Plan Empresa:</strong> rondas adicionales sujetas a cotización.
-        </li>
-      </ul>
+      <p>Las revisiones incluidas se definen en la propuesta de cada proyecto. Las rondas adicionales y las solicitudes que amplíen el alcance se evalúan y cotizan antes de su ejecución.</p>
     ),
     featured: true,
   },
   {
     title: "3. Plazos de Revisión",
-    content: (
-      <>
-        <ul>
-          <li>
-            <strong>Plan Crece:</strong> 24 horas corridas.
-          </li>
-          <li>
-            <strong>Otros planes:</strong> 48 o 72 horas corridas.
-          </li>
-        </ul>
-        <p>
-          El cliente debe entregar feedback dentro de esos plazos para no
-          retrasar el proceso.
-        </p>
-      </>
-    ),
+    content: <p>Los plazos para revisar avances y entregar observaciones se acuerdan en la propuesta o calendario del proyecto. Las observaciones deben enviarse de forma consolidada para mantener la continuidad del trabajo.</p>,
   },
   {
     title: "4. Suspensión y Reintegro del Proyecto",
@@ -108,13 +79,7 @@ const policies = [
   },
   {
     title: "9. Hosting y Dominios",
-    content: (
-      <p>
-        Incluye <strong>hosting 1GB</strong> + <strong>dominio .CL</strong> por
-        un año. La administración y renovación posterior son responsabilidad del
-        cliente, salvo contratación directa con Vialoop.
-      </p>
-    ),
+    content: <p>La capacidad de hosting, las cuentas de correo, el dominio y los períodos de contratación o renovación se especifican en cada propuesta. Su inclusión no es automática y depende del servicio acordado con el cliente.</p>,
   },
   {
     title: "10. Licencias de Software",
@@ -309,64 +274,14 @@ const policies = [
 ];
 
 export default function Policies() {
-  return (
-    <section
-      id="vl-policies"
-      aria-label="Políticas de Vialoop"
-      className="relative isolate overflow-hidden bg-[#f7f8fa] px-6 py-28 text-[#1f2937] md:px-10 lg:py-32"
-    >
-      <div className="pointer-events-none absolute inset-0 -z-20 bg-[radial-gradient(circle_at_12%_0%,rgba(37,99,235,.08),transparent_30%),radial-gradient(circle_at_88%_8%,rgba(56,189,248,.08),transparent_30%),linear-gradient(180deg,#f8fafc_0%,#f7f8fa_45%,#f3f5f7_100%)]" />
-
-      <div className="pointer-events-none absolute inset-0 -z-10 opacity-[0.5] [background-image:linear-gradient(rgba(15,23,42,.035)_1px,transparent_1px),linear-gradient(90deg,rgba(15,23,42,.035)_1px,transparent_1px)] [background-size:80px_80px] [mask-image:linear-gradient(180deg,transparent_0%,black_18%,black_78%,transparent_100%)]" />
-
-      <div className="mx-auto max-w-[1080px]">
-        <header className="mb-12 text-center">
-          <span className="mb-5 inline-flex rounded-full border border-slate-200 bg-white px-5 py-2 text-[12px] font-black uppercase tracking-[0.14em] text-slate-500 shadow-[0_10px_24px_rgba(15,23,42,.04)]">
-            Condiciones generales
-          </span>
-
-          <h1 className="text-[length:var(--font-page-title)] font-semibold leading-tight tracking-[-0.055em] text-slate-950">
-            Políticas de Vialoop
-          </h1>
-
-          <p className="mx-auto mt-4 max-w-[760px] text-[16px] leading-8 text-slate-600 md:text-[17px]">
-            Nuestras condiciones para el desarrollo, diseño y entrega de
-            proyectos web y servicios gráficos.
-          </p>
-        </header>
-
-        <div className="mb-6 rounded-[22px] border border-slate-200 bg-white p-6 shadow-[0_14px_38px_rgba(15,23,42,.06)] md:p-7">
-          <p className="text-[15.5px] leading-8 text-slate-700">
-            <strong className="font-black text-slate-900">Importante:</strong>{" "}
-            Todos los planes web incluyen{" "}
-            <strong className="font-black text-slate-900">hosting 1GB</strong> y{" "}
-            <strong className="font-black text-slate-900">dominio .CL</strong>{" "}
-            por un año. La renovación posterior es responsabilidad del cliente,
-            salvo contratación directa con Vialoop.
-          </p>
-        </div>
-
-        <div className="grid gap-4 md:grid-cols-2">
-          {policies.map((policy) => (
-            <article
-              key={policy.title}
-              className={`rounded-[20px] border p-6 shadow-[0_10px_28px_rgba(15,23,42,.055)] transition duration-300 hover:-translate-y-1 hover:shadow-[0_16px_38px_rgba(15,23,42,.08)] ${
-                policy.featured
-                  ? "border-slate-300 bg-[linear-gradient(180deg,rgba(255,255,255,.98),rgba(255,255,255,.94)),linear-gradient(135deg,rgba(37,99,235,.06),transparent)] md:col-span-2"
-                  : "border-slate-200 bg-white"
-              }`}
-            >
-              <h2 className="mb-3 text-[19px] font-black leading-tight tracking-[-0.025em] text-slate-950">
-                {policy.title}
-              </h2>
-
-              <div className="space-y-2 text-[15px] leading-7 text-slate-700 [&_a]:font-bold [&_a]:text-slate-950 [&_a]:underline [&_a]:underline-offset-4 [&_li]:my-1.5 [&_ul]:ml-5 [&_ul]:list-disc">
-                {policy.content}
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-    </section>
-  );
+  const sections = policies.map((policy, index) => ({
+    id: `condicion-${index + 1}`,
+    title: policy.title.replace(/^\d+\. /, ""),
+    content: policy.content,
+  }));
+  return <LegalPage current="terms" title="Condiciones de servicio" updated
+    description="Cómo organizamos el desarrollo, las revisiones y la entrega de nuestros proyectos web, software y servicios de diseño."
+    overview={<p>Cada proyecto comienza con una propuesta a medida. Su alcance, las condiciones de pago y el calendario se definen antes de iniciar el trabajo.</p>}
+    navigation={[0, 3, 5, 8, 11, 14, 20].map(index => sections[index])}
+    sections={sections} />;
 }

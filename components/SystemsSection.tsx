@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useRef, useState, type CSSProperties } from "react";
+import { useEffect, useRef, type CSSProperties } from "react";
 import useScrollReveal from "./useScrollReveal";
 import styles from "./SystemsSection.module.css";
 
@@ -69,16 +69,17 @@ function Connections({ mobile = false }: { mobile?: boolean }) {
 export default function SystemsSection() {
   const sectionRef = useRef<HTMLElement>(null);
   const diagramRef = useRef<HTMLDivElement>(null);
-  const [inView, setInView] = useState(false);
-  const [paused, setPaused] = useState(false);
   useScrollReveal(sectionRef);
 
   useEffect(() => {
     const diagram = diagramRef.current;
     if (!diagram || !("IntersectionObserver" in window)) return;
-    const observer = new IntersectionObserver(([entry]) => setInView(entry.isIntersecting), { threshold: .12 });
+    let visible = false;
+    const sync = () => { diagram.dataset.running = String(visible && !document.hidden); };
+    const observer = new IntersectionObserver(([entry]) => { visible = entry.isIntersecting; sync(); }, { threshold: .12 });
     observer.observe(diagram);
-    return () => observer.disconnect();
+    document.addEventListener("visibilitychange", sync);
+    return () => { observer.disconnect(); document.removeEventListener("visibilitychange", sync); };
   }, []);
 
   return (
@@ -89,7 +90,7 @@ export default function SystemsSection() {
           <h2 id="systems-title">¿Tu empresa necesita <em>trabajar más conectada?</em></h2>
         </header>
 
-        <div ref={diagramRef} className={styles.flow} data-running={inView && !paused || undefined}>
+        <div ref={diagramRef} className={styles.flow}>
           <ul className={styles.challenges} aria-label="Desafíos que podemos ayudarte a resolver">
             {challenges.map((challenge, index) => (
               <li key={challenge.icon} data-scroll-reveal data-scroll-delay={index * 30} className={styles.challenge} style={{ "--channel-color": challenge.color } as CSSProperties}>
@@ -112,13 +113,6 @@ export default function SystemsSection() {
               <span className={styles.solutionNote}>A tu medida. Con acompañamiento cercano.</span>
             </article>
           </div>
-        </div>
-
-        <div className={styles.motionRow}>
-          <button type="button" className={styles.motionControl} onClick={() => setPaused(value => !value)}>
-            <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" strokeWidth="1.2" aria-hidden="true">{paused ? <path d="m5 3 7 5-7 5Z" /> : <path d="M6 3v10M10 3v10" />}</svg>
-            {paused ? "Reanudar animación" : "Pausar animación"}
-          </button>
         </div>
 
         <div data-scroll-reveal className={styles.integrationsTeaser}>

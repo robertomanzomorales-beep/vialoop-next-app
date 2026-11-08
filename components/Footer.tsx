@@ -151,7 +151,7 @@ export default function Footer() {
               href="/politicasdeuso"
               className={styles.legalLink}
             >
-              Políticas de Uso
+              Condiciones de servicio
             </Link>
 
             <Link

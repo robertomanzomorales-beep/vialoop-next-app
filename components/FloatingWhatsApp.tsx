@@ -23,6 +23,7 @@ export default function FloatingWhatsApp() {
       target="_blank"
       rel="noopener noreferrer"
       aria-label="Abrir chat de WhatsApp con Vialoop"
+      data-floating-contact
       className={styles.whatsappButton}
     >
       <WhatsAppIcon />

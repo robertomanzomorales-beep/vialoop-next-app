@@ -1,4 +1,4 @@
-.section { position: relative; isolation: isolate; padding: 85px 0 75px; scroll-margin-top: 105px; color: #eaf1fc; }
+.section { position: relative; isolation: isolate; padding: 85px 0 75px; scroll-margin-top: 0; color: #eaf1fc; }
 .section::before { content: ""; position: absolute; z-index: -1; inset: -20px 0; pointer-events: none; background: radial-gradient(ellipse 70% 76% at -8% 64%, #8c4c302a, transparent 76%), radial-gradient(ellipse 76% 88% at 102% 34%, #285fa42b, transparent 76%); }
 .container { width: min(1192px, calc(100% - 80px)); margin: 0 auto; }
 .header { max-width: 740px; margin: 0 auto 37px; text-align: center; }

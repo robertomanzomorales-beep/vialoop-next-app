@@ -2,16 +2,9 @@ import type { Metadata } from "next";
 import Policies from "@/components/Policies";
 
 export const metadata: Metadata = {
-  title: "Políticas de uso | Vialoop",
-  description:
-    "Condiciones generales de Vialoop para desarrollo web, diseño, entrega de proyectos, pagos, revisiones, soporte, hosting, dominios y servicios gráficos.",
+  title: "Condiciones de servicio",
+  description: "Condiciones de Vialoop para propuestas a medida, pagos, revisiones, entrega de proyectos, hosting y servicios de diseño.",
+  alternates: { canonical: "/politicasdeuso" },
 };
 
-export default function PoliticasDeUsoPage() {
-  return (
-    <main>
-      <Policies />
-
-    </main>
-  );
-}
+export default function PoliticasDeUsoPage() { return <Policies />; }

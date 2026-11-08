@@ -3,7 +3,7 @@
   isolation: isolate;
   overflow: hidden;
   padding: 88px 0 92px;
-  scroll-margin-top: calc(var(--header-height) + 20px);
+  scroll-margin-top: 0;
   color: #edf3fd;
   background: #080f1b;
 }

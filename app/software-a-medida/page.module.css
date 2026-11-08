@@ -31,7 +31,7 @@
 .clientLogo:nth-child(2) img { width: min(78px, 100%); max-height: 78px; filter: brightness(1.8); }
 .clientLogo:nth-child(3) img { width: min(92px, 100%); max-height: 92px; }
 .clientLogo span { color: #c0d0e5; font-size: 11px; line-height: 1.5; }
-.section { position: relative; padding: 92px 0; scroll-margin-top: 100px; }
+.section { position: relative; padding: 92px 0; scroll-margin-top: 0; }
 .sectionHeading { display: grid; grid-template-columns: 1.15fr .85fr; align-items: end; gap: 75px; margin-bottom: 43px; }
 .sectionHeading .eyebrow { margin-bottom: 15px; }
 .page h2 { font-size: clamp(27px, 2.75vw, 36px); line-height: 1.23; letter-spacing: -.035em; font-weight: 500; margin: 0; }
@@ -45,7 +45,7 @@
 .previewNote { margin: -23px 0 18px; color: #839bb9; font-size: 10px; line-height: 1.6; }
 .caseGrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; align-items: stretch; }
 .caseWrap { min-width: 0; height: 100%; }
-.case { display: flex; flex-direction: column; height: 100%; scroll-margin-top: 110px; }
+.case { display: flex; flex-direction: column; height: 100%; scroll-margin-top: 0; }
 .caseCategory { margin: 0 0 10px; color: #88aace; font-size: 10px; line-height: 1.6; }
 .caseBody { flex: 1; padding: 24px 24px 20px; }
 .caseBody h3 { margin: 0; color: #edf4ff; font-size: 19px; line-height: 1.4; font-weight: 500; letter-spacing: -.025em; }

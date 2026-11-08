@@ -1,9 +1,10 @@
-import Reveal from "@/components/Reveal";
+import LegalPage from "@/components/legal/LegalPage";
+import styles from "@/components/legal/LegalPage.module.css";
 
 const faqs = [
   {
     question: "¿También desarrollan software y sistemas a medida?",
-    answer: "Sí. Desarrollamos sistemas de gestión, plataformas operativas y automatizaciones según los procesos de cada empresa. Primero revisamos la necesidad para definir las funciones, los plazos y la propuesta económica.",
+    answer: "Sí. Desarrollamos software de gestión, plataformas operativas y automatizaciones según los procesos de cada empresa. Primero revisamos la necesidad para definir las funciones, los plazos y la propuesta económica.",
   },
   {
     question: "¿Cómo puedo solicitar una propuesta?",
@@ -17,7 +18,7 @@ const faqs = [
   {
     question: "¿Cómo son los pagos?",
     answer:
-      "Para el Plan Emprendedor, el pago se realiza al comenzar. Para los planes Crece y Empresa: 50% al comenzar, 25% al presentar la maqueta y 25% al finalizar.",
+      "Las condiciones y los hitos de pago se definen en la propuesta de cada proyecto, según su alcance y calendario.",
   },
   {
     question: "¿Qué necesito para comenzar mi sitio web?",
@@ -25,9 +26,9 @@ const faqs = [
       "Necesitamos tu logo, información de la empresa, servicios, textos, fotografías, datos de contacto y referencias visuales si las tienes.",
   },
   {
-    question: "¿Los planes incluyen hosting y dominio?",
+    question: "¿Puedo contratar hosting y dominio?",
     answer:
-      "Sí. Todos los planes web incluyen hosting y dominio .cl por un año.",
+      "Podemos incluir hosting, dominio y correo corporativo cuando el proyecto lo requiera. La capacidad, el período y las condiciones de renovación se detallan en la propuesta.",
   },
   {
     question: "¿En qué tecnología desarrollan las páginas web?",
@@ -52,7 +53,7 @@ const faqs = [
   {
     question: "¿Qué incluye el soporte posterior al lanzamiento?",
     answer:
-      "Incluye un mes de garantía para ajustes técnicos menores posteriores al lanzamiento. Cambios de contenido o nuevas secciones se cotizan aparte.",
+      "La revisión posterior, el soporte y las condiciones de continuidad se definen en la propuesta de cada proyecto. Los cambios de contenido y las funciones nuevas se evalúan según su alcance.",
   },
   {
     question: "¿Trabajan páginas web para empresas en Antofagasta?",
@@ -80,320 +81,20 @@ const faqSchema = {
 };
 
 export const metadata = {
-  title: "Preguntas frecuentes | Vialoop",
+  title: "Preguntas frecuentes",
+  alternates: { canonical: "/faq" },
   description:
     "Preguntas frecuentes sobre diseño web, desarrollo de software a medida, hosting, propuestas, pagos y plazos con Vialoop.",
 };
 
 export default function FAQPage() {
-  return (
-    <main style={{ background: "#020712", color: "#ffffff" }}>
-      <section
-        style={{
-          minHeight: "calc(100vh - 92px)",
-          padding: "120px 24px 110px",
-          background:
-            "radial-gradient(circle at 22% 0%, rgba(47,128,255,.30), transparent 34%), radial-gradient(circle at 82% 0%, rgba(66,199,255,.15), transparent 34%), radial-gradient(circle at 18% 88%, rgba(14,40,91,.45), transparent 64%), linear-gradient(135deg, #020712 0%, #041022 46%, #071b38 100%)",
-          position: "relative",
-          overflow: "hidden",
-        }}
-      >
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-        />
-
-        <style>
-          {`
-            .faq-summary::-webkit-details-marker {
-              display: none;
-            }
-
-            .faq-card {
-              transition:
-                background-color 220ms ease,
-                border-color 220ms ease;
-            }
-
-            .faq-card:hover {
-              background-color: rgba(255, 255, 255, 0.03);
-            }
-
-            .faq-card[open] {
-              background-color: rgba(255, 255, 255, 0.035);
-            }
-
-            .faq-summary {
-              user-select: none;
-            }
-
-            .faq-icon {
-              position: relative;
-              display: grid;
-              place-items: center;
-              width: 30px;
-              height: 30px;
-              flex-shrink: 0;
-              border-radius: 999px;
-              border: 1px solid rgba(255, 255, 255, 0.11);
-              background: rgba(255, 255, 255, 0.035);
-              color: rgba(143, 194, 255, 0.92);
-              transition:
-                border-color 220ms ease,
-                background-color 220ms ease,
-                color 220ms ease,
-                transform 220ms ease;
-            }
-
-            .faq-card:hover .faq-icon {
-              border-color: rgba(47, 128, 255, 0.42);
-              background: rgba(255, 255, 255, 0.07);
-              color: #ffffff;
-            }
-
-            .faq-card[open] .faq-icon {
-              transform: rotate(180deg);
-              border-color: rgba(47, 128, 255, 0.48);
-              background: rgba(47, 128,255, 0.16);
-              color: #ffffff;
-            }
-
-            .faq-line {
-              position: absolute;
-              width: 13px;
-              height: 2px;
-              border-radius: 999px;
-              background: currentColor;
-              transition:
-                transform 220ms ease,
-                opacity 180ms ease;
-            }
-
-            .faq-line-vertical {
-              transform: rotate(90deg);
-            }
-
-            .faq-card[open] .faq-line-vertical {
-              opacity: 0;
-              transform: rotate(90deg) scaleX(0.3);
-            }
-
-            .faq-answer {
-              animation: faqAnswerIn 220ms ease;
-            }
-
-            @keyframes faqAnswerIn {
-              from {
-                opacity: 0;
-                transform: translateY(-4px);
-              }
-
-              to {
-                opacity: 1;
-                transform: translateY(0);
-              }
-            }
-
-            @media (max-width: 640px) {
-              .faq-section-inner {
-                max-width: 100% !important;
-              }
-
-              .faq-title {
-                font-size: var(--font-page-title) !important;
-              }
-
-              .faq-summary {
-                padding: 20px 20px !important;
-              }
-
-              .faq-answer {
-                padding: 0 20px 22px !important;
-              }
-            }
-          `}
-        </style>
-
-        <div
-          aria-hidden="true"
-          style={{
-            position: "absolute",
-            inset: 0,
-            opacity: 0.035,
-            backgroundImage:
-              "linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px)",
-            backgroundSize: "78px 78px",
-            pointerEvents: "none",
-          }}
-        />
-
-        <div
-          className="faq-section-inner"
-          style={{
-            position: "relative",
-            maxWidth: 760,
-            margin: "0 auto",
-          }}
-        >
-          <Reveal><header style={{ marginBottom: 44 }}>
-            <p
-              style={{
-                margin: "0 0 18px",
-                fontSize: 10,
-                fontWeight: 900,
-                letterSpacing: ".32em",
-                textTransform: "uppercase",
-                color: "rgba(143,194,255,.78)",
-              }}
-            >
-              Preguntas frecuentes
-            </p>
-
-            <h1
-              className="faq-title"
-              style={{
-                margin: 0,
-                maxWidth: 680,
-                fontSize: "var(--font-page-title)",
-                lineHeight: "1.15",
-                letterSpacing: "-.035em",
-                fontWeight: 650,
-                color: "#ffffff",
-              }}
-            >
-              Todo lo que necesitas
-              <span
-                style={{
-                  display: "block",
-                  color: "rgba(143,194,255,.64)",
-                }}
-              >
-                saber.
-              </span>
-            </h1>
-
-            <p
-              style={{
-                margin: "22px 0 0",
-                maxWidth: 520,
-                fontSize: 15,
-                lineHeight: 1.75,
-                color: "rgba(255,255,255,.56)",
-              }}
-            >
-              Si no encuentras tu respuesta, escríbenos y te ayudamos a revisar
-              tu caso.
-            </p>
-          </header></Reveal>
-
-          <div
-            style={{
-              overflow: "hidden",
-              borderRadius: 26,
-              border: "1px solid rgba(255,255,255,.12)",
-              background: "rgba(10,19,35,.78)",
-              boxShadow: "0 34px 120px rgba(0,0,0,.42)",
-              backdropFilter: "blur(18px)",
-            }}
-          >
-            {faqs.map((faq, index) => (
-              <Reveal key={faq.question}>
-              <details
-                open={index === 0}
-                className="faq-card"
-                style={{
-                  borderBottom:
-                    index === faqs.length - 1
-                      ? "none"
-                      : "1px solid rgba(255,255,255,.08)",
-                }}
-              >
-                <summary
-                  className="faq-summary"
-                  style={{
-                    cursor: "pointer",
-                    listStyle: "none",
-                    padding: "22px 28px",
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                    gap: 20,
-                    fontSize: 15,
-                    fontWeight: 850,
-                    color: "rgba(255,255,255,.9)",
-                  }}
-                >
-                  <span>{faq.question}</span>
-
-                  <span className="faq-icon" aria-hidden="true">
-                    <span className="faq-line faq-line-horizontal" />
-                    <span className="faq-line faq-line-vertical" />
-                  </span>
-                </summary>
-
-                <div
-                  className="faq-answer"
-                  style={{
-                    padding: "0 28px 24px",
-                  }}
-                >
-                  <p
-                    style={{
-                      margin: 0,
-                      maxWidth: 660,
-                      fontSize: 14,
-                      lineHeight: 1.8,
-                      color: "rgba(255,255,255,.56)",
-                    }}
-                  >
-                    {faq.answer}
-                  </p>
-                </div>
-              </details>
-              </Reveal>
-            ))}
-          </div>
-
-          <Reveal><div style={{ marginTop: 40, textAlign: "center" }}>
-            <p
-              style={{
-                margin: "0 0 16px",
-                fontSize: 13,
-                color: "rgba(255,255,255,.38)",
-              }}
-            >
-              ¿No encontraste lo que buscabas?
-            </p>
-
-            <a
-              href="https://wa.link/fgn52s"
-              target="_blank"
-              rel="noopener noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                justifyContent: "center",
-                minHeight: 44,
-                padding: "0 24px",
-                borderRadius: 14,
-                border: "1px solid rgba(255,255,255,.12)",
-                background: "rgba(255,255,255,.07)",
-                color: "rgba(255,255,255,.86)",
-                textDecoration: "none",
-                fontSize: 12,
-                fontWeight: 900,
-                letterSpacing: ".08em",
-                textTransform: "uppercase",
-                boxShadow: "0 18px 46px rgba(0,0,0,.24)",
-              }}
-            >
-              Escríbenos por WhatsApp →
-            </a>
-          </div></Reveal>
-        </div>
-      </section>
-
-
-    </main>
-  );
+  return <>
+    <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema).replace(/</g, "\\u003c") }} />
+    <LegalPage title="Hablemos con las cosas claras."
+      eyebrow="VIALOOP · PREGUNTAS FRECUENTES"
+      description="Respuestas sobre nuestros servicios y la forma de trabajar juntos. Cada proyecto comienza entendiendo lo que tu empresa necesita."
+      sections={[
+        { id: "preguntas", title: "Antes de comenzar", content: <>{faqs.map(faq => <details key={faq.question} className={styles.details}><summary>{faq.question}</summary><p>{faq.answer}</p></details>)}</> },
+      ]} />
+  </>;
 }
