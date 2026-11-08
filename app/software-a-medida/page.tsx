@@ -1,9 +1,9 @@
 import type { Metadata } from "next";
 import Image from "next/image";
-import ClientsLoop from "@/components/ClientsLoop";
 import HomeAtmosphere from "@/components/HomeAtmosphere";
 import ContactForm from "@/components/contact/ContactForm";
 import ConnectionStudio from "@/components/software/ConnectionStudio";
+import ProjectPreview from "@/components/software/ProjectPreview";
 import LandingReveal from "@/components/web-design/LandingReveal";
 import { softwareProjects } from "@/lib/software-projects";
 import homeStyles from "@/app/page.module.css";
@@ -90,7 +90,18 @@ export default function SoftwarePage() {
       </div>
     </section>
 
-    <ClientsLoop appearance="landing" showProof={false} />
+    <section className={styles.softwareClients} aria-labelledby="software-clients-title">
+      <div className={styles.container}>
+        <LandingReveal className={styles.clientsInner}>
+          <div className={styles.clientsIntro}><p>CONFIARON EN VIALOOP</p><h2 id="software-clients-title">Empresas con su propia forma de trabajar.</h2></div>
+          <div className={styles.clientLogos}>
+            {softwareProjects.map(project => <a key={project.id} href={`#${project.id}`} className={styles.clientLogo} aria-label={`Conocer el software de ${project.name}`}>
+              <Image src={project.logo} alt={project.name} width={project.logoWidth} height={project.logoHeight} />
+            </a>)}
+          </div>
+        </LandingReveal>
+      </div>
+    </section>
 
     <section id="como-ayudamos" className={styles.section} aria-labelledby="capabilities-title">
       <div className={styles.container}>
@@ -113,14 +124,13 @@ export default function SoftwarePage() {
           <p>Desde la gestión de servicios hasta las reservas en línea, cada proyecto nace de una forma particular de trabajar.</p>
         </LandingReveal>
         <p className={styles.swipeHint}>Desliza para conocer los proyectos</p>
+        <p className={styles.previewNote}>Vistas ilustrativas con datos de ejemplo.</p>
         <div className={styles.caseGrid} aria-label="Proyectos de software">
           {softwareProjects.map((project, index) => <LandingReveal key={project.id} delay={index * 80} className={styles.caseWrap}>
             <article id={project.id} className={styles.case} aria-labelledby={project.id + "-title"}>
-              <div className={styles.caseTop}>
-                <span className={styles.caseCategory}>{project.category}</span>
-                <Image className={styles.caseLogo} src={project.logo} alt="" aria-hidden="true" width={project.logoWidth} height={project.logoHeight} />
-              </div>
+              <ProjectPreview variant={project.variant} />
               <div className={styles.caseBody}>
+                <p className={styles.caseCategory}>{project.category}</p>
                 <h3 id={project.id + "-title"}>{project.name}</h3>
                 <p className={styles.caseTitle}>{project.title}</p>
                 <p className={styles.caseText}>{project.focus}</p>
@@ -135,6 +145,19 @@ export default function SoftwarePage() {
             </article>
           </LandingReveal>)}
         </div>
+      </div>
+    </section>
+
+    <section className={styles.section + " " + styles.ownSection} aria-labelledby="own-software-title">
+      <div className={styles.container + " " + styles.ownLayout}>
+        <LandingReveal className={styles.ownCopy}>
+          <p className={styles.eyebrow}>HECHO Y UTILIZADO POR VIALOOP</p>
+          <h2 id="own-software-title">También trabajamos con<br /><em>nuestro propio software.</em></h2>
+          <p>Desarrollamos una herramienta para organizar nuestra gestión, hacer seguimiento a proyectos y atender las solicitudes de nuestros clientes.</p>
+          <p>Conocemos de cerca el valor de tener la información y el trabajo del equipo conectados en un mismo lugar.</p>
+          <div className={styles.ownTags}><span>Clientes y proyectos</span><span>Seguimiento</span><span>Soporte</span></div>
+        </LandingReveal>
+        <LandingReveal motion="focus" delay={100} className={styles.ownVisual}><ProjectPreview variant="vialoop" /><p>Vista ilustrativa con datos de ejemplo.</p></LandingReveal>
       </div>
     </section>
 
