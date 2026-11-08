@@ -1,19 +1,21 @@
 import type { Metadata } from "next";
-import ContactForm from "@/components/contact/ContactForm";
 import Image from "next/image";
-import Link from "next/link";
-import Reveal from "@/components/Reveal";
-import SoftwareMockup from "@/components/SoftwareMockup";
+import ClientsLoop from "@/components/ClientsLoop";
+import HomeAtmosphere from "@/components/HomeAtmosphere";
+import ContactForm from "@/components/contact/ContactForm";
+import ConnectionStudio from "@/components/software/ConnectionStudio";
+import LandingReveal from "@/components/web-design/LandingReveal";
 import { softwareProjects } from "@/lib/software-projects";
+import homeStyles from "@/app/page.module.css";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
-  title: "Software y sistemas a medida para empresas",
-  description: "Desarrollo de software para conectar procesos, documentos y equipos de trabajo. Conoce sistemas de gestión, reservas en línea y pagos integrados con Flow.",
+  title: "Desarrollo de software a medida para empresas",
+  description: "Creamos software a medida para conectar procesos, equipos y datos. Conoce nuestros proyectos de gestión y reservas en línea.",
   alternates: { canonical: "/software-a-medida" },
   openGraph: {
     title: "Software que se adapta a tu empresa | Vialoop",
-    description: "Sistemas de gestión, plataformas operativas y automatización de procesos a medida.",
+    description: "Software de gestión, automatización y soluciones conectadas con la forma de trabajar de tu empresa.",
     url: "/software-a-medida",
     locale: "es_CL",
     type: "website",
@@ -21,101 +23,152 @@ export const metadata: Metadata = {
 };
 
 const capabilities = [
-  { number: "01", title: "Gestión de la operación", text: "Solicitudes, órdenes, tareas y responsables conectados en un flujo de trabajo." },
-  { number: "02", title: "Documentos e historial", text: "Registros, certificados y antecedentes relacionados con cada cliente, equipo o servicio." },
-  { number: "03", title: "Información para decidir", text: "Consultas, reportes y seguimiento según lo que cada área necesita revisar." },
-  { number: "04", title: "Automatización a medida", text: "Menos tareas repetidas y una mejor conexión entre las herramientas de la empresa." },
+  {
+    title: "Operación conectada",
+    text: "Organiza servicios, tareas, responsables y avances en un espacio construido alrededor de tu trabajo.",
+    icon: "operation",
+  },
+  {
+    title: "Información a mano",
+    text: "Reúne antecedentes, documentos e historial para que cada área encuentre lo que necesita.",
+    icon: "information",
+  },
+  {
+    title: "Procesos que avanzan",
+    text: "Automatiza pasos repetitivos y evalúa conexiones con las herramientas que tu empresa utiliza.",
+    icon: "automation",
+  },
 ];
 
+const questions = [
+  {
+    q: "¿El software se adapta a nuestra forma de trabajar?",
+    a: "Sí. Partimos por conocer tus procesos, las personas que lo usarán y la información que necesitan. Con eso definimos el alcance y las funciones de la solución.",
+  },
+  {
+    q: "¿Puedo comenzar con una necesidad puntual?",
+    a: "Sí. Podemos partir con un proceso o conjunto de funciones definido y evaluar nuevas etapas según las prioridades y necesidades de tu empresa.",
+  },
+  {
+    q: "¿Se puede conectar con otras herramientas?",
+    a: "Podemos evaluar integraciones con plataformas, servicios de pago u otras herramientas, según las posibilidades técnicas, accesos y condiciones de cada proveedor.",
+  },
+  {
+    q: "¿El software puede usarse desde el celular?",
+    a: "Podemos adaptar la experiencia para computadores, tablets y celulares, según el uso y el alcance que se acuerde para el proyecto.",
+  },
+  {
+    q: "¿Cuánto cuesta y cuánto tarda?",
+    a: "Depende de los procesos, funciones e integraciones que necesites. Después de conocer tu proyecto preparamos una propuesta con su alcance, inversión y plazo estimado.",
+  },
+];
+
+function CapabilityIcon({ type }: { type: string }) {
+  if (type === "operation") return <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="4.5" y="5" width="9" height="9" rx="2" /><rect x="18.5" y="18" width="9" height="9" rx="2" /><path d="M18.5 9.5h3a2 2 0 0 1 2 2V14M13.5 22.5h-3a2 2 0 0 1-2-2V18" /></svg>;
+  if (type === "information") return <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><rect x="6" y="4.5" width="20" height="23" rx="3" /><path d="M11 11h10M11 16h10M11 21h6" /></svg>;
+  return <svg viewBox="0 0 32 32" fill="none" aria-hidden="true"><circle cx="16" cy="16" r="10.5" /><path d="m13 20 7-8h-5l1-4-5 8h4l-2 4Z" /></svg>;
+}
+
 export default function SoftwarePage() {
-  return (
-    <>
-      <main className={styles.page}>
-        <section className={styles.hero} aria-labelledby="software-title">
-          <div className={styles.container}>
-            <p className={styles.eyebrow}>VIALOOP <span aria-hidden="true">/</span> SOFTWARE A MEDIDA</p>
-            <div className={styles.heroGrid}>
-              <Reveal>
-                <h1 id="software-title">La forma en que trabajas.<br /><em>Convertida en software.</em></h1>
-                <p className={styles.heroLead}>Diseñamos sistemas alrededor de los procesos de tu empresa. Para conectar a las personas, ordenar la información y dar continuidad a cada tarea.</p>
-                <div className={styles.actions}>
-                  <Link href="/contacto?servicio=sistema" className={styles.primaryButton}>Conversemos sobre tu sistema </Link>
-                  <Link href="#soluciones" className={styles.secondaryButton}>Conocer las soluciones </Link>
+  return <main className={homeStyles.home + " " + styles.page}>
+    <HomeAtmosphere />
+    <section className={styles.hero} aria-labelledby="software-title">
+      <div className={styles.container}>
+        <div className={styles.heroCopy}>
+          <p className={styles.eyebrow}><span className={styles.statusDot} /> SOFTWARE A MEDIDA · VIALOOP</p>
+          <h1 id="software-title">Tu forma de trabajar.<br /><em>Convertida en software.</em></h1>
+          <p className={styles.heroLead}>Diseñamos software para conectar tus procesos, tu información y a las personas de tu empresa. Una solución construida para lo que realmente necesitas.</p>
+          <div className={styles.actions}>
+            <a href="/software-a-medida#contacto" className={styles.primary}>Conversemos de tu software</a>
+            <a href="/software-a-medida#soluciones" className={styles.secondary}>Conoce nuestros proyectos</a>
+          </div>
+          <p className={styles.heroNote}>Desde la primera conversación hasta una herramienta hecha para tu empresa.</p>
+        </div>
+        <div className={styles.heroStrip} aria-label="Áreas de desarrollo">
+          <span>Gestión de procesos</span><span>Automatización</span><span>Reservas y pagos</span><span>Integraciones</span>
+        </div>
+      </div>
+    </section>
+
+    <ClientsLoop appearance="landing" showProof={false} />
+
+    <section id="como-ayudamos" className={styles.section} aria-labelledby="capabilities-title">
+      <div className={styles.container}>
+        <LandingReveal className={styles.sectionHeading}>
+          <div><p className={styles.eyebrow}>SOFTWARE PENSADO PARA TU EMPRESA</p><h2 id="capabilities-title">Tu operación tiene su propia lógica.<br /><em>Tu software también.</em></h2></div>
+          <p>Cada empresa trabaja distinto. Por eso comenzamos entendiendo lo que haces, para construir una herramienta que acompañe a tu equipo y evolucione contigo.</p>
+        </LandingReveal>
+        <div className={styles.capabilities}>
+          {capabilities.map((item, index) => <LandingReveal key={item.title} delay={index * 80}>
+            <article className={styles.capability}><CapabilityIcon type={item.icon} /><h3>{item.title}</h3><p>{item.text}</p></article>
+          </LandingReveal>)}
+        </div>
+      </div>
+    </section>
+
+    <section id="soluciones" className={styles.section + " " + styles.projectsSection} aria-labelledby="projects-title">
+      <div className={styles.container}>
+        <LandingReveal className={styles.sectionHeading}>
+          <div><p className={styles.eyebrow}>PROYECTOS A MEDIDA</p><h2 id="projects-title">Distintas necesidades.<br /><em>Soluciones propias.</em></h2></div>
+          <p>Desde la gestión de servicios hasta las reservas en línea, cada proyecto nace de una forma particular de trabajar.</p>
+        </LandingReveal>
+        <p className={styles.swipeHint}>Desliza para conocer los proyectos</p>
+        <div className={styles.caseGrid} aria-label="Proyectos de software">
+          {softwareProjects.map((project, index) => <LandingReveal key={project.id} delay={index * 80} className={styles.caseWrap}>
+            <article id={project.id} className={styles.case} aria-labelledby={project.id + "-title"}>
+              <div className={styles.caseTop}>
+                <span className={styles.caseCategory}>{project.category}</span>
+                <Image className={styles.caseLogo} src={project.logo} alt="" aria-hidden="true" width={project.logoWidth} height={project.logoHeight} />
+              </div>
+              <div className={styles.caseBody}>
+                <h3 id={project.id + "-title"}>{project.name}</h3>
+                <p className={styles.caseTitle}>{project.title}</p>
+                <p className={styles.caseText}>{project.focus}</p>
+                <ul className={styles.tags}>{project.tags.map(tag => <li key={tag}>{tag}</li>)}</ul>
+              </div>
+              <details className={styles.caseDetails}>
+                <summary>Conocer el proyecto <span className={styles.plus} aria-hidden="true" /></summary>
+                <div><p>{project.description}</p><ul>{project.capabilities.map(capability => <li key={capability}>{capability}</li>)}</ul>
+                  {project.website && <a href={project.website} target="_blank" rel="noopener noreferrer">Visitar sitio web</a>}
                 </div>
-              </Reveal>
-              <Reveal delay={180}><div className={styles.concept} aria-hidden="true">
-                <div className={styles.conceptRing} />
-                <div className={styles.conceptCore}><span>HECHO A MEDIDA</span><strong>Tu operación,<br />conectada.</strong><i /></div>
-                <div className={`${styles.conceptTag} ${styles.people}`}>Personas</div>
-                <div className={`${styles.conceptTag} ${styles.processes}`}>Procesos</div>
-                <div className={`${styles.conceptTag} ${styles.information}`}>Información</div>
-                <p>Un mismo entorno de trabajo.</p>
-              </div></Reveal>
-            </div>
-            <div className={styles.heroBottom}><span>PLATAFORMAS DE GESTIÓN</span><span>AUTOMATIZACIÓN</span><span>DESARROLLO A MEDIDA</span></div>
-          </div>
-        </section>
+              </details>
+            </article>
+          </LandingReveal>)}
+        </div>
+      </div>
+    </section>
 
-        <section id="soluciones" className={styles.solutions} aria-labelledby="solutions-title">
-          <div className={styles.container}>
-            <Reveal className={styles.sectionHeading}>
-              <div><p className={styles.eyebrow}>SOFTWARE CON CONTEXTO</p><h2 id="solutions-title">Cada empresa tiene<br /><span>su propia lógica.</span></h2></div>
-              <p>Estos proyectos muestran cómo abordamos necesidades concretas de gestión. El punto de partida es siempre el mismo: entender el trabajo de la empresa y construir alrededor de él.</p>
-            </Reveal>
+    <section id="explora" className={styles.section + " " + styles.exploreSection} aria-labelledby="explore-title">
+      <div className={styles.container}>
+        <LandingReveal className={styles.sectionHeading}>
+          <div><p className={styles.eyebrow}>UNA IDEA EN MOVIMIENTO</p><h2 id="explore-title">Mira cómo podría<br /><em>conectarse tu trabajo.</em></h2></div>
+          <p>Elige un proceso y explora cómo una herramienta a medida puede relacionar la información que tu equipo utiliza cada día.</p>
+        </LandingReveal>
+        <LandingReveal motion="focus" delay={100}><ConnectionStudio /></LandingReveal>
+      </div>
+    </section>
 
-            <div className={styles.caseList}>
-              {softwareProjects.map((project) => (
-                <Reveal key={project.id}>
-                  <article id={project.id} className={styles.case} aria-labelledby={`${project.id}-title`}>
-                    <div className={styles.caseContent}>
-                      <div className={styles.caseBrand}>
-                        <Image className={project.variant !== "operations" ? styles.caseLogoGm : styles.caseLogo} src={project.logo} alt={`Logotipo de ${project.name}`} width={project.logoWidth} height={project.logoHeight} sizes={project.variant !== "operations" ? "48px" : "115px"} />
-                        <div><p className={styles.caseCategory}>{project.category}</p><h3 id={`${project.id}-title`}>{project.name}</h3></div>
-                      </div>
-                      <p className={styles.caseTitle}>{project.title}</p>
-                      <p className={styles.caseDescription}>{project.description}</p>
-                      <ul className={styles.moduleList}>{project.capabilities.map((item) => <li key={item}>{item}</li>)}</ul>
-                      <div className={styles.focus}><span>ENFOQUE DEL SISTEMA</span><div><p>{project.focus}</p>{project.website && <a href={project.website} className={styles.caseWebsite} target="_blank" rel="noopener noreferrer">Visitar sitio web</a>}</div></div>
-                    </div>
-                    <div className={styles.systemPreview}>
-                      <SoftwareMockup variant={project.variant} />
-                    </div>
-                  </article>
-                </Reveal>
-              ))}
-            </div>
-          </div>
-        </section>
+    <section className={styles.section + " " + styles.methodSection} aria-labelledby="method-title">
+      <div className={styles.container}>
+        <LandingReveal className={styles.sectionHeading}>
+          <div><p className={styles.eyebrow}>UN PROCESO CLARO</p><h2 id="method-title">Primero escuchamos.<br /><em>Después construimos.</em></h2></div>
+          <p>Te acompañamos para transformar una necesidad concreta en una solución útil para tu empresa y tu equipo.</p>
+        </LandingReveal>
+        <div className={styles.steps}>
+          <LandingReveal><article><span className={styles.stepMark} aria-hidden="true" /><h3>Conocemos tu trabajo</h3><p>Conversamos sobre los procesos, las personas y los desafíos que quieres resolver.</p></article></LandingReveal>
+          <LandingReveal delay={80}><article><span className={styles.stepMark} aria-hidden="true" /><h3>Definimos una solución</h3><p>Ordenamos funciones y prioridades para preparar una propuesta con un alcance claro.</p></article></LandingReveal>
+          <LandingReveal delay={160}><article><span className={styles.stepMark} aria-hidden="true" /><h3>Desarrollamos contigo</h3><p>Compartimos avances y revisamos el funcionamiento de acuerdo con las etapas definidas.</p></article></LandingReveal>
+        </div>
+      </div>
+    </section>
 
-        <section className={styles.capabilities} aria-labelledby="capabilities-title">
-          <div className={styles.container}>
-            <Reveal className={styles.sectionHeading}>
-              <div><p className={styles.eyebrow}>QUÉ PODEMOS CONECTAR</p><h2 id="capabilities-title">Del proceso de cada día<br /><span>a una herramienta útil.</span></h2></div>
-              <p>El alcance se define contigo. Podemos abordar una necesidad puntual o conectar distintas áreas en una plataforma que evolucione con tu empresa.</p>
-            </Reveal>
-            <div className={styles.capabilityGrid}>{capabilities.map((item) => (
-              <Reveal key={item.number} delay={Number(item.number) * 60}><div className={styles.capability}><span>{item.number}</span><h3>{item.title}</h3><p>{item.text}</p></div></Reveal>
-            ))}</div>
-          </div>
-        </section>
+    <section className={styles.section} aria-labelledby="faq-title">
+      <div className={styles.container + " " + styles.faqLayout}>
+        <LandingReveal className={styles.faqIntro}><p className={styles.eyebrow}>ANTES DE COMENZAR</p><h2 id="faq-title">Hablemos con<br /><em>las cosas claras.</em></h2><p>Algunas preguntas para dar el primer paso hacia tu software.</p><a href="/software-a-medida#contacto" className={styles.secondary}>Tengo otra consulta</a></LandingReveal>
+        <LandingReveal motion="right" delay={100} className={styles.faqList}>{questions.map(item => <details key={item.q} name="software-faq"><summary>{item.q}<span className={styles.plus} aria-hidden="true" /></summary><p>{item.a}</p></details>)}</LandingReveal>
+      </div>
+    </section>
 
-        <section className={styles.method} aria-labelledby="method-title">
-          <div className={styles.container}>
-            <Reveal>
-              <p className={styles.eyebrow}>CÓMO LO ABORDAMOS</p>
-              <h2 id="method-title">Primero entendemos.<br /><span>Después desarrollamos.</span></h2>
-              <ol className={styles.steps}>
-                <li><span>01</span><h3>Conocemos el proceso</h3><p>Revisamos cómo trabajan, qué información utilizan y dónde se producen las dificultades.</p></li>
-                <li><span>02</span><h3>Definimos la solución</h3><p>Acordamos funciones, prioridades y alcance para que la propuesta responda a una necesidad concreta.</p></li>
-                <li><span>03</span><h3>Desarrollamos y validamos</h3><p>Presentamos avances, revisamos el uso con el equipo y ajustamos los flujos definidos.</p></li>
-              </ol>
-            </Reveal>
-          </div>
-        </section>
-
-        <ContactForm embedded initialService="sistema" />
-      </main>
-
-    </>
-  );
+    <LandingReveal><ContactForm embedded initialService="sistema" /></LandingReveal>
+  </main>;
 }

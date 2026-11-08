@@ -80,14 +80,14 @@ const clientLogos = [
   },
 ];
 
-export default function ClientsLoop({ appearance = "default" }: { appearance?: "default" | "landing" }) {
+export default function ClientsLoop({ appearance = "default", showProof = true }: { appearance?: "default" | "landing"; showProof?: boolean }) {
   if (appearance === "landing") {
     const marks = [0, 3, 8, 5, 2, 10, 4, 11].map(index => clientLogos[index]);
     return <section id="clientes" className={`${styles.section} ${styles.landing}`} aria-labelledby="clientes-vialoop">
       <div className={styles.container}>
         <LandingReveal><h2 id="clientes-vialoop" className={styles.trustTitle}>Empresas que ya dieron el paso con Vialoop.</h2></LandingReveal>
         <LandingReveal motion="focus" delay={100}><BrandMarquee variant="clients" colored label="Logos de clientes" rows={[marks]} /></LandingReveal>
-        <p className={styles.trustProof}><strong>+250 sitios web realizados.</strong> Para empresas de distintos rubros.</p>
+        {showProof && <p className={styles.trustProof}><strong>+250 sitios web realizados.</strong> Para empresas de distintos rubros.</p>}
       </div>
     </section>;
   }

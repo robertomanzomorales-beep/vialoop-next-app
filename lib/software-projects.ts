@@ -55,8 +55,8 @@ export const softwareProjects: SoftwareProject[] = [
     variant: "reservations",
     name: "Martín Atacama Transfers",
     category: "Reservas de traslados y pagos en línea",
-    title: "Del trayecto al pago, en un mismo sistema.",
-    description: "Sistema de reservas integrado al sitio web para solicitar traslados, coordinar cada servicio y gestionar su pago mediante Flow. Reúne los datos del viaje, la comunicación con el pasajero y el seguimiento del equipo.",
+    title: "Del trayecto al pago, en una sola experiencia.",
+    description: "Software de reservas integrado al sitio web para solicitar traslados, coordinar cada servicio y gestionar su pago mediante Flow. Reúne los datos del viaje, la comunicación con el pasajero y el seguimiento del equipo.",
     focus: "Conectar la solicitud, la revisión de disponibilidad y el pago del traslado, con información organizada para el pasajero y el equipo de administración.",
     capabilities: [
       "Origen, destino, fecha, horario y pasajeros",
