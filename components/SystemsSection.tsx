@@ -120,6 +120,11 @@ export default function SystemsSection() {
             {paused ? "Reanudar animación" : "Pausar animación"}
           </button>
         </div>
+
+        <div data-scroll-reveal className={styles.integrationsTeaser}>
+          <p><strong>Tu software también puede conectarse.</strong><span>WhatsApp, facturación compatible con SII, inteligencia artificial y pagos en línea.</span></p>
+          <Link href="/software-a-medida#integraciones">Explorar integraciones</Link>
+        </div>
       </div>
     </section>
   );

@@ -4,6 +4,7 @@ import HomeAtmosphere from "@/components/HomeAtmosphere";
 import ContactForm from "@/components/contact/ContactForm";
 import ConnectionStudio from "@/components/software/ConnectionStudio";
 import ProjectPreview from "@/components/software/ProjectPreview";
+import IntegrationsSection from "@/components/software/IntegrationsSection";
 import LandingReveal from "@/components/web-design/LandingReveal";
 import { softwareProjects } from "@/lib/software-projects";
 import homeStyles from "@/app/page.module.css";
@@ -85,7 +86,7 @@ export default function SoftwarePage() {
           <p className={styles.heroNote}>Desde la primera conversación hasta una herramienta hecha para tu empresa.</p>
         </div>
         <div className={styles.heroStrip} aria-label="Áreas de desarrollo">
-          <span>Gestión de procesos</span><span>Automatización</span><span>Reservas y pagos</span><span>Integraciones</span>
+          <span>Gestión de procesos</span><span>Automatización</span><span>Reservas y pagos</span><a href="/software-a-medida#integraciones">Integraciones</a>
         </div>
       </div>
     </section>
@@ -171,6 +172,8 @@ export default function SoftwarePage() {
         <LandingReveal motion="focus" delay={100}><ConnectionStudio /></LandingReveal>
       </div>
     </section>
+
+    <IntegrationsSection />
 
     <section className={styles.section + " " + styles.methodSection} aria-labelledby="method-title">
       <div className={styles.container}>

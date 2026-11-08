@@ -41,3 +41,25 @@
 }
 
 .clients[data-color] .mark img,.clients[data-color] .mark:hover img { filter:none; mix-blend-mode:normal; opacity:1; }
+
+.integrations .rows { gap: 28px; padding: 20px 0 12px; }
+.integrations .list { gap: 52px; padding-right: 52px; }
+.integrations .mark { min-width: 230px; min-height: 76px; gap: 13px; color: #d9e5f6; font-size: 23px; font-weight: 450; letter-spacing: -.04em; }
+.integrations .mark img, .integrations .mark:hover img { width: auto; height: 45px; max-width: 190px; opacity: 1; filter: none; }
+.integrations .mark:has(span) img { width: 36px; height: 36px; }
+.integrations .mark[data-brand="SII"] img, .integrations .mark[data-brand="SII"]:hover img { height: 52px; filter: brightness(0) invert(1); }
+.integrations .track { animation-duration: 43s; }
+.integrations .reverse { animation-duration: 49s; }
+.integrations .motionControl { margin-top: 13px; }
+@media (max-width: 700px) {
+  .integrations .rows { gap: 19px; }
+  .integrations .list { gap: 34px; padding-right: 34px; }
+  .integrations .mark { min-width: 185px; min-height: 62px; gap: 10px; font-size: 19px; }
+  .integrations .mark img { height: 35px; max-width: 155px; }
+  .integrations .mark:has(span) img { width: 30px; height: 30px; }
+  .integrations .mark[data-brand="SII"] img { height: 43px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .integrations .list { width: 100%; flex-wrap: wrap; padding: 0; justify-content: center; gap: 20px 28px; }
+  .integrations .mark { min-width: 160px; }
+}

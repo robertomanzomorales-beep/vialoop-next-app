@@ -1,0 +1,25 @@
+.section { position: relative; isolation: isolate; padding: 85px 0 75px; scroll-margin-top: 105px; color: #eaf1fc; }
+.section::before { content: ""; position: absolute; z-index: -1; inset: -20px 0; pointer-events: none; background: radial-gradient(ellipse 70% 76% at -8% 64%, #8c4c302a, transparent 76%), radial-gradient(ellipse 76% 88% at 102% 34%, #285fa42b, transparent 76%); }
+.container { width: min(1192px, calc(100% - 80px)); margin: 0 auto; }
+.header { max-width: 740px; margin: 0 auto 37px; text-align: center; }
+.eyebrow { margin: 0 0 17px; color: #97b0d1; font-size: 10px; font-weight: 500; line-height: 1.7; letter-spacing: .13em; }
+.section .header h2 { margin: 0; color: #eaf1fc; font-size: clamp(28px, 2.8vw, 36px); font-weight: 500; line-height: 1.24; letter-spacing: -.035em; }
+.section .header h2 em { color: #a5c2f3; font-style: italic; font-weight: 450; }
+.lead { max-width: 630px; margin: 23px auto 0; color: #a2b3cc; font-size: 14px; line-height: 1.9; text-wrap: pretty; }
+.footer { display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 48px; margin-top: 30px; padding-top: 25px; border-top: 1px solid #aac2e024; }
+.footer p { max-width: 660px; margin: 0; color: #91a7c4; font-size: 11px; line-height: 1.85; }
+.footer a { display: inline-flex; align-items: center; min-height: 43px; padding: 8px 0; border-bottom: 1px solid #6c91c5; color: #bad2f3; font-size: 12px; font-weight: 450; line-height: 1.6; text-decoration: none; transition: color .2s, border-color .2s; }
+.footer a:hover { color: #fff; border-color: #c4dbff; }
+.footer a:focus-visible { outline: 2px solid #a8cbff; outline-offset: 5px; }
+.brandNote { margin: 18px 0 0; color: #748ba9; font-size: 9px; line-height: 1.6; }
+@media (max-width: 1100px) { .container { width: calc(100% - 56px); }.footer { gap: 30px; } }
+@media (max-width: 700px) {
+  .section { padding: 60px 0; }
+  .container { width: calc(100% - 40px); }
+  .header { margin-bottom: 27px; }
+  .section .header h2 { font-size: 28px; }
+  .lead { margin-top: 20px; font-size: 13px; }
+  .footer { grid-template-columns: 1fr; gap: 15px; margin-top: 25px; padding-top: 22px; }
+  .footer a { width: fit-content; }
+}
+@media (prefers-reduced-motion: reduce) { .footer a { transition: none; } }
