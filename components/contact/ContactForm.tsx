@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useId, useState, type FormEvent } from "react";
+import ContactIcon from "./ContactIcon";
 import styles from "./ContactForm.module.css";
 export type ContactService =
   | "web"
@@ -100,16 +101,24 @@ export default function ContactForm({
             avanzar.
           </p>
           <div className={styles.direct}>
-            <a href="mailto:dloayza@vialoop.cl">dloayza@vialoop.cl</a>
-            <a href="tel:+56974330586">+56 9 7433 0586</a>
-            <span>Desde Calama, para todo Chile.</span>
+            <a href="mailto:dloayza@vialoop.cl">
+              <ContactIcon name="mail" />
+              <span><small>Correo electrónico</small><strong>dloayza@vialoop.cl</strong></span>
+            </a>
+            <a href="tel:+56974330586">
+              <ContactIcon name="phone" />
+              <span><small>Conversemos</small><strong>+56 9 7433 0586</strong></span>
+            </a>
+            <p className={styles.location}>
+              <ContactIcon name="pin" /><span>Desde Calama, para todo Chile.</span>
+            </p>
           </div>
         </div>
         <div className={styles.formColumn}>
           {result.status === "success" ? (
             <div className={styles.success} role="status" aria-live="polite">
               <span className={styles.successMark} aria-hidden="true">
-                ✓
+                <ContactIcon name="check" />
               </span>
               <h2>Gracias por escribirnos.</h2>
               <p>{result.message}</p>
@@ -140,71 +149,87 @@ export default function ContactForm({
                 <p>Solo necesitamos lo esencial para empezar.</p>
                 {initialService && (
                   <span className={styles.context}>
-                    Consulta sobre {serviceNames[initialService].toLowerCase()}
+                    <ContactIcon name="briefcase" />
+                    {serviceNames[initialService]}
                   </span>
                 )}
               </div>
               <div className={styles.fields}>
                 <label htmlFor={`${id}-name`}>
-                  <span>Tu nombre *</span>
-                  <input
-                    id={`${id}-name`}
-                    name="fullName"
-                    autoComplete="name"
-                    placeholder="Nombre y apellido"
-                    minLength={2}
-                    maxLength={120}
-                    required
-                  />
+                  <span className={styles.fieldLabel}>Tu nombre *</span>
+                  <span className={styles.control}>
+                    <ContactIcon name="user" />
+                    <input
+                      id={`${id}-name`}
+                      name="fullName"
+                      autoComplete="name"
+                      placeholder="Nombre y apellido"
+                      minLength={2}
+                      maxLength={120}
+                      required
+                    />
+                  </span>
                 </label>
                 <label htmlFor={`${id}-email`}>
-                  <span>Correo electrónico *</span>
-                  <input
-                    id={`${id}-email`}
-                    type="email"
-                    name="email"
-                    autoComplete="email"
-                    placeholder="nombre@empresa.cl"
-                    maxLength={180}
-                    required
-                  />
+                  <span className={styles.fieldLabel}>Correo electrónico *</span>
+                  <span className={styles.control}>
+                    <ContactIcon name="mail" />
+                    <input
+                      id={`${id}-email`}
+                      type="email"
+                      name="email"
+                      autoComplete="email"
+                      placeholder="nombre@empresa.cl"
+                      maxLength={180}
+                      required
+                    />
+                  </span>
                 </label>
                 <label htmlFor={`${id}-company`}>
-                  <span>
+                  <span className={styles.fieldLabel}>
                     Empresa <small>Opcional</small>
                   </span>
-                  <input
-                    id={`${id}-company`}
-                    name="company"
-                    autoComplete="organization"
-                    placeholder="Nombre de tu empresa"
-                    maxLength={120}
-                  />
+                  <span className={styles.control}>
+                    <ContactIcon name="building" />
+                    <input
+                      id={`${id}-company`}
+                      name="company"
+                      autoComplete="organization"
+                      placeholder="Nombre de tu empresa"
+                      maxLength={120}
+                    />
+                  </span>
                 </label>
                 <label htmlFor={`${id}-phone`}>
-                  <span>
+                  <span className={styles.fieldLabel}>
                     Teléfono <small>Opcional</small>
                   </span>
-                  <input
-                    id={`${id}-phone`}
-                    type="tel"
-                    name="phone"
-                    autoComplete="tel"
-                    placeholder="+56 9"
-                    maxLength={40}
-                  />
+                  <span className={styles.control}>
+                    <ContactIcon name="phone" />
+                    <input
+                      id={`${id}-phone`}
+                      type="tel"
+                      name="phone"
+                      autoComplete="tel"
+                      placeholder="+56 9"
+                      maxLength={40}
+                    />
+                  </span>
                 </label>
                 <label htmlFor={`${id}-message`} className={styles.full}>
-                  <span>¿Qué te gustaría hacer? *</span>
-                  <textarea
-                    id={`${id}-message`}
-                    name="message"
-                    placeholder="Una web, un software o una idea que quieras conversar…"
-                    rows={4}
-                    minLength={10}
-                    maxLength={2000}
-                    required
-                  />
+                  <span className={styles.fieldLabel}>¿Qué te gustaría hacer? *</span>
+                  <span className={styles.control}>
+                    <ContactIcon name="message" />
+                    <textarea
+                      id={`${id}-message`}
+                      name="message"
+                      placeholder="Una web, un software o una idea que quieras conversar…"
+                      rows={4}
+                      minLength={10}
+                      maxLength={2000}
+                      required
+                    />
+                  </span>
                 </label>
               </div>
               <label className={styles.honeypot} aria-hidden="true">
@@ -228,11 +253,16 @@ export default function ContactForm({
               </label>
               {result.status === "error" && (
                 <p role="alert" className={styles.error}>
-                  {result.message}
+                  <ContactIcon name="alert" />
+                  <span>{result.message}</span>
                 </p>
               )}
               <div className={styles.submitRow}>
                 <button type="submit" disabled={result.status === "sending"}>
+                  <ContactIcon
+                    name={result.status === "sending" ? "loader" : "mail"}
+                    className={result.status === "sending" ? styles.spinner : undefined}
+                  />
                   {result.status === "sending"
                     ? "Enviando consulta…"
                     : "Enviar consulta"}
