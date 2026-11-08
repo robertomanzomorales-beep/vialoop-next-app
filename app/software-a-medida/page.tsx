@@ -97,6 +97,7 @@ export default function SoftwarePage() {
           <div className={styles.clientLogos}>
             {softwareProjects.map(project => <a key={project.id} href={`#${project.id}`} className={styles.clientLogo} aria-label={`Conocer el software de ${project.name}`}>
               <Image src={project.logo} alt={project.name} width={project.logoWidth} height={project.logoHeight} />
+              <span>{project.name}</span>
             </a>)}
           </div>
         </LandingReveal>
@@ -124,7 +125,7 @@ export default function SoftwarePage() {
           <p>Desde la gestión de servicios hasta las reservas en línea, cada proyecto nace de una forma particular de trabajar.</p>
         </LandingReveal>
         <p className={styles.swipeHint}>Desliza para conocer los proyectos</p>
-        <p className={styles.previewNote}>Vistas ilustrativas con datos de ejemplo.</p>
+        <p className={styles.previewNote}>Software diseñado para acompañar el trabajo en computador y celular.</p>
         <div className={styles.caseGrid} aria-label="Proyectos de software">
           {softwareProjects.map((project, index) => <LandingReveal key={project.id} delay={index * 80} className={styles.caseWrap}>
             <article id={project.id} className={styles.case} aria-labelledby={project.id + "-title"}>
@@ -157,7 +158,7 @@ export default function SoftwarePage() {
           <p>Conocemos de cerca el valor de tener la información y el trabajo del equipo conectados en un mismo lugar.</p>
           <div className={styles.ownTags}><span>Clientes y proyectos</span><span>Seguimiento</span><span>Soporte</span></div>
         </LandingReveal>
-        <LandingReveal motion="focus" delay={100} className={styles.ownVisual}><ProjectPreview variant="vialoop" /><p>Vista ilustrativa con datos de ejemplo.</p></LandingReveal>
+        <LandingReveal motion="focus" delay={100} className={styles.ownVisual}><ProjectPreview variant="vialoop" /><p>Nuestro software, en computador y celular.</p></LandingReveal>
       </div>
     </section>
 
