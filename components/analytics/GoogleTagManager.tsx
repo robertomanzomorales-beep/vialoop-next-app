@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
+import { trackWhatsAppClick } from "@/lib/analytics/conversions";
 import {
   CONSENT_UPDATED_EVENT,
   getStoredConsent,
@@ -22,8 +23,8 @@ function initializeDataLayer() {
   window.dataLayer = window.dataLayer || [];
 
   if (!window.gtag) {
-    window.gtag = (...args: unknown[]) => {
-      window.dataLayer.push(args);
+    window.gtag = function gtag() {
+      window.dataLayer.push(arguments);
     };
   }
 }
@@ -135,7 +136,17 @@ export default function GoogleTagManager() {
       handleConsentUpdate,
     );
 
+    function handleWhatsAppClick(event: MouseEvent) {
+      if (event.defaultPrevented || !(event.target instanceof Element)) return;
+      const link = event.target.closest<HTMLAnchorElement>("a[data-whatsapp-entry]");
+      const location = link?.dataset.whatsappEntry;
+      if (location === "floating" || location === "contact_form") trackWhatsAppClick(location);
+    }
+
+    document.addEventListener("click", handleWhatsAppClick);
+
     return () => {
+      document.removeEventListener("click", handleWhatsAppClick);
       window.removeEventListener(
         CONSENT_UPDATED_EVENT,
         handleConsentUpdate,

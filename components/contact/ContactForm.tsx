@@ -1,7 +1,10 @@
 "use client";
 import Link from "next/link";
 import { useId, useRef, useState, type FormEvent } from "react";
+import { trackContactLead } from "@/lib/analytics/conversions";
+import { WHATSAPP_CONTACT_URL } from "@/lib/contact/whatsapp";
 import useScrollReveal from "../useScrollReveal";
+import WhatsAppIcon from "../icons/WhatsAppIcon";
 import ContactIcon from "./ContactIcon";
 import styles from "./ContactForm.module.css";
 export type ContactService =
@@ -69,6 +72,7 @@ export default function ContactForm({
           data.message ||
             "No fue posible enviar tu consulta. Intenta nuevamente.",
         );
+      trackContactLead(embedded ? "home_contact" : "contact_page", initialService ?? "otro");
       setResult({
         status: "success",
         message: data.message,
@@ -280,6 +284,12 @@ export default function ContactForm({
               <p data-scroll-reveal data-scroll-delay="240" className={styles.required}>* Campos obligatorios.</p>
             </form>
           )}
+          <div data-scroll-reveal data-scroll-delay="260" className={styles.whatsappAlternative}>
+            <a href={WHATSAPP_CONTACT_URL} target="_blank" rel="noopener noreferrer" data-whatsapp-entry="contact_form">
+              <WhatsAppIcon />
+              <span>Prefiero hablar por WhatsApp</span>
+            </a>
+          </div>
         </div>
       </div>
     </section>
