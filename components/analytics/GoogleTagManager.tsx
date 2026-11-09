@@ -4,6 +4,7 @@ import { useEffect } from "react";
 import { trackWhatsAppClick } from "@/lib/analytics/conversions";
 import {
   CONSENT_UPDATED_EVENT,
+  CONSENT_STORAGE_KEY,
   getStoredConsent,
   removeGoogleAnalyticsCookies,
   type ConsentPreferences,
@@ -136,6 +137,12 @@ export default function GoogleTagManager() {
       handleConsentUpdate,
     );
 
+    function handleConsentStorage(event: StorageEvent) {
+      if (event.key === CONSENT_STORAGE_KEY || event.key === null) applyConsent(getStoredConsent());
+    }
+
+    window.addEventListener("storage", handleConsentStorage);
+
     function handleWhatsAppClick(event: MouseEvent) {
       if (event.defaultPrevented || !(event.target instanceof Element)) return;
       const link = event.target.closest<HTMLAnchorElement>("a[data-whatsapp-entry]");
@@ -146,6 +153,7 @@ export default function GoogleTagManager() {
     document.addEventListener("click", handleWhatsAppClick);
 
     return () => {
+      window.removeEventListener("storage", handleConsentStorage);
       document.removeEventListener("click", handleWhatsAppClick);
       window.removeEventListener(
         CONSENT_UPDATED_EVENT,

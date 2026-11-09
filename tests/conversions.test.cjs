@@ -102,14 +102,16 @@ test("WhatsApp opens the business number with a readable prepared message", () =
   assert.equal(destination.searchParams.get("text"), "Hola, vengo del sitio de Vialoop y quiero conversar sobre un proyecto para mi empresa.");
 });
 
-test("GTM applies standard consent commands and waits for approval before loading", () => {
-  const { window, environment, consent } = setup();
+test("GTM applies standard consent commands and synchronizes approval and revocation across tabs", () => {
+  const { window, environment, storage, consent } = setup();
   const listeners = new Map();
   const scripts = [];
   let cleanup;
+  let reloadScheduled = false;
   window.location.hostname = "vialoop.cl";
   window.addEventListener = (name, callback) => listeners.set(name, callback);
   window.removeEventListener = name => listeners.delete(name);
+  window.setTimeout = () => { reloadScheduled = true; };
   Object.assign(environment.document, {
     documentElement: { dataset: {} },
     getElementById: id => scripts.find(script => script.id === id),
@@ -128,11 +130,18 @@ test("GTM applies standard consent commands and waits for approval before loadin
   assert.equal(window.dataLayer[0][2].analytics_storage, "denied");
   assert.equal(Array.isArray(window.dataLayer[0]), false);
   assert.equal(scripts.length, 0);
+  storage.set(consent.CONSENT_STORAGE_KEY, JSON.stringify(consent.createConsentPreferences(true)));
+  listeners.get("storage")({ key: consent.CONSENT_STORAGE_KEY });
   const accept = listeners.get(consent.CONSENT_UPDATED_EVENT);
   accept({ detail: consent.createConsentPreferences(true) });
   accept({ detail: consent.createConsentPreferences(true) });
   assert.equal(environment.document.documentElement.dataset.analyticsConsent, "granted");
   assert.equal(scripts.length, 1);
   assert.equal(scripts[0].src, "https://www.googletagmanager.com/gtm.js?id=GTM-KDW825JQ");
+  storage.set(consent.CONSENT_STORAGE_KEY, JSON.stringify(consent.createConsentPreferences(false)));
+  listeners.get("storage")({ key: consent.CONSENT_STORAGE_KEY });
+  assert.equal(environment.document.documentElement.dataset.analyticsConsent, "denied");
+  assert.equal(reloadScheduled, true);
   cleanup();
+  assert.equal(listeners.has("storage"), false);
 });
