@@ -37,10 +37,10 @@
 
 .integrations .rows { gap: 28px; padding: 20px 0 12px; }
 .integrations .list { gap: 52px; padding-right: 52px; }
-.integrations .mark { min-width: 230px; min-height: 76px; gap: 13px; color: #d9e5f6; font-size: 23px; font-weight: 450; letter-spacing: -.04em; }
-.integrations .mark img, .integrations .mark:hover img { width: auto; height: 45px; max-width: 190px; opacity: 1; filter: none; }
+.integrations .mark { min-width: 230px; min-height: 76px; gap: 13px; color: #d9e5f6; font-size: 23px; font-weight: 450; letter-spacing: -.04em; transition: none; }
+.integrations .mark img { width: auto; height: 45px; max-width: 190px; opacity: 1; filter: none; transition: none; }
 .integrations .mark:has(span) img { width: 36px; height: 36px; }
-.integrations .mark[data-brand="SII"] img, .integrations .mark[data-brand="SII"]:hover img { height: 52px; filter: brightness(0) invert(1); }
+.integrations .mark[data-brand="SII"] img { height: 52px; filter: brightness(0) invert(1); }
 .integrations .track { animation-duration: 43s; }
 .integrations .reverse { animation-duration: 49s; }
 @media (max-width: 700px) {
