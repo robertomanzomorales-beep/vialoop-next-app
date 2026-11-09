@@ -28,6 +28,8 @@ export const metadata: Metadata = {
   description:
     "Diseño de sitios web y desarrollo de software a medida para empresas, negocios y profesionales. Desde Calama y Antofagasta, trabajamos con todo Chile.",
 
+  twitter: { card: "summary_large_image" },
+
   icons: {
     icon: "/vialoop-logo-original-optimizado-e1780251299821.webp",
     shortcut:

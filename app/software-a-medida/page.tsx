@@ -19,6 +19,7 @@ export const metadata: Metadata = {
     title: "Software que se adapta a tu empresa | Vialoop",
     description: "Software de gestión, automatización y soluciones conectadas con la forma de trabajar de tu empresa.",
     url: "/software-a-medida",
+    siteName: "Vialoop",
     locale: "es_CL",
     type: "website",
   },
@@ -72,7 +73,7 @@ function CapabilityIcon({ type }: { type: string }) {
 }
 
 export default function SoftwarePage() {
-  return <main className={homeStyles.home + " " + styles.page}>
+  return <main id="main-content" tabIndex={-1} className={homeStyles.home + " " + styles.page + " main-content"}>
     <HomeAtmosphere />
     <section className={styles.hero} aria-labelledby="software-title">
       <div className={styles.container}>

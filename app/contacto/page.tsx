@@ -11,5 +11,5 @@ export default async function ContactPage({ searchParams }: { searchParams: Prom
   const { servicio } = await searchParams;
   const services: ContactService[] = ["web", "sistema", "google", "material", "hosting", "otro"];
   const initialService = services.find(item => item === servicio);
-  return <><main><ContactForm initialService={initialService} /></main></>;
+  return <><main id="main-content" tabIndex={-1} className="main-content"><ContactForm initialService={initialService} /></main></>;
 }

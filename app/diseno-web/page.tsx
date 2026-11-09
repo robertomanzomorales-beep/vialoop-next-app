@@ -15,7 +15,7 @@ export const metadata: Metadata = {
   title: "Diseño web para empresas en Chile",
   description: "Diseñamos tu sitio web y te acompañamos desde la idea hasta la publicación. Propuestas a medida y proyectos reales. Conoce nuestros últimos trabajos.",
   alternates: { canonical: "/diseno-web" },
-  openGraph: { title: "Tu próxima web, con Vialoop", description: "Diseño web con identidad, acompañamiento y proyectos reales. Alcance y publicación definidos para cada proyecto.", url: "/diseno-web", locale: "es_CL", type: "website", images: [{url:"/projects/promaq.webp",width:1280,height:773,alt:"Diseño web realizado por Vialoop para PROMAQ"}] },
+  openGraph: { title: "Tu próxima web, con Vialoop", description: "Diseño web con identidad, acompañamiento y proyectos reales. Alcance y publicación definidos para cada proyecto.", url: "/diseno-web", siteName: "Vialoop", locale: "es_CL", type: "website" },
 };
 
 const questions = [
@@ -30,7 +30,7 @@ const questions = [
 ];
 
 export default function WebDesignPage() {
-  return <main className={`${homeStyles.home} ${styles.page}`}>
+  return <main id="main-content" tabIndex={-1} className={`${homeStyles.home} ${styles.page} main-content`}>
     <HomeAtmosphere />
     <section className={styles.hero} aria-labelledby="web-design-title">
       <div className={styles.container}>
