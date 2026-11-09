@@ -1,7 +1,8 @@
 "use client";
 
 import Link from "next/link";
-import type { CSSProperties, PointerEvent } from "react";
+import { useRef, type PointerEvent } from "react";
+import useScrollReveal from "./useScrollReveal";
 import styles from "./Hero.module.css";
 import HeroTypewriter from "./HeroTypewriter";
 
@@ -18,6 +19,8 @@ function ServiceIcon({ type }: { type: string }) {
 }
 
 export default function Hero() {
+  const sectionRef = useRef<HTMLElement>(null);
+  useScrollReveal(sectionRef);
   function moveLight(event: PointerEvent<HTMLAnchorElement>) {
     if (event.pointerType !== "mouse" || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
     const bounds = event.currentTarget.getBoundingClientRect();
@@ -26,16 +29,16 @@ export default function Hero() {
   }
 
   return (
-    <section id="inicio" aria-labelledby="hero-title" className={styles.hero}>
+    <section ref={sectionRef} id="inicio" aria-labelledby="hero-title" className={styles.hero}>
       <div className={styles.container}>
         <div className={styles.intro}>
-          <p className={styles.eyebrow}><span aria-hidden="true" />Diseño, tecnología y personas</p>
-          <h1 id="hero-title" aria-label="Diseño web y software a medida de tu empresa." className={styles.title}>
+          <p data-scroll-reveal className={styles.eyebrow}><span aria-hidden="true" />Diseño, tecnología y personas</p>
+          <h1 data-scroll-reveal data-scroll-delay="60" id="hero-title" aria-label="Diseño web y software a medida de tu empresa." className={styles.title}>
             <span className={styles.line}><span>Diseño web y software</span></span>{" "}
             <span className={styles.line}><HeroTypewriter /></span>
           </h1>
-          <p className={styles.description}>Creamos experiencias digitales que presentan tu negocio y simplifican tu operación. Con diseño cuidado y acompañamiento cercano.</p>
-          <div className={styles.actions}>
+          <p data-scroll-reveal data-scroll-delay="120" className={styles.description}>Creamos experiencias digitales que presentan tu negocio y simplifican tu operación. Con diseño cuidado y acompañamiento cercano.</p>
+          <div data-scroll-reveal data-scroll-delay="180" className={styles.actions}>
             <Link href="/contacto" className={styles.primaryButton}>Hablemos de tu proyecto</Link>
             <Link href="/#servicios" className={styles.secondaryButton}>Explorar soluciones</Link>
           </div>
@@ -43,14 +46,14 @@ export default function Hero() {
 
         <div className={styles.services} aria-label="Soluciones de Vialoop">
           {services.map((service, index) => (
-            <Link key={service.href} href={service.href} className={styles.service} onPointerMove={moveLight} style={{ "--entry-delay": `${420 + index * 90}ms` } as CSSProperties}>
+            <Link key={service.href} href={service.href} data-scroll-reveal data-scroll-delay={160 + index * 40} className={styles.service} onPointerMove={moveLight}>
               <span className={styles.serviceIcon}><ServiceIcon type={service.icon} /></span>
               <span className={styles.serviceContent}><strong>{service.title}</strong><span>{service.text}</span></span>
               <span className={styles.serviceMark} aria-hidden="true" />
             </Link>
           ))}
         </div>
-        <div className={styles.footnote}><p>Desde Calama y Antofagasta, para todo Chile.</p><span aria-hidden="true" /><p>Ideas claras. Soluciones a tu medida.</p></div>
+        <div data-scroll-reveal data-scroll-delay="220" className={styles.footnote}><p>Desde Calama y Antofagasta, para todo Chile.</p><span aria-hidden="true" /><p>Ideas claras. Soluciones a tu medida.</p></div>
       </div>
     </section>
   );

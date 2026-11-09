@@ -6,6 +6,7 @@ import ConnectionStudio from "@/components/software/ConnectionStudio";
 import ProjectPreview from "@/components/software/ProjectPreview";
 import IntegrationsSection from "@/components/software/IntegrationsSection";
 import LandingReveal from "@/components/web-design/LandingReveal";
+import Reveal, { RevealGroup } from "@/components/Reveal";
 import { softwareProjects } from "@/lib/software-projects";
 import homeStyles from "@/app/page.module.css";
 import styles from "./page.module.css";
@@ -75,19 +76,19 @@ export default function SoftwarePage() {
     <HomeAtmosphere />
     <section className={styles.hero} aria-labelledby="software-title">
       <div className={styles.container}>
-        <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}><span className={styles.statusDot} /> SOFTWARE A MEDIDA · VIALOOP</p>
-          <h1 id="software-title">Tu forma de trabajar.<br /><em>Convertida en software.</em></h1>
-          <p className={styles.heroLead}>Diseñamos software para conectar tus procesos, tu información y a las personas de tu empresa. Una solución construida para lo que realmente necesitas.</p>
-          <div className={styles.actions}>
+        <RevealGroup className={styles.heroCopy}>
+          <p data-scroll-reveal className={styles.eyebrow}><span className={styles.statusDot} /> SOFTWARE A MEDIDA · VIALOOP</p>
+          <h1 data-scroll-reveal data-scroll-delay="60" id="software-title">Tu forma de trabajar.<br /><em>Convertida en software.</em></h1>
+          <p data-scroll-reveal data-scroll-delay="120" className={styles.heroLead}>Diseñamos software para conectar tus procesos, tu información y a las personas de tu empresa. Una solución construida para lo que realmente necesitas.</p>
+          <div data-scroll-reveal data-scroll-delay="180" className={styles.actions}>
             <a href="/software-a-medida#contacto" className={styles.primary}>Conversemos de tu software</a>
             <a href="/software-a-medida#soluciones" className={styles.secondary}>Conoce nuestros proyectos</a>
           </div>
-          <p className={styles.heroNote}>Desde la primera conversación hasta una herramienta hecha para tu empresa.</p>
-        </div>
-        <div className={styles.heroStrip} aria-label="Áreas de desarrollo">
+          <p data-scroll-reveal data-scroll-delay="220" className={styles.heroNote}>Desde la primera conversación hasta una herramienta hecha para tu empresa.</p>
+        </RevealGroup>
+        <Reveal delay={200}><div className={styles.heroStrip} aria-label="Áreas de desarrollo">
           <span>Gestión de procesos</span><span>Automatización</span><span>Reservas y pagos</span><a href="/software-a-medida#integraciones">Integraciones</a>
-        </div>
+        </div></Reveal>
       </div>
     </section>
 
@@ -196,6 +197,6 @@ export default function SoftwarePage() {
       </div>
     </section>
 
-    <LandingReveal><ContactForm embedded initialService="sistema" /></LandingReveal>
+    <ContactForm embedded initialService="sistema" />
   </main>;
 }

@@ -87,15 +87,15 @@ export default function ClientsLoop({ appearance = "default", showProof = true }
       <div className={styles.container}>
         <LandingReveal><h2 id="clientes-vialoop" className={styles.trustTitle}>Empresas que ya dieron el paso con Vialoop.</h2></LandingReveal>
         <LandingReveal motion="focus" delay={100}><BrandMarquee variant="clients" colored label="Logos de clientes" rows={[marks]} /></LandingReveal>
-        {showProof && <p className={styles.trustProof}><strong>+250 sitios web realizados.</strong> Para empresas de distintos rubros.</p>}
+        {showProof && <LandingReveal delay={160}><p className={styles.trustProof}><strong>+250 sitios web realizados.</strong> Para empresas de distintos rubros.</p></LandingReveal>}
       </div>
     </section>;
   }
   return (
     <section id="clientes" className={styles.section} aria-labelledby="clientes-vialoop">
-      {/* Keep the metric server-rendered and independent of reveal animations. */}
+      {/* The metric is server-rendered; its value never depends on an animation. */}
       <div className={styles.container}>
-        <div className={styles.intro}>
+        <LandingReveal className={styles.intro}>
           <div className={styles.summaryCard}>
             <div className={styles.ratingRow}>
               <span className={styles.stars} aria-label="Calificación de cinco estrellas">★★★★★</span>
@@ -111,11 +111,11 @@ export default function ClientsLoop({ appearance = "default", showProof = true }
             <p className={styles.eyebrow}>Relaciones que perduran</p>
             <h2 id="clientes-vialoop">Empresas que han<br className={styles.desktopBreak} /> confiado en <em>Vialoop.</em></h2>
           </div>
-        </div>
-        <BrandMarquee variant="clients" label="Logos de clientes" rows={[
+        </LandingReveal>
+        <LandingReveal delay={100}><BrandMarquee variant="clients" label="Logos de clientes" rows={[
           clientLogos.slice(0, 8),
           clientLogos.slice(8),
-        ]} />
+        ]} /></LandingReveal>
       </div>
     </section>
   );

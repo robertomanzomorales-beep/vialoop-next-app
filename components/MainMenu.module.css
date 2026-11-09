@@ -25,6 +25,9 @@
 .toggle:hover .toggleGlyph i:last-child { left: 0; width: 18px; }
 .closeGlyph i:first-child { top: 10px; transform: rotate(45deg); }.closeGlyph i:last-child { top: 10px; transform: rotate(-45deg); }
 .header a:focus-visible,.header button:focus-visible,.dialog a:focus-visible,.dialog button:focus-visible { outline: 2px solid #9bc2ff; outline-offset: 4px; }
+.close,.close:hover { border-color: transparent; background: transparent; box-shadow: none; }
+.dialog .close:focus-visible { outline: none; }
+.dialog .close:focus-visible>span:first-child { text-decoration: underline; text-decoration-color: #d8e3f280; text-underline-offset: 5px; }
 .dialog { position: fixed; inset: 0; margin: 0; width: 100%; height: 100dvh; max-width: none; max-height: none; padding: 0; border: 0; background: radial-gradient(ellipse 90% 65% at 105% 4%,#234d8226,transparent 78%),radial-gradient(ellipse 70% 55% at -5% 100%,#8060440f,transparent 80%),#060f1d; color: #edf3fd; overflow-y: auto; overflow-x: hidden; overscroll-behavior: contain; opacity: 0; transition: opacity 760ms cubic-bezier(.33,0,.2,1); }
 .dialog[open] { display: flex; flex-direction: column; opacity: 1; }.dialog[data-closing] { opacity: 0; transition-duration: 420ms; transition-timing-function: cubic-bezier(.4,0,.4,1); pointer-events: none; }
 .dialog::backdrop { background: #0209139c; opacity: 0; transition: opacity 650ms ease; }.dialog[open]::backdrop { opacity: 1; }.dialog[data-closing]::backdrop { opacity: 0; transition-duration: 420ms; }

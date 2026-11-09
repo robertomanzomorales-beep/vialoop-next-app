@@ -89,10 +89,6 @@
 .plus::after { transform: rotate(90deg); }
 details[open] > summary .plus::after { transform: rotate(0); }
 .page a:focus-visible, .page summary:focus-visible { outline: 2px solid #a8cbff; outline-offset: 5px; }
-.heroCopy > h1 { animation: headline .9s cubic-bezier(.16,1,.3,1) both; }
-.heroCopy > .eyebrow, .heroCopy > .heroLead, .heroCopy > .actions, .heroCopy > .heroNote { animation: detail .9s .12s cubic-bezier(.16,1,.3,1) both; }
-@keyframes headline { from { opacity: 0; transform: translateY(32px); clip-path: inset(0 0 100% 0); } to { opacity: 1; transform: none; clip-path: inset(0); } }
-@keyframes detail { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
 @media (max-width: 1100px) {
   .container { width: calc(100% - 56px); }
   .clientsInner { gap: 35px; }
@@ -175,7 +171,6 @@ details[open] > summary .plus::after { transform: rotate(0); }
   .caseGrid { grid-auto-columns: minmax(235px, 88%); }
 }
 @media (prefers-reduced-motion: reduce) {
-  .heroCopy > h1, .heroCopy > .eyebrow, .heroCopy > .heroLead, .heroCopy > .actions, .heroCopy > .heroNote { animation: none; }
   .primary, .secondary, .case, .plus::after { transition: none; }
   .primary:hover, .case:hover { transform: none; }
 }

@@ -1,4 +1,4 @@
-.notice { position: fixed; z-index: 120; left: 22px; bottom: max(20px,env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 26px; max-width: calc(100% - 44px); padding: 16px 17px 16px 21px; border: 1px solid #a8c5e52e; border-radius: 11px; background: #0a1728f5; color: #d5e2f5; box-shadow: 0 8px 35px #02081240; animation: noticeIn .28s ease both; }
+.notice { position: fixed; z-index: 120; left: 22px; bottom: max(20px,env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 26px; max-width: calc(100% - 44px); padding: 16px 17px 16px 21px; border: 1px solid #a8c5e52e; border-radius: 11px; background: #0a1728f5; color: #d5e2f5; box-shadow: 0 8px 35px #02081240; animation: noticeIn .65s var(--entrance-ease) both; }
 .noticeCopy { min-width: 0; }
 .noticeCopy p { margin: 0 0 4px; color: #dce7f8; font-size: 12px; font-weight: 450; line-height: 1.5; letter-spacing: -.01em; }
 .noticeCopy > span { display: block; color: #8fa6c4; font-size: 10px; line-height: 1.8; }
@@ -11,7 +11,7 @@
 .notice button:focus-visible, .notice a:focus-visible, .dialog button:focus-visible, .dialog a:focus-visible, .dialog input:focus-visible { outline: 2px solid #b1cdf2; outline-offset: 4px; }
 .dialog { width: min(420px,calc(100% - 32px)); max-height: calc(100dvh - 40px); margin: auto; padding: 0; border: 1px solid #9fbde33b; border-radius: 14px; background: #0a1728; color: #dce8f9; box-shadow: 0 25px 90px #02071260; overflow: auto; color-scheme: dark; }
 .dialog::backdrop { background: #02091685; }
-.dialog[open] { animation: noticeIn .22s ease both; }
+.dialog[open] { animation: noticeIn .65s var(--entrance-ease) both; }
 .preferences { padding: 30px; }
 .heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 22px; }
 .heading p { margin: 0 0 10px; color: #7f9bbc; font-size: 8px; font-weight: 500; letter-spacing: .13em; line-height: 1.6; }
@@ -32,7 +32,7 @@
 .dialogActions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0 22px; }
 .dialogActions button { min-height: 42px; font-size: 11px; }
 .preferences > a { color: #8faacb; font-size: 10px; text-underline-offset: 4px; text-decoration-color: #8faacb60; }
-@keyframes noticeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+@keyframes noticeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 @media (max-width: 700px) {
   .notice { right: 16px; left: 16px; bottom: max(16px,env(safe-area-inset-bottom)); display: block; max-width: none; padding: 16px 17px 13px; }
   .noticeCopy p { font-size: 12px; }

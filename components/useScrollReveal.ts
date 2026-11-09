@@ -1,58 +1,91 @@
 "use client";
 
-import { useEffect, useRef, type RefObject } from "react";
+import { useLayoutEffect, useRef, type RefObject } from "react";
 
-/** Reveal once; above-the-fold content and focused controls stay immediately visible. */
+/** One restrained entrance per visit; cancellation and focus restore the original content. */
 export default function useScrollReveal(rootRef: RefObject<HTMLElement | null>, selector = "[data-scroll-reveal]", refreshKey: string | number = 0) {
   const visited = useRef(new WeakSet<HTMLElement>());
-  useEffect(() => {
+  useLayoutEffect(() => {
     const root = rootRef.current;
     if (!root || !("IntersectionObserver" in window) || !("animate" in Element.prototype)) return;
     const elements = root.matches(selector) ? [root] : Array.from(root.querySelectorAll<HTMLElement>(selector));
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     const animations = new Map<HTMLElement, Animation>();
     let observer: IntersectionObserver | undefined;
+    const tokens = getComputedStyle(root);
+    const duration = parseFloat(tokens.getPropertyValue("--entrance-duration")) || 1050;
+    const easing = tokens.getPropertyValue("--entrance-ease").trim() || "cubic-bezier(.33,0,.2,1)";
+    const distance = parseFloat(tokens.getPropertyValue("--entrance-distance")) || 12;
+
+    function state(element: HTMLElement, value?: string) {
+      if (value !== "entering") delete element.dataset.initialEntrance;
+      if (value) element.dataset.scrollState = value;
+      else delete element.dataset.scrollState;
+      if (element.hasAttribute("data-landing-reveal")) {
+        if (value) element.dataset.landingRevealState = value;
+        else delete element.dataset.landingRevealState;
+      }
+    }
 
     function finish(element: HTMLElement) {
       animations.get(element)?.cancel();
       animations.delete(element);
       observer?.unobserve(element);
       visited.current.add(element);
-      element.dataset.scrollState = "visible";
+      state(element, "visible");
     }
     function clear() {
       observer?.disconnect();
+      observer = undefined;
       animations.forEach(animation => animation.cancel());
       animations.clear();
-      elements.forEach(element => element.removeAttribute("data-scroll-state"));
+      elements.forEach(element => state(element));
+    }
+    function enter(element: HTMLElement, initial?: Animation) {
+      if (visited.current.has(element)) return;
+      observer?.unobserve(element);
+      animations.get(element)?.cancel();
+      // Keep the first-paint CSS entrance running through hydration, without restarting it.
+      if (initial) {
+        if (initial.playState === "finished") { finish(element); return; }
+        element.dataset.initialEntrance = "";
+        state(element, "entering");
+        animations.set(element, initial);
+        initial.onfinish = () => finish(element);
+        return;
+      }
+      const motion = element.dataset.scrollMotion ?? element.dataset.landingReveal ?? "rise";
+      const transform = motion === "left" ? `translate3d(-${distance * .65}px,4px,0)`
+        : motion === "right" ? `translate3d(${distance * .65}px,4px,0)`
+        : `translate3d(0,${motion === "focus" ? distance * .5 : distance}px,0)`;
+      state(element, "entering");
+      const animation = element.animate([
+        { opacity: 0, transform },
+        { opacity: 1, transform: "translate3d(0,0,0)" },
+      ], { duration, delay: Math.min(240, Math.max(0, Number(element.dataset.scrollDelay) || 0)), easing, fill: "both" });
+      animations.set(element, animation);
+      animation.onfinish = () => finish(element);
     }
     function start() {
       clear();
-      if (preference.matches) return;
-      const mobile = window.matchMedia("(max-width: 680px)").matches;
+      if (preference.matches) { elements.forEach(finish); return; }
       observer = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (!entry.isIntersecting) return;
-          const element = entry.target as HTMLElement;
-          observer?.unobserve(element);
-          animations.get(element)?.cancel();
-          element.dataset.scrollState = "entering";
-          const animation = element.animate([
-            { opacity: 0, transform: `translate3d(0, ${mobile ? 20 : 28}px, 0)` },
-            { opacity: 1, transform: "translate3d(0, 0, 0)" },
-          ], { duration: 620, delay: Math.min(120, Math.max(0, Number(element.dataset.scrollDelay) || 0)), easing: "cubic-bezier(.16,1,.3,1)", fill: "both" });
-          animations.set(element, animation);
-          animation.onfinish = () => finish(element);
+          enter(entry.target as HTMLElement);
         });
-      });
+      }, { threshold: .04, rootMargin: "0px 0px -24px 0px" });
       const positions = elements.map(element => element.getBoundingClientRect());
+      const initialAnimations = elements.map(element => element.getAnimations().find(animation => "animationName" in animation && animation.animationName === "vialoop-entry"));
       elements.forEach((element, index) => {
-        if (visited.current.has(element) || positions[index].top < window.innerHeight) { finish(element); return; }
+        const position = positions[index];
+        if (visited.current.has(element) || element.contains(document.activeElement)) { finish(element); return; }
+        if (position.bottom > 0 && position.top < window.innerHeight - 24) { enter(element, initialAnimations[index]); return; }
         const waiting = element.animate([{ opacity: 0 }, { opacity: 0 }], { duration: 1, fill: "both" });
         waiting.pause();
         waiting.currentTime = 0;
         animations.set(element, waiting);
-        element.dataset.scrollState = "waiting";
+        state(element, "waiting");
         observer?.observe(element);
       });
     }

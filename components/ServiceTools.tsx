@@ -25,14 +25,14 @@ const toolRows = [
 export default function ServiceTools() {
   return (
     <section className={styles.tools} aria-labelledby="herramientas-title">
-      <header className={styles.header}>
+      <header data-scroll-reveal className={styles.header}>
         <p className={styles.eyebrow}>Tecnología y herramientas</p>
         <h3 id="herramientas-title">Detrás de cada proyecto,{" "}<em>las herramientas adecuadas.</em></h3>
         <p className={styles.description}>Desarrollo, visibilidad y diseño, con herramientas elegidas según lo que tu empresa necesita.</p>
       </header>
-      <BrandMarquee label="Logos de herramientas" rows={toolRows.map(row => row.map(([slug, name]) => ({
+      <div data-scroll-reveal data-scroll-delay="100"><BrandMarquee label="Logos de herramientas" rows={toolRows.map(row => row.map(([slug, name]) => ({
         name, src: `/technology/${slug}.svg`, width: 29, height: 29, showName: true,
-      })))} />
+      })))} /></div>
     </section>
   );
 }

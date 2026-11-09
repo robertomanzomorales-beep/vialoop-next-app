@@ -13,6 +13,9 @@
   --action-shadow: inset 0 1px 0 #d5e6ff26, inset 0 -1px 0 #0c3b9d20, 0 5px 16px #020b202b;
   --action-hover-shadow: inset 0 1px 0 #e0edff33, inset 0 -1px 0 #0c3b9d20, 0 8px 24px #1459d42e;
   --surface-background: linear-gradient(145deg, #18325266, #0c1b3066 68%);
+  --entrance-duration: 1050ms;
+  --entrance-ease: cubic-bezier(.33, 0, .2, 1);
+  --entrance-distance: 12px;
 }
 
 @theme inline {
@@ -37,9 +40,41 @@ a, button, input, select, textarea, summary { -webkit-tap-highlight-color: #a4c7
 ::selection { background: #c5dbff; color: #0b2340; }
 
 h1, h2, h3 { text-wrap: pretty; }
+
+/* A finite first-paint entrance also works before hydration or without JavaScript. */
+:where([data-scroll-reveal], [data-landing-reveal]):not([data-scroll-state]),
+[data-initial-entrance] {
+  animation: vialoop-entry var(--entrance-duration) var(--entrance-ease) var(--entrance-delay, 0ms) both;
+}
+[data-scroll-delay="30"] { --entrance-delay: 30ms; }
+[data-scroll-delay="60"] { --entrance-delay: 60ms; }
+[data-scroll-delay="70"] { --entrance-delay: 70ms; }
+[data-scroll-delay="80"] { --entrance-delay: 80ms; }
+[data-scroll-delay="90"] { --entrance-delay: 90ms; }
+[data-scroll-delay="100"] { --entrance-delay: 100ms; }
+[data-scroll-delay="120"] { --entrance-delay: 120ms; }
+[data-scroll-delay="130"] { --entrance-delay: 130ms; }
+[data-scroll-delay="140"] { --entrance-delay: 140ms; }
+[data-scroll-delay="150"] { --entrance-delay: 150ms; }
+[data-scroll-delay="160"] { --entrance-delay: 160ms; }
+[data-scroll-delay="180"] { --entrance-delay: 180ms; }
+[data-scroll-delay="200"] { --entrance-delay: 200ms; }
+[data-scroll-delay="210"] { --entrance-delay: 210ms; }
+[data-scroll-delay="220"] { --entrance-delay: 220ms; }
+[data-scroll-delay="240"] { --entrance-delay: 240ms; }
+[data-landing-reveal="left"] { --entrance-x: calc(var(--entrance-distance) * -.65); --entrance-y: 4px; }
+[data-landing-reveal="right"] { --entrance-x: calc(var(--entrance-distance) * .65); --entrance-y: 4px; }
+[data-landing-reveal="focus"] { --entrance-y: calc(var(--entrance-distance) * .5); }
+@keyframes vialoop-entry {
+  from { opacity: 0; transform: translate3d(var(--entrance-x, 0px), var(--entrance-y, var(--entrance-distance)), 0); }
+  to { opacity: 1; transform: translate3d(0, 0, 0); }
+}
 @media (max-width: 680px) {
-  :root { --header-height: 70px; --font-page-title: clamp(29px, 7.8vw, 34px); --font-section-title: clamp(25px, 6.7vw, 29px); }
+  :root { --header-height: 70px; --font-page-title: clamp(29px, 7.8vw, 34px); --font-section-title: clamp(25px, 6.7vw, 29px); --entrance-distance: 8px; }
 }
 @media (max-width: 700px) { body:has([data-cookie-notice]) [data-floating-contact] { visibility: hidden; } }
 
-@media(prefers-reduced-motion:reduce) { html { scroll-behavior:auto; } }
+@media(prefers-reduced-motion:reduce) {
+  html { scroll-behavior:auto; }
+  [data-scroll-reveal], [data-landing-reveal] { animation: none; }
+}

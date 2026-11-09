@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { RevealGroup } from "@/components/Reveal";
 import styles from "./page.module.css";
 
 export const metadata: Metadata = {
@@ -29,13 +30,14 @@ export default function ServicioSuspendidoPage() {
         className={styles.hero}
         aria-labelledby="suspended-service-title"
       >
-        <div className={styles.content}>
-          <span className={styles.eyebrow}>
+        <RevealGroup className={styles.content}>
+          <span data-scroll-reveal className={styles.eyebrow}>
             <span aria-hidden="true" />
             Estado del servicio
           </span>
 
           <h1
+            data-scroll-reveal data-scroll-delay="60"
             id="suspended-service-title"
             className={styles.title}
           >
@@ -43,17 +45,17 @@ export default function ServicioSuspendidoPage() {
             <span>temporalmente suspendido.</span>
           </h1>
 
-          <p className={styles.lead}>
+          <p data-scroll-reveal data-scroll-delay="120" className={styles.lead}>
             El servicio digital asociado a este dominio presenta una
             situación administrativa pendiente.
           </p>
 
-          <p className={styles.description}>
+          <p data-scroll-reveal data-scroll-delay="160" className={styles.description}>
             Para consultar su estado y solicitar la reactivación, el titular
             debe comunicarse directamente con el Área de Pagos de Vialoop.
           </p>
 
-          <div className={styles.actions}>
+          <div data-scroll-reveal data-scroll-delay="200" className={styles.actions}>
             <a
               className={styles.primaryButton}
               href={paymentEmailHref}
@@ -69,13 +71,13 @@ export default function ServicioSuspendidoPage() {
             </a>
           </div>
 
-          <div className={styles.notice}>
+          <div data-scroll-reveal data-scroll-delay="240" className={styles.notice}>
             <p>
               La reactivación se gestionará una vez regularizada la situación
               administrativa y confirmado el pago correspondiente.
             </p>
           </div>
-        </div>
+        </RevealGroup>
       </section>
     </main>
   );

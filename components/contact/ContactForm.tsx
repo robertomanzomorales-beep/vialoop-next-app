@@ -1,6 +1,7 @@
 "use client";
 import Link from "next/link";
-import { useId, useState, type FormEvent } from "react";
+import { useId, useRef, useState, type FormEvent } from "react";
+import useScrollReveal from "../useScrollReveal";
 import ContactIcon from "./ContactIcon";
 import styles from "./ContactForm.module.css";
 export type ContactService =
@@ -33,6 +34,8 @@ export default function ContactForm({
 }) {
   const id = useId();
   const [result, setResult] = useState<Result>({ status: "idle", message: "" });
+  const sectionRef = useRef<HTMLElement>(null);
+  useScrollReveal(sectionRef, "[data-scroll-reveal]", result.status === "success" ? 1 : 0);
   const Heading = embedded ? "h2" : "h1";
   const FormHeading = embedded ? "h3" : "h2";
   async function submit(event: FormEvent<HTMLFormElement>) {
@@ -86,21 +89,22 @@ export default function ContactForm({
   }
   return (
     <section
+      ref={sectionRef}
       id={embedded ? "contacto" : "contacto-vialoop"}
       className={`${styles.section} ${embedded ? styles.embedded : ""}`}
       aria-labelledby={`${id}-title`}
     >
       <div className={styles.container}>
         <div className={styles.intro}>
-          <p className={styles.eyebrow}>HABLEMOS DE TU PROYECTO</p>
-          <Heading id={`${id}-title`}>
+          <p data-scroll-reveal className={styles.eyebrow}>HABLEMOS DE TU PROYECTO</p>
+          <Heading data-scroll-reveal data-scroll-delay="60" id={`${id}-title`}>
             Conversemos de tu proyecto.
           </Heading>
-          <p>
+          <p data-scroll-reveal data-scroll-delay="120">
             Cuéntanos qué necesitas. Te ayudamos a darle forma y definir cómo
             avanzar.
           </p>
-          <div className={styles.direct}>
+          <div data-scroll-reveal data-scroll-delay="180" className={styles.direct}>
             <a href="mailto:dloayza@vialoop.cl">
               <ContactIcon name="mail" />
               <span><small>Correo electrónico</small><strong>dloayza@vialoop.cl</strong></span>
@@ -116,7 +120,7 @@ export default function ContactForm({
         </div>
         <div className={styles.formColumn}>
           {result.status === "success" ? (
-            <div className={styles.success} role="status" aria-live="polite">
+            <div data-scroll-reveal className={styles.success} role="status" aria-live="polite">
               <span className={styles.successMark} aria-hidden="true">
                 <ContactIcon name="check" />
               </span>
@@ -144,7 +148,7 @@ export default function ContactForm({
               aria-label="Contacto con Vialoop"
               aria-busy={result.status === "sending"}
             >
-              <div className={styles.formHeading}>
+              <div data-scroll-reveal data-scroll-delay="80" className={styles.formHeading}>
                 <FormHeading>Escríbenos</FormHeading>
                 <p>Solo necesitamos lo esencial para empezar.</p>
                 {initialService && (
@@ -154,7 +158,7 @@ export default function ContactForm({
                   </span>
                 )}
               </div>
-              <div className={styles.fields}>
+              <div data-scroll-reveal data-scroll-delay="160" className={styles.fields}>
                 <label htmlFor={`${id}-name`}>
                   <span className={styles.fieldLabel}>Tu nombre *</span>
                   <span className={styles.control}>
@@ -236,7 +240,7 @@ export default function ContactForm({
                 Sitio web
                 <input name="website" tabIndex={-1} autoComplete="off" />
               </label>
-              <label className={styles.consent}>
+              <label data-scroll-reveal data-scroll-delay="200" className={styles.consent}>
                 <input type="checkbox" name="privacyAccepted" required />
                 <span>
                   He leído la{" "}
@@ -257,7 +261,7 @@ export default function ContactForm({
                   <span>{result.message}</span>
                 </p>
               )}
-              <div className={styles.submitRow}>
+              <div data-scroll-reveal data-scroll-delay="240" className={styles.submitRow}>
                 <button type="submit" disabled={result.status === "sending"}>
                   <ContactIcon
                     name={result.status === "sending" ? "loader" : "mail"}
@@ -273,7 +277,7 @@ export default function ContactForm({
                   Te enviamos una confirmación al correo.
                 </span>
               </div>
-              <p className={styles.required}>* Campos obligatorios.</p>
+              <p data-scroll-reveal data-scroll-delay="240" className={styles.required}>* Campos obligatorios.</p>
             </form>
           )}
         </div>

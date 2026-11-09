@@ -3,6 +3,7 @@ import HomeAtmosphere from "@/components/HomeAtmosphere";
 import ClientsLoop from "@/components/ClientsLoop";
 import ContactForm from "@/components/contact/ContactForm";
 import LandingReveal from "@/components/web-design/LandingReveal";
+import { RevealGroup } from "@/components/Reveal";
 import WebDesignStory from "@/components/web-design/WebDesignStory";
 import WebTestimonials from "@/components/web-design/WebTestimonials";
 import MobileWebShowcase from "@/components/web-design/MobileWebShowcase";
@@ -33,13 +34,13 @@ export default function WebDesignPage() {
     <HomeAtmosphere />
     <section className={styles.hero} aria-labelledby="web-design-title">
       <div className={styles.container}>
-        <div className={styles.heroCopy}>
-          <p className={styles.eyebrow}><span className={styles.statusDot} /> DISEÑO WEB · VIALOOP</p>
-          <h1 id="web-design-title">Tu empresa tiene mucho que mostrar.<br /><em>Que tu web lo diga.</em></h1>
-          <p className={styles.heroLead}>Diseñamos una presencia digital con identidad, clara y hecha para conectar con tus próximos clientes. Te acompañamos desde la primera idea hasta verla en línea.</p>
-          <div className={styles.actions}><a href="/diseno-web#contacto" className={styles.primary}>Conversemos de tu web</a><a href="/diseno-web#tu-nueva-web" className={styles.secondary}>Conoce la experiencia</a></div>
-          <p className={styles.included}>Dominio, hosting y publicación según las necesidades de tu proyecto.</p>
-        </div>
+        <RevealGroup className={styles.heroCopy}>
+          <p data-scroll-reveal className={styles.eyebrow}><span className={styles.statusDot} /> DISEÑO WEB · VIALOOP</p>
+          <h1 data-scroll-reveal data-scroll-delay="60" id="web-design-title">Tu empresa tiene mucho que mostrar.<br /><em>Que tu web lo diga.</em></h1>
+          <p data-scroll-reveal data-scroll-delay="120" className={styles.heroLead}>Diseñamos una presencia digital con identidad, clara y hecha para conectar con tus próximos clientes. Te acompañamos desde la primera idea hasta verla en línea.</p>
+          <div data-scroll-reveal data-scroll-delay="180" className={styles.actions}><a href="/diseno-web#contacto" className={styles.primary}>Conversemos de tu web</a><a href="/diseno-web#tu-nueva-web" className={styles.secondary}>Conoce la experiencia</a></div>
+          <p data-scroll-reveal data-scroll-delay="220" className={styles.included}>Dominio, hosting y publicación según las necesidades de tu proyecto.</p>
+        </RevealGroup>
       </div>
     </section>
     <ClientsLoop appearance="landing" />
@@ -53,6 +54,6 @@ export default function WebDesignPage() {
         <LandingReveal motion="right" delay={120} className={styles.faqList}>{questions.map(item => <details key={item.q} name="web-faq"><summary>{item.q}<span className={styles.plus} aria-hidden="true" /></summary><p>{item.a}</p></details>)}</LandingReveal>
       </div>
     </section>
-    <LandingReveal><ContactForm embedded initialService="web" /></LandingReveal>
+    <ContactForm embedded initialService="web" />
   </main>;
 }
