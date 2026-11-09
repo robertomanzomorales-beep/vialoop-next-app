@@ -11,8 +11,9 @@
 .heroLead{font-size:15px;color:#a4b2c8;line-height:1.85;max-width:610px;margin:24px auto 0;text-wrap:pretty}
 .actions{display:flex;justify-content:center;align-items:center;gap:26px;flex-wrap:wrap;margin-top:28px}
 .primary,.secondary{display:inline-flex;align-items:center;justify-content:center;font-size:13px;line-height:1.5;font-weight:500;text-decoration:none;transition:background .25s,transform .25s,color .25s,border-color .25s}
-.primary{padding:13px 23px;min-height:47px;border-radius:6px;background:#2168ef;border:1px solid #387ff2;color:#fff;box-shadow:0 5px 20px #00000015}
-.primary:hover{background:#3278f7;transform:translateY(-2px)}
+.primary{padding:13px 23px;min-height:47px;border-radius:7px;background:var(--action-background);border:1px solid var(--action-border);color:#fff;box-shadow:var(--action-shadow);transition:background .25s,transform .25s,border-color .25s,box-shadow .25s}
+.primary:hover{background:var(--action-hover-background);border-color:var(--action-hover-border);box-shadow:var(--action-hover-shadow);transform:translateY(-1px)}
+.primary:active{transform:translateY(0);box-shadow:var(--action-shadow)}
 .secondary{color:#d2dded;border-bottom:1px solid #657b9c;padding:8px 0}
 .secondary:hover{color:#fff;border-color:#9dbffa}
 .included{font-size:12px;line-height:1.8;color:#8c9eb8;margin:22px 0 0}

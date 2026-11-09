@@ -16,13 +16,14 @@
 .description { max-width: 57ch; margin: 24px auto 0; color: #a4b2c8; font-size: 16px; font-weight: 400; line-height: 1.8; text-wrap: pretty; animation: enter 750ms 270ms both; }
 .actions { display: flex; align-items: center; justify-content: center; flex-wrap: wrap; gap: 25px; margin-top: 28px; animation: enter 750ms 350ms both; }
 .primaryButton, .secondaryButton { display: inline-flex; align-items: center; justify-content: center; min-height: 47px; font-size: 13px; font-weight: 500; line-height: 1.5; text-decoration: none; }
-.primaryButton { padding: 0 24px; border: 1px solid #387ff2; border-radius: 6px; color: #fff; background: #2168ef; box-shadow: 0 5px 20px #00000015; transition: background 220ms ease, transform 220ms ease, box-shadow 220ms ease; }
-.primaryButton:hover { background: #3278f7; transform: translateY(-2px); box-shadow: 0 8px 28px #2168ef30; }
+.primaryButton { padding: 0 24px; border: 1px solid var(--action-border); border-radius: 7px; color: #fff; background: var(--action-background); box-shadow: var(--action-shadow); transition: background 220ms ease, border-color 220ms ease, transform 220ms ease, box-shadow 220ms ease; }
+.primaryButton:hover { background: var(--action-hover-background); border-color: var(--action-hover-border); transform: translateY(-1px); box-shadow: var(--action-hover-shadow); }
+.primaryButton:active { transform: translateY(0); box-shadow: var(--action-shadow); }
 .secondaryButton { position: relative; color: #d2dded; transition: color 220ms ease; }
 .secondaryButton::after { content: ""; position: absolute; left: 0; right: 0; bottom: 8px; height: 1px; background: #657b9c; transform-origin: left; transition: transform 250ms ease, background 250ms ease; }
 .secondaryButton:hover { color: #fff; }
 .secondaryButton:hover::after { transform: scaleX(.68); background: #9dbffa; }
-.services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 61px 0 0; border: 1px solid #a4bce529; border-radius: 10px; background: #0b1a2f80; }
+.services { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); margin: 61px 0 0; border: 1px solid #adc9f02b; border-radius: 10px; background: var(--surface-background); box-shadow: inset 0 1px 0 #d5e5ff06, 0 12px 34px #010a170d; }
 .service { --pointer-x: 50%; --pointer-y: 50%; position: relative; isolation: isolate; display: flex; align-items: center; gap: 17px; min-height: 114px; padding: 24px 26px; color: inherit; text-decoration: none; animation: enter 800ms cubic-bezier(.22, 1, .36, 1) var(--entry-delay, 420ms) both; transition: background 250ms ease; }
 .service + .service { border-left: 1px solid #a4bce51f; }
 .service::before { content: ""; position: absolute; z-index: -1; inset: 0; border-radius: 9px; background: radial-gradient(240px circle at var(--pointer-x) var(--pointer-y), #498cfa20, transparent 75%); opacity: 0; transition: opacity 350ms ease; }

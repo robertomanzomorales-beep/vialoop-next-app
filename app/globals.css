@@ -6,6 +6,13 @@
   --header-height: 78px;
   --font-page-title: clamp(32px, 3.4vw, 46px);
   --font-section-title: clamp(26px, 2.7vw, 36px);
+  --action-background: linear-gradient(180deg, #2e79f3, #2063df);
+  --action-hover-background: linear-gradient(180deg, #3a85fa, #286de9);
+  --action-border: #8cb7ff66;
+  --action-hover-border: #b0cfff99;
+  --action-shadow: inset 0 1px 0 #d5e6ff26, inset 0 -1px 0 #0c3b9d20, 0 5px 16px #020b202b;
+  --action-hover-shadow: inset 0 1px 0 #e0edff33, inset 0 -1px 0 #0c3b9d20, 0 8px 24px #1459d42e;
+  --surface-background: linear-gradient(145deg, #18325266, #0c1b3066 68%);
 }
 
 @theme inline {

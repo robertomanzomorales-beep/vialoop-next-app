@@ -21,6 +21,10 @@ function Brand() {
   return <Image src="/via loop - Diseño Web y Marketing Digital.webp" alt="Vialoop" width={360} height={72} loading="eager" className={styles.logo} />;
 }
 
+function PortalIcon() {
+  return <svg viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.15" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="13" height="13" rx="3.5" /><path d="M8 3.5v13M12 10h.01" /></svg>;
+}
+
 export default function MainMenu() {
   const router = useRouter();
   const pathname = usePathname();
@@ -34,6 +38,42 @@ export default function MainMenu() {
   const restoreFocus = useRef(true);
   const closeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pendingNavigation = useRef<string | null>(null);
+  const headerRef = useRef<HTMLElement>(null);
+  const sentinelRef = useRef<HTMLSpanElement>(null);
+  const linksRef = useRef<HTMLDivElement>(null);
+
+  const positionIndicator = useCallback((link: HTMLElement | null) => {
+    const links = linksRef.current;
+    if (!links) return;
+    if (!link || !links.offsetWidth) { delete links.dataset.indicator; return; }
+    links.style.setProperty("--nav-x", `${link.offsetLeft}px`);
+    links.style.setProperty("--nav-width", `${link.offsetWidth}px`);
+    links.dataset.indicator = "visible";
+  }, []);
+
+  const restoreIndicator = useCallback(() => {
+    positionIndicator(linksRef.current?.querySelector<HTMLElement>("[aria-current]") ?? null);
+  }, [positionIndicator]);
+
+  useEffect(() => {
+    restoreIndicator();
+    const links = linksRef.current;
+    if (!links || !("ResizeObserver" in window)) return;
+    const observer = new ResizeObserver(restoreIndicator);
+    observer.observe(links);
+    return () => observer.disconnect();
+  }, [pathname, hash, restoreIndicator]);
+
+  useEffect(() => {
+    const sentinel = sentinelRef.current;
+    const header = headerRef.current;
+    if (!sentinel || !header || !("IntersectionObserver" in window)) return;
+    const observer = new IntersectionObserver(([entry]) => {
+      header.dataset.scrolled = String(!entry.isIntersecting);
+    });
+    observer.observe(sentinel);
+    return () => observer.disconnect();
+  }, []);
 
   const finishClose = useCallback(() => {
     if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -51,7 +91,7 @@ export default function MainMenu() {
     closingRef.current = true;
     setClosing(true);
     // A fallback also completes closing if an animation is interrupted.
-    closeTimer.current = setTimeout(finishClose, 420);
+    closeTimer.current = setTimeout(finishClose, 340);
   }, [finishClose]);
 
   useEffect(() => {
@@ -152,12 +192,16 @@ export default function MainMenu() {
   }
 
   return <>
-    <header className={styles.header}>
+    <span ref={sentinelRef} className={styles.scrollSentinel} aria-hidden="true" />
+    <header ref={headerRef} className={styles.header}>
       <div className={styles.bar}>
         <Link href="/" aria-label="Ir al inicio de Vialoop" className={styles.brand} onNavigate={event => followLink(event, "/")}><Brand /></Link>
         <nav aria-label="Navegación principal" className={styles.desktopNav}>
-          {navigation.map(item => <Link key={item.href} href={item.href} onNavigate={event => followLink(event, item.href)} className={`${styles.navLink} ${isActive(item.href) ? styles.active : ""}`} aria-current={isActive(item.href) ? item.href.includes("#") ? "location" : "page" : undefined}>{item.label}</Link>)}
-          <a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" className={styles.portal}>Portal Vialoop</a>
+          <div ref={linksRef} className={styles.desktopLinks} onPointerLeave={restoreIndicator} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) restoreIndicator(); }}>
+            <span className={styles.navIndicator} aria-hidden="true" />
+            {navigation.map(item => <Link key={item.href} href={item.href} onNavigate={event => followLink(event, item.href)} onPointerEnter={event => positionIndicator(event.currentTarget)} onFocus={event => positionIndicator(event.currentTarget)} className={`${styles.navLink} ${isActive(item.href) ? styles.active : ""}`} aria-current={isActive(item.href) ? item.href.includes("#") ? "location" : "page" : undefined}>{item.label}</Link>)}
+          </div>
+          <a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" className={styles.portal}><PortalIcon /><span>Portal Vialoop</span></a>
         </nav>
         <button ref={toggleRef} type="button" className={styles.toggle} aria-label="Abrir menú" aria-expanded={mobileOpen} aria-controls="mobile-navigation" onClick={() => { restoreFocus.current = true; setClosing(false); setMobileOpen(true); }}><span className={styles.toggleLabel} aria-hidden="true">Menú</span><span className={styles.toggleGlyph} aria-hidden="true"><i /><i /></span></button>
       </div>
@@ -177,7 +221,7 @@ export default function MainMenu() {
         <nav aria-label="Menú móvil" className={styles.mobileNav}>
           {navigation.map((item, index) => <Link key={item.href} href={item.href} onNavigate={event => followLink(event, item.href)} className={isActive(item.href) ? styles.mobileActive : ""} style={{ "--link-index": index } as CSSProperties} aria-current={isActive(item.href) ? item.href.includes("#") ? "location" : "page" : undefined}><span className={styles.linkMask}><span className={styles.linkText}>{item.label}</span></span><span className={styles.currentMark} aria-hidden="true" /></Link>)}
         </nav>
-        <a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" className={styles.mobilePortal} onClick={requestClose}><span>Portal Vialoop</span><small>Acceso para clientes</small></a>
+        <a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" className={styles.mobilePortal} onClick={requestClose}><span className={styles.portalLabel}><PortalIcon /><span>Portal Vialoop</span></span><small>Acceso para clientes</small></a>
         <div className={styles.mobileBottom}><p>Conversemos de lo que viene.</p><a href="mailto:dloayza@vialoop.cl">dloayza@vialoop.cl</a><span>Desde Calama, para todo Chile.</span></div>
       </div>
     </dialog>

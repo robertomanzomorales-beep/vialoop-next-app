@@ -267,10 +267,10 @@
   justify-content: center;
   min-height: 46px;
   padding: 0 23px;
-  border: 1px solid #4d8cf4;
+  border: 1px solid var(--action-border);
   border-radius: 7px;
-  background: #2168ef;
-  box-shadow: 0 6px 25px #2168ef20;
+  background: var(--action-background);
+  box-shadow: var(--action-shadow);
   color: #fff;
   font-size: 13px;
   font-weight: 500;
@@ -279,7 +279,8 @@
   transition: background 250ms ease, border-color 250ms ease, box-shadow 250ms ease, transform 250ms ease;
 }
 
-.cta:hover { border-color: #91baff; background: #327af5; box-shadow: 0 8px 30px #2168ef38; transform: translateY(-2px); }
+.cta:hover { border-color: var(--action-hover-border); background: var(--action-hover-background); box-shadow: var(--action-hover-shadow); transform: translateY(-1px); }
+.cta:active { transform: translateY(0); box-shadow: var(--action-shadow); }
 .solutionNote { margin-top: 17px; color: #8d9fb7; font-size: 10px; line-height: 1.6; }
 .integrationsTeaser { display: flex; align-items: center; justify-content: space-between; gap: 30px; max-width: 1120px; margin: 29px auto 0; padding-top: 25px; border-top: 1px solid #a8c4e525; }
 .integrationsTeaser p { margin: 0; }
