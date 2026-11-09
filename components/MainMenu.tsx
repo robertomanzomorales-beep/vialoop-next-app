@@ -7,11 +7,12 @@ import { useCallback, useEffect, useRef, useState, type CSSProperties } from "re
 import styles from "./MainMenu.module.css";
 
 const PORTAL_URL = "https://portal-vialoop.vercel.app/";
-type HomeScroll = { target: "inicio" | "servicios" | "clientes"; behavior: ScrollBehavior };
+type HomeScroll = { target: "inicio" | "servicios" | "clientes" | "testimonios"; behavior: ScrollBehavior };
 const navigation = [
   { href: "/", label: "Inicio" },
   { href: "/#servicios", label: "Servicios" },
   { href: "/#clientes", label: "Clientes" },
+  { href: "/#testimonios", label: "Testimonio" },
   { href: "/diseno-web", label: "Diseño web" },
   { href: "/software-a-medida", label: "Software" },
   { href: "/contacto", label: "Contacto" },
@@ -130,13 +131,13 @@ export default function MainMenu() {
   }, [finishClose]);
 
   function isActive(href: string) {
-    if (href === "/#servicios" || href === "/#clientes") return pathname === "/" && hash === href.slice(1);
-    if (href === "/") return pathname === "/" && hash !== "#servicios" && hash !== "#clientes";
+    if (href.startsWith("/#")) return pathname === "/" && hash === href.slice(1);
+    if (href === "/") return pathname === "/" && !navigation.some(item => item.href.startsWith("/#") && hash === item.href.slice(1));
     return pathname === href;
   }
 
   function navigateTo(href: string) {
-    const target = href === "/" ? "inicio" : href === "/#servicios" ? "servicios" : href === "/#clientes" ? "clientes" : null;
+    const target = href === "/" ? "inicio" : href === "/#servicios" ? "servicios" : href === "/#clientes" ? "clientes" : href === "/#testimonios" ? "testimonios" : null;
     if (target) {
       setHash(target !== "inicio" ? `#${target}` : "");
       const smooth = pathname === "/" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -161,7 +162,7 @@ export default function MainMenu() {
       pendingNavigation.current = href;
       restoreFocus.current = false;
       requestClose();
-    } else if (href === "/" || href === "/#servicios" || href === "/#clientes") {
+    } else if (href === "/" || href.startsWith("/#")) {
       event.preventDefault();
       navigateTo(href);
     } else {

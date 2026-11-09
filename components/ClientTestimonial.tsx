@@ -1,40 +1,63 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import styles from "./ClientTestimonial.module.css";
 import useScrollReveal from "./useScrollReveal";
 
 export default function ClientTestimonial() {
   const sectionRef = useRef<HTMLElement>(null);
+  const frameRef = useRef<HTMLDivElement>(null);
   const videoRef = useRef<HTMLVideoElement>(null);
   const userPaused = useRef(false);
   const [playing, setPlaying] = useState(false);
   const [muted, setMuted] = useState(true);
+  const [started, setStarted] = useState(false);
   useScrollReveal(sectionRef);
 
   useEffect(() => {
     const video = videoRef.current;
-    if (!video || !("IntersectionObserver" in window)) return;
+    const frame = frameRef.current;
+    if (!video || !frame || !("IntersectionObserver" in window)) return;
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     let visible = false;
+    let startTimer: ReturnType<typeof setTimeout> | undefined;
 
     function syncPlayback() {
+      clearTimeout(startTimer);
       if (!visible || document.hidden || preference.matches || userPaused.current) {
-        video!.pause();
-      } else {
-        void video!.play().catch(() => { /* The play control remains available if autoplay is unavailable. */ });
+        if (!video!.paused) video!.pause();
+      } else if (video!.paused) {
+        startTimer = setTimeout(() => {
+          void video!.play().catch(() => { /* Manual playback remains available. */ });
+        }, 160);
       }
     }
 
     const observer = new IntersectionObserver(([entry]) => {
-      visible = entry.isIntersecting && entry.intersectionRatio >= .35;
+      // Different entry/exit thresholds prevent scroll and mobile toolbar jitter from toggling playback.
+      if (!entry.isIntersecting || entry.intersectionRatio <= .08) visible = false;
+      else if (entry.intersectionRatio >= .45) visible = true;
       syncPlayback();
-    }, { threshold: [0, .35] });
-    observer.observe(video);
+    }, { threshold: [0, .08, .45] });
+    observer.observe(frame);
+
+    // Prepare the clip shortly before arrival, without downloading it on the initial Home screen.
+    const preparation = new IntersectionObserver(([entry]) => {
+      if (!entry.isIntersecting) return;
+      if (!preference.matches && video.preload === "none" && video.readyState === 0 && video.paused) {
+        video.preload = "auto";
+        video.load();
+      }
+      preparation.disconnect();
+    }, { rootMargin: "240px 0px", threshold: 0 });
+    preparation.observe(frame);
     document.addEventListener("visibilitychange", syncPlayback);
     preference.addEventListener("change", syncPlayback);
     return () => {
       observer.disconnect();
+      preparation.disconnect();
+      clearTimeout(startTimer);
       document.removeEventListener("visibilitychange", syncPlayback);
       preference.removeEventListener("change", syncPlayback);
       video.pause();
@@ -96,10 +119,11 @@ export default function ClientTestimonial() {
           </details>
         </div>
 
-        <div data-scroll-reveal data-scroll-delay="150" className={styles.videoColumn}>
+        <div className={styles.videoColumn}>
           <div className={styles.videoAura} aria-hidden="true" />
-          <div className={styles.videoFrame}>
-            <video ref={videoRef} className={styles.video} src="/testimonio-cliente-vialoop.mp4" poster="/osvaldo-testimonio-poster.webp" muted={muted} loop playsInline preload="none" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onVolumeChange={(event) => setMuted(event.currentTarget.muted)} aria-label="Testimonio de Osvaldo, de GM Especialistas en Calibración" />
+          <div ref={frameRef} className={styles.videoFrame} data-video-started={started || undefined}>
+            <video ref={videoRef} className={styles.video} src="/testimonio-cliente-vialoop.mp4" width={720} height={1280} poster="/osvaldo-testimonio-poster.webp" muted={muted} loop playsInline preload="none" onPlay={() => setPlaying(true)} onPlaying={() => setStarted(true)} onPause={() => setPlaying(false)} onVolumeChange={(event) => setMuted(event.currentTarget.muted)} aria-label="Testimonio de Osvaldo, de GM Especialistas en Calibración" />
+            <Image src="/osvaldo-testimonio-poster.webp" alt="" aria-hidden="true" fill unoptimized sizes="(max-width: 700px) 244px, 286px" className={styles.videoPoster} />
             <div className={styles.videoShade} aria-hidden="true" />
             <button type="button" className={styles.soundControl} onClick={toggleSound} aria-pressed={!muted} aria-label={muted ? "Escuchar testimonio de Osvaldo" : "Silenciar testimonio de Osvaldo"}>
               <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">

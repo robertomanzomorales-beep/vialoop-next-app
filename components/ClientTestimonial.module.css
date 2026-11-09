@@ -34,7 +34,9 @@
 .videoAura { position:absolute; inset:-45px -65px -15px; z-index:-1; pointer-events:none; background:radial-gradient(ellipse at 15% 32%,#306d8a34,transparent 65%),radial-gradient(ellipse at 90% 80%,#6b528426,transparent 68%); filter:blur(24px); }
 .videoFrame { position:relative; aspect-ratio:9 / 16; overflow:hidden; border:1px solid #b4ccea59; border-radius:25px; background:#101e32; box-shadow:0 30px 70px #00000036,0 0 0 6px #b6d0ee03; }
 .videoFrame::after { position:absolute; inset:5px; border:1px solid #e7f3ff1f; border-radius:20px; pointer-events:none; content:""; }
-.video { display:block; width:100%; height:100%; object-fit:cover; }
+.video { position:absolute; inset:0; display:block; width:100%; height:100%; object-fit:cover; }
+.videoPoster { object-fit:cover; opacity:1; pointer-events:none; transition:opacity 300ms ease; }
+.videoFrame[data-video-started] .videoPoster { opacity:0; }
 .videoShade { position:absolute; inset:40% 0 0; pointer-events:none; background:linear-gradient(180deg,transparent 35%,#020b1ebd); }
 .videoSignature { position:absolute; bottom:24px; left:23px; display:grid; gap:5px; }
 .videoSignature > span:first-child { color:#f4f8ff; font-size:17px; font-weight:500; letter-spacing:-.02em; line-height:1.2; }
@@ -51,4 +53,4 @@
 @media(max-width:1000px) { .container { width:calc(100% - 56px); grid-template-columns:minmax(0,1fr) 260px; column-gap:55px; row-gap:25px; }.videoColumn { width:260px; }.quote p { font-size:23px; }.intro h2 { font-size:33px; } }
 @media(max-width:700px) { .section { padding:46px 0 54px; }.container { grid-template-columns:minmax(0,1fr); grid-template-areas:"intro" "quote" "video"; width:calc(100% - 40px); row-gap:30px; }.intro { text-align:center; }.eyebrow { justify-content:center; margin-bottom:19px; }.intro h2 { font-size:30px; }.description { max-width:36ch; margin:17px auto 0; font-size:14px; line-height:1.75; }.videoColumn { width:min(244px,100%); }.videoFrame { border-radius:22px; }.videoFrame::after { border-radius:17px; }.videoCaption { margin-top:15px; font-size:10px; }.quoteColumn { max-width:460px; width:100%; justify-self:center; padding-top:2px; }.quote p { font-size:22px; line-height:1.5; }.author { margin-top:22px; }.contactLink { margin-top:23px; }.transcript { margin-top:13px; font-size:14px; }.transcript summary { font-size:13px; min-height:43px; }.videoSignature { bottom:20px; left:20px; }.playback { bottom:19px; right:16px; } }
 @media(max-width:360px) { .intro h2 { font-size:27px; }.quote p { font-size:21px; }.container { width:calc(100% - 32px); } }
-@media(prefers-reduced-motion:reduce) { .contactLink,.playback,.soundControl,.transcript summary > span { transition:none; } }
+@media(prefers-reduced-motion:reduce) { .contactLink,.playback,.soundControl,.videoPoster,.transcript summary > span { transition:none; } }
