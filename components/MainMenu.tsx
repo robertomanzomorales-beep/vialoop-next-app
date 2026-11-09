@@ -40,29 +40,6 @@ export default function MainMenu() {
   const pendingNavigation = useRef<string | null>(null);
   const headerRef = useRef<HTMLElement>(null);
   const sentinelRef = useRef<HTMLSpanElement>(null);
-  const linksRef = useRef<HTMLDivElement>(null);
-
-  const positionIndicator = useCallback((link: HTMLElement | null) => {
-    const links = linksRef.current;
-    if (!links) return;
-    if (!link || !links.offsetWidth) { delete links.dataset.indicator; return; }
-    links.style.setProperty("--nav-x", `${link.offsetLeft}px`);
-    links.style.setProperty("--nav-width", `${link.offsetWidth}px`);
-    links.dataset.indicator = "visible";
-  }, []);
-
-  const restoreIndicator = useCallback(() => {
-    positionIndicator(linksRef.current?.querySelector<HTMLElement>("[aria-current]") ?? null);
-  }, [positionIndicator]);
-
-  useEffect(() => {
-    restoreIndicator();
-    const links = linksRef.current;
-    if (!links || !("ResizeObserver" in window)) return;
-    const observer = new ResizeObserver(restoreIndicator);
-    observer.observe(links);
-    return () => observer.disconnect();
-  }, [pathname, hash, restoreIndicator]);
 
   useEffect(() => {
     const sentinel = sentinelRef.current;
@@ -90,8 +67,8 @@ export default function MainMenu() {
     }
     closingRef.current = true;
     setClosing(true);
-    // A fallback also completes closing if an animation is interrupted.
-    closeTimer.current = setTimeout(finishClose, 340);
+    // A fallback also completes closing if the opacity transition is interrupted.
+    closeTimer.current = setTimeout(finishClose, 520);
   }, [finishClose]);
 
   useEffect(() => {
@@ -136,6 +113,7 @@ export default function MainMenu() {
     if (!mobileOpen || !dialog) return;
     const previousOverflow = document.body.style.overflow;
     dialog.showModal();
+    dialog.scrollTop = 0;
     document.body.style.overflow = "hidden";
     return () => {
       if (closeTimer.current) clearTimeout(closeTimer.current);
@@ -159,8 +137,8 @@ export default function MainMenu() {
 
   function navigateTo(href: string) {
     const target = href === "/" ? "inicio" : href === "/#servicios" ? "servicios" : href === "/#clientes" ? "clientes" : null;
-    setHash(target && target !== "inicio" ? `#${target}` : "");
     if (target) {
+      setHash(target !== "inicio" ? `#${target}` : "");
       const smooth = pathname === "/" && !window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       setHomeScroll({ target, behavior: smooth ? "smooth" : "instant" });
       // Same-page anchors need no route transition; the scroll effect owns positioning.
@@ -186,7 +164,6 @@ export default function MainMenu() {
       event.preventDefault();
       navigateTo(href);
     } else {
-      setHash("");
       setHomeScroll(null);
     }
   }
@@ -197,9 +174,8 @@ export default function MainMenu() {
       <div className={styles.bar}>
         <Link href="/" aria-label="Ir al inicio de Vialoop" className={styles.brand} onNavigate={event => followLink(event, "/")}><Brand /></Link>
         <nav aria-label="Navegación principal" className={styles.desktopNav}>
-          <div ref={linksRef} className={styles.desktopLinks} onPointerLeave={restoreIndicator} onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) restoreIndicator(); }}>
-            <span className={styles.navIndicator} aria-hidden="true" />
-            {navigation.map(item => <Link key={item.href} href={item.href} onNavigate={event => followLink(event, item.href)} onPointerEnter={event => positionIndicator(event.currentTarget)} onFocus={event => positionIndicator(event.currentTarget)} className={`${styles.navLink} ${isActive(item.href) ? styles.active : ""}`} aria-current={isActive(item.href) ? item.href.includes("#") ? "location" : "page" : undefined}>{item.label}</Link>)}
+          <div className={styles.desktopLinks}>
+            {navigation.map(item => <Link key={item.href} href={item.href} onNavigate={event => followLink(event, item.href)} className={`${styles.navLink} ${isActive(item.href) ? styles.active : ""}`} aria-current={isActive(item.href) ? item.href.includes("#") ? "location" : "page" : undefined}>{item.label}</Link>)}
           </div>
           <a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" className={styles.portal}><PortalIcon /><span>Portal Vialoop</span></a>
         </nav>
@@ -208,7 +184,7 @@ export default function MainMenu() {
     </header>
     <dialog ref={dialogRef} id="mobile-navigation" aria-label="Menú de navegación" className={styles.dialog} data-closing={closing || undefined}
       onCancel={event => { event.preventDefault(); requestClose(); }}
-      onAnimationEnd={event => { if (event.target === event.currentTarget && closingRef.current) finishClose(); }}
+      onTransitionEnd={event => { if (event.target === event.currentTarget && event.propertyName === "opacity" && !event.nativeEvent.pseudoElement && closingRef.current) finishClose(); }}
       onClose={() => {
         const href = pendingNavigation.current;
         pendingNavigation.current = null;
