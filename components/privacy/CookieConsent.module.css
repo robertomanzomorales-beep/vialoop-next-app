@@ -1,45 +1,58 @@
-.notice { position: fixed; z-index: 120; left: 22px; bottom: max(20px,env(safe-area-inset-bottom)); display: flex; align-items: center; gap: 26px; max-width: calc(100% - 44px); padding: 16px 17px 16px 21px; border: 1px solid #a8c5e52e; border-radius: 11px; background: #0a1728f5; color: #d5e2f5; box-shadow: 0 8px 35px #02081240; animation: noticeIn .65s var(--entrance-ease) both; }
-.noticeCopy { min-width: 0; }
-.noticeCopy p { margin: 0 0 4px; color: #dce7f8; font-size: 12px; font-weight: 450; line-height: 1.5; letter-spacing: -.01em; }
-.noticeCopy > span { display: block; color: #8fa6c4; font-size: 10px; line-height: 1.8; }
-.noticeCopy a { color: #b0c7e5; text-decoration-color: #8ea8ca60; text-underline-offset: 3px; white-space: nowrap; }
-.actions { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-.actions button, .dialogActions button { display: inline-flex; align-items: center; justify-content: center; min-height: 39px; padding: 9px 12px; border: 1px solid #a7c5ea39; border-radius: 6px; background: #bdd4f208; color: #ceddf2; font: inherit; font-size: 10px; font-weight: 450; line-height: 1.6; white-space: nowrap; cursor: pointer; transition: border-color .2s, background .2s; }
-.actions button:hover, .dialogActions button:hover { border-color: #a7c5ea80; background: #bdd4f215; }
-.actions .settings { width: 34px; min-height: 39px; padding: 8px; border-color: transparent; background: transparent; color: #90a9ca; }
-.settings svg { width: 18px; height: 18px; }
-.notice button:focus-visible, .notice a:focus-visible, .dialog button:focus-visible, .dialog a:focus-visible, .dialog input:focus-visible { outline: 2px solid #b1cdf2; outline-offset: 4px; }
-.dialog { width: min(420px,calc(100% - 32px)); max-height: calc(100dvh - 40px); margin: auto; padding: 0; border: 1px solid #9fbde33b; border-radius: 14px; background: #0a1728; color: #dce8f9; box-shadow: 0 25px 90px #02071260; overflow: auto; color-scheme: dark; }
-.dialog::backdrop { background: #02091685; }
-.dialog[open] { animation: noticeIn .65s var(--entrance-ease) both; }
-.preferences { padding: 30px; }
-.heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 22px; }
-.heading p { margin: 0 0 10px; color: #7f9bbc; font-size: 8px; font-weight: 500; letter-spacing: .13em; line-height: 1.6; }
-.heading h2 { margin: 0; font-size: 26px; font-weight: 450; letter-spacing: -.035em; line-height: 1.3; }
-.heading button { display: grid; place-items: center; width: 31px; height: 31px; padding: 5px; margin: -7px -7px 0 0; border: 0; border-radius: 5px; background: transparent; color: #8ba7ca; cursor: pointer; }
-.heading button:hover { background: #b7d2fa0b; color: #d9e9ff; }
-.heading svg { width: 20px; height: 20px; }
-.preferences > p { margin: 17px 0 26px; color: #91a9c8; font-size: 12px; line-height: 1.85; }
-.necessary, .option { display: flex; align-items: center; justify-content: space-between; gap: 20px; padding: 18px 0; border-top: 1px solid #a8c5e526; }
-.necessary strong, .option strong { display: block; color: #d3e2f6; font-size: 13px; font-weight: 450; line-height: 1.5; }
-.necessary span, .option span { display: block; margin-top: 5px; color: #88a1c1; font-size: 10px; line-height: 1.8; }
-.necessary small { color: #9db9ac; font-size: 9px; line-height: 1.6; white-space: nowrap; }
-.option { cursor: pointer; }
-.option input { display: grid; align-items: center; flex: 0 0 34px; width: 34px; height: 21px; padding: 3px; border: 1px solid #9db9dd60; border-radius: 15px; appearance: none; background: #1e3048; cursor: pointer; transition: background .2s, border-color .2s; }
-.option input::before { width: 13px; height: 13px; border-radius: 50%; background: #acbfd9; content: ""; transition: transform .2s; }
-.option input:checked { border-color: #8db7ef; background: #25466c; }
-.option input:checked::before { transform: translateX(13px); background: #d2e5ff; }
-.dialogActions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 16px 0 22px; }
-.dialogActions button { min-height: 42px; font-size: 11px; }
-.preferences > a { color: #8faacb; font-size: 10px; text-underline-offset: 4px; text-decoration-color: #8faacb60; }
-@keyframes noticeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
-@media (max-width: 700px) {
-  .notice { right: 16px; left: 16px; bottom: max(16px,env(safe-area-inset-bottom)); display: block; max-width: none; padding: 16px 17px 13px; }
-  .noticeCopy p { font-size: 12px; }
-  .noticeCopy > span { font-size: 10px; }
-  .actions { display: grid; grid-template-columns: 1fr 1fr 29px; margin-top: 12px; gap: 7px; }
-  .actions button { min-height: 42px; font-size: 10px; }
-  .actions .settings { width: 29px; }
-  .preferences { padding: 26px 22px; }
+.notice {
+  position: fixed;
+  z-index: 120;
+  left: 22px;
+  bottom: max(20px, env(safe-area-inset-bottom));
+  width: 386px;
+  max-width: calc(100% - 44px);
+  padding: 17px 18px 14px;
+  border: 1px solid #ffffff1c;
+  border-radius: 12px;
+  background: #17181afc;
+  color: #e5e4e1;
+  box-shadow: 0 12px 38px #00000026, inset 0 1px 0 #ffffff04;
+  animation: noticeIn .65s var(--entrance-ease) both;
 }
-@media(prefers-reduced-motion:reduce) { .notice,.dialog[open] { animation:none; }.actions button,.dialogActions button,.option input,.option input::before { transition:none; } }
+.noticeCopy p { margin: 0 0 4px; color: #eeede9; font-size: 12px; font-weight: 500; line-height: 1.5; letter-spacing: -.01em; }
+.noticeCopy > span { display: block; color: #adaeae; font-size: 11px; line-height: 1.75; }
+.noticeCopy a { color: #d0cfca; text-decoration-color: #d0cfca55; text-underline-offset: 3px; white-space: nowrap; }
+.actions { display: grid; grid-template-columns: 1fr 1fr 32px; align-items: center; gap: 8px; margin-top: 13px; }
+.actions button, .dialogActions button { display: inline-flex; align-items: center; justify-content: center; min-height: 38px; padding: 8px 10px; border: 1px solid #ffffff29; border-radius: 6px; background: transparent; color: #dddedb; font: inherit; font-size: 11px; font-weight: 450; line-height: 1.5; white-space: nowrap; cursor: pointer; transition: border-color .2s, background .2s, color .2s; }
+.actions button:hover, .dialogActions button:hover { border-color: #ffffff50; background: #ffffff09; }
+.actions .confirm, .dialogActions .confirm { border-color: #d8d7d0; background: #d8d7d0; color: #222321; }
+.actions .confirm:hover, .dialogActions .confirm:hover { border-color: #e8e7e1; background: #e8e7e1; }
+.actions .settings { width: 32px; min-height: 38px; padding: 7px; border-color: transparent; background: transparent; color: #a4a6a5; }
+.actions .settings:hover { color: #e3e2dc; background: #ffffff09; }
+.settings svg { width: 18px; height: 18px; }
+.notice button:focus-visible, .notice a:focus-visible, .dialog button:focus-visible, .dialog a:focus-visible, .dialog input:focus-visible { outline: 2px solid #e2e0d8; outline-offset: 4px; }
+.dialog { width: min(400px, calc(100% - 32px)); max-height: calc(100dvh - 40px); margin: auto; padding: 0; border: 1px solid #ffffff26; border-radius: 14px; background: #17181a; color: #eeede9; box-shadow: 0 25px 90px #00000050; overflow: auto; color-scheme: dark; }
+.dialog::backdrop { background: #00000070; }
+.dialog[open] { animation: noticeIn .65s var(--entrance-ease) both; }
+.preferences { padding: 28px; }
+.heading { display: flex; justify-content: space-between; align-items: flex-start; gap: 22px; }
+.heading p { margin: 0 0 10px; color: #999d9b; font-size: 9px; font-weight: 500; letter-spacing: .11em; line-height: 1.6; }
+.heading h2 { margin: 0; font-size: 24px; font-weight: 450; letter-spacing: -.035em; line-height: 1.3; }
+.heading button { display: grid; place-items: center; width: 32px; height: 32px; padding: 6px; margin: -7px -7px 0 0; border: 0; border-radius: 5px; background: transparent; color: #a3a6a4; cursor: pointer; }
+.heading button:hover { background: #ffffff09; color: #eeede9; }
+.heading svg { width: 20px; height: 20px; }
+.preferences > p { margin: 15px 0 22px; color: #adaeae; font-size: 12px; line-height: 1.8; }
+.necessary, .option { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 17px 0; border-top: 1px solid #ffffff18; }
+.necessary strong, .option strong { display: block; color: #e0e1dc; font-size: 13px; font-weight: 450; line-height: 1.5; }
+.necessary span, .option span { display: block; margin-top: 4px; color: #a4a7a5; font-size: 11px; line-height: 1.7; }
+.necessary small { color: #afb9b0; font-size: 10px; line-height: 1.6; white-space: nowrap; }
+.option { cursor: pointer; }
+.option input { display: grid; align-items: center; flex: 0 0 36px; width: 36px; height: 22px; padding: 3px; border: 1px solid #ffffff38; border-radius: 15px; appearance: none; background: #2e3130; cursor: pointer; transition: background .2s, border-color .2s; }
+.option input::before { width: 14px; height: 14px; border-radius: 50%; background: #a6aaa7; content: ""; transition: transform .2s, background .2s; }
+.option input:checked { border-color: #d8d7d0; background: #d8d7d0; }
+.option input:checked::before { transform: translateX(14px); background: #323632; }
+.dialogActions { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 14px 0 20px; }
+.dialogActions button { min-height: 42px; font-size: 11px; }
+.preferences > a { color: #adafaa; font-size: 11px; text-underline-offset: 4px; text-decoration-color: #adafaa55; }
+@keyframes noticeIn { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
+@media (max-width: 560px) {
+  .notice { right: 16px; left: 16px; bottom: max(16px, env(safe-area-inset-bottom)); width: auto; max-width: none; padding: 15px 16px 12px; }
+  .actions { grid-template-columns: 1fr 1fr 32px; gap: 7px; margin-top: 12px; }
+  .actions button { min-height: 42px; }
+  .preferences { padding: 25px 22px; }
+}
+@media (prefers-reduced-motion: reduce) { .notice, .dialog[open] { animation: none; } .actions button, .dialogActions button, .heading button, .option input, .option input::before { transition: none; } }

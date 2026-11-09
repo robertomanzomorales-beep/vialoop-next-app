@@ -86,7 +86,7 @@ export default function MainMenu() {
       const target = document.getElementById(homeScroll.target);
       if (!target) return false;
       frame = requestAnimationFrame(() => {
-        const href = homeScroll.target === "inicio" ? "/" : `/#${homeScroll.target}`;
+        const href = `/${window.location.search}${homeScroll.target === "inicio" ? "" : `#${homeScroll.target}`}`;
         // Normalize after a route commit, including cached home entries with an old hash.
         window.history.replaceState(null, "", href);
         setHash(homeScroll.target === "inicio" ? "" : `#${homeScroll.target}`);
@@ -144,7 +144,8 @@ export default function MainMenu() {
       // Same-page anchors need no route transition; the scroll effect owns positioning.
       if (pathname === "/") {
         const current = window.location.pathname + window.location.search + window.location.hash;
-        if (current !== href) window.history.pushState(null, "", href);
+        const destination = `/${window.location.search}${target === "inicio" ? "" : `#${target}`}`;
+        if (current !== destination) window.history.pushState(null, "", destination);
       } else {
         router.push("/", { scroll: false });
       }

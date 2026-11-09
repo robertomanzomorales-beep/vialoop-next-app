@@ -59,12 +59,12 @@ export default function CookieConsent() {
   return <>
     {consent === null && !settingsOpen && <aside data-cookie-notice aria-label="Preferencias de cookies" className={styles.notice}>
       <div className={styles.noticeCopy}>
-        <p>Tu privacidad, bajo control.</p>
-        <span>Solo usamos analítica si tú lo eliges. <Link href="/politicadecookies">Más información</Link></span>
+        <p>Privacidad y cookies</p>
+        <span>La analítica es opcional. Tú eliges. <Link href="/politicadecookies">Ver detalles</Link></span>
       </div>
       <div className={styles.actions}>
         <button type="button" onClick={() => save(false)}>Solo necesarias</button>
-        <button type="button" onClick={() => save(true)}>Aceptar analítica</button>
+        <button type="button" className={styles.confirm} onClick={() => save(true)}>Aceptar analítica</button>
         <button type="button" className={styles.settings} aria-label="Configurar cookies" onClick={openSettings}><PreferencesIcon /></button>
       </div>
     </aside>}
@@ -77,7 +77,7 @@ export default function CookieConsent() {
         <p id="cookie-preferences-description">Puedes cambiar tu elección en cualquier momento desde el pie de página.</p>
         <div className={styles.necessary}><div><strong>Necesarias</strong><span>Recuerdan tu elección de privacidad.</span></div><small>Siempre activas</small></div>
         <label className={styles.option}><div><strong>Analítica</strong><span>Nos ayuda a mejorar la navegación.</span></div><input type="checkbox" aria-label="Permitir cookies analíticas" checked={analytics} onChange={event => setAnalytics(event.target.checked)} /></label>
-        <div className={styles.dialogActions}><button type="button" onClick={() => save(false)}>Solo necesarias</button><button type="button" onClick={() => save(analytics)}>Guardar elección</button></div>
+        <div className={styles.dialogActions}><button type="button" onClick={() => save(false)}>Solo necesarias</button><button type="button" className={styles.confirm} onClick={() => save(analytics)}>Guardar elección</button></div>
         <Link href="/politicadecookies" onNavigate={() => setSettingsOpen(false)}>Política de Cookies</Link>
       </div>
     </dialog>
