@@ -13,7 +13,12 @@ export default function useScrollReveal(rootRef: RefObject<HTMLElement | null>, 
     const animations = new Map<HTMLElement, Animation>();
     let observer: IntersectionObserver | undefined;
     const tokens = getComputedStyle(root);
-    const duration = parseFloat(tokens.getPropertyValue("--entrance-duration")) || 1050;
+    const durationToken = tokens.getPropertyValue("--entrance-duration").trim();
+    const durationValue = parseFloat(durationToken);
+    // Production CSS may normalize 1050ms to 1.05s; Web Animations always expects milliseconds.
+    const duration = Number.isFinite(durationValue)
+      ? Math.max(0, durationValue * (durationToken.endsWith("ms") ? 1 : 1000))
+      : 1050;
     const easing = tokens.getPropertyValue("--entrance-ease").trim() || "cubic-bezier(.33,0,.2,1)";
     const distance = parseFloat(tokens.getPropertyValue("--entrance-distance")) || 12;
 
