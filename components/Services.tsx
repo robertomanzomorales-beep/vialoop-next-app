@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useRef } from "react";
-import ServiceTools from "./ServiceTools";
 import useScrollReveal from "./useScrollReveal";
 import styles from "./Services.module.css";
 
@@ -13,6 +13,13 @@ const services = [
     href: "/diseno-web",
     link: "Ver sitios web",
     icon: "web",
+    preview: {
+      src: "/projects/ryf.webp",
+      width: 1280,
+      height: 773,
+      alt: "Sitio web desarrollado para R&F, con la presentación de sus servicios mineros e industriales",
+      caption: "R&F · Sitio web",
+    },
   },
   {
     title: "Software a medida",
@@ -20,6 +27,13 @@ const services = [
     href: "/software-a-medida",
     link: "Explorar el software",
     icon: "software",
+    preview: {
+      src: "/software/capturas/gm-escritorio.webp",
+      width: 1600,
+      height: 888,
+      alt: "Panel del software de GM Especialistas, con recepción de equipos, órdenes y gestión del laboratorio",
+      caption: "GM Especialistas · Software a medida",
+    },
   },
   {
     title: "Google y visibilidad",
@@ -69,20 +83,49 @@ export default function Services() {
         </header>
 
         <div className={styles.cardsGrid}>
-          {services.map((service, index) => (
+          {services.slice(0, 2).map((service, index) => (
             <article key={service.title} data-scroll-reveal data-scroll-delay={index * 70} className={styles.card}>
-              <div className={styles.cardTop}>
-                <span className={styles.serviceIcon}><ServiceIcon type={service.icon} /></span>
-                <span className={styles.cardMark} aria-hidden="true" />
+              <div className={styles.cardBody}>
+                <div className={styles.cardTop}>
+                  <span className={styles.serviceIcon}><ServiceIcon type={service.icon} /></span>
+                  <h3>{service.title}</h3>
+                </div>
+                <p className={styles.cardText}>{service.text}</p>
+                <Link href={service.href} className={styles.serviceLink}>{service.link}</Link>
               </div>
-              <h3>{service.title}</h3>
-              <p className={styles.cardText}>{service.text}</p>
-              <Link href={service.href} className={styles.serviceLink}>{service.link}</Link>
+              {service.preview && (
+                <figure className={styles.preview}>
+                  <figcaption className={styles.previewCaption}>
+                    <span className={styles.windowMarks} aria-hidden="true"><i /><i /><i /></span>
+                    <span>{service.preview.caption}</span>
+                  </figcaption>
+                  <div className={styles.previewViewport}>
+                    <Image
+                      src={service.preview.src}
+                      alt={service.preview.alt}
+                      width={service.preview.width}
+                      height={service.preview.height}
+                      sizes="(max-width: 700px) calc(100vw - 80px), (max-width: 1100px) calc(50vw - 76px), 540px"
+                      className={styles.previewImage}
+                    />
+                  </div>
+                </figure>
+              )}
             </article>
           ))}
         </div>
-
-        <ServiceTools />
+        <div className={styles.complementaryGrid}>
+          {services.slice(2).map((service, index) => (
+            <article key={service.title} data-scroll-reveal data-scroll-delay={index * 70} className={styles.complementary}>
+              <span className={styles.serviceIcon}><ServiceIcon type={service.icon} /></span>
+              <div>
+                <h3>{service.title}</h3>
+                <p className={styles.cardText}>{service.text}</p>
+                <Link href={service.href} className={styles.serviceLink}>{service.link}</Link>
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     </section>
   );

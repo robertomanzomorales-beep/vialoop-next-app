@@ -186,12 +186,12 @@ export default function Testimonials() {
       ref={sectionRef}
       id="testimonios"
       aria-labelledby="testimonios-title"
-      className="relative flex min-h-[660px] items-center overflow-hidden px-6 py-20 text-[#edf3fd] md:px-10 lg:py-24"
+      className="relative overflow-hidden px-6 py-14 text-[#edf3fd] md:px-10 lg:py-16"
     >
       <div className="mx-auto flex w-full max-w-[1180px] flex-col gap-8">
         <header
           data-scroll-reveal
-          className="grid gap-6 lg:grid-cols-[1fr_320px] lg:items-end"
+          className="grid gap-7 lg:grid-cols-[1fr_260px] lg:items-end lg:gap-16"
         >
           <div>
             <div className="mb-3 flex items-center gap-3">
@@ -214,27 +214,12 @@ export default function Testimonials() {
             </p>
           </div>
 
-          <aside className="relative overflow-hidden rounded-[26px] border border-[#a4bce529] bg-[#102039]/50 p-5 shadow-[0_18px_48px_rgba(7,21,45,.07)] backdrop-blur">
-            <div className="pointer-events-none absolute inset-0 bg-[radial-gradient(280px_140px_at_100%_0%,rgba(37,99,235,.09),transparent_62%)]" />
-
-            <div className="relative z-10">
-              <Rating />
-
-              <div className="mt-5 flex items-end gap-2">
-                <strong className="text-[44px] font-semibold leading-none tracking-[-0.07em] text-[#e2ebfb]">
-                  250
-                </strong>
-
-                <span className="mb-1.5 text-[25px] font-black leading-none text-blue-600">
-                  +
-                </span>
-              </div>
-
-              <p className="mt-3 max-w-[250px] text-[13px] font-normal leading-6 text-[#a0b1c9]">
-                proyectos desarrollados para empresas, comercios y
-                servicios de distintos rubros.
-              </p>
-            </div>
+          <aside className="border-t border-[#a4bce529] pt-5 lg:border-l lg:border-t-0 lg:pb-1 lg:pl-7 lg:pt-0">
+            <Rating />
+            <p className="mt-3 max-w-[310px] text-[12px] font-normal leading-[1.85] text-[#a0b1c9]">
+              <strong className="font-medium text-[#d9e6fa]">Más de 250 proyectos</strong>{" "}
+              desarrollados para empresas, comercios y servicios de distintos rubros.
+            </p>
           </aside>
         </header>
 

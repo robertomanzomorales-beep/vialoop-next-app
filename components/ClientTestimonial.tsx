@@ -68,8 +68,9 @@ export default function ClientTestimonial() {
           </blockquote>
           <div className={styles.author}>
             <span className={styles.authorMark} aria-hidden="true">GM</span>
-            <div><strong>Osvaldo González</strong><span>GM Especialistas en Calibración</span></div>
+            <div><strong>Osvaldo</strong><span>GM Especialistas en Calibración</span></div>
           </div>
+          <a href="#contacto" className={styles.contactLink}>Conversemos de tu proyecto</a>
           <details className={styles.transcript}>
             <summary>Leer testimonio completo<span aria-hidden="true">+</span></summary>
             <div>

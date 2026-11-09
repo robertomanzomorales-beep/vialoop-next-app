@@ -109,7 +109,7 @@ export default function SystemsSection() {
               <p className={styles.solutionEyebrow}>Todo en un mismo flujo</p>
               <h3 id="software-solution-title">Un software.<br /><em>Tu operación conectada.</em></h3>
               <p className={styles.solutionText}>Unimos la información y simplificamos tus procesos con software hecho para tu empresa.</p>
-              <Link href="/contacto?servicio=sistema" className={styles.cta}>Conversemos de tu software</Link>
+              <a href="#contacto" className={styles.cta}>Conversemos de tu software</a>
               <span className={styles.solutionNote}>A tu medida. Con acompañamiento cercano.</span>
             </article>
           </div>

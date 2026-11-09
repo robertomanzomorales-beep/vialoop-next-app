@@ -6,8 +6,8 @@ export const testimonials = [
       "Trabajar con Vialoop ha sido una experiencia muy positiva. Cumplieron plazos, entendieron nuestras necesidades y fortalecieron nuestra imagen corporativa.",
   },
   {
-    name: "Osvaldo Morales",
-    detail: "GM Especialistas · Servicios técnicos",
+    name: "Osvaldo",
+    detail: "GM Especialistas en Calibración",
     quote:
       "Cumplieron con los plazos, entendieron exactamente lo que necesitábamos y el resultado fue un sitio moderno, rápido y profesional.",
   },
@@ -49,24 +49,24 @@ export const testimonials = [
   },
   {
     name: "Arriendo de grúas horquilla",
-    detail: "Google · Hace 18 horas",
+    detail: "Reseña en Google",
     quote:
       "Muy buen trabajo, comunicación efectiva en todo momento. Conformes con nuestra pagina web.",
   },
   {
     name: "Sebastián Araya",
-    detail: "Google · Hace 18 horas",
+    detail: "Reseña en Google",
     quote:
       "Excelente servicio y comunicación al momento de ir diseñando la pagina web, recomendado 👌🏻",
   },
   {
     name: "teninson araya escobar",
-    detail: "Google · Hace 24 horas",
+    detail: "Reseña en Google",
     quote: "muy buen servicio todo profesional empresa seria",
   },
   {
     name: "Camila Fuentes Díaz",
-    detail: "Google · Hace 22 semanas",
+    detail: "Reseña en Google",
     quote:
       "Muy recomendable, cuentan con una excelente asistencia en todo el proceso. El compromiso y trabajo que ofrecen es totalmente profesional.",
   },

@@ -3,6 +3,7 @@ import ContactForm from "@/components/contact/ContactForm";
 import Hero from "@/components/Hero";
 import ClientsLoop from "@/components/ClientsLoop";
 import Services from "@/components/Services";
+import ServiceTools from "@/components/ServiceTools";
 import Testimonials from "@/components/Testimonials";
 import ClientTestimonial from "@/components/ClientTestimonial";
 import SystemsSection from "@/components/SystemsSection";
@@ -28,11 +29,11 @@ export default function Home() {
       <Hero />
       <ClientsLoop />
       <Services />
-      <SystemsSection />
-      <Testimonials />
       <ClientTestimonial />
+      <SystemsSection />
+      <ServiceTools />
+      <Testimonials />
       <ContactForm embedded />
-
     </main>
   );
 }
