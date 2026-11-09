@@ -9,6 +9,7 @@ export default function ClientTestimonial() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const userPaused = useRef(false);
   const [playing, setPlaying] = useState(false);
+  const [muted, setMuted] = useState(true);
   useScrollReveal(sectionRef);
 
   useEffect(() => {
@@ -52,6 +53,19 @@ export default function ClientTestimonial() {
     }
   }
 
+  function toggleSound() {
+    const video = videoRef.current;
+    if (!video) return;
+    const listen = video.muted;
+    video.muted = !listen;
+    setMuted(video.muted);
+    if (listen) {
+      video.currentTime = 0;
+      userPaused.current = false;
+      void video.play().catch(() => {});
+    }
+  }
+
   return (
     <section ref={sectionRef} id="experiencia-clientes" className={styles.section} aria-labelledby="client-testimonial-title">
       <div className={styles.container}>
@@ -85,10 +99,17 @@ export default function ClientTestimonial() {
         <div data-scroll-reveal data-scroll-delay="150" className={styles.videoColumn}>
           <div className={styles.videoAura} aria-hidden="true" />
           <div className={styles.videoFrame}>
-            <video ref={videoRef} className={styles.video} src="/testimonio-cliente-vialoop.mp4" poster="/doris-testimonio-poster.webp" muted loop playsInline preload="none" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} aria-label="Doris, del equipo Vialoop, presentando la experiencia de GM Especialistas" />
+            <video ref={videoRef} className={styles.video} src="/testimonio-cliente-vialoop.mp4" poster="/osvaldo-testimonio-poster.webp" muted={muted} loop playsInline preload="none" onPlay={() => setPlaying(true)} onPause={() => setPlaying(false)} onVolumeChange={(event) => setMuted(event.currentTarget.muted)} aria-label="Testimonio de Osvaldo, de GM Especialistas en Calibración" />
             <div className={styles.videoShade} aria-hidden="true" />
-            <div className={styles.videoSignature}><span>Doris</span><span>Equipo Vialoop</span></div>
-            <button type="button" className={styles.playback} onClick={togglePlayback} aria-label={playing ? "Pausar video de Doris" : "Reproducir video de Doris"}>
+            <button type="button" className={styles.soundControl} onClick={toggleSound} aria-pressed={!muted} aria-label={muted ? "Escuchar testimonio de Osvaldo" : "Silenciar testimonio de Osvaldo"}>
+              <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">
+                <path d="M9 4 5 7H2v6h3l4 3V4Z" stroke="currentColor" strokeWidth="1.4" strokeLinejoin="round" />
+                {muted ? <path d="m13 7 5 6m0-6-5 6" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /> : <path d="M12 6.5a5 5 0 0 1 0 7M15 3.5a9 9 0 0 1 0 13" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" />}
+              </svg>
+              <span>{muted ? "Escuchar testimonio" : "Silenciar audio"}</span>
+            </button>
+            <div className={styles.videoSignature}><span>Osvaldo</span><span>GM Especialistas</span></div>
+            <button type="button" className={styles.playback} onClick={togglePlayback} aria-label={playing ? "Pausar video de Osvaldo" : "Reproducir video de Osvaldo"}>
               <svg viewBox="0 0 20 20" fill="none" aria-hidden="true">{playing ? <path d="M7 5v10M13 5v10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" /> : <path d="m7 4 9 6-9 6Z" fill="currentColor" />}</svg>
             </button>
           </div>
