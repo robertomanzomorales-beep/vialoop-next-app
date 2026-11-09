@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import Image from "next/image";
+import HomeServiceMockup from "./HomeServiceMockup";
 import { useRef } from "react";
 import useScrollReveal from "./useScrollReveal";
 import styles from "./Services.module.css";
@@ -15,10 +15,10 @@ const services = [
     icon: "web",
     preview: {
       src: "/projects/ryf.webp",
-      width: 1280,
-      height: 773,
       alt: "Sitio web desarrollado para R&F, con la presentación de sus servicios mineros e industriales",
       caption: "R&F · Sitio web",
+      mobile: "/projects/ryf-movil.webp",
+      mobileAlt: "Sitio web de R&F en celular, con la presentación de su equipo",
     },
   },
   {
@@ -29,10 +29,10 @@ const services = [
     icon: "software",
     preview: {
       src: "/software/capturas/gm-escritorio.webp",
-      width: 1600,
-      height: 888,
       alt: "Panel del software de GM Especialistas, con recepción de equipos, órdenes y gestión del laboratorio",
       caption: "GM Especialistas · Software a medida",
+      mobile: "/software/capturas/gm-movil.webp",
+      mobileAlt: "Software de GM Especialistas en celular, con su navegación de operaciones y gestión comercial",
     },
   },
   {
@@ -94,22 +94,14 @@ export default function Services() {
                 <Link href={service.href} className={styles.serviceLink}>{service.link}</Link>
               </div>
               {service.preview && (
-                <figure className={styles.preview}>
-                  <figcaption className={styles.previewCaption}>
-                    <span className={styles.windowMarks} aria-hidden="true"><i /><i /><i /></span>
-                    <span>{service.preview.caption}</span>
-                  </figcaption>
-                  <div className={styles.previewViewport}>
-                    <Image
-                      src={service.preview.src}
-                      alt={service.preview.alt}
-                      width={service.preview.width}
-                      height={service.preview.height}
-                      sizes="(max-width: 700px) calc(100vw - 80px), (max-width: 1100px) calc(50vw - 76px), 540px"
-                      className={styles.previewImage}
-                    />
-                  </div>
-                </figure>
+                <HomeServiceMockup
+                  variant={service.icon === "web" ? "web" : "software"}
+                  desktop={service.preview.src}
+                  desktopAlt={service.preview.alt}
+                  mobile={service.preview.mobile}
+                  mobileAlt={service.preview.mobileAlt}
+                  caption={service.preview.caption}
+                />
               )}
             </article>
           ))}

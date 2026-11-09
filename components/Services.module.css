@@ -20,19 +20,13 @@
 .serviceLink:hover { color:#fff; }
 .serviceLink:hover::after { background:#adcbfa; }
 .serviceLink:focus-visible { outline:2px solid #a7c8ff; outline-offset:4px; border-radius:2px; }
-.preview { margin:0 22px 22px; overflow:hidden; border:1px solid #c4d6ee24; border-radius:7px; background:#091321; box-shadow:0 12px 32px #0207112b; }
-.previewCaption { display:flex; align-items:center; gap:13px; min-height:29px; padding:0 12px; color:#91a6c3; font-size:9px; line-height:1.5; letter-spacing:.025em; }
-.windowMarks { display:inline-flex; gap:4px; }
-.windowMarks i { width:4px; height:4px; border:1px solid #96adc14d; border-radius:50%; }
-.previewViewport { overflow:hidden; aspect-ratio:2 / 1; background:#132038; }
-.previewImage { display:block; width:100%; height:100%; object-fit:cover; object-position:top; }
 .complementaryGrid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:44px; margin-top:30px; }
 .complementary { display:flex; align-items:flex-start; gap:16px; min-width:0; padding:25px 7px 0; border-top:1px solid #adc9f024; }
 .complementary .serviceIcon { width:23px; height:23px; margin-top:1px; color:#7e9cc7; }
 .complementary h3 { margin:0; color:#dce7f7; font-size:15px; font-weight:500; line-height:1.5; letter-spacing:-.015em; }
 .complementary .cardText { margin:8px 0 5px; font-size:12px; line-height:1.8; }
 .complementary .serviceLink { min-height:36px; font-size:11px; }
-@media(max-width:1100px) { .container { width:calc(100% - 56px); }.header { gap:45px; }.cardBody { padding:25px 24px 16px; }.preview { margin:0 18px 18px; }.complementaryGrid { gap:30px; } }
-@media(max-width:700px) { .servicesSection { padding:54px 0 46px; }.container { width:calc(100% - 40px); }.header { grid-template-columns:minmax(0,1fr); gap:19px; margin-bottom:28px; }.heading { font-size:29px; }.eyebrow { font-size:10px; margin-bottom:16px; }.introText { font-size:14px; line-height:1.8; }.cardsGrid { grid-template-columns:minmax(0,1fr); gap:18px; }.cardBody { padding:23px 22px 14px; }.card h3 { font-size:20px; }.cardText { margin-top:12px; }.serviceLink { min-height:44px; font-size:13px; }.preview { margin:0 18px 18px; }.complementaryGrid { gap:23px; margin-top:26px; }.complementary { gap:12px; padding:22px 0 0; }.complementary h3 { font-size:14px; }.complementary .cardText { font-size:12px; }.complementary .serviceLink { min-height:44px; font-size:11px; } }
-@media(max-width:520px) { .complementaryGrid { grid-template-columns:minmax(0,1fr); gap:0; }.complementary { padding:20px 0 14px; }.complementary:last-child { padding-bottom:0; }.complementary .cardText { max-width:39ch; margin-top:5px; }.previewCaption { font-size:8px; } }
+@media(max-width:1100px) { .container { width:calc(100% - 56px); }.header { gap:45px; }.cardBody { padding:25px 24px 16px; }.complementaryGrid { gap:30px; } }
+@media(max-width:700px) { .servicesSection { padding:54px 0 46px; }.container { width:calc(100% - 40px); }.header { grid-template-columns:minmax(0,1fr); gap:19px; margin-bottom:28px; }.heading { font-size:29px; }.eyebrow { font-size:10px; margin-bottom:16px; }.introText { font-size:14px; line-height:1.8; }.cardsGrid { grid-template-columns:minmax(0,1fr); gap:18px; }.cardBody { padding:23px 22px 14px; }.card h3 { font-size:20px; }.cardText { margin-top:12px; }.serviceLink { min-height:44px; font-size:13px; }.complementaryGrid { gap:23px; margin-top:26px; }.complementary { gap:12px; padding:22px 0 0; }.complementary h3 { font-size:14px; }.complementary .cardText { font-size:12px; }.complementary .serviceLink { min-height:44px; font-size:11px; } }
+@media(max-width:520px) { .complementaryGrid { grid-template-columns:minmax(0,1fr); gap:0; }.complementary { padding:20px 0 14px; }.complementary:last-child { padding-bottom:0; }.complementary .cardText { max-width:39ch; margin-top:5px; } }
 @media(prefers-reduced-motion:reduce) { .card,.serviceLink,.serviceLink::after { transition:none; } }

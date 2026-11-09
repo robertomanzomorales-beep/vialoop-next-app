@@ -1,0 +1,151 @@
+.mockup {
+  --device-light: #668fd9;
+  margin: 0;
+  min-width: 0;
+}
+.web { --device-light: #b79463; }
+.software { --device-light: #668fd9; }
+.stage {
+  position: relative;
+  isolation: isolate;
+  padding: 12px 26px 23px;
+}
+.light {
+  position: absolute;
+  inset: 8% 3% 4%;
+  z-index: -1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 52% 60%, color-mix(in srgb, var(--device-light) 13%, transparent), transparent 69%);
+}
+.devices {
+  position: relative;
+  width: 100%;
+  max-width: 640px;
+  aspect-ratio: 1.7;
+  margin: 0 auto;
+}
+.laptop {
+  position: absolute;
+  left: 0;
+  bottom: 8%;
+  width: 90%;
+  filter: drop-shadow(0 17px 13px #00000052);
+}
+.display {
+  position: relative;
+  padding: 9px 7px 7px;
+  border: 1px solid #8b99aa;
+  border-radius: 11px 11px 4px 4px;
+  background: linear-gradient(132deg, #485361, #151c25 30%, #25303c 83%, #4a5562);
+  box-shadow: inset 0 0 0 1px #080f19, 0 1px 0 #c4d0df24;
+}
+.camera {
+  position: absolute;
+  top: 3px;
+  left: calc(50% - 1px);
+  width: 2px;
+  height: 2px;
+  border-radius: 50%;
+  background: #9aaec0;
+  box-shadow: 0 0 0 1px #070e18;
+}
+.desktopScreen {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 1.79;
+  background: #e9edf1;
+}
+.desktopImage { object-fit: cover; object-position: top left; }
+.base {
+  position: relative;
+  height: 7px;
+  margin: 0 -4%;
+  border-radius: 1px 1px 45% 45%;
+  background: linear-gradient(#9da7b4, #64707e 30%, #293440 84%, #0c1420);
+  box-shadow: inset 0 1px 0 #d2dce7a3, 0 3px 3px #00000070;
+}
+.base > span {
+  display: block;
+  width: 18%;
+  height: 2px;
+  margin: 0 auto;
+  border-radius: 0 0 5px 5px;
+  background: #465262;
+}
+.phone {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  z-index: 1;
+  width: 26%;
+  max-width: 157px;
+  padding: 5px;
+  border: 1px solid #96a5b8;
+  border-radius: 19px;
+  background: linear-gradient(135deg, #617081, #101823 19%, #1a2430 82%, #647184);
+  box-shadow: 0 13px 22px #00000066, inset 0 0 0 1px #070e19;
+}
+.mobileScreen {
+  position: relative;
+  overflow: hidden;
+  aspect-ratio: 650 / 1170;
+  border-radius: 13px;
+  background: #f2f3f5;
+}
+.web .mobileScreen { aspect-ratio: 528 / 826; background: #112536; }
+.mobileImage { object-fit: contain; object-position: top center; }
+.speaker {
+  position: absolute;
+  top: 5px;
+  left: 38%;
+  width: 24%;
+  height: 3px;
+  border-radius: 0 0 5px 5px;
+  background: #111a24;
+}
+.ground {
+  position: absolute;
+  z-index: -1;
+  left: 9%;
+  right: 9%;
+  bottom: 12px;
+  height: 19px;
+  border-radius: 50%;
+  background: radial-gradient(ellipse, #00000059, transparent 70%);
+  pointer-events: none;
+}
+.caption {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 5px 14px;
+  margin: 0 28px 23px;
+  color: #91a6c3;
+  font-size: 9px;
+  line-height: 1.7;
+}
+.caption > span:last-child { color: #748ba9; }
+@media (max-width: 1100px) and (min-width: 701px) {
+  .stage { padding: 10px 22px 20px; }
+  .display { padding: 7px 5px 5px; border-radius: 8px 8px 3px 3px; }
+  .camera { top: 2px; }
+  .phone { padding: 4px; border-radius: 15px; }
+  .mobileScreen { border-radius: 10px; }
+  .speaker { top: 4px; }
+  .caption { margin: 0 24px 20px; font-size: 8px; }
+}
+@media (max-width: 700px) {
+  .stage { padding: 5px 22px 22px; }
+  .caption { margin: 0 23px 20px; }
+}
+@media (max-width: 420px) {
+  .stage { padding-right: 17px; padding-left: 17px; }
+  .display { padding: 7px 5px 5px; border-radius: 8px 8px 3px 3px; }
+  .camera { top: 2px; }
+  .base { height: 6px; }
+  .phone { padding: 3px; border-radius: 13px; }
+  .mobileScreen { border-radius: 9px; }
+  .speaker { top: 3px; height: 2px; }
+  .caption { margin-right: 22px; margin-left: 22px; font-size: 8px; }
+}
