@@ -30,25 +30,35 @@ function Card({
   detail: string;
   quote: string;
 }) {
-  const initials = name.split(" ").filter(Boolean).slice(0, 2).map((word) => word[0]).join("");
   return (
-    <article className="group relative grid h-full min-h-[390px] w-full min-w-0 overflow-hidden rounded-[24px] border border-[#8daee53b] bg-[linear-gradient(125deg,#172d49_0%,#0e1e34_58%,#0a1527_100%)] shadow-[inset_0_1px_0_#c5ddff14,0_22px_65px_#00000026] lg:grid-cols-[1fr_260px]">
-      <div className="pointer-events-none absolute inset-x-8 top-0 h-px bg-gradient-to-r from-transparent via-[#88b6ff] to-transparent" />
-      <div className="relative flex flex-col p-7 sm:p-10 lg:p-12">
-        <div className="flex items-center justify-between gap-4">
-          <Rating />
-          <span aria-hidden="true" className="font-serif text-[80px] leading-[.55] text-[#87b3f5]/35">“</span>
-        </div>
-        <blockquote className="mb-1 mt-9 text-[19px] font-medium leading-[1.6] tracking-[-0.025em] text-[#edf3fd] sm:text-[25px] lg:my-auto lg:py-10 lg:text-[28px]">{quote}</blockquote>
+    <article className="group relative flex h-full min-h-[300px] w-full min-w-0 flex-col overflow-hidden rounded-[26px] border border-[#a4bce524] bg-gradient-to-br from-[#14243c]/85 to-[#0b172a]/85 p-6 sm:p-7 shadow-[0_18px_52px_rgba(7,21,45,.065)] backdrop-blur transition-[transform,box-shadow,border-color,background-color] duration-700 ease-[cubic-bezier(.22,1,.36,1)] hover:-translate-y-[3px] hover:border-[#8fbaff57] hover:bg-[#142b44]/75 hover:shadow-[0_26px_70px_rgba(7,21,45,.11)]">
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-blue-400/[0.025] via-transparent to-transparent opacity-0 transition-opacity duration-700 group-hover:opacity-100" />
+
+      <div className="absolute left-5 top-0 h-[3px] w-12 rounded-full bg-gradient-to-r from-[#07152d] via-[#2458f4] to-[#4f86ff] transition-[width] duration-700 group-hover:w-16" />
+
+      <div className="relative z-10 mb-6 flex items-start justify-between gap-5">
+        <Rating />
+
+        <span className="select-none text-[38px] font-black leading-none text-[#7b9ac344]">
+          ”
+        </span>
       </div>
-      <footer className="relative flex items-center gap-4 border-t border-[#a8c5ed24] bg-[#061225]/35 p-6 sm:px-10 lg:flex-col lg:items-start lg:justify-center lg:gap-6 lg:border-l lg:border-t-0 lg:p-9">
-        <span aria-hidden="true" className="flex h-12 w-12 shrink-0 items-center justify-center rounded-full border border-[#9ec5ff38] bg-[linear-gradient(135deg,#2e4d75,#142944)] text-[13px] font-medium tracking-[0.06em] text-[#d5e6ff] lg:h-16 lg:w-16 lg:text-[18px]">{initials}</span>
-        <div className="min-w-0">
-          <strong className="block text-[14px] font-medium leading-snug text-[#edf3fd] lg:text-[17px]">{name}</strong>
-          <span className="mt-1.5 block text-[12px] leading-relaxed text-[#a0b4d0] lg:mt-3 lg:text-[13px]">{detail}</span>
-          <span className="mt-6 hidden h-px w-10 bg-[#77a5f0]/60 lg:block" />
-        </div>
-      </footer>
+
+      <p className="relative z-10 text-[15px] sm:text-[14.5px] font-normal leading-[1.68] tracking-[-0.018em] text-[#e2ebfb]">
+        “{quote}”
+      </p>
+
+      <div className="relative z-10 mt-auto pt-6">
+        <div className="mb-3 h-px w-full bg-gradient-to-r from-[#9db8e32b] via-[#9db8e314] to-transparent" />
+
+        <strong className="block text-[13.5px] font-medium leading-tight text-[#e2ebfb]">
+          {name}
+        </strong>
+
+        <span className="mt-1 block text-[11.5px] font-normal leading-tight text-[#93a7c4]">
+          {detail}
+        </span>
+      </div>
     </article>
   );
 }
@@ -178,11 +188,11 @@ export default function Testimonials() {
               id="testimonios-title"
               className="max-w-[660px] text-[length:var(--font-section-title)] font-semibold leading-[1.2] tracking-[-0.03em] text-[#e2ebfb]"
             >
-              La voz de quienes ya confiaron en Vialoop.
+              Empresas del norte de Chile ya confiaron en Vialoop.
             </h2>
 
             <p className="mt-3 max-w-[610px] text-[13.5px] leading-6 text-[#a0b1c9]">
-              Diseño, tecnología y acompañamiento, contados por quienes han trabajado con nosotros.
+              Opiniones reales de clientes que necesitaban mejorar su presencia digital, ordenar su imagen y comunicar mejor sus servicios.
             </p>
           </div>
 
@@ -245,7 +255,7 @@ export default function Testimonials() {
                 moveCarousel(event.key === "ArrowRight" ? "next" : "prev");
               }
             }}
-            className="grid auto-cols-[100%] grid-flow-col items-stretch gap-4 overflow-x-auto overscroll-x-contain snap-x snap-mandatory rounded-[26px] pb-2 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8fbaff]"
+            className="grid auto-cols-[100%] grid-flow-col items-stretch gap-4 overflow-x-auto overscroll-x-contain snap-x snap-mandatory rounded-[26px] pb-2 pt-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden sm:auto-cols-[calc((100%-16px)/2)] lg:auto-cols-[calc((100%-32px)/3)] focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8fbaff]"
           >
             {testimonials.map((item, index) => (
               <div key={item.name} role="group" aria-roledescription="diapositiva" aria-label={`${index + 1} de ${testimonials.length}`} className="min-w-0 snap-start snap-always">
