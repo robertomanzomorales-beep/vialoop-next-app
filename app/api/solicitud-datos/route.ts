@@ -256,10 +256,10 @@ export async function POST(request: NextRequest) {
   }
 
   const smtpUser = process.env.SMTP_USER;
-  const privacyEmail = process.env.PRIVACY_EMAIL || smtpUser;
+  const privacyEmail = "contacto@vialoop.cl";
 
-  if (!smtpUser || !privacyEmail) {
-    console.error("Faltan SMTP_USER o PRIVACY_EMAIL.");
+  if (!smtpUser) {
+    console.error("Falta SMTP_USER.");
 
     return NextResponse.json(
       {
@@ -292,7 +292,7 @@ export async function POST(request: NextRequest) {
     const transporter = createTransporter();
 
     await transporter.sendMail({
-      from: `"Vialoop Privacidad" <${smtpUser}>`,
+      from: '"Vialoop Privacidad" <contacto@vialoop.cl>',
       to: privacyEmail,
       replyTo: email,
       subject: `[Privacidad] ${REQUEST_TYPES[requestType]} · ${requestId}`,
@@ -343,7 +343,7 @@ export async function POST(request: NextRequest) {
 
     try {
       await transporter.sendMail({
-        from: `"Vialoop Privacidad" <${smtpUser}>`,
+        from: '"Vialoop Privacidad" <contacto@vialoop.cl>',
         to: email,
         replyTo: privacyEmail,
         subject: `Recepción de solicitud de privacidad · ${requestId}`,
