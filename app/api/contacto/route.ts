@@ -3,7 +3,7 @@ import nodemailer from "nodemailer";
 import { NextResponse, type NextRequest } from "next/server";
 export const runtime = "nodejs";
 export const maxDuration = 30;
-const recipients = ["contacto@vialoop.cl", "dloayza@vialoop.cl"];
+const recipients = ["contacto@vialoop.cl"];
 const services: Record<string, string> = {
   web: "Diseño web",
   sistema: "Software a medida",
@@ -164,7 +164,7 @@ export async function POST(request: NextRequest) {
       {
         ok: false,
         message:
-          "No pudimos enviar la consulta. Escríbenos a dloayza@vialoop.cl o al +56 9 7433 0586.",
+          "No pudimos enviar la consulta. Escríbenos a contacto@vialoop.cl.",
       },
       { status: 503 },
     );
@@ -186,7 +186,7 @@ export async function POST(request: NextRequest) {
   const details = `<p><strong>Nombre:</strong> ${escape(fullName)}<br><strong>Correo:</strong> ${escape(email)}<br><strong>Empresa:</strong> ${escape(company || "No informada")}<br><strong>Teléfono:</strong> ${escape(phone || "No informado")}<br><strong>Consulta:</strong> ${escape(category)}<br><strong>Referencia:</strong> ${requestId}</p><p style="padding-top:16px;border-top:1px solid #e2e8f1">${paragraph(message)}</p>`;
   try {
     await transporter.sendMail({
-      from: `"Vialoop Contacto" <${user}>`,
+      from: '"Vialoop Contacto" <contacto@vialoop.cl>',
       to: recipients,
       replyTo: email,
       subject: `Nueva consulta Vialoop · ${requestId}`,
@@ -210,7 +210,7 @@ export async function POST(request: NextRequest) {
       {
         ok: false,
         message:
-          "No pudimos enviar tu consulta en este momento. Intenta nuevamente o escríbenos a dloayza@vialoop.cl.",
+          "No pudimos enviar tu consulta en este momento. Intenta nuevamente o escríbenos a contacto@vialoop.cl.",
       },
       { status: 502 },
     );
@@ -218,25 +218,25 @@ export async function POST(request: NextRequest) {
   let confirmationSent = true;
   try {
     await transporter.sendMail({
-      from: `"Vialoop Studio" <${user}>`,
+      from: '"Vialoop Studio" <contacto@vialoop.cl>',
       to: email,
-      replyTo: "dloayza@vialoop.cl",
+      replyTo: "contacto@vialoop.cl",
       subject: `Recibimos tu consulta · ${requestId}`,
       text: [
         `Hola ${fullName},`,
         "",
-        "Recibimos tu consulta. Doris, del área comercial de Vialoop, revisará los antecedentes para conversar contigo sobre el siguiente paso.",
+        "Recibimos tu consulta. En Vialoop revisaremos los antecedentes y nos pondremos en contacto contigo para conversar sobre el siguiente paso.",
         `Referencia: ${requestId}`,
         "Tu mensaje:",
         message,
         "",
         "Vialoop Studio SpA",
-        "dloayza@vialoop.cl",
+        "contacto@vialoop.cl",
         "https://vialoop.cl",
       ].join("\n"),
       html: frame(
         "Gracias por escribirnos.",
-        `<p>Hola ${escape(fullName)},</p><p>Recibimos tu consulta. Doris, del área comercial, revisará los antecedentes para conversar contigo sobre el siguiente paso.</p><p><strong>Referencia:</strong> ${requestId}</p><p style="padding-top:16px;border-top:1px solid #e2e8f1"><strong>Tu mensaje</strong><br>${paragraph(message)}</p><p>Saludos,<br>Vialoop Studio SpA<br><a href="mailto:dloayza@vialoop.cl">dloayza@vialoop.cl</a></p>`,
+        `<p>Hola ${escape(fullName)},</p><p>Recibimos tu consulta. En Vialoop revisaremos los antecedentes y nos pondremos en contacto contigo para conversar sobre el siguiente paso.</p><p><strong>Referencia:</strong> ${requestId}</p><p style="padding-top:16px;border-top:1px solid #e2e8f1"><strong>Tu mensaje</strong><br>${paragraph(message)}</p><p>Saludos,<br>Vialoop Studio SpA<br><a href="mailto:contacto@vialoop.cl">contacto@vialoop.cl</a></p>`,
       ),
     });
   } catch {

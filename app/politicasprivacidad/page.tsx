@@ -21,7 +21,7 @@ const sections = [
     title: "Responsable del tratamiento",
     body: [
       "El responsable del tratamiento de los datos personales es Vialoop Studio SpA, RUT 78.455.385-K, en adelante también “Vialoop”, “nosotros” o “nuestro”.",
-      "Para consultas relacionadas con privacidad, protección de datos personales o ejercicio de derechos, puedes escribir a contacto@vialoop.cl o comunicarte al +56 9 7433 0586.",
+      "Para consultas relacionadas con privacidad, protección de datos personales o ejercicio de derechos, puedes escribir a contacto@vialoop.cl o comunicarte al +56 9 6860 0694.",
     ],
   },
   {

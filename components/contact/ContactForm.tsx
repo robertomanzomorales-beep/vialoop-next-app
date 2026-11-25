@@ -85,7 +85,7 @@ export default function ContactForm({
         message:
           error instanceof Error && error.name !== "AbortError"
             ? error.message
-            : "El envío está tardando más de lo esperado. Escríbenos a dloayza@vialoop.cl si no recibiste la confirmación.",
+            : "El envío está tardando más de lo esperado. Escríbenos a contacto@vialoop.cl si no recibiste la confirmación.",
       });
     } finally {
       clearTimeout(timeout);
@@ -109,13 +109,13 @@ export default function ContactForm({
             avanzar.
           </p>
           <div data-scroll-reveal data-scroll-delay="180" className={styles.direct}>
-            <a href="mailto:dloayza@vialoop.cl">
+            <a href="mailto:contacto@vialoop.cl">
               <ContactIcon name="mail" />
-              <span><small>Correo electrónico</small><strong>dloayza@vialoop.cl</strong></span>
+              <span><small>Correo electrónico</small><strong>contacto@vialoop.cl</strong></span>
             </a>
-            <a href="tel:+56974330586">
+            <a href="tel:+56968600694">
               <ContactIcon name="phone" />
-              <span><small>Conversemos</small><strong>+56 9 7433 0586</strong></span>
+              <span><small>Conversemos</small><strong>+56 9 6860 0694</strong></span>
             </a>
             <p className={styles.location}>
               <ContactIcon name="pin" /><span>Desde Calama, para todo Chile.</span>
@@ -136,8 +136,8 @@ export default function ContactForm({
                 </p>
               )}
               <p>
-                Doris, del área comercial, revisará tu consulta para conversar
-                contigo sobre el siguiente paso.
+                En Vialoop revisaremos tu consulta y nos pondremos en contacto
+                contigo para conversar sobre el siguiente paso.
               </p>
               <button
                 type="button"
