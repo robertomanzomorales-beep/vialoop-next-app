@@ -5,6 +5,7 @@ import ClientsLoop from "@/components/ClientsLoop";
 import Services from "@/components/Services";
 import ServiceTools from "@/components/ServiceTools";
 import Testimonials from "@/components/Testimonials";
+import ClientTestimonial from "@/components/ClientTestimonial";
 import SystemsSection from "@/components/SystemsSection";
 import HomeAtmosphere from "@/components/HomeAtmosphere";
 import styles from "./page.module.css";
@@ -28,6 +29,7 @@ export default function Home() {
       <Hero />
       <ClientsLoop />
       <Services />
+      <ClientTestimonial />
       <SystemsSection />
       <ServiceTools />
       <Testimonials />

@@ -62,10 +62,10 @@ export default function Footer() {
                   </span>
 
                   <a
-                    href="mailto:contacto@vialoop.cl"
+                    href="mailto:dloayza@vialoop.cl"
                     className={styles.contactLink}
                   >
-                    contacto@vialoop.cl
+                    dloayza@vialoop.cl
                   </a>
                 </div>
               </li>
@@ -88,10 +88,10 @@ export default function Footer() {
                   </span>
 
                   <a
-                    href="tel:+56968600694"
+                    href="tel:+56974330586"
                     className={styles.contactLink}
                   >
-                    +56 9 6860 0694
+                    +56 9 7433 0586
                   </a>
                 </div>
               </li>
