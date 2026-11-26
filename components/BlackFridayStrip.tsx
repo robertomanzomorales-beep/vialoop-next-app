@@ -27,12 +27,9 @@ function subscribeToCampaign(notify: () => void) {
 
 function Message() {
   return <span className={styles.sequence}>
-    <span className={styles.dates}>Del 27 al 30 de noviembre</span>
-    <span className={styles.spark} />
-    <span>Diseño web <span className={styles.dot}>·</span> Software a medida</span>
-    <span className={styles.spark} />
-    <span className={styles.message}>Tu próximo proyecto empieza aquí</span>
-    <span className={styles.spark} />
+    <strong className={styles.event}>Black Friday</strong>
+    <span className={styles.services}>Web + software a medida</span>
+    <span className={styles.separator} />
   </span>;
 }
 
@@ -43,7 +40,6 @@ export default function BlackFridayStrip() {
 
   return <aside className={styles.strip} aria-label="Black Friday en Vialoop" data-paused={paused || undefined}>
     <div className={styles.inner}>
-      <div className={styles.brand} aria-hidden="true"><span>Vialoop presenta</span><strong>Black Friday</strong></div>
       <p className={styles.accessible}>Black Friday en Vialoop: del viernes 27 de noviembre de 2026 a las 00:00 al lunes 30 de noviembre a las 23:59, hora de Chile. Diseño web y software a medida. Conversemos de tu próximo proyecto.</p>
       <div className={styles.viewport} aria-hidden="true">
         <div className={styles.track}>
@@ -51,10 +47,13 @@ export default function BlackFridayStrip() {
           <div className={styles.group}><Message /><Message /></div>
         </div>
       </div>
-      <Link href="/contacto" className={styles.contact} aria-label="Consultar por Black Friday en Vialoop">Conversemos<span aria-hidden="true" /></Link>
-      <button className={styles.motionButton} type="button" aria-label={paused ? "Reanudar texto de Black Friday" : "Pausar texto de Black Friday"} onClick={() => setPaused(value => !value)} title={paused ? "Reanudar movimiento" : "Pausar movimiento"}>
-        <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">{paused ? <path d="m7 5 8 5-8 5V5Z" fill="currentColor" /> : <path d="M7 5v10m6-10v10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />}</svg>
-      </button>
+      <div className={styles.actions}>
+        <span className={styles.period} aria-hidden="true">27–30 <span>noviembre</span></span>
+        <Link href="/contacto" className={styles.contact} aria-label="Consultar por Black Friday en Vialoop">Cotizar mi proyecto</Link>
+        <button className={styles.motionButton} type="button" aria-label={paused ? "Reanudar texto de Black Friday" : "Pausar texto de Black Friday"} onClick={() => setPaused(value => !value)} title={paused ? "Reanudar movimiento" : "Pausar movimiento"}>
+          <svg width="16" height="16" viewBox="0 0 20 20" fill="none" aria-hidden="true">{paused ? <path d="m7 5 8 5-8 5V5Z" fill="currentColor" /> : <path d="M7 5v10m6-10v10" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />}</svg>
+        </button>
+      </div>
     </div>
   </aside>;
 }
