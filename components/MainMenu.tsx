@@ -200,7 +200,7 @@ export default function MainMenu() {
           {navigation.map((item, index) => <Link key={item.href} href={item.href} onNavigate={event => followLink(event, item.href)} className={isActive(item.href) ? styles.mobileActive : ""} style={{ "--link-index": index } as CSSProperties} aria-current={isActive(item.href) ? item.href.includes("#") ? "location" : "page" : undefined}><span className={styles.linkMask}><span className={styles.linkText}>{item.label}</span></span><span className={styles.currentMark} aria-hidden="true" /></Link>)}
         </nav>
         <a href={PORTAL_URL} target="_blank" rel="noopener noreferrer" className={styles.mobilePortal} onClick={requestClose}><span className={styles.portalLabel}><PortalIcon /><span>Portal Vialoop</span></span><small>Acceso para clientes</small></a>
-        <div className={styles.mobileBottom}><p>Conversemos de lo que viene.</p><a href="mailto:contacto@vialoop.cl">contacto@vialoop.cl</a><span>Desde Calama, para todo Chile.</span></div>
+        <div className={styles.mobileBottom}><p>Conversemos de lo que viene.</p><a href="mailto:dloayza@vialoop.cl">dloayza@vialoop.cl</a><span>Desde Calama, para todo Chile.</span></div>
       </div>
     </dialog>
   </>;

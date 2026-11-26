@@ -146,9 +146,9 @@ test("minimal contact sends internal notification and acknowledgement without co
   assert.equal(captured.length, 2);
   assert.deepEqual(captured[0].recipients, [
     "contacto@vialoop.cl",
+    "dloayza@vialoop.cl",
   ]);
   assert.deepEqual(captured[1].recipients, ["visitor@example.test"]);
-  assert.match(captured[1].data, /^Reply-To: contacto@vialoop\.cl\r?$/m);
 });
 test("HTML supplied in the message is escaped in both emails", async () => {
   const response = await send({

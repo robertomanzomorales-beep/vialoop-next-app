@@ -98,7 +98,7 @@ test("WhatsApp opens the business number with a readable prepared message", () =
   const { WHATSAPP_CONTACT_URL } = load("lib/contact/whatsapp.ts", {});
   const destination = new URL(WHATSAPP_CONTACT_URL);
   assert.equal(destination.origin, "https://wa.me");
-  assert.equal(destination.pathname, "/56968600694");
+  assert.equal(destination.pathname, "/56974330586");
   assert.equal(destination.searchParams.get("text"), "Hola, vengo del sitio de Vialoop y quiero conversar sobre un proyecto para mi empresa.");
 });
 
