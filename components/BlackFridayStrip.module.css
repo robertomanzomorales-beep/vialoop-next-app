@@ -1,0 +1,97 @@
+.strip {
+  position: relative;
+  isolation: isolate;
+  flex-shrink: 0;
+  overflow: hidden;
+  color: #c2d6f0;
+  background: linear-gradient(105deg, #0c1e35, #102a49 52%, #0a1b30);
+  border-bottom: 1px solid #a8c5ed25;
+}
+
+.strip::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(ellipse at 25% 0%, #3b86ff1c, transparent 65%);
+  pointer-events: none;
+}
+
+.inner {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  width: min(calc(100% - 80px), 1192px);
+  min-height: 61px;
+  margin-inline: auto;
+}
+
+.brand {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  gap: 2px;
+  padding-right: 24px;
+  border-right: 1px solid #a9c8f02b;
+  line-height: 1.35;
+}
+
+.brand > span { color: #9bb3d1; font-size: 8px; letter-spacing: .14em; text-transform: uppercase; }
+.brand > strong { color: #f0cf8a; font-size: 14px; font-weight: 650; letter-spacing: .045em; text-transform: uppercase; }
+.viewport { flex: 1; min-width: 0; overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 22px, #000 calc(100% - 22px), transparent); }
+.track { display: flex; width: max-content; animation: friday-scroll 72s linear infinite; will-change: transform; }
+.group, .sequence { display: flex; align-items: center; flex-shrink: 0; }
+.sequence { gap: 27px; padding-right: 27px; white-space: nowrap; font-size: 12.5px; font-weight: 450; letter-spacing: .01em; line-height: 1.7; }
+.dates { color: #f0d69f; font-weight: 550; }
+.message { color: #b7cce7; }
+.dot { color: #d6bb88; margin-inline: 5px; }
+.spark { width: 4px; height: 4px; flex-shrink: 0; border: 1px solid #e4c180b3; transform: rotate(45deg); }
+.viewport:hover .track, .strip[data-paused] .track { animation-play-state: paused; }
+
+.contact {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: flex-start;
+  flex-shrink: 0;
+  gap: 4px;
+  padding: 10px 0;
+  color: #edf4ff;
+  text-decoration: none;
+  font-size: 11.5px;
+  font-weight: 500;
+  line-height: 1.5;
+  transition: color .25s ease;
+}
+
+.contact > span { display: block; width: 100%; height: 1px; background: #d9bd865c; transform-origin: left; transition: background-color .25s ease, transform .25s ease; }
+.contact:hover { color: #f0d69f; }
+.contact:hover > span { background: #edc97b; transform: scaleX(.65); }
+.motionButton { display: grid; place-items: center; flex-shrink: 0; width: 32px; height: 36px; margin-left: -12px; border: 0; border-radius: 5px; background: transparent; color: #a5bddc; cursor: pointer; transition: color .25s ease, background-color .25s ease; }
+.motionButton:hover { color: #edf4ff; background: #a5c5ef0c; }
+.contact:focus-visible, .motionButton:focus-visible { outline: 2px solid #d9bd86; outline-offset: 4px; }
+.accessible { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; white-space: nowrap; clip-path: inset(50%); }
+
+@keyframes friday-scroll { to { transform: translate3d(-50%, 0, 0); } }
+
+@media (max-width: 1099px) { .inner { width: calc(100% - 48px); gap: 18px; }.brand { padding-right: 18px; } }
+@media (max-width: 680px) {
+  .inner { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 5px 15px; width: calc(100% - 40px); min-height: 78px; padding-block: 9px; }
+  .brand { grid-column: 1; grid-row: 1; flex-direction: row; align-items: center; gap: 7px; padding: 0; border: 0; }
+  .brand > span { display: none; }
+  .brand > strong { font-size: 11.5px; letter-spacing: .065em; }
+  .contact { grid-column: 2; grid-row: 1; justify-self: end; padding-block: 3px; font-size: 10.5px; gap: 2px; }
+  .motionButton { grid-column: 3; grid-row: 1; width: 28px; height: 28px; margin-left: -8px; }
+  .viewport { grid-column: 1 / -1; grid-row: 2; width: 100%; mask-image: linear-gradient(90deg, transparent, #000 10px, #000 calc(100% - 10px), transparent); }
+  .sequence { font-size: 12px; gap: 22px; padding-right: 22px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .track { animation: none; transform: none; width: auto; will-change: auto; }
+  .group { width: 100%; }
+  .group + .group, .sequence + .sequence, .sequence > :not(.dates), .motionButton { display: none; }
+  .sequence { padding: 0; width: 100%; justify-content: center; white-space: normal; text-align: center; }
+  .viewport { mask-image: none; }
+  .contact, .contact > span { transition: none; }
+  .inner { gap: 20px; }
+  @media (max-width: 680px) { .contact { grid-column: 2 / -1; }.inner { gap: 5px 15px; }.sequence { justify-content: flex-start; text-align: left; } }
+}

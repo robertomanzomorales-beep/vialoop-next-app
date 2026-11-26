@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Footer from "@/components/Footer";
 import MainMenu from "@/components/MainMenu";
+import BlackFridayStrip from "@/components/BlackFridayStrip";
 import FloatingWhatsApp from "@/components/FloatingWhatsApp";
 import GoogleTagManager from "@/components/analytics/GoogleTagManager";
 import CookieConsent from "@/components/privacy/CookieConsent";
@@ -53,6 +54,7 @@ export default function RootLayout({
       <body className="min-h-full flex flex-col">
         <a className="skip-link" href="#main-content">Saltar al contenido</a>
         <MainMenu />
+        <BlackFridayStrip />
 
         {children}
 
